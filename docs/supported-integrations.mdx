@@ -1,0 +1,60 @@
+---
+id: supported-integrations
+title: Supported Integrations
+sidebar_label: Supported Integrations
+slug: /supported-integrations
+description: Pyroscope Profilers, supported languages and platforms
+keywords: [ pyroscope, profiler, spy, integration ]
+---
+
+## Existing integrations
+
+|                      | Spy Name     | Type         | Linux | macOS | Windows | Docker |
+|:--------------------:|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
+| [**eBPF**](ebpf)     | ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
+| [**Go**](golang)     | n/a          | `standalone` |   ✅  |   ✅  |    ✅   |   ✅   |
+| [**PHP**](php)       | phpspy       | `embedded`   |   ✅  |       |         |   ✅   |
+| [**Python**](python) | pyspy        | `embedded`   |   ✅  |   ✅  |         |   ✅   |
+| [**Ruby**](ruby)     | rbspy        | `embedded`   |   ✅  |   ✅  |         |   ✅   |
+| [**.NET**](dotnet)   | dotnetspy    | `embedded`   |   ✅  |   ✅  |    ✅   |   ✅   |
+
+
+## Profilers
+
+There are two main categories of profilers, or `spies` in pyroscope terms: embedded and standalone.
+
+### Embedded
+
+Profilers that are bundled with **Pyroscope Agent**. Most of the profilers are of this kind. For example, if you
+want to profile Python, Ruby, PHP or .NET application, or the whole system with eBPF `spy`, you will need to run and
+configure **Pyroscope Agent**.
+
+Typically, to start profiling your application, you need to wrap your application with `pyroscope exec`:
+```shell
+export PYROSCOPE_SERVER_ADDRESS=http://pyroscope:4040
+export PYROSCOPE_APPLICATION_NAME=my.ruby.app
+pyroscope exec rails server
+```
+
+### Standalone
+
+Profilers that are not part of **Pyroscope Agent** and communicate to **Pyroscope Server** directly. Those may be either
+run as independent agents, or instrumented into the source code of the target application.
+
+In particular, `spy` for `Go` should be explicitly imported and initialized in the application runtime.
+```go
+package main
+
+import "github.com/pyroscope-io/pyroscope/pkg/agent/profiler"
+
+func main() {
+  profiler.Start(profiler.Config{
+    ApplicationName: "my.app",
+    ServerAddress:   "http://pyroscope:4040",
+  })
+
+  // your code goes here
+}
+```
+
+If you want to contribute, please check out [Creating New Integrations](new-integrations) page.

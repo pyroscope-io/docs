@@ -1,0 +1,54 @@
+---
+id: auth-github
+title: Github OAuth2 Authentication
+sidebar_label: Github OAuth2
+slug: /auth-github
+description: Github OAuth2 Authentication
+keywords: [ pyroscope, server, config, github, auth, oauth2, authentication ]
+---
+
+:::note
+This functionality is available starting from version 0.0.39. Make sure to upgrade before you use this.
+:::
+
+To enable Github OAuth2 you must register your application with Github. Github will generate a client ID and secret key for you to use.
+
+## Create Github OAuth keys
+
+First, you need to create a Github OAuth Application. Follow these instructions:
+
+
+1. Go to https://github.com/
+1. In the upper-right corner of any page, click your profile photo, then click "Settings".
+1. In the left sidebar, click "Developer settings".
+1. In the left sidebar, click "OAuth Apps".
+1. Click "New OAuth App".
+1. In "Application name", type "Pyroscope".
+1. In "Homepage URL", type the full URL to your app's website.
+1. Optionally, in "Application description", type a description of your app that users will see.
+1. In "Authorization callback URL", type https://pyroscope.mycompany.com/auth/github/callback. Make sure to replace https://pyroscope.mycompany.com with the URL of your Pyroscope instance.
+1. Click "Register application".
+1. Go to https://console.cloud.github.com/apis/credentials.
+1. Click "Create Credentials", then click "OAuth Client ID" in the drop-down menu.
+
+For the most recent version of these instructions visit [Github's documentation](https://docs.github.com/en/developers/apps/building-oauth-apps/creating-an-oauth-app).
+
+
+## Enable Github OAuth in Pyroscope
+
+Specify the Client ID and Secret in the Pyroscope configuration file. For example:
+
+```
+auth:
+  github:
+    enabled: true
+    client-id: CLIENT_ID
+    client-secret: CLIENT_SECRET
+    allowed-organizations:
+      - mycompany
+      - myorganization
+```
+
+See the [server configuration](server-configuration) page for more details on the Pyroscope configuration file.
+
+Restart the Pyroscope server. You should now see a Github login button on the login page. You can now login with your Github accounts.

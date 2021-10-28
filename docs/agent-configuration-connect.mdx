@@ -1,0 +1,49 @@
+---
+id: agent-configuration-connect
+title: pyroscope connect
+hide_title: true
+sidebar_label: pyroscope connect
+slug: /agent-configuration-connect
+description: pyroscope connect configuration options
+keywords: [ pyroscope, agent, connect, attach, pid, config, configure, configuration, setup, options, arguments, cli, env, environment, variables ]
+---
+
+### `pyroscope connect`
+
+The command attaches profiler to already running process specified by PID or operating system, if applicable (for example, `ebpf` integration).
+
+### Command line arguments
+
+<!-- generate-sample-config:connect:md -->
+| Name | Default Value | Usage |
+| :- | :- | :- |
+| spy-name | auto | Name of the profiler you want to use. Supported ones are: pyspy, rbspy, phpspy, dotnetspy, ebpfspy. |
+| application-name |  | Application name used when uploading profiling data. |
+| sample-rate | 100 | Sample rate for the profiler in Hz. 100 means reading 100 times per second. |
+| detect-subprocesses | true | Makes pyroscope keep track of and profile subprocesses of the main process. |
+| log-level | info | Log level: debug&#124;info&#124;warn&#124;error. |
+| server-address | http://localhost:4040 | Address of the pyroscope server. |
+| auth-token |  | Authorization token used to upload profiling data. |
+| upstream-threads | 4 | Number of upload threads. |
+| upstream-request-timeout | 10s | Profile upload timeout. |
+| no-logging | false | Disables logging from pyroscope. |
+| pid | 0 | PID of the process you want to profile. Pass -1 to profile the whole system (only supported by ebpfspy). |
+| pyspy-blocking | false | Enables blocking mode for pyspy. |
+| rbspy-blocking | false | Enables blocking mode for rbspy. |
+| tag | {} | Tag in key=value form. The flag may be specified multiple times. |
+<!-- /generate-sample-config -->
+
+:::note
+**application-name** may be specified in the fully qualified notation as described in [the specification](/docs/flameql#notation). For example:
+```
+my.awesome.app{env=staging,region=us-west-1}
+```
+Explicitly specified tags take precedence.
+:::
+
+### Environment variables
+
+Environment variables **MUST** have `PYROSCOPE_` prefix and be in `UPPER_SNAKE_CASE` format, for example:
+```shell
+PYROSCOPE_APPLICATION_NAME=my.awesome.app
+```

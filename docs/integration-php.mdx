@@ -1,0 +1,109 @@
+---
+id: integration-php
+title: PHP
+sidebar_label: PHP
+slug: /php
+description: Pyroscope PHP profiling
+keywords: [ pyroscope, php, phpspy, profiling ]
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+Pyroscope uses [phpspy](https://github.com/adsr/phpspy) to collect profiling data.
+
+#### Supported platforms
+
+| Spy Name     | Type         | Linux | macOS | Windows | Docker |
+|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
+| phpspy       | `embedded`   |   ✅  |       |         |   ✅   |
+
+###  Profiling PHP application
+
+<Tabs
+  defaultValue="linux"
+  values={[
+    {label: 'Linux', value: 'linux'},
+    {label: 'Docker', value: 'docker'},
+  ]}>
+  <TabItem value="linux">
+
+To start profiling a PHP application, add `pyroscope exec` before the command:
+
+```shell
+export PYROSCOPE_APPLICATION_NAME=my.php.app
+export PYROSCOPE_SERVER_ADDRESS=http://pyroscope-server:4040
+
+pyroscope exec php main.php
+```
+
+You can also attach pyroscope to already running process using `pyroscope connect`:
+
+```shell
+pyroscope connect -pid {my-app-pid}
+```
+
+Refer to [Configuration](/docs/agent-configuration-overview) page to learn more about **Pyroscop Agent** and how to configure it.
+
+  </TabItem>
+  <TabItem value="docker">
+
+To start profiling a PHP application in a container, you may wrap your application with `pyroscope exec` as an
+entrypoint of your image. The tricky part is that you need to copy pyroscope binary to your docker container.
+To do that, use `COPY --from` command in your Dockerfile.
+
+The following example Dockerfile shows how to build the image:
+```shell
+FROM php:7.3.27
+
+WORKDIR /var/www/html
+
+# this copies pyroscope binary from pyroscope image to your image:
+COPY --from=pyroscope/pyroscope:latest /usr/bin/pyroscope /usr/bin/pyroscope
+COPY main.php ./main.php
+
+# optionally you may set the pyroscope server address as well as the app name, make sure you change these:
+ENV PYROSCOPE_APPLICATION_NAME=my.php.app
+ENV PYROSCOPE_SERVER_ADDRESS=http://pyroscope:4040/
+
+# this starts your app with pyroscope profiler, make sure to change "php" and "main.php" to the actual command.
+CMD ["pyroscope", "exec", "php", "main.php"]
+```
+
+If you are using Docker Compose, you can run both pyroscope server and agent with this configuration:
+
+```yaml
+---
+services:
+  pyroscope-server:
+    image: "pyroscope/pyroscope:latest"
+    ports:
+      - "4040:4040"
+    command:
+      - "server"
+  app:
+    image: "my-app:latest"
+    env:
+      PYROSCOPE_SERVER_ADDRESS: http://pyroscope-server:4040
+      PYROSCOPE_APPLICATION_NAME: my.php.app
+    cap_add:
+      - SYS_PTRACE
+```
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/php) folder in our repository to learn more 🔥
+
+:::tip **Important!**
+When running `pyroscope exec` inside a Docker container, make sure to add `--cap-add=sys_ptrace` to your `docker run` command. You can read more about this [here](https://jvns.ca/blog/2020/04/29/why-strace-doesnt-work-in-docker/).
+
+In docker-compose you'll need to add the following code:
+```
+cap_add:
+  - SYS_PTRACE
+```
+:::
+
+  </TabItem>
+
+</Tabs>

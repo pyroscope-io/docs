@@ -1,0 +1,118 @@
+---
+id: server-install-linux
+title: Linux
+sidebar_label: Linux
+slug: /server-install-linux
+description: Install Pyroscope Server on Ubuntu, Debian, CentOS, RHEL, Fedora, Amazon Linux
+keywords: [ pyroscope, server, install, deploy, deployment, linux, rpm, deb, package, ubuntu, debian, centos, rhel, fedora, amazon ]
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import packages from '../packages.manifest.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinux } from '@fortawesome/free-brands-svg-icons';
+
+
+This guide will help you install **Pyroscope Server** on <FontAwesomeIcon color="#0db7ed" icon={faLinux}/> Linux.
+
+## Install
+
+Pyroscope team maintain and sign packages for the following Linux distributions:
+
+<Tabs
+  defaultValue="ubuntu"
+  values={[
+    {label: 'Ubuntu/Debian', value: 'ubuntu'},
+    {label: 'CentOS/RHEL', value: 'centos'},
+    {label: 'Fedora', value: 'fedora'},
+    {label: 'Amazon Linux', value: 'amazon-linux'},
+  ]}>
+
+  <TabItem value="ubuntu">
+    Download package:
+    <CodeBlock className="language-shell">
+      {
+        `wget https://dl.pyroscope.io/release/pyroscope_${Object.keys(packages.releases)[0].substr(1)}_amd64.deb`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+    <br/>Install with apt-get:
+    <CodeBlock className="language-shell">
+      {
+        `sudo apt-get install ./pyroscope_${Object.keys(packages.releases)[0].substr(1)}_amd64.deb`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="centos">
+    Download package:
+    <CodeBlock className="language-shell">
+      {
+        `wget https://dl.pyroscope.io/release/pyroscope-${Object.keys(packages.releases)[0].substr(1)}-1-x86_64.rpm`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+    <br/>Install with yum:
+    <CodeBlock className="language-shell">
+      {
+        `sudo yum localinstall pyroscope-${Object.keys(packages.releases)[0].substr(1)}-1-x86_64.rpm`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="fedora">
+    Download package:
+    <CodeBlock className="language-shell">
+      {
+        `wget https://dl.pyroscope.io/release/pyroscope-${Object.keys(packages.releases)[0].substr(1)}-1-x86_64.rpm`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+    <br/>Install with dnf:
+    <CodeBlock className="language-shell">
+      {
+        `sudo dnf install pyroscope-${Object.keys(packages.releases)[0].substr(1)}-1-x86_64.rpm`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="amazon-linux">
+    Download package:
+    <CodeBlock className="language-shell">
+      {
+        `wget https://dl.pyroscope.io/release/pyroscope-${Object.keys(packages.releases)[0].substr(1)}-1-x86_64.rpm`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+    <br/>Install with yum:
+    <CodeBlock className="language-shell">
+      {
+        `sudo yum localinstall pyroscope-${Object.keys(packages.releases)[0].substr(1)}-1-x86_64.rpm`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+  </TabItem>
+
+</Tabs>
+
+:::tip
+To find out about other ways of installing Pyroscope, or to find packages for other CPU architectures (e.g ARM) visit our [Downloads](/downloads) page.
+:::
+
+Use `systemctl` to enable and start the service:
+```shell
+sudo systemctl start pyroscope-server
+```
+```shell
+sudo systemctl enable pyroscope-server
+```
+
+## Verify the installation
+
+After you start the server you should be able to open [http://localhost:4040/](http://localhost:4040/) and see that pyroscope server is profiling itself (`pyroscope.server.cpu` application).
+
+:::note
+By default pyroscope server sends anonymized usage data to Pyroscope team. This helps us understand how people use Pyroscope and prioritize features accordingly. We take privacy of our users very seriously and only collect high-level stats such as number of apps added, types of spies used, etc. Source code for the analytics module is available on [Github](https://github.com/pyroscope-io/pyroscope/blob/main/pkg/analytics/analytics.go).
+:::
+
+## Next steps
+- **Authentication**: Refer to [Server Authentication](auth-google) page to learn more about how to Authenticate via Google, Github, Gitlab, etc.
+- **Pyroscope server configuration**: Refer to [Configuration](/docs/server-configuration) page to learn more about Pyroscop Server and how to configure it.

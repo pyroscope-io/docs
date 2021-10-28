@@ -1,0 +1,40 @@
+---
+id: deployment
+title: Deployment Guide
+sidebar_label: Deployment Guide
+slug: /deployment
+---
+
+## Reference architecture
+
+<center>
+
+![Deployment Overview](/img/docs/deployment-overview.svg)
+
+</center>
+
+## System requirements
+
+As a rule of thumb, if you want to profile your whole cloud infrastructure, expect to spend about 1% of your cloud budget on Pyroscope server.
+
+| Resource        | More of resource equals                                                            |
+| :-------------- | :--------------------------------------------------------------------------------- |
+| CPU             | higher write bandwidth                                                             |
+| RAM             | higher write bandwidth, support for more individual apps                           |
+| Disk throughput | higher write bandwidth                                                             |
+| Disk Space      | higher data retention (ability to store profiling data for longer periods of time) |
+
+
+## Networking requirements
+
+These are the ports used by pyroscope server. Make sure you allow access to these ports from the outside:
+
+| Port      | Description                                       |
+| :-------- | :------------------------------------------------ |
+| TCP :4040 | HTTP API, used for both data ingestion and web UI |
+
+Currently there's no authentication mechanism in pyroscope. Possible workarounds are:
+* use other access control solutions, for example [OAuth2 Proxy](https://github.com/oauth2-proxy/oauth2-proxy) (recommended)
+* use a reverse proxy with Basic Authentication (e.g nginx)
+* only allow access from select IPs
+* set up an ssh tunnel, e.g `ssh <user>@<remote-address> -L 4040:127.0.0.1:4040 -N`

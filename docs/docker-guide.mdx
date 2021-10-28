@@ -1,0 +1,49 @@
+---
+id: docker-guide
+title: Docker Guide
+sidebar_label: Docker Guide
+slug: /docker-guide
+description: Pyroscope Server Docker and Docker Compose Guide
+keywords: [ pyroscope, server, docker, docker compose, docker-compose, compose ]
+---
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDocker } from '@fortawesome/free-brands-svg-icons';
+
+
+This guide will help you set up pyroscope with <FontAwesomeIcon color="#0db7ed" icon={faDocker}/> Docker.
+
+
+## Docker Compose
+If you are using docker compose, you can simply describe `pyroscope` service:
+```yaml
+---
+services:
+  pyroscope:
+    image: "pyroscope/pyroscope:latest"
+    ports:
+      - "4040:4040"
+    command:
+      - "server"
+```
+Then you will have to configure your [Pyroscope agent](/docs/agent-overview) to properly send data to the server. 
+
+## Docker
+**Pyroscope Server** perfectly works inside a Docker container. Running `pyroscope server` from docker is pretty
+straightforward, we have a docker image that exposes port `4040`:
+
+```shell
+docker run -it -p 4040:4040 pyroscope/pyroscope:latest server
+```
+
+Open [http://localhost:4040/](http://localhost:4040/) to see Pyroscope UI.
+
+
+## Examples
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples) folder in our repository for examples of apps running in docker with pyroscope.
+* [Go](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang)
+* [Python](https://github.com/pyroscope-io/pyroscope/tree/main/examples/python)
+* [Ruby](https://github.com/pyroscope-io/pyroscope/tree/main/examples/ruby)
+* [Dotnet](https://github.com/pyroscope-io/pyroscope/tree/main/examples/dotnet)
+* [Php](https://github.com/pyroscope-io/pyroscope/tree/main/examples/php)

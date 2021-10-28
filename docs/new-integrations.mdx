@@ -1,0 +1,26 @@
+---
+id: new-integrations
+title: Creating New Integrations
+sidebar_label: Creating New Integrations
+slug: /new-integrations
+---
+
+This document describe the steps one would need to take to create a new integration, meaning a new language or a platform.
+
+## Integrations
+
+There are two ways to integrate with pyroscope:
+* The fastest way to integrate with pyroscope is by using the [HTTP API](/docs/server-api-reference). You can start pushing data into pyroscope with
+just a few lines of code. Downside of this approach is that you'll have to manage certain things like sampling rate and
+upload rate yourself.
+
+* Alternatively, a new `spy` may be developed: this one is for you if your profiler comes as an executable or a C library
+that profiles other processes. This type of integration is more complex but comes with an advantage of not having to
+worry about sampling rates or error handling or uploading the data. In this case, the spy becomes part of
+**Pyroscope Agent**.
+
+If you want to help contribute or need help setting up Pyroscope here is how you can reach us:
+- Join our [Slack](https://pyroscope.io/slack)
+- Set up a time to meet with us [here](https://pyroscope.io/setup-call)
+- Write an [issue](https://github.com/pyroscope-io/pyroscope/issues)
+- Follow us on [Twitter](https://twitter.com/PyroscopeIO)

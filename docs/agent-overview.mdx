@@ -1,0 +1,40 @@
+---
+id: agent-overview
+title: Pyroscope Agent
+sidebar_label: Overview
+slug: /agent-overview
+---
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDocker } from '@fortawesome/free-brands-svg-icons';
+
+
+## Overview
+
+**Pyroscope Agent** records and aggregates what your application has been doing, then sends that data over to the
+**Pyroscope Server**.
+
+![deployment diagram](/img/deployment.svg)
+
+## Supported platforms
+
+**Pyroscope Agent** can run on [Linux](agent-install-linux), [macOS](agent-install-macos), [Windows](agent-install-windows)
+and in <FontAwesomeIcon color="#0db7ed" icon={faDocker}/> Docker. Note that some integrations are OS-specific.
+Visit [Integrations](/docs/supported-integrations) page for details.
+
+## Run modes
+
+**Pyroscope Agent** may be run interactively and as a service:
+ * `pyroscope exec` spawns a new process and attaches configured profiler. Once `pyroscope exec` exits, the child
+process exits as well and vice-versa. This command may be used for testing, as a docker entrypoint, or as a systemd
+service unit command.
+
+ * `pyroscope connect` attaches profiler to already running process specified by PID or operating system,
+if applicable (for example, `ebpf` integration).
+
+ * `pyroscope agent` continuously tracks configured `targets` and attaches profilers to them. This command is
+primarily supposed to be run in the context of a service manager such as systemd or Windows Service Control Manager.
+
+Refer to [Configuration](/docs/agent-configuration-overview) page to learn more about each mode and how to configure
+**Pyroscop Agent**.

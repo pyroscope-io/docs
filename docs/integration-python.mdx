@@ -1,0 +1,74 @@
+---
+id: integration-python
+title: Python
+sidebar_label: Python
+slug: /python
+description: Pyroscope Python profiling
+keywords: [ pyroscope, py, pyspy, python, flask, profiling ]
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+### Supported platforms
+
+| Linux | macOS | Windows | Docker |
+|:-----:|:-----:|:-------:|:------:|
+|   ✅  |   ✅  |         |   ✅   |
+
+### Profiling Python applications
+
+First, install `pyroscope-io` pip package:
+
+```bash
+pip install pyroscope-io
+```
+
+### Basic Configuration
+
+Add the following code to your application. This code will initialize pyroscope profiler and start profiling:
+
+```python
+import pyroscope
+
+pyroscope.configure(
+  app_name       = "my.python.app", # replace this with some name for your application
+  server_address = "http://my-pyroscope-server:4040", # replace this with the address of your pyroscope server
+)
+```
+
+### Tags
+
+Pyroscope python integration provides a number of ways to tag profiling data. For example, you can provide tags when you're initializing the profiler:
+
+```python
+import os
+import pyroscope
+
+pyroscope.configure(
+  app_name       = "simple.python.app",
+  server_address = "http://my-pyroscope-server:4040",
+
+  tags = {
+    "hostname": os.getenv("HOSTNAME"),
+  }
+)
+```
+
+or you can dynamically tag certain parts of your code:
+
+```python
+# You can use a wrapper:
+with pyroscope.tag_wrapper({ "controller": "slow_controller_i_want_to_profile" }):
+  slow_code()
+
+# Or you can add / remove tags manually:
+pyroscope.tag({ "controller": "slow_controller_i_want_to_profile" })
+slow_code()
+pyroscope.remove_tags("controller")
+```
+
+### Example
+
+Check out this [example python project in our repository](https://github.com/pyroscope-io/pyroscope/tree/main/examples/python) for examples of how you can use these features.

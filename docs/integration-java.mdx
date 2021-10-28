@@ -1,0 +1,49 @@
+---
+id: integration-java
+title: Java
+sidebar_label: Java
+slug: /java
+description: Pyroscope Java profiling
+keywords: [ pyroscope, java, javaspy, profiling, async-profiler ]
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+Pyroscope uses [async-profiler](https://github.com/jvm-profiling-tools/async-profiler) to collect profiling data from Java applications.
+
+#### Supported platforms
+
+| Linux | macOS | Windows | Docker |
+|:-----:|:-----:|:-------:|:------:|
+|   ✅  |   ✅    |         |   ✅   |
+
+### Installation
+
+Java integration is distributed as a single jar file: `pyroscope.jar`. It contains native `async-profiler` libraries for:
+
+* Linux on x64;
+* Linux on x86;
+* Linux on AArch64;
+* Linux on ARM;
+* MacOS on x64.
+
+Visit our GitHub [releases](https://github.com/pyroscope-io/pyroscope-java/releases) page to download the latest version of `pyroscope.jar`.
+
+
+### Profiling Java application
+
+To start profiling a Java application, run your application with `pyroscope.jar` javaagent:
+
+```shell
+export PYROSCOPE_APPLICATION_NAME=my.java.app
+export PYROSCOPE_SERVER_ADDRESS=http://pyroscope-server:4040
+
+java -javaagent:pyroscope.jar -jar app.jar
+```
+
+### Examples
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/java) folder in our repository to learn more 🔥

@@ -1,0 +1,131 @@
+---
+id: agent-configuration-agent
+title: pyroscope agent
+hide_title: true
+sidebar_label: pyroscope agent
+slug: /agent-configuration-agent
+description: pyroscope agent configuration options
+keywords: [ pyroscope, agent, targets, windows, config, configure, configuration, setup, options, arguments, cli, env, environment, variables ]
+---
+
+### `pyroscope agent`
+
+The command continuously tracks configured `targets` and attaches profilers to them. This command is primarily supposed
+to be run in the context of a service manager such as systemd or Windows Service Control Manager, or when the target
+application is not known in advance.
+
+:::note
+`pyroscope agent` command is only supported on Windows.
+:::
+
+### Command line arguments
+
+<!-- generate-sample-config:agent:md -->
+| Name | Default Value | Usage |
+| :- | :- | :- |
+| log-file-path |  | Log file path. |
+| log-level | info | Log level: debug&#124;info&#124;warn&#124;error. |
+| no-logging | false | Disables logging from pyroscope. |
+| server-address | http://localhost:4040 | Address of the pyroscope server. |
+| auth-token |  | Authorization token used to upload profiling data. |
+| upstream-threads | 4 | Number of upload threads. |
+| upstream-request-timeout | 10s | Profile upload timeout. |
+| tag | {} | Tag key value pairs. |
+<!-- /generate-sample-config -->
+
+### Configuration file options
+
+<!-- generate-sample-config:agent:yaml -->
+```yaml
+---
+# Log file path.
+log-file-path: ""
+
+# Log level: debug|info|warn|error.
+log-level: "info"
+
+# Disables logging from pyroscope.
+no-logging: "false"
+
+# Address of the pyroscope server.
+server-address: "http://localhost:4040"
+
+# Authorization token used to upload profiling data.
+auth-token: ""
+
+# Number of upload threads.
+upstream-threads: "4"
+
+# Profile upload timeout.
+upstream-request-timeout: "10s"
+
+# List of targets to be profiled.
+targets: []
+
+# Tag key value pairs.
+tags: {}
+
+```
+<!-- /generate-sample-config -->
+
+#### Targets
+
+Targets describe applications to be profiled. At this moment the only supported type is `system service`.
+
+Note that `targets` can not be specified with command line arguments or environment variables.
+
+<!-- generate-sample-config:target:yaml -->
+```yaml
+---
+# Name of the system service to be profiled.
+service-name: ""
+
+# Name of the profiler you want to use. Supported ones are: pyspy, rbspy, phpspy, dotnetspy, ebpfspy.
+spy-name: ""
+
+# Application name used when uploading profiling data.
+application-name: ""
+
+# Sample rate for the profiler in Hz. 100 means reading 100 times per second.
+sample-rate: "100"
+
+# Makes pyroscope keep track of and profile subprocesses of the main process.
+detect-subprocesses: "true"
+
+# Enables blocking mode for pyspy.
+pyspy-blocking: "false"
+
+# Enables blocking mode for rbspy.
+rbspy-blocking: "false"
+
+```
+<!-- /generate-sample-config -->
+
+:::note
+**application-name** may be specified in the fully qualified notation as described in [the specification](/docs/flameql#notation). For example:
+```
+my.awesome.app{env=staging,region=us-west-1}
+```
+Explicitly specified tags take precedence.
+:::
+
+### Environment variables
+
+Environment variables **MUST** have `PYROSCOPE_` prefix and be in `UPPER_SNAKE_CASE` format, for example:
+```shell
+PYROSCOPE_APPLICATION_NAME=my.awesome.app
+```
+
+### Example
+
+This example shows how a system service with name `MyService` may be profiled:
+
+```yaml
+---
+log-level: "debug"
+server-address: http://pyroscope-server:4040
+targets:
+ - application-name: my.dotnet.svc
+   spy-name: dotnetspy
+   service-name: MyService
+```

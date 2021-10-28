@@ -1,0 +1,52 @@
+---
+id: integration-ebpf
+title: eBPF
+sidebar_label: eBPF
+slug: /ebpf
+description: Pyroscope eBPF profiling
+keywords: [ pyroscope, ebpf, ebpfspy, profiling, linux ]
+---
+
+eBPF is an emerging Linux kernel technology that allows for user-supplied programs to run inside of the kernel. This enables a bunch of interesting usecases, particularly efficient CPU profiling of the whole Linux system.
+
+#### Supported platforms
+
+| Spy Name     | Type         | Linux | macOS | Windows | Docker |
+|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
+| ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
+
+### Prerequisites
+
+For this to work you'll need
+* a Linux machine with the kernel version >= 4.9.
+* BCC tools installed on the system you want to profile. Visit [BCC documentation](https://github.com/iovisor/bcc/blob/master/INSTALL.md#packages) to find the best way of installing it on your system. There are prebuilt binaries available for most flavors of Linux.
+* pyroscope server and agent. Visit our [Getting Started guide](/docs/#step-1-install-the-pyroscope-server) to learn about that.
+
+### Running eBPF profiler
+
+```shell
+export PYROSCOPE_APPLICATION_NAME=my.ebpf.program
+export PYROSCOPE_SERVER_ADDRESS=http://address-of-pyroscope-server:4040/
+export PYROSCOPE_SPY_NAME=ebpfspy
+
+# to wrap an existing program and profile it
+sudo -E pyroscope exec mongod
+
+# to profile the whole system, pass -1 as pid
+sudo -E pyroscope connect -pid -1
+```
+
+
+### Dealing with [unknowns]
+
+eBPF relies on having debugging symbols available for each program installed in your system. If you don't have those you'll see a lot of stacktraces full of `[unknown]`s. On most systems you can get debugging symbols for most packages with `debuginfo-install` command:
+
+```shell
+sudo debuginfo-install -y <pkg>
+```
+
+
+### Future of our eBPF integration
+
+One thing we're excited about at Pyroscope is eBPF portability efforts, particularly introduction of BTF (BPF Type Format) technology. You can read more about that [here](https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html). When kernels with BTF support become more mainstream we're gonna embed libbpf directly into our go binary.
+

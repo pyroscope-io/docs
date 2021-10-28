@@ -1,0 +1,37 @@
+---
+id: style-guide
+title: Style Guide
+sidebar_label: Style Guide
+slug: /style-guide
+---
+
+## Go
+
+We use [Effective Go](https://golang.org/doc/effective_go.html) as a general guideline for Go code.
+
+### Command Line Intefrace (CLI) Guide
+
+We use [clig.dev](https://clig.dev/) guidelines when working on command line interface parts of Pyroscope.
+
+### Project Structure
+
+We use [golang-standards/project-layout](https://github.com/golang-standards/project-layout) as the standard for where different parts of the system should go.
+
+### Linting
+
+We use [revive](https://github.com/mgechev/revive) for linting. We recommend that you use an editor integration. You can find more on that [here](/docs/developer-guide#text-editors)
+
+
+## Documentation
+
+We use [Google developer documentation style guide](https://developers.google.com/style) as a general guideline for all documentation in this repo and the website.
+
+### Diagrams
+
+To make diagrams we recommend using [app.diagrams.net](https://app.diagrams.net/)
+
+## Other Considerations
+
+When contributing to pyroscope, make sure your text editor adds new lines at the end of files. See [this stack overflow answer](https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file) for context on why this is important.
+
+To make VS Code do this automatically, set `files.insertFinalNewline` to `true`.

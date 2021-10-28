@@ -1,0 +1,48 @@
+---
+id: auth-gitlab
+title: Gitlab OAuth2 Authentication
+sidebar_label: Gitlab OAuth2
+slug: /auth-gitlab
+description: Gitlab OAuth2 Authentication
+keywords: [ pyroscope, server, config, gitlab, auth, oauth2, authentication ]
+---
+
+:::note
+This functionality is available starting from version 0.0.39. Make sure to upgrade before you use this.
+:::
+
+To enable Gitlab OAuth2 you must register your application with Gitlab. Gitlab will generate a client ID and secret key for you to use.
+
+## Create Gitlab OAuth keys
+
+First, you need to create a Gitlab Application. Follow these instructions:
+
+1. Go to your Gitlab, e.g https://gitlab.com/
+1. In the top-right corner, click your profile photo.
+1. Click "Edit profile".
+1. In the left sidebar, click "Applications".
+1. In "Name", type "Pyroscope".
+1. In "Redirect URI" type https://pyroscope.mycompany.com/auth/gitlab/callback. Make sure to replace https://pyroscope.mycompany.com with the URL of your Pyroscope instance.
+1. In "Scopes" section select "read_api" scope.
+1. Click "Save application".
+
+For the most recent version of these instructions visit [Gitlab's documentation](https://docs.gitlab.com/ee/integration/oauth_provider.html#user-owned-applications).
+
+## Enable Gitlab OAuth in Pyroscope
+
+Specify the Client ID and Secret in the Pyroscope configuration file. For example:
+
+```
+auth:
+  gitlab:
+    enabled: true
+    client-id: CLIENT_ID
+    client-secret: CLIENT_SECRET
+    allowed-groups:
+      - mycompany
+      - myorganization
+```
+
+See the [server configuration](server-configuration) page for more details on the Pyroscope configuration file.
+
+Restart the Pyroscope server. You should now see a Gitlab login button on the login page. You can now login with your Gitlab accounts.

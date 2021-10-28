@@ -1,0 +1,69 @@
+---
+id: architecture
+title: Architecture
+sidebar_label: Architecture
+slug: /architecture
+---
+
+
+## Code Map
+
+Pyroscope consists of 2 core components:
+* webapp, mostly JS code, UI for the web application
+* go code, this is all the backend code including profiling code and the storage engine.
+
+
+
+
+### `Makefile`
+
+Used as a collection of shortcuts, e.g `make build` or `make server`
+
+### `examples`
+
+`docker-compose` examples for integrations with different languages.
+
+### `pkg`
+
+Main place for the go code. We use [golang-standards/project-layout](https://github.com/golang-standards/project-layout) as the standard for where different parts of the system should go. See [Style Guide](/docs/style-guide) for more information on various style guides we use.
+
+
+### `pkg/agent`
+
+Code that does the actual profiling.
+
+### `pkg/exec`
+
+Code for `pyroscope exec`. Mostly code related to command line interface.
+
+### `pkg/server`
+
+Server related code, mostly HTTP controllers.
+
+### `pkg/storage`
+
+Storage code. Heavy on various tree-like data structures, low level database things.
+
+### `cmd/pyroscope`
+
+Place for command line interface initialization code.
+
+### `tools`
+
+Place where we define the developer dependencies for go code. Kind of like `devDependencies`, but for Go.
+
+### `webapp`
+
+This is where the webapp lives.
+
+### `scripts`
+
+Location for various helper programs / scripts.
+
+### `scripts/packages`
+
+Helper code / files we use to make releases and generate packages for Linux / macOS. See [Downloads](/downloads) page for more information.
+
+### `third_party/rustdeps`
+
+Pyroscope depends on a few rust projects, particularly `rbspy` and `py-spy`.

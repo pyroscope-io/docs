@@ -1,0 +1,876 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+@use "sass:math";
+
+// these are colors from the main app
+$pc: hsl(24,  69 * 1%,  60 * 1%);
+$pc: hsl(34,  65 * 1%,  65 * 1%);
+$pc: hsl(194, 52 * 1%,  61 * 1%);
+$pc: hsl(163, 45 * 1%,  55 * 1%);
+$pc: hsl(305, 63 * 1%,  79 * 1%);
+$pc: hsl(47,  100 * 1%, 73 * 1%);
+
+$pc: rgb(183, 219, 171);
+$pc: rgb(244, 213, 152);
+$pc: rgb(112, 219, 237);
+$pc: rgb(249, 186, 143);
+$pc: rgb(242, 145, 145);
+$pc: rgb(130, 181, 216);
+$pc: rgb(229, 168, 226);
+$pc: rgb(174, 162, 224);
+$pc: rgb(154, 196, 138);
+$pc: rgb(242, 201, 109);
+$pc: rgb(101, 197, 219);
+$pc: rgb(249, 147, 78);
+$pc: rgb(234, 100, 96);
+$pc: rgb(81,  149, 206);
+$pc: rgb(214, 131, 206);
+$pc: rgb(128, 110, 183);
+
+// these are the colors that kinda fit
+$pc: hsl(211, 48 * 1%,  60 * 1%);
+// $pc: hsl(246, 40,  65);
+// $pc: hsl(194, 52,  61);
+// $pc: rgb(128, 110, 183);
+// $pc: rgb(81,  149, 206);
+
+$bottom-bg: darken($pc, 50%);
+$bg: darken($pc, 45%);
+
+$pc: adjust-color($pc, $hue: -45deg);
+$pc: #3DC1D3;
+// $pc: adjust-color($pc, $hue: 15deg);
+
+:root {
+  --ifm-code-font-size: 95%;
+
+  --palette-charade: #002035;
+  --palette-gray: #32343e;
+  --palette-green: #66bb6a;
+  --palette-midnight: #141725;
+  --palette-pale-blue: #b1b5d3;
+  --palette-orange: #e68828;
+  --palette-orange-darker: #d62828;
+  --palette-rock: rgb(var(--palette-rock-raw));
+  --palette-rock-raw: 38, 40, 51;
+  --palette-sky: #81d3f9;
+  --palette-turquoise: #2176ff;
+  --palette-yellow: #fcbf49;
+
+  --palette-white: #fff;
+  --palette-white-03: rgba(255, 255, 255, 0.03);
+  --palette-white-05: rgba(255, 255, 255, 0.05);
+  --palette-white-10: rgba(255, 255, 255, 0.1);
+  --palette-white-20: rgba(255, 255, 255, 0.2);
+  --palette-white-30: rgba(255, 255, 255, 0.3);
+
+  --palette-black-03: rgba(0, 0, 0, 0.03);
+  --palette-black-05: rgba(0, 0, 0, 0.05);
+  --palette-black-10: rgba(0, 0, 0, 0.1);
+  --palette-black-20: rgba(0, 0, 0, 0.2);
+  --palette-black-30: rgba(0, 0, 0, 0.3);
+
+  // --docsearch-searchbox-background: var(--palette-black-30);
+  // --docsearch-searchbox-focus-background: var(--palette-black-30);
+  // --docsearch-primary-color: var(--palette-gray);
+
+
+  --palette-white-darker: #d9d9d9;
+
+  --transition-bezier: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, Cantarell, Helvetica, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Android Emoji", EmojiSymbols, "EmojiOne Mozilla",
+    "Twemoji Mozilla", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* --font-size-small: 15px;
+  --font-size-normal: 16px;
+  --font-size-large: 18px;
+  --font-size-llarge: 24px;
+  --font-size-xlarge: 32px;
+  --font-size-xxlarge: 46px;
+  --font-size-xxxlarge: 64px; */
+
+  --primary-color: #{$pc};
+  --bg-color: #{$bg};
+
+  --logo-red-color: #EF2136;
+
+  --logo-orange-color: #FC851B;
+  --logo-yellow-color: #FEB20B;
+
+  --action-color: #{mix(#EF2136,#FC851B)};
+  --action-color: var(--palette-green);
+
+  --ifm-menu-color: #c5c5c5;
+
+  --announcement-bar-bg-color: var(--action-color);
+  --announcement-bar-text-color: #fff;
+
+  --ifm-blockquote-color: var(--palette-pale-blue);
+  --ifm-code-background: var(--palette-gray);
+  --ifm-code-color: var(--palette-white);
+ // --ifm-code-font-size: var(--font-size-small);
+  --ifm-color-emphasis-300: var(--palette-pale-blue);
+  --ifm-color-primary: var(--primary-color);
+  --ifm-color-primary-dark: #c93261;
+  --ifm-color-primary-darker: var(--palette-orange-darker);
+  --ifm-color-primary-darkest: #9c274b;
+  --ifm-color-primary-dark: #d75c82;
+  --ifm-color-primary-darker: #d9688b;
+  --ifm-color-primary-darkest: #e289a4;
+  --ifm-color-info: var(--palette-sky);
+  --ifm-dropdown-background-color: var(--palette-rock);
+  --ifm-font-color-base: var(--palette-white);
+//  --ifm-font-family-base: var(--font-family-base);
+  --ifm-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+//  --ifm-font-size-base: var(--font-size-small);
+  --ifm-global-border-radius: 8px;
+  --ifm-h1-font-size: var(--font-size-xxlarge);
+  --ifm-h2-font-size: var(--font-size-llarge);
+  --ifm-h4-font-size: var(--font-size-large);
+  --ifm-heading-margin-bottom: 1.5rem;
+  --ifm-hr-border-color: var(--palette-white-20);
+  --ifm-link-color: var(--primary-color);
+//  --ifm-menu-link-sublist-icon: url("/img/infima/arrow.svg");
+  --ifm-navbar-background-color: var(--bg-color);
+  --ifm-navbar-height: 80px;
+  --ifm-navbar-item-padding-horizontal: 20px;
+  --ifm-navbar-shadow: 0 1px 0 0 var(--palette-white-10);
+  --ifm-paragraph-margin-bottom: 1.25rem;
+  --ifm-pre-background: var(--palette-midnight);
+  --ifm-table-cell-padding: 0.15rem 1rem;
+  --ifm-toc-border-color: var(--palette-white-10);
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #{$bottom-bg};
+}
+
+.DocSearch-Button {
+  border-radius: 8px;
+}
+
+.hero.hero--primary {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--palette-black-20);
+  color:  var(--ifm-heading-color);
+}
+
+@media screen and (max-width: 966px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+.featureImage {
+  height: 200px;
+  width: 175px;
+  padding-bottom: 25px;
+}
+
+.docusaurus-highlight-code-line {
+  background-color: rgb(72, 77, 91);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+.navbar-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: text-top;
+  margin-right: 4px;
+}
+
+.footer-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: text-top;
+  margin-right: 4px;
+}
+
+.terminal-row {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-left: calc(var(--ifm-spacing-horizontal) * -1);
+  margin-right: calc(var(--ifm-spacing-horizontal) * -1);
+  margin-bottom: 20px;
+}
+
+.hero__subtitle {
+  margin: 1.25rem 0 1.75rem;
+}
+
+html[data-theme='dark'] .DocSearch {
+  --docsearch-primary-color: var(--palette-gray);
+  --docsearch-text-color: #1c1e21;
+  --docsearch-spacing: 12px;
+  --docsearch-icon-stroke-width: 1.4;
+  --docsearch-highlight-color: var(--docsearch-primary-color);
+  --docsearch-muted-color: #969faf;
+  --docsearch-container-background: rgba(101,108,133,0.8);
+  --docsearch-logo-color: #5468ff;
+  --docsearch-modal-width: 560px;
+  --docsearch-modal-height: 600px;
+  --docsearch-modal-background: #f5f6f7;
+  --docsearch-modal-shadow: inset 1px 1px 0 0 hsla(0,0%,100%,0.5),0 3px 8px 0 #555a64;
+  --docsearch-searchbox-height: 56px;
+  --docsearch-searchbox-background: #ebedf0;
+  --docsearch-searchbox-focus-background: #fff;
+  --docsearch-searchbox-shadow: none;
+  --docsearch-hit-height: 56px;
+  --docsearch-hit-color: #444950;
+  --docsearch-hit-active-color: #fff;
+  --docsearch-hit-background: #fff;
+  --docsearch-hit-shadow: 0 1px 3px 0 #d4d9e1;
+  --docsearch-key-gradient: linear-gradient(-225deg,#d5dbe4,#f8f8f8);
+  --docsearch-key-shadow: inset 0 -2px 0 0 #cdcde6,inset 0 0 1px 1px #fff,0 1px 2px 1px rgba(30,35,90,0.4);
+  --docsearch-footer-height: 44px;
+  --docsearch-footer-background: #fff;
+  --docsearch-footer-shadow: 0 -1px 0 0 #e0e3e8,0 -3px 6px 0 rgba(69,98,155,0.12);
+}
+
+html[data-theme='dark'] {
+  --primary-color: #{$pc};
+  --bg-color: #{$bg};
+
+  --logo-red-color: #EF2136;
+
+  --logo-orange-color: #FC851B;
+  --logo-yellow-color: #FEB20B;
+
+  --action-color: #{mix(#EF2136,#FC851B)};
+  --action-color: var(--palette-green);
+
+  --ifm-menu-color: #c5c5c5;
+
+  --announcement-bar-bg-color: var(--action-color);
+  --announcement-bar-text-color: #fff;
+
+  --ifm-background-color: var(--bg-color);
+  --ifm-color-warning-dark: var(--palette-yellow);
+  --ifm-color-success-contrast-background: var(--palette-green);
+//  --ifm-alert-background-color: red !important;
+
+  --ifm-color-secondary-contrast-background: var(--ifm-color-secondary);
+  --ifm-color-secondary-contrast-foreground: var(--ifm-color-gray-900);
+}
+
+
+
+
+.download-page {
+  margin-top: 2em;
+
+  .download-page-title {
+    border-bottom: 2px solid rgba(255,255,255,0.2);
+    padding-bottom: 0.25em
+  }
+
+  .download-info-table {
+    font-size: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    .download-info-row {
+      display: flex;
+      flex-direction: row;
+      height: 38px;
+      .download-info-col {
+        padding-right: 10px;
+        &.download-info-title {
+          width: 200px;
+        }
+      }
+    }
+    select {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, Helvetica, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Android Emoji", EmojiSymbols, "EmojiOne Mozilla", "Twemoji Mozilla", "Segoe UI Symbol", "Noto Color Emoji";
+      padding: 0.25em 0.5em;
+      background-color: rgba(255, 255, 255, 0.33);
+      color: white;
+      font-size: 16px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .download-page-title {
+    font-size: 2.5em;
+  }
+
+  h3, .instructions-wrapper {
+    // margin-bottom: 0.75em;
+    margin: 0;
+    margin-top: 2em;
+  }
+
+  .instructions-wrapper {
+    margin-bottom: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    h3 {
+      margin: 0;
+    }
+  }
+
+  .sha {
+    font-weight: normal;
+    text-align: right;
+    font-size: 14px;
+    flex: 1;
+    // margin: 0.5em 1em 1em;
+    &:before {
+      content: 'SHA256: ';
+      display: inline;
+    }
+  }
+
+  .download-platforms {
+    display: flex;
+    margin-top: 1em;
+    margin-bottom: 40px;
+    .download-platform {
+      width: 130px;
+      height: 130px;
+      margin-right: 10px;
+      background-color: rgba(255,255,255,0.3);
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      &.active {
+        box-shadow: inset 0 0 0 4px white;
+      }
+      .download-platform-icon {
+        font-size: 60px;
+        line-height: 100px;
+      }
+      .download-platform-name {
+        font-size: 16px;
+        line-height: 16px;
+      }
+    }
+  }
+
+  .download-archs {
+    display: flex;
+    margin-top: 1em;
+    margin-bottom: 40px;
+    .download-arch {
+      width: 130px;
+      height: 40px;
+      margin-right: 10px;
+      background-color: rgba(255,255,255,0.3);
+      color: #fff;
+      text-align: center;
+      font-size: 16px;
+      line-height: 40px;
+      cursor: pointer;
+      &.active {
+        box-shadow: inset 0 0 0 4px white;
+      }
+    }
+  }
+  .download-details {
+
+  }
+
+
+  .extra-space {
+    height: 300px;
+  }
+
+  p {
+    margin-top: 1em;
+  }
+
+  a {
+    color: #1398bd;
+  }
+
+  .tabs-platforms,
+  .tabs-arch,
+  .tabs-packages {
+    margin-top: 1em;
+    .tabs__item {
+      border-radius: 6px;
+      background-color: rgb(102, 102, 128);
+      margin-right: 10px;
+      border: 4px solid transparent;
+      padding: 0.75em 1.5em;
+      text-align: center;
+      color: white;
+      &.tabs__item--active {
+        // border-color: white;
+        background-color: #1398bd;
+      }
+    }
+  }
+
+  .tabs-platforms {
+    .tabs__item {
+      display: flex;
+      flex-direction: column;
+      width: 150px;
+      .tabs__item__icon {
+        color: rgb(11, 11, 11);
+        font-size: 60px;
+      }
+    }
+  }
+}
+
+table tr:nth-child(2n) {
+  background-color: transparent;
+}
+
+.privacy-page {
+  h1 {
+    font-size: 3rem;
+  }
+  > p, ul {
+    margin-left: 30px;
+  }
+
+  > ul {
+    counter-reset: list;
+    > li {
+      list-style: none;
+      position: relative;
+    }
+    > li:before {
+      counter-increment: list;
+      text-align: right;
+      content: counter(list, lower-alpha) ") ";
+      position: absolute;
+      right: 100%;
+      padding-right: 8px;
+      width: 2em;
+    }
+  }
+  > ul ul {
+    counter-reset: list;
+    > li {
+      list-style: none;
+      position: relative;
+    }
+    > li:before {
+      counter-increment: list;
+      text-align: right;
+      content: counter(list, lower-roman) ") ";
+      position: absolute;
+      right: 100%;
+      padding-right: 8px;
+      width: 2em;
+    }
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .heroBanner_src-pages- {
+    padding: 2rem 0;
+  }
+}
+
+
+.button--live-demo,
+.button--action {
+  background: var(--action-color);
+  border-color: var(--action-color);
+  &:hover {
+    background: #3ebe44;
+    border-color: #3ebe44;
+  }
+}
+
+.demo-video {
+  margin: 50px 0;
+  // margin: 50px 0 -200px;
+  box-shadow: inset 0 -100px 50px rgba(0,0,0, 0.93);
+}
+
+.title-logo {
+  display: inline-block;
+  vertical-align: text-bottom;
+  width: 60px;
+  margin-right: 5px;
+}
+
+
+.index-page-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+$s1gb: darken($bg, 5%);
+.hero.hero--primary {
+  background-color: $s1gb;
+}
+
+$s2gb: lighten($bg, 0%);
+.brighter-section {
+  background-color: $s2gb;
+}
+
+
+.slanted-section {
+  background-color: lighten($bg, 5%);
+}
+
+@media screen and (min-width: 768px) {
+  .slanted-wrapper {
+    // background-color: var(--palette-black-20);
+    background-image: linear-gradient(180deg, $s1gb 0%, $s1gb 49%, $s2gb 50%, $s2gb 100%);
+  }
+
+  .slanted-section {
+    $slant: 10%;
+    clip-path: polygon(0 $slant, 100% 0, 100% (100% - $slant), 0% 100%);
+    // important otherwise it's overwritten by
+    // .features_src-pages-styles-module
+    padding: 8rem 0 !important;
+    margin: -4rem 0 0;
+  }
+}
+
+
+// fixes an annoying bug
+.navbar__inner.inner_src-theme-Navbar- {
+  max-width: var(--ifm-container-width);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+
+.logo-icon {
+  width: 60px;
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.step-instructions-container {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+.step-number {
+  border-radius: 20%;
+  background-color: #62B5E5;
+  width: 50px;
+  margin-right: 10px;
+  display: flex;
+}
+
+.step-instructions {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.step-instructions svg {
+  display: inline-block;
+  vertical-align: bottom;
+
+  filter: drop-shadow( 0 0 2px rgba(0, 0, 0, .3));
+}
+.step-instructions span {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.step-index {
+  display: inline-block;
+  vertical-align: baseline;
+  position: relative;
+  right: 38px;
+  width: 0;
+  text-shadow: 0 1px 2px rgba(0,0,0, 0.3);
+}
+
+.subsection-title-container {
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.subsection-title {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.subsection-title {
+  font-size: 3rem;
+  display: flex;
+  text-align: center;
+}
+
+.logo-step-number {
+  height: 50px;
+}
+
+.terminal-window {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  overflow: hidden;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0,0,0,.3);
+  background-color: rgba(0,0,0,0.3);
+  box-shadow: 0 1px 13px rgba(0,0,0, 0.3);
+
+  &.white-bg {
+    background-color: rgba(255,255,255,1);
+    border-color: rgba(255,255,255,.3);
+    // box-shadow: 0 1px 13px rgba(255,255,255, 0.3);
+    color: #333;
+  }
+
+  h3 {
+    margin: 0.5em 10px;
+  }
+}
+
+.terminal-notes {
+  margin: auto;
+  text-align: center;
+}
+
+.terminal-bar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 10px 8px;
+  background-color: #fff;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+
+  &.gray-bg {
+    background-color: #ccc;
+    background-image: linear-gradient(#fff, #ddd);
+  }
+}
+
+.code-box {
+  display: block;
+  overflow: hidden;
+  padding: 15px;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-family: var(--ifm-font-family-monospace);
+  color: rgba(white, 0.5);
+  font-weight: 400;
+  white-space: pre;
+  -o-object-fit: fill;
+  object-fit: fill;
+}
+
+.cursor {
+  font-weight: bold;
+  color: white;
+}
+
+.command-text {
+  font-weight: normal;
+  color: white;
+}
+
+.terminal-bar-dot {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background-color: #efefef;
+  box-shadow: 0 0 1px inset rgba(0, 0, 0, 0.33);
+
+}
+
+.red {
+  background-color: #ee6b60;
+}
+
+.yellow {
+  background-color: #f5be4f;
+}
+
+.green {
+  background-color: #63c353;
+}
+
+.terminal-wrapper {
+  width: 435px;
+  min-width: 435px;
+  font-size: 15px;
+  margin: 10px;
+}
+
+.terminal-window {
+  min-height: 220px;
+}
+
+@media screen and (max-width: 435px) {
+
+.terminal-window {
+  min-height: 200px;
+}
+  .terminal-wrapper {
+    width: 300px;
+    min-width: 300px;
+    font-size: 10px;
+  }
+}
+
+.cloud-section-wrapper {
+  position: relative;
+  background:#1f81e0;
+  width: 100%;
+  height: 700px;
+
+  $slant: 10%;
+  clip-path: polygon(0 $slant, 100% 0, 100% (100%), 0% 100%);
+}
+
+.cloud-signup {
+  position: relative;
+  background:#1f81e0;
+  background-image: linear-gradient(#68acf0, #1f81e0);
+  width: 100%;
+  height: 700px;
+
+  h1 {
+    font-size: 3rem;
+    margin: 0 0 2rem;
+  }
+  .terminal-wrapper {
+    margin: 1rem 0;
+  }
+
+  .left-pane {
+    h1, p, .index-special-offer {
+      // text-align: center;
+    }
+  }
+}
+
+.cloud-canvas {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+.cloud-section {
+  height: 700px;
+  color: white;
+  position: absolute;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  // otherwise it's overwritten by var(--ifm-button-color)
+  .button{
+    color: white;
+  }
+}
+
+.cloud-server-icon {
+  display: inline-block;
+  width: 30px;
+  vertical-align: middle;
+  svg {
+    color: #333;
+  }
+}
+
+.cloud-signup {
+  height: calc(100vh - var(--ifm-navbar-height));
+
+  .cloud-canvas {
+
+  }
+  .cloud-section {
+
+  }
+}
+
+
+.server {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin: 10px;
+  // height: 50px;
+  color: #333;
+  padding: 10px 15px;
+  padding-left: 55px;
+  position: relative;
+
+  .server-logo {
+    position: absolute;
+    background: url(/img/logo-v3-small.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80px;
+    left: 8px;
+    top: 12px;
+    bottom: 12px;
+  }
+  .server-name {
+    font-weight: bold;
+  }
+  .server-stats {
+    color: #999;
+    font-size: 0.8em;
+  }
+  .server-status {
+    color: #2ECC40;
+  }
+}
+
+h2.subsection-title.align-left {
+  text-align: left;
+  justify-content: left;
+}
+
+
+@import 'extra-styles';
+

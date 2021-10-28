@@ -1,0 +1,51 @@
+{
+  "name": "pyroscope",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docusaurus": "docusaurus",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "serve": "docusaurus serve"
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@docusaurus/core": "2.0.0-beta.6",
+    "@docusaurus/plugin-google-analytics": "^2.0.0-beta.6",
+    "@docusaurus/plugin-sitemap": "^2.0.0-beta.6",
+    "@docusaurus/preset-classic": "2.0.0-beta.6",
+    "@docusaurus/theme-common": "^2.0.0-beta.6",
+    "@docusaurus/theme-search-algolia": "^2.0.0-beta.6",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/free-brands-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/react-fontawesome": "^0.1.13",
+    "@mdx-js/react": "^1.5.8",
+    "canvas-confetti": "^1.3.3",
+    "clsx": "^1.1.1",
+    "docusaurus-gtm-plugin": "^0.0.2",
+    "docusaurus-plugin-sass": "^0.2.1",
+    "react": "^16.8.4",
+    "react-calendly": "^1.3.0",
+    "react-dom": "^16.8.4",
+    "react-safe": "^1.3.0",
+    "sass": "^1.42.0",
+    "scripts-plugin": "file:plugins/scripts-plugin",
+    "webpack-manifest-plugin": "^3.0.0",
+    "webpack-plugin": "file:plugins/webpack-plugin"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

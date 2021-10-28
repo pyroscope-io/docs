@@ -1,0 +1,123 @@
+---
+id: flameql
+title: FlameQL
+sidebar_label: FlameQL
+slug: /flameql
+---
+
+This document introduces FlameQL, the Pyroscope query language that enables users exploring profiling data.
+
+## Concepts
+
+### Data model
+
+Pyroscope stores profiling data associated with applications. An application may have multiple different profile types,
+for example: `cpu`, `alloc_space`, `inuse_space`, etc. Typically, profilers report data collected through sampling of a
+program, so each sample describes a program call stack, and a number or value of samples collected at a location, e.g.
+source file/line or function name.
+
+Every sample is also described by metadata which allow users querying and aggregating collected profiling data.
+In pyroscope, we use **tags** to set arbitrary key-values to the collected samples. If you are familiar with Prometheus,
+you may think of it as **labels**. Tags are an optional part of the data structure; they become very useful when it
+comes to querying.
+
+:::note
+To ensure the best performance it's recommended to keep the number of unique tag values low. In particular, consider
+avoiding use of identifiers and request-scoped values.
+:::
+
+#### Notation
+
+Given an application name, and a tag set, the fully qualified name is identified using this notation:
+```
+<application_name>[{[<tag_key>=<tag_value>[,<tag_key>=<tag_value>]]}]
+```
+
+For example, the fully qualified name for CPU profile of `my-awesome-app` application instance tagged with
+`region us-west-1` and `env staging` takes the following form:
+```
+my.awesome.app.cpu{env=staging,region=us-west-1}
+```
+
+:::note
+When ingesting data, **Pyroscope Agent** adds a name suffix specifying the profile type: `<application_name>.<profile_type>`.
+:::
+
+##### Constraints
+
+Tag keys may contain ASCII letters, digits, and `_`.
+Application name may contain ASCII letters, digits, `_`, `-`, and `.`.
+
+###### Reserved tag keys
+
+The following keys are reserved for internal use and should not be used:
+- `__name__`
+
+### Query expression language
+
+Queries in FlameQL are expressed as the following:
+
+```
+<application_name>[{[<tag_matcher>[,<tag_matcher>]]}]
+```
+
+In the simplest form, only application name is specified. For example, consider the simplest query:
+```
+my.awesome.app
+```
+
+Such a query will return aggregated data for all the instances of `my.awesome.app`. As of now, only `sum` aggregation
+is available - the resulting profile will be a merge of all the found profiles.
+
+It is possible to filter instances to aggregate by appending a comma separated list of tag matchers in curly braces
+(`{}`) – tag matchers are expressions which specify conditions to include or exclude dimensions based on the
+associated tags.
+
+```
+<tag_key><operator>"<tag_value>"
+```
+
+Supported operators:
+ - `=` a tag value must be exactly equal to the provided string.
+ - `=~` a tag value must regex-match the provided string.
+ - `!=` a tag value must not be equal to the provided string.
+ - `!~` a tag value must not regex-match the provided string.
+
+It is possible to have multiple matchers for the same tag. Regular expressions use RE2 syntax.
+
+#### Examples
+
+All application instances regardless of the tags:
+```
+my.awesome.app.cpu
+```
+
+All application instances regardless of the tags:
+```
+my.awesome.app.cpu{}
+```
+
+Application instances tagged with `env=staging`:
+```
+my.awesome.app.cpu{env="staging"}
+```
+
+Application instances **NOT** tagged with `env=staging`:
+```
+my.awesome.app.cpu{env!="staging"}
+```
+
+Application instances tagged with `env=staging` **AND** `region=us-west-1`:
+```
+my.awesome.app.cpu{env="staging",region="us-west-1"}
+```
+
+Application instances **NOT** tagged with `env=staging` **AND** have `region` tag value equal to `us-west-1` **OR** `eu-west-1`:
+```
+my.awesome.app.cpu{env!="staging",region=~"us-west-1|eu-west-1"}
+```
+
+Application instances with tag `region` which begins with `us` **AND** **NOT** contains `west`:
+```
+my.awesome.app.cpu{region=~"us.*",region!~".*west.*"}
+```

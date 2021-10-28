@@ -1,0 +1,181 @@
+---
+id: integration-dotnet
+title: .NET
+sidebar_label: .NET
+slug: /dotnet
+description: Pyroscope .NET profiling
+keywords: [ pyroscope, dotnet, .net, dotnetspy, profiling, windows ]
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+**.NET** is a free, cross-platform, open source developer platform for building many different types of applications.
+
+**Pyroscope Agent** uses [Diagnostic IPC Protocol](https://github.com/dotnet/diagnostics/blob/main/documentation/design-docs/ipc-protocol.md)
+client to communicate to .NET runtime and gather trace events. It is important to note that only managed code is accounted. Refer to [dotnetdiag](https://github.com/pyroscope-io/dotnetdiag) package for implementation details.
+
+#### Supported .NET versions:
+ - .NET 5.0
+ - .NET Core 3.1
+
+#### Supported platforms
+
+| Spy Name     | Type         | Linux | macOS | Windows | Docker |
+|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
+| dotnetspy    | `embedded`   |   ✅  |   ✅  |    ✅   |   ✅   |
+
+
+### Running .NET profiler
+
+<Tabs
+  defaultValue="windows"
+  values={[
+    {label: 'Windows', value: 'windows'},
+    {label: 'Linux / macOS', value: 'linux'},
+    {label: 'Docker', value: 'docker'},
+  ]}>
+  <TabItem value="windows">
+
+#### Interactively
+
+To start profiling a .NET application, add `pyroscope exec` before the command. Run in PowerShell:
+
+```shell
+$env:PYROSCOPE_SPY_NAME="dotnetspy";
+$env:PYROSCOPE_APPLICATION_NAME="my.dotnet.app";
+$env:PYROSCOPE_SERVER_ADDRESS="http://pyroscope-server:4040";
+
+pyroscope exec dotnet myapp.dll
+```
+
+Or, if your application is an executable file:
+
+```shell
+pyroscope exec myapp.exe "arg1" "arg2"
+```
+
+You can also attach pyroscope to already running process using `pyroscope connect`:
+
+```shell
+pyroscope connect -pid {my-app-pid}
+```
+
+#### Windows Service
+
+On Windows, **Pyroscope Agent** runs as a Windows service (with [`pyroscope agent`](agent-configuration-agent) command). Therefore if you are going
+to continuously profile Windows services, you may find it handy to pre-define `targets` in the configuration file
+(by default, the configuration file path is `C:\Program Files\Pyroscope\Pyroscope Agent\agent.yml`):
+
+```yaml
+---
+log-level: "info"
+server-address: http://pyroscope-server:4040
+targets:
+ - application-name: my.dotnet.svc
+   spy-name: dotnetspy
+   service-name: MyService
+```
+
+After the pyroscope configuration is changed, pyroscope service should be restarted for changes to take effect.
+Run in PowerShell **as Administrator**:
+
+```shell
+Get-Service pyroscope | Restart-Service
+```
+
+Refer to [Configuration](/docs/agent-configuration-overview) page to learn more about **Pyroscop Agent** and how to configure it.
+
+  </TabItem>
+  <TabItem value="linux">
+
+To start profiling a .NET application, add `pyroscope exec` before the command:
+
+```shell
+export PYROSCOPE_SPY_NAME=dotnetspy
+export PYROSCOPE_APPLICATION_NAME=my.dotnet.app
+export PYROSCOPE_SERVER_ADDRESS=http://pyroscope-server:4040
+
+pyroscope exec dotnet myapp.dll
+```
+
+Or, if your application is an executable file:
+```shell
+pyroscope exec myapp arg1 arg2
+```
+
+You can also attach pyroscope to already running process using `pyroscope connect`:
+
+```shell
+pyroscope connect -pid {my-app-pid}
+```
+
+Refer to [Configuration](/docs/agent-configuration-overview) page to learn more about **Pyroscop Agent** and how to configure it.
+
+  </TabItem>
+  <TabItem value="docker">
+
+To start profiling a .NET application inside a container, you may wrap your application with `pyroscope exec` as an
+entrypoint of your image. The tricky part is that you need to copy pyroscope binary to your docker container.
+To do that, use `COPY --from` command in your Dockerfile.
+
+The following example Dockerfile shows how to build the image:
+```shell
+FROM mcr.microsoft.com/dotnet/sdk:5.0
+
+WORKDIR /dotnet
+
+COPY --from=pyroscope/pyroscope:latest /usr/bin/pyroscope /usr/bin/pyroscope
+ADD my-app .
+RUN dotnet publish -o . -r $(dotnet --info | grep RID | cut -b 6- | tr -d ' ')
+
+# optionally you may set the pyroscope server address as well as the app name and other configuration options.
+ENV PYROSCOPE_SERVER_ADDRESS=http://pyroscope-server:4040
+ENV PYROSCOPE_APPLICATION_NAME=my.dotnet.app
+ENV PYROSCOPE_LOG_LEVEL=debug
+
+CMD ["pyroscope", "exec", "dotnet", "/dotnet/my-app.dll"]
+```
+
+If you are using Docker Compose, you can run both pyroscope server and agent with this configuration:
+
+```yaml
+---
+version: "3.9"
+services:
+  pyroscope-server:
+    image: "pyroscope/pyroscope:latest"
+    ports:
+      - "4040:4040"
+    command:
+      - "server"
+  app:
+    image: "my-app:latest"
+    environment:
+      PYROSCOPE_APPLICATION_NAME: my.dotnet.app
+      PYROSCOPE_SERVER_ADDRESS: http://pyroscope-server:4040
+      PYROSCOPE_LOG_LEVEL: debug
+      ASPNETCORE_URLS: http://*:5000
+    ports:
+      - "5000:5000"
+    cap_add:
+      - SYS_PTRACE
+```
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/dotnet) folder in our repository to learn more 🔥
+
+:::tip **Important!**
+When running `pyroscope exec` inside a Docker container, make sure to add `--cap-add=sys_ptrace` to your `docker run` command. You can read more about this [here](https://jvns.ca/blog/2020/04/29/why-strace-doesnt-work-in-docker/).
+
+In docker-compose you'll need to add the following code:
+```
+cap_add:
+- SYS_PTRACE
+```
+:::
+
+  </TabItem>
+
+</Tabs>

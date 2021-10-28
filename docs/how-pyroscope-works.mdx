@@ -1,0 +1,34 @@
+---
+id: how-pyroscope-works
+title: How Pyroscope Works
+sidebar_label: How Pyroscope Works
+slug: /how-pyroscope-works
+---
+
+Pyroscope identifies performance issues in your application by continuously profiling the code.
+
+If you've never used a profiler before, then welcome!
+
+If you are familiar with profiling and flame graphs, then you'll be happy to know that Pyroscope:
+- Has low CPU overhead thanks to sampling profiler technology
+- Can store years of profiling data down to 10 second granularity
+- Efficient compression, low disk space requirements
+
+There are two main components that allow Pyroscope to run smoothly and quickly:
+
+## Pyroscope Agent
+
+Pyroscope agent wraps around your Python, Ruby, or Go application and polls the stacktrace 100 times per second to calculate which functions are consuming CPU.
+
+![deployment diagram](/img/deployment.svg)
+
+## Pyroscope Server
+
+Pyroscope Agent records and aggregates what your application has been doing, then sends that data to the Pyroscope Server over port `:4040` to be processed, aggregated, and stored for speedy queries of any time range. Later you can look at the profiling data and make queries across any time range for example:
+- all of 2020
+- that one day last month when the website was slow
+- that time you deployed on a Friday night and messed up everything without knowing why
+
+Check out our [Demo Page](https://demo.pyroscope.io/) and select any time range to see how quickly Pyroscope works!
+
+![image](https://user-images.githubusercontent.com/23323466/104861560-2ebfaa00-58e5-11eb-862e-3481f294cbcf.png)

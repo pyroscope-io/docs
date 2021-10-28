@@ -1,0 +1,50 @@
+---
+id: auth-google
+title: Google OAuth2 Authentication
+sidebar_label: Google OAuth2
+slug: /auth-google
+description: Google OAuth2 Authentication
+keywords: [ pyroscope, server, config, google, auth, oauth2, authentication ]
+---
+
+:::note
+This functionality is available starting from version 0.0.39. Make sure to upgrade before you use this.
+:::
+
+To enable Google OAuth2 you must register your application with Google. Google will generate a client ID and secret key for you to use.
+
+## Create Google OAuth keys
+
+First, you need to create a Google OAuth Client ID:
+
+1. Go to https://console.cloud.google.com/apis/credentials.
+1. Click "Create Credentials", then click "OAuth Client ID" in the drop-down menu
+1. If this is your first time creating a client ID, you can also configure your consent screen by clicking Consent Screen. ([The following procedure](https://support.google.com/cloud/answer/6158849#userconsent&zippy=%2Cuser-consent) explains how to set up the Consent screen.) You won't be prompted to configure the consent screen after you do it the first time.
+1. Enter the following:
+    * Application Type: Web Application
+    * Name: Pyroscope
+    * Authorized Redirect URLs: https://pyroscope.mycompany.com/auth/google/callback
+    * Replace https://pyroscope.mycompany.com with the URL of your Pyroscope instance.
+1. Click Create
+1. Copy the Client ID and Client Secret from the "OAuth Client" modal
+
+
+## Enable Google OAuth in Pyroscope
+
+Specify the Client ID and Secret in the Pyroscope configuration file. For example:
+
+```
+auth:
+  google:
+    enabled: true
+    client-id: CLIENT_ID
+    client-secret: CLIENT_SECRET
+    allowed-domains:
+      - mycompany.com
+      - myorganization.org
+```
+
+See the [server configuration](server-configuration) page for more details on the Pyroscope configuration file.
+
+Restart the Pyroscope server. You should now see a Google login button on the login page. You can now login with your Google accounts.
+

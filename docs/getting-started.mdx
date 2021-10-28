@@ -1,0 +1,52 @@
+---
+id: pyroscope-overview
+title: Pyroscope Overview
+sidebar_label: Pyroscope Overview
+slug: /
+description: Pyroscope documentation
+keywords: [ pyroscope, docs, documentation]
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import packages from '../packages.manifest.json';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDocker } from '@fortawesome/free-brands-svg-icons';
+
+### Why use Pyroscope?
+**Profiling** is an effective way of understanding which parts of your application
+are consuming the most resources. 
+
+**Continuous Profiling** adds a dimension of time that allows you to understand your systems
+resource usage (i.e. CPU, Memory, etc.) over time and gives you the ability to locate, debug,
+and fix issues related to performance.
+
+
+### What are some use cases?
+Pyroscope is an open source continuous profiling platform. It will help you:
+- Find performance issues in your code
+- Resolve issues with high CPU utilization
+- Locate and fix memory leaks
+- Understand the call tree of your application
+- Track changes over time
+
+### What is the Overhead? 
+By using sampling profilers, Pyroscope is able to collect data with minimal overhead (~2-5% depending on a few factors). We've also built a [custom storage engine](storage-design) to
+compress and store the data efficiently. Some advantages of this are:
+- Low CPU overhead thanks to sampling profiler technology
+- Control over profiling data granularity (10s to multiple years)
+- Efficient compression, low disk space requirements and cost
+
+
+### How does Pyroscope Work?
+There are two main components that allow Pyroscope to run smoothly and quickly: **Pyroscope Server** and **Pyroscope Agent**.
+
+**Pyroscope Agent:** Records and aggregates what your application has been doing, then sends that data to the **Pyroscope Server**.
+
+**Pyroscope Server:** Processes, aggregates, and stores data from agents for speedy queries of any time range.
+Later you can look at the profiling data and make queries across any time range.
+
+![deployment diagram](/img/deployment.svg)

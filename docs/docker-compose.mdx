@@ -1,0 +1,128 @@
+---
+id: docker-compose
+title: Docker Compose
+sidebar_label: Docker Compose
+slug: /docker-compose
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDocker } from '@fortawesome/free-brands-svg-icons';
+
+
+This guide will help you set up pyroscope with <FontAwesomeIcon color="#0db7ed" icon={faDocker}/> Docker Compose.
+
+
+Pyroscope consists of 2 parts:
+
+* Pyroscope Server — database + UI that stores and visualizes profiling data
+* Pyroscope Agent — software that profiles your application
+
+## Examples
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples) folder in our repository for examples of go, ruby and python apps running in docker with pyroscope.
+
+## Adding Pyroscope to your docker-compose file
+
+### Step 1. Adding Pyroscope Server to Docker Compose
+
+Add `pyroscope` service and expose port 4040:
+
+```yaml
+---
+services:
+  pyroscope:
+    image: "pyroscope/pyroscope:latest"
+    ports:
+      - "4040:4040"
+    command:
+      - "server"
+```
+
+### Step 2. Adding Pyroscope Agent to your existing application
+
+<Tabs
+  defaultValue="go"
+  values={[
+    {label: 'Go', value: 'go'},
+    {label: 'Ruby', value: 'ruby'},
+    {label: 'Python', value: 'python'},
+  ]}>
+  <TabItem value="go">
+
+If you're using Go, add this code to your application:
+
+```shell
+package main
+
+import "github.com/pyroscope-io/pyroscope/pkg/agent/profiler"
+
+func main() {
+  profiler.Start(profiler.Config{
+    ApplicationName: "backend.purchases", # change this to your app name
+    ServerAddress:   "http://pyroscope:4040",
+  })
+
+  // your code goes here
+}
+```
+
+  </TabItem>
+  <TabItem value="ruby">
+
+  a) First add pyroscope binary to your docker image. See instructions on how to do that in our [Docker Guide](/docs/docker-guide)
+
+  b) Add `cap_add: ["SYS_PTRACE"]` to your application service
+
+  c) Add environment variables and change `command` to include `pyroscope exec`:
+
+  <CodeBlock className="language-yaml">{
+    `services:
+      app:
+        image: "ruby:2.7.2"
+        env:
+          PYROSCOPE_SERVER_ADDRESS: http://pyroscope:4040
+          PYROSCOPE_APPLICATION_NAME: my.ruby.app
+        cap_add:
+          - SYS_PTRACE
+        command:
+          - "pyroscope"
+          - "exec"
+          - "rails" # make sure to replace this with your app command
+          - "server"
+    `.replace(/^    /mg, "")
+  }</CodeBlock>
+
+  </TabItem>
+  <TabItem value="python">
+
+  a) First add pyroscope binary to your docker image. See instructions on how to do that in our [Docker Guide](/docs/docker-guide)
+
+  b) Add `cap_add: ["SYS_PTRACE"]` to your application service
+
+  c) Add environment variables and change `command` to include `pyroscope exec`:
+
+  <CodeBlock className="language-yaml">{
+    `services:
+      app:
+        image: "python:3"
+        env:
+          PYROSCOPE_SERVER_ADDRESS: http://pyroscope:4040
+          PYROSCOPE_APPLICATION_NAME: my.python.app
+        cap_add:
+          - SYS_PTRACE
+        command:
+          - "pyroscope"
+          - "exec"
+          - "python" # make sure to replace this with your app command
+          - "manage.py"
+          - "runserver"
+    `.replace(/^    /mg, "")
+  }</CodeBlock>
+
+  </TabItem>
+</Tabs>

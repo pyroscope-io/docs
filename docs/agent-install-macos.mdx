@@ -1,0 +1,64 @@
+---
+id: agent-install-macos
+title: macOS
+sidebar_label: macOS
+slug: /agent-install-macos
+description: Install Pyroscope Agent on macOS with brew
+keywords: [ pyroscope, agent, install, deploy, deployment, macos, darwin, brew, homebrew, package ]
+---
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faApple } from '@fortawesome/free-brands-svg-icons';
+
+
+This guide will help you install **Pyroscope Agent** on <FontAwesomeIcon color="#0db7ed" icon={faApple}/> macOS.
+
+## Install
+
+Install **Pyroscope Agent** with `pyroscope-io/brew/pyroscope`:
+```shell
+brew install pyroscope-io/brew/pyroscope
+```
+
+:::tip
+To find out about other ways of installing Pyroscope, or to find packages for other CPU architectures (e.g ARM) visit our [Downloads](/downloads) page.
+:::
+
+## Verify the installation
+
+To verify **Pyroscope Agent** was installed correctly, try the `pyroscope` command:
+```
+pyroscope
+```
+
+You should see output, similar to the following:
+```
+ _ __  _   _ _ __ ___  ___  ___ ___  _ __   ___
+| '_ \| | | | '__/ _ \/ __|/ __/ _ \| '_ \ / _ \
+| |_) | |_| | | | (_) \__ \ (_| (_) | |_) |  __/
+| .__/ \__, |_|  \___/|___/\___\___/| .__/ \___|
+| |     __/ |                       | |
+|_|    |___/                        |_|
+
+continuous profiling platform
+
+USAGE
+  pyroscope [flags] <subcommand>
+
+SUBCOMMANDS
+  server   starts pyroscope server. This is the database + web-based user interface
+  exec     starts a new process from <args> and profiles it
+  connect  connects to an existing process and profiles it
+
+FLAGS        DEFAULT VALUES
+
+  -version  false
+
+Run 'pyroscope SUBCOMMAND --help' for more information on a subcommand.
+```
+
+## Next steps
+
+Refer to [Configuration](/docs/agent-configuration-overview) and [Integrations](/docs/supported-integrations) pages to learn more about
+**Pyroscop Agent** and how to configure it.

@@ -1,0 +1,44 @@
+---
+id: server-install-macos
+title: Install Pyroscope on macOS
+sidebar_label: macOS
+slug: /server-install-macos
+description: Install Pyroscope Server on macOS with brew
+keywords: [ pyroscope, server, install, deploy, deployment, macos, darwin, brew, homebrew, package ]
+---
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faApple } from '@fortawesome/free-brands-svg-icons';
+
+
+This guide will help you install **Pyroscope Server** on <FontAwesomeIcon color="#0db7ed" icon={faApple}/> macOS.
+
+## Install
+
+Install **Pyroscope Server** with `pyroscope-io/brew/pyroscope`:
+```shell
+brew install pyroscope-io/brew/pyroscope
+```
+
+:::tip
+To find out about other ways of installing Pyroscope, or to find packages for other CPU architectures (e.g ARM) visit our [Downloads](/downloads) page.
+:::
+
+To start pyroscope server and register it to launch at login (on boot), run the following command:
+
+```shell
+brew services start pyroscope-server
+```
+
+## Verify the installation
+
+After you start the server you should be able to open [http://localhost:4040/](http://localhost:4040/) and see that pyroscope server is profiling itself (`pyroscope.server.cpu` application).
+
+:::note
+By default pyroscope server sends anonymized usage data to Pyroscope team. This helps us understand how people use Pyroscope and prioritize features accordingly. We take privacy of our users very seriously and only collect high-level stats such as number of apps added, types of spies used, etc. Source code for the analytics module is available on [Github](https://github.com/pyroscope-io/pyroscope/blob/main/pkg/analytics/analytics.go).
+:::
+
+## Next steps
+- **Authentication**: Refer to [Server Authentication](auth-google) page to learn more about how to Authenticate via Google, Github, Gitlab, etc.
+- **Pyroscope server configuration**: Refer to [Configuration](/docs/server-configuration) page to learn more about Pyroscop Server and how to configure it.
