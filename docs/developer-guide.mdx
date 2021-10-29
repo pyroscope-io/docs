@@ -126,54 +126,54 @@ We use [logrus](https://github.com/sirupsen/logrus) library for logging purposes
 
 ## Code Map
 
-### `Makefile`
+### /Makefile
 
 Used as a collection of shortcuts, e.g `make build` or `make server`
 
-### `examples`
+### /examples
 
 `docker-compose` examples for integrations with different languages.
 
-### `pkg`
+### /pkg
 
 Main place for the go code. We use [golang-standards/project-layout](https://github.com/golang-standards/project-layout) as the standard for where different parts of the system should go. See [Style Guide](/docs/style-guide) for more information on various style guides we use.
 
-### `pkg/agent`
+### /pkg/agent
 
 Code that does the actual profiling.
 
-### `pkg/exec`
+### /pkg/exec
 
 Code for `pyroscope exec`. Mostly code related to command line interface.
 
-### `pkg/server`
+### /pkg/server
 
 Server related code, mostly HTTP controllers.
 
-### `pkg/storage`
+### /pkg/storage
 
 Storage code. Heavy on various tree-like data structures, low level database things.
 
-### `cmd/pyroscope`
+### /cmd/pyroscope
 
 Place for command line interface initialization code.
 
-### `tools`
+### /tools
 
 Place where we define the developer dependencies for go code. Kind of like `devDependencies`, but for Go.
 
-### `webapp`
+### /webapp
 
 This is where the webapp lives.
 
-### `scripts`
+### /scripts
 
 Location for various helper programs / scripts.
 
-### `scripts/packages`
+### /scripts/packages
 
 Helper code / files we use to make releases and generate packages for Linux / macOS. See [Downloads](/downloads) page for more information.
 
-### `third_party/rustdeps`
+### /third_party/rustdeps
 
 Pyroscope depends on a few rust projects, particularly `rbspy` and `py-spy`.
