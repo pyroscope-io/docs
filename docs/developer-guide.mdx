@@ -15,12 +15,13 @@ Pyroscope consists of 2 core components:
 
 Make sure you have the following dependencies installed before setting up your developer environment:
 
-* `git`
-* `go`
-* `node` + `yarn`
-* `rust` (you'll only need it to work on Python and Ruby integrations)
+* git
+* go
+* node + yarn
+* rust (*optional, you'll only need it to work on Python and Ruby integrations*)
+* php (*optional, you'll only need it to work on PHP integration*)
 
-### macOS
+### Installing dependencies on macOS
 
 On macOS we recommend you to use [homebrew](https://brew.sh/) to manage dependencies:
 
@@ -28,41 +29,77 @@ On macOS we recommend you to use [homebrew](https://brew.sh/) to manage dependen
 brew install git
 brew install go
 brew install node
-brew install rust
+brew install rust # optional
+brew install php  # optional
 
 npm install -g yarn
 ```
 
 ## Building pyroscope locally
 
-To start developing Pyroscope you need to know a few commands:
+To start developing you need to know a few commands:
+
+
+#### 1. Clone the repo:
+```shell
+git@github.com:pyroscope-io/pyroscope.git
+```
+
+#### 2. Install go developer tools:
+
+These are required to build the go code.
 
 ```shell
-# clone the repo:
-git@github.com:pyroscope-io/pyroscope.git
-
-# installs go developer tools needed for some tasks:
 make install-dev-tools
+```
 
-# builds rust dependencies for rbspy / pyspy / phpspy,
-#   normally you only need to run this once:
+#### 3. Build third-party dependencies (optional):
+
+:::note
+This step is optional, you can skip it if you don't need to work on Python, Ruby or PHP integrations.
+:::
+
+```shell
+# if this command doesn't succeed consider skipping this step (see comment above)
 make build-third-party-dependencies
+```
 
-# builds web assets (JavaScript + SCSS code):
+
+#### 4. Build web assets (JavaScript + SCSS code):
+```shell
 make assets
-
 # to build assets in --watch mode use this command:
 make assets-watch
+```
 
-# builds the main binary, puts it in bin/pyroscope:
+#### 5. Builds the main binary, puts it in `bin/pyroscope`:
+```shell
 make build
+```
 
-# if the build fails because of linking issues (ld), try building it without spies:
+:::caution
+if this command fails try building the binary without third party integrations:
+```
 ENABLED_SPIES=none make build
+```
+:::
 
-# starts pyroscope server:
+#### 6. Starts pyroscope server:
+```shell
 make server
 ```
+
+---
+
+:::tip
+If you're going to be working on pyroscope a lot, consider using this command. It builds assets in watch mode + builds the main binary and starts the server all on one command:
+```shell
+make dev
+```
+
+
+
+:::
 
 ## Text Editors
 
