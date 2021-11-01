@@ -7,6 +7,15 @@ description: Pyroscope eBPF profiling
 keywords: [ pyroscope, ebpf, ebpfspy, profiling, linux ]
 ---
 
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+import packages from '../packages.manifest.json';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLinux } from '@fortawesome/free-brands-svg-icons';
+
+
 eBPF is an emerging Linux kernel technology that allows for user-supplied programs to run inside of the kernel. This enables a bunch of interesting usecases, particularly efficient CPU profiling of the whole Linux system.
 
 #### Supported platforms
@@ -24,6 +33,14 @@ For this to work you'll need
 
 ### Running eBPF profiler
 
+<Tabs
+  defaultValue="kubernetes"
+  values={[
+    {label: 'Kubernetes', value: 'kubernetes'},
+    {label: 'Linux', value: 'linux'},
+  ]}>
+  <TabItem value="linux">
+
 ```shell
 export PYROSCOPE_APPLICATION_NAME=my.ebpf.program
 export PYROSCOPE_SERVER_ADDRESS=http://address-of-pyroscope-server:4040/
@@ -36,7 +53,6 @@ sudo -E pyroscope exec mongod
 sudo -E pyroscope connect -pid -1
 ```
 
-
 ### Dealing with [unknowns]
 
 eBPF relies on having debugging symbols available for each program installed in your system. If you don't have those you'll see a lot of stacktraces full of `[unknown]`s. On most systems you can get debugging symbols for most packages with `debuginfo-install` command:
@@ -44,6 +60,34 @@ eBPF relies on having debugging symbols available for each program installed in 
 ```shell
 sudo debuginfo-install -y <pkg>
 ```
+
+### Example
+
+Check out this [docker-compose example in our repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) for an example of how you can use eBPF integration.
+
+  </TabItem>
+  <TabItem value="kubernetes">
+
+#### Step 1. Install pyroscope server
+
+This will provision a pyroscope server in your cluster in `pyroscope` namespace.
+
+```shell
+kubectl apply -f https://pyroscope.io/k8s/pyroscope-server.yaml
+```
+
+#### Step 2. Install pyroscope agent
+
+This will install pyroscope eBPF agent on all of your nodes and start profiling applications across your cluster:
+
+```shell
+kubectl apply -f https://pyroscope.io/k8s/pyroscope-agent.yaml
+```
+
+
+
+  </TabItem>
+</Tabs>
 
 
 ### Future of our eBPF integration
