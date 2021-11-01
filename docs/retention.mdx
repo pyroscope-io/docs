@@ -1,0 +1,62 @@
+---
+id: data-retention
+title: Data retention
+sidebar_label: Data retention
+slug: /data-retention
+description: Install Pyroscope Agent on Ubuntu, Debian, CentOS, RHEL, Fedora, Amazon Linux
+keywords: [ pyroscope, retention, policy, configuration, downsampling ]
+---
+
+By default, Pyroscope stores data indefinitely without any downsampling, which can create storage concerns.
+Pyroscope offers two complementary approaches to manage data retention.
+
+## Time-based retention policy
+
+You can configure a specific period of time for which data will be stored in the Pyroscope configuration file. For example:
+```yaml
+retention: 720h # 30 days
+```
+
+:::note
+The standard [Go time duration format](https://pkg.go.dev/time#ParseDuration) is used.
+:::
+
+See the [server configuration](server-configuration) page for more details on the Pyroscope configuration file.
+
+Pyroscope periodically deletes data that has passed the threshold: the process can take some time and cause an increase
+in memory and CPU consumption, especially if the retention policy has been enabled for the first time.
+
+## Level-based retention policy
+
+Pyroscope stores profiling data in a specific structure called [_segment tree_](/docs/storage-design). This tree can be
+described as a multi-level structure where every level is an aggregation of the lower levels. Thus, at level 0 each
+element represents 10s time range, 100s at level 1, 1000s at level 2, and so forth.
+
+Segment nodes at levels 0 and 1 account for up to 90% of the disk space used, meanwhile those are accessed rarely, only
+when a narrow time range is queried. A natural solution is to keep the high precision raw data for only a limited time,
+and store the lower precision, summarized data longer.
+
+Level-based retention policy enables you to significantly reduce disk space requirements by downsampling. A retention
+period can be configured for every of the 3 lowest segment tree levels:
+
+```yaml
+retention-levels:
+ 0: 720h  # 30 days
+ 1: 2160h # 90 days
+ 2: 8760h # 365 days
+```
+
+Time-based and level-based retention policies can be used in-conjunction:
+
+```yaml
+retention: 8760h # 365 days
+retention-levels:
+ 0: 720h  # 30 days
+ 1: 2160h # 90 days
+```
+
+When a query targets deleted data from these levels, Pyroscope fetches downsampled data from the higher level
+of the affected segment tree node. Note that the data returned will be slightly less precise – although in
+practice the difference is insignificant, this fact should be taken into account.
+
+Visit [demo.pyroscope.io](https://demo.pyroscope.io) to see level-based retention policy in action.

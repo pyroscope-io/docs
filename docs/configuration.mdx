@@ -33,6 +33,7 @@ This is the easiest way to configure pyroscope. For the list of command line arg
 | max-nodes-render | 8192 | Max number of nodes used to display data on the frontend. |
 | hide-applications | [] | Please don't use, this will soon be deprecated. |
 | retention | 0s | Sets the maximum amount of time the profiling data is stored for. Data before this threshold is deleted. Disabled by default. |
+| retention-levels | {} | Specifies how long the profiling data is stored per aggregation level. Disabled by default. |
 <!-- /generate-sample-config -->
 
 ## Environment variables
@@ -107,6 +108,11 @@ hide-applications: []
 # Sets the maximum amount of time the profiling data is stored for. Data before this threshold is deleted. Disabled by default.
 retention: "0s"
 
+# Specifies how long the profiling data is stored per aggregation level. Disabled by default.
+retention-levels: {}
+# 0: 720h  # 30 days
+# 1: 2160h # 90 days
+
 # Metrics export rules.
 metrics-export-rules: {}
 
@@ -116,5 +122,8 @@ metrics-export-rules: {}
 ## Authentication
 See the [server authentication](auth-google) page for more details on how to add authentication to your Pyroscope server.
 
-### Metrics export rules
+## Data retention
+See the [data retention](data-retention) page for more details on how to configure retention policies.
+
+## Metrics export rules
 See the [metrics export](metrics-export) page for more details on how to export profiling data as Prometheus metrics.
