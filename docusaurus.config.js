@@ -1,7 +1,7 @@
 var extraPlugins;
 
 try {
-  extraPlugins = require('extra-plugins.js');
+  extraPlugins = require('./extra-plugins.js');
 } catch (e) {
   extraPlugins = [];
   console.log('no extra plugins');
