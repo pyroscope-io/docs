@@ -33,8 +33,8 @@ service unit command.
  * `pyroscope connect` attaches profiler to already running process specified by PID or operating system,
 if applicable (for example, `ebpf` integration).
 
- * `pyroscope agent` continuously tracks configured `targets` and attaches profilers to them. This command is
-primarily supposed to be run in the context of a service manager such as systemd or Windows Service Control Manager.
+ * `pyroscope agent` continuously tracks configured `targets` and attaches profilers to them. This command is only
+supported on Windows and it's primarily supposed to be run in the context of Windows Service Control Manager.
 
 Refer to [Configuration](/docs/agent-configuration-overview) page to learn more about each mode and how to configure
 **Pyroscop Agent**.
