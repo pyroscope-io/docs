@@ -75,6 +75,7 @@ module.exports = {
                   'auth-gitlab',
                 ]
               },
+              'data-retention',
               'metrics-export',
             ],
           },
