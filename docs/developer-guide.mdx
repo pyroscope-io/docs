@@ -77,8 +77,8 @@ make assets-watch
 make build
 ```
 
-:::caution
-if this command fails try building the binary without third party integrations:
+:::note
+If you have skipped step 3 (build third-party dependencies), you'll need to build the binary without third party integrations:
 ```
 ENABLED_SPIES=none make build
 ```
