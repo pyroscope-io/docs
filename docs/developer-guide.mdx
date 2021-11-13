@@ -68,8 +68,6 @@ make build-third-party-dependencies
 #### 4. Build web assets (JavaScript + SCSS code):
 ```shell
 make assets
-# to build assets in --watch mode use this command:
-make assets-watch
 ```
 
 #### 5. Builds the main binary, puts it in `bin/pyroscope`:
@@ -91,15 +89,22 @@ make server
 
 ---
 
-:::tip
-If you're going to be working on pyroscope a lot, consider using this command. It builds assets in watch mode + builds the main binary and starts the server all on one command:
+## Building pyroscope for local development
+
+If you're going to be working on pyroscope a lot, consider doing the following:
+
+(Only run these commands once)
+```shell
+make install-dev-tools
+make build-third-party-dependencies
+make install-web-dependencies
+```
+
+Then run
 ```shell
 make dev
 ```
-
-
-
-:::
+It builds assets in watch mode + builds the main binary and starts the server all on one command.
 
 ## Text Editors
 
