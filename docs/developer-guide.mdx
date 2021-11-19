@@ -5,6 +5,10 @@ sidebar_label: Developer Guide
 slug: /developer-guide
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
+
 This guide will help you get started developing Pyroscope.
 
 Pyroscope consists of 2 core components:
@@ -21,19 +25,92 @@ Make sure you have the following dependencies installed before setting up your d
 * rust (*optional, you'll only need it to work on Python and Ruby integrations*)
 * php (*optional, you'll only need it to work on PHP integration*)
 
-### Installing dependencies on macOS
+### Installing dependencies
 
-On macOS we recommend you to use [homebrew](https://brew.sh/) to manage dependencies:
+<Tabs
+  defaultValue="macos"
+  values={[
+    {label: 'macOS', value: 'macos'},
+    {label: 'Ubuntu', value: 'ubuntu'},
+    {label: 'Debian', value: 'debian'},
+    {label: 'CentOS/RHEL', value: 'centos'},
+    {label: 'Fedora', value: 'fedora'},
+  ]}>
 
-```shell
-brew install git
-brew install go
-brew install node
-brew install rust # optional
-brew install php  # optional
+  <TabItem value="macos">
+    On macOS we recommend you to use [homebrew](https://brew.sh/) to manage dependencies:
+    <CodeBlock className="language-shell">
+    {
+      "brew install git\n" +
+      "brew install go\n" +
+      "brew install node\n" +
+      "brew install rust # optional\n" +
+      "brew install php  # optional\n\n" +
+      "npm install -g yarn\n"
+    }
+    </CodeBlock>
+  </TabItem>
 
-npm install -g yarn
-```
+  <TabItem value="ubuntu">
+    :::note
+    These instructions are Ubuntu 20.04 LTS (Focal Fossa), which default Go version is lower than 1.16.
+    If you are using a later Ubuntu version the default golang package shoudl work fine.
+    :::
+
+    <CodeBlock className="language-shell">
+    {
+      "apt-get install git golang-1.16 make nodejs npm\n" +
+      "echo 'export PATH=/usr/lib/go-1.16/bin/:${PATH}' >> ~/.bashrc && . ~/.bashrc " +
+      "# Make Go 1.16 the default when running `go'\n\n" +
+      "apt-get install php-dev rustc # optional\n\n" +
+      "npm install -g yarn"
+    }
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="debian">
+    :::note
+    These instructions are Debian 11 "bullseye", which default Go version is lower than 1.16.
+    Go 1.16 is available through `bullseye-backports` source.
+    If you are using a later Debian version the default golang package shoudl work fine.
+    :::
+
+    <CodeBlock className="language-shell">
+    {
+      "# These first two steps can be skipped if bullseye-backports is already a source\n" +
+      "echo deb http://deb.debian.org/debian bullseye-backports main contrib >> /etc/apt/sources.list\n" +
+      "apt-get update\n\n" +
+      "apt-get install git golang-1.16 make nodejs npm\n" +
+      "echo 'export PATH=/usr/lib/go-1.16/bin/:${PATH}' >> ~/.bashrc && . ~/.bashrc" +
+      "# Make Go 1.16 the default when running `go'\n\n" +
+      "apt-get install libunwind8-dev php-dev rustc # optional\n\n" +
+      "npm install -g yarn\n"
+    }
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="centos">
+    <CodeBlock className="language-shell">
+    {
+      "yum install git golang make nodejs\n" +
+      "yum install php-devel cargo rustc # optional\n\n" +
+      "npm install -g yarn\n"
+    }
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="fedora">
+    <CodeBlock className="language-shell">
+    {
+      "dnf install git golang make nodejs\n" +
+      "dnf install cargo libunwind-devel php-devel # optional\n\n" +
+      "npm install -g yarn\n"
+    }
+    </CodeBlock>
+  </TabItem>
+
+</Tabs>
+
 
 ## Building pyroscope locally
 
