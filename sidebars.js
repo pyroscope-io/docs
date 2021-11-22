@@ -77,6 +77,7 @@ module.exports = {
               },
               'data-retention',
               'metrics-export',
+              'pull-mode',
             ],
           },
           {
