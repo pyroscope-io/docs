@@ -39,16 +39,17 @@ Make sure you have the following dependencies installed before setting up your d
 
   <TabItem value="macos">
     On macOS we recommend you to use <a href="https://brew.sh/">homebrew</a> to manage dependencies:
-    <CodeBlock className="language-shell">
-    {
-      "brew install git\n" +
-      "brew install go\n" +
-      "brew install node\n" +
-      "brew install rust # optional\n" +
-      "brew install php  # optional\n\n" +
-      "npm install -g yarn\n"
-    }
-    </CodeBlock>
+
+<CodeBlock className="language-shell">
+{
+  "brew install git\n" +
+  "brew install go\n" +
+  "brew install node\n" +
+  "brew install rust # optional\n" +
+  "brew install php  # optional\n\n" +
+  "npm install -g yarn\n"
+}
+</CodeBlock>
   </TabItem>
 
   <TabItem value="ubuntu">
@@ -58,15 +59,16 @@ These instructions are Ubuntu 20.04 LTS (Focal Fossa), which default Go version 
 If you are using a later Ubuntu version the default golang package shoudl work fine.
 :::
 
-    <CodeBlock className="language-shell">
-    {
-      "apt-get install git golang-1.16 make nodejs npm\n" +
-      "echo 'export PATH=/usr/lib/go-1.16/bin/:${PATH}' >> ~/.bashrc && . ~/.bashrc " +
-      "# Make Go 1.16 the default when running `go'\n\n" +
-      "apt-get install php-dev rustc # optional\n\n" +
-      "npm install -g yarn"
-    }
-    </CodeBlock>
+
+<CodeBlock className="language-shell">
+{
+  "apt-get install git golang-1.16 make nodejs npm\n" +
+  "echo 'export PATH=/usr/lib/go-1.16/bin/:${PATH}' >> ~/.bashrc && . ~/.bashrc " +
+  "# Make Go 1.16 the default when running `go'\n\n" +
+  "apt-get install php-dev rustc # optional\n\n" +
+  "npm install -g yarn"
+}
+</CodeBlock>
   </TabItem>
 
   <TabItem value="debian">
@@ -77,18 +79,18 @@ Go 1.16 is available through `bullseye-backports` source.
 If you are using a later Debian version the default golang package shoudl work fine.
 :::
 
-    <CodeBlock className="language-shell">
-    {
-      "# These first two steps can be skipped if bullseye-backports is already a source\n" +
-      "echo deb http://deb.debian.org/debian bullseye-backports main contrib >> /etc/apt/sources.list\n" +
-      "apt-get update\n\n" +
-      "apt-get install git golang-1.16 make nodejs npm\n" +
-      "echo 'export PATH=/usr/lib/go-1.16/bin/:${PATH}' >> ~/.bashrc && . ~/.bashrc" +
-      "# Make Go 1.16 the default when running `go'\n\n" +
-      "apt-get install libunwind8-dev php-dev rustc # optional\n\n" +
-      "npm install -g yarn\n"
-    }
-    </CodeBlock>
+<CodeBlock className="language-shell">
+{
+  "# These first two steps can be skipped if bullseye-backports is already a source\n" +
+  "echo deb http://deb.debian.org/debian bullseye-backports main contrib >> /etc/apt/sources.list\n" +
+  "apt-get update\n\n" +
+  "apt-get install git golang-1.16 make nodejs npm\n" +
+  "echo 'export PATH=/usr/lib/go-1.16/bin/:${PATH}' >> ~/.bashrc && . ~/.bashrc" +
+  "# Make Go 1.16 the default when running `go'\n\n" +
+  "apt-get install libunwind8-dev php-dev rustc # optional\n\n" +
+  "npm install -g yarn\n"
+}
+</CodeBlock>
   </TabItem>
 
   <TabItem value="centos">
