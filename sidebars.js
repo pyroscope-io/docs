@@ -86,8 +86,7 @@ module.exports = {
               'agent-configuration-overview',
               'agent-configuration-exec',
               'agent-configuration-connect',
-              'agent-configuration-agent',
-              'agent-configuration-adhoc',
+              'agent-configuration-agent'
             ],
           },
         ],
