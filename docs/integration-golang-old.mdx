@@ -1,0 +1,57 @@
+---
+id: integration-golang
+title: Go
+sidebar_label: Go
+slug: /golang-old
+description: Pyroscope Go profiling
+keywords: [ pyroscope, go, golang, profiling ]
+---
+
+:::warning
+This is an old version of golang integration documentation and is no longer supported. We keep it in case that for some reason you can't upgrade to the newer version. Please refer to [the new version](/docs/golang) if you're starting from scratch.
+:::
+
+---
+
+**Go** is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+Pyroscope uses the standard `runtime/pprof` package to collect profiling data. Refer to
+[the official documentation](https://golang.org/doc/diagnostics#profiling) for details.
+
+#### Supported platforms
+
+| Spy Name     | Type         | Linux | macOS | Windows | Docker |
+|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
+| n/a          | `standalone` |   ✅  |   ✅  |    ✅   |   ✅   |
+
+### Profiling Go application
+
+To start profiling a Go application, you need to include our go module in your app. Here's a code snippet:
+
+```go
+package main
+
+import "github.com/pyroscope-io/pyroscope/pkg/agent/profiler"
+
+func main() {
+  profiler.Start(profiler.Config{
+    ApplicationName: "simple.golang.app",
+
+    // replace this with the address of pyroscope server
+    ServerAddress:   "http://pyroscope-server:4040",
+
+    // by default all profilers are enabled,
+    // but you can select the ones you want to use:
+    ProfileTypes: []profiler.ProfileType{
+      profiler.ProfileCPU,
+      profiler.ProfileAllocObjects,
+      profiler.ProfileAllocSpace,
+      profiler.ProfileInuseObjects,
+      profiler.ProfileInuseSpace,
+    },
+  })
+
+  // your code goes here
+}
+```
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang) folder in our repository to learn more 🔥
