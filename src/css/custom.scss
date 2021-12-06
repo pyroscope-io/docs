@@ -149,6 +149,15 @@ $pc: #3DC1D3;
   --ifm-pre-background: var(--palette-midnight);
   --ifm-table-cell-padding: 0.15rem 1rem;
   --ifm-toc-border-color: var(--palette-white-10);
+
+
+
+  // overrides colors for alerts (admonitions), default ones don't look good on our dark background
+  // --ifm-color-note-contrast-background: #193c47 !important;
+  // --ifm-color-tip-contrast-background: #4b1113 !important;
+  --ifm-color-info-contrast-background: #2f758d !important;
+  --ifm-color-warning-contrast-background: #c99838 !important;
+  --ifm-color-danger-contrast-background: #a52328 !important;
 }
 
 .footer--dark {
