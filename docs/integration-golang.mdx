@@ -7,9 +7,9 @@ description: Pyroscope Go profiling
 keywords: [ pyroscope, go, golang, profiling ]
 ---
 
-**Go** is an open source programming language that makes it easy to build simple, reliable, and efficient software.
 Pyroscope uses the standard `runtime/pprof` package to collect profiling data. Refer to
 [the official documentation](https://golang.org/doc/diagnostics#profiling) for details.
+
 
 #### Supported platforms
 
@@ -19,28 +19,42 @@ Pyroscope uses the standard `runtime/pprof` package to collect profiling data. R
 
 ### Profiling Go application
 
-To start profiling a Go application, you need to include our go module in your app. Here's a code snippet:
+:::important
+This current version of the Go integration requires you to run pyroscope server version `0.3.1` or higher. It is better because it has less dependencies and better performance as it offloads more data processing to the server. We strongly recommend that you upgrade your golang integrations to use this new version, especially if you previously had issues adding pyroscope to your applications due to a large number of external dependencies. If for some reason you're not able to use the new version of golang integration, we make the old documentation available [here](/docs/golang-old).
+:::
+
+
+
+To start profiling a Go application, you need to include our go module in your app:
+```
+go get github.com/pyroscope-io/client/pyroscope
+```
+
+Then add the following code to your application:
 
 ```go
 package main
 
-import "github.com/pyroscope-io/pyroscope/pkg/agent/profiler"
+import "github.com/pyroscope-io/client/pyroscope"
 
 func main() {
-  profiler.Start(profiler.Config{
+  pyroscope.Start(pyroscope.Config{
     ApplicationName: "simple.golang.app",
 
     // replace this with the address of pyroscope server
     ServerAddress:   "http://pyroscope-server:4040",
 
+    // you can disable logging by setting this to nil
+    Logger:          pyroscope.StandardLogger,
+
     // by default all profilers are enabled,
     // but you can select the ones you want to use:
-    ProfileTypes: []profiler.ProfileType{
-      profiler.ProfileCPU,
-      profiler.ProfileAllocObjects,
-      profiler.ProfileAllocSpace,
-      profiler.ProfileInuseObjects,
-      profiler.ProfileInuseSpace,
+    ProfileTypes: []pyroscope.ProfileType{
+      pyroscope.ProfileCPU,
+      pyroscope.ProfileAllocObjects,
+      pyroscope.ProfileAllocSpace,
+      pyroscope.ProfileInuseObjects,
+      pyroscope.ProfileInuseSpace,
     },
   })
 
@@ -48,4 +62,34 @@ func main() {
 }
 ```
 
-Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang) folder in our repository to learn more 🔥
+### Tags
+
+It is possible to add tags (labels) to the profiling data. These tags can be used to filter the data in the UI. We have a custom API that's in line with our other integrations (e.g [Python](/docs/python) or [Ruby](/docs/ruby)) as well as go-native pprof api:
+
+```go
+// these two ways of adding tags are equivalent:
+pyroscope.TagWrapper(context.Background(), pyroscope.Labels("controller", "slow_controller"), func(c context.Context) {
+  slowCode()
+})
+
+pprof.Do(context.Background(), pprof.Labels("controller", "slow_controller"), func(c context.Context) {
+  slowCode()
+})
+```
+
+
+
+### Pull Mode
+
+Go integration supports pull mode, which means that you can profile applications without adding any extra code. For that to work you will need to make sure you have profiling routes (`/debug/pprof`) enabled in your http server. Generally, that means that you need to add `net/http/pprof` package:
+```go
+import _ "net/http/pprof"
+```
+
+
+* For information on how to use `net/http/pprof` refer to official [net/http/pprof documentation](https://pkg.go.dev/net/http/pprof).
+* For more information on how to set up pyroscope server to pull data from your applications, refer to [pull mode documentation](/docs/pull-mode).
+
+### Examples
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang) directory in our repository to learn more 🔥

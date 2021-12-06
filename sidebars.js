@@ -56,7 +56,6 @@ module.exports = {
       collapsed: true,
       items: [
         "server-api-reference",
-        "admin-server",
         {
           type: "category",
           label: "Server Configuration",
@@ -70,6 +69,7 @@ module.exports = {
             },
             "data-retention",
             "metrics-export",
+            "pull-mode",
           ],
         },
         {
@@ -80,7 +80,13 @@ module.exports = {
             "agent-configuration-exec",
             "agent-configuration-connect",
             "agent-configuration-agent",
+            "agent-configuration-adhoc",
           ],
+        },
+        {
+          type: "category",
+          label: "Admin Configuration",
+          items: ["admin-server", "admin-server-delete-app"],
         },
       ],
     },
