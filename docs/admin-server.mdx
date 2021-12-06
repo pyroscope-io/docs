@@ -1,7 +1,7 @@
 ---
 id: admin-server
 title: Pyroscope Admin Server
-sidebar_label: Admin Server
+sidebar_label: Overview
 slug: /admin-server
 description: Pyroscope Admin Server configuration
 keywords: [ pyroscope, admin, server, config, configure, configuration, setup, options ]
@@ -9,14 +9,17 @@ keywords: [ pyroscope, admin, server, config, configure, configuration, setup, o
 
 
 :::note
-This functionality is available starting from version TODO. Make sure to upgrade before you use this.
+This functionality is EXPERIMENTAL and available starting from version 0.3.1 under the `enableExperimentalAdmin` flag. Make sure to upgrade AND enable the feature before you use this.
 :::
 
-Pyroscope has an admin server for certain administration tasks. It uses HTTP over [unix domain sockets](https://en.wikipedia.org/wiki/Unix_domain_socket), which means you can interact either via our the `pyroscope admin` command or via the API directly.
+Pyroscope has an admin server for certain administration tasks. It uses HTTP over [unix domain sockets](https://en.wikipedia.org/wiki/Unix_domain_socket).
+Which means:
+* that you **MUST** have file system access to that socket (ie. access over the netork should not be possible)
+* that you can interact either via our the `pyroscope admin` command or via the API directly.
 
 
 ## Interacting via the CLI
-Our CLI has an `admin` subcommand that allows you to interact with the admin server. It even has autocomplete!
+The CLI has an `admin` subcommand that allows you to interact with the admin server. It even has autocomplete!
 
 From the same machine that's running the server, run:
 
@@ -36,7 +39,7 @@ curl --unix-socket /tmp/pyroscope.sock http://pyroscope/v1/apps
 
 ## Troubleshooting
 ### Failed to contact the admin socket server
-That happens when the admin server is not up. Check if you have its flag enabled (it should be enabled by default since version TODO).
+That happens when the admin server is not up. Check if you have its flag enabled.
 
 By default, the admin server will create a socket to `/tmp/pyroscope.sock`.
 
