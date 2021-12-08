@@ -1,0 +1,40 @@
+---
+id: admin-server-delete-app
+title: pyroscope admin delete app
+sidebar_label: Delete App
+slug: /admin-server-delete-app
+keywords: [ pyroscope, admin, server, delete ]
+---
+
+# Deleting an App
+
+To delete an app, run
+
+```shell
+$ pyroscope admin app delete $APP_NAME
+```
+
+You will be asked to confirm that app name:
+```
+> Are you sure you want to delete the app 'myapp'? This action can not be reversed.
+> Type 'myapp' to confirm (without quotes).
+myapp
+> Deleted app 'myapp'.
+```
+
+If you prefer to skip that validation, the `--force` flag can be used:
+
+```shell
+$ pyroscope admin app delete myapp --force
+> Deleted app 'myapp'.
+```
+
+By default, a timeout of **30 minutes** is used. You can overwrite that behaviour by passing the `--timeout` flag.
+
+```shell
+$ pyroscope admin app delete myapp --force --timeout=10s
+> Deleted app 'myapp'.
+```
+
+# Warnings
+The database will be locked for writes while performing that operation, which means that a lot of profiling data may be dropped depending on how long the command takes to run (although we try to minimize how long it holds the lock).

@@ -1,0 +1,68 @@
+---
+id: admin-server
+title: Pyroscope Admin Server
+sidebar_label: Overview
+slug: /admin-server
+description: Pyroscope Admin Server configuration
+keywords: [ pyroscope, admin, server, config, configure, configuration, setup, options ]
+---
+
+
+:::note
+Admin server is in early development stage and should be considered as a Feature Preview.
+
+This functionality is available starting from version 0.3.1 under the `enableExperimentalAdmin` flag. 
+:::
+
+:::warning
+The `enableExperimentalAdmin` flag will be **removed** in future releases. Use it at your own risk.
+:::
+
+Pyroscope has an admin server for certain administration tasks. It uses HTTP over [unix domain sockets](https://en.wikipedia.org/wiki/Unix_domain_socket).
+Which means:
+* that you **MUST** have file system access to that socket (ie. access over the netork should not be possible)
+* that you can interact either via our the `pyroscope admin` command or via the API directly.
+
+
+## Interacting via the CLI
+The CLI has an `admin` subcommand that allows you to interact with the admin server. It even has autocomplete!
+
+From the same machine that's running the server, run:
+
+```shell
+pyroscope admin app get
+```
+
+## Interacting via the API directly
+Although this is not the preferred method, it's still possible to do it. All you need is a HTTP client that can do HTTP over unix domain sockets. We recommend using curl, which supports it [since version 7.40](https://daniel.haxx.se/blog/2015/01/08/curl-7-40-0-unix-domain-sockets-and-smb/).
+
+From the same machine that's running the server, run:
+```shell
+curl --unix-socket /tmp/pyroscope.sock http://pyroscope/v1/apps
+```
+
+[See the complete API reference](#api-reference)
+
+## Troubleshooting
+### Failed to contact the admin socket server
+That happens when the admin server is not up. Check if you have its flag enabled.
+
+By default, the admin server will create a socket to `/tmp/pyroscope.sock`.
+
+Also keep in mind that the regular file system permission apply, so you should use either the **same user** that run the `pyroscope server` or `root`.
+
+### Can't start the server
+When starting a new instance, the cli checks if the socket exists, and if so, try to ping it.
+
+If the socket responds, it means there's already a server running. In that case you can either stop that other instance or create the socket in a different path (`--admin-socket-path`).
+
+If the socket exists but it's not responding, we try to take over. If it's still not possible, try to remove that socket manually.
+
+
+
+## API Reference
+
+| Name | Body | Description |
+| :- | :- | :- |
+| GET /v1/apps | | Get the list of all apps |
+| DELETE /v1/apps | `{ "name": "foo" }`| Delete an app |
