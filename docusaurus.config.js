@@ -153,6 +153,10 @@ module.exports = {
               to: '/blog',
             },
             {
+              label: 'Careers',
+              href: 'https://apply.workable.com/pyroscope/',
+            },
+            {
               label: 'Privacy Policy',
               href: '/privacy',
             },
