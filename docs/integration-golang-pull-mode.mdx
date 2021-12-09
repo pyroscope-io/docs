@@ -11,12 +11,8 @@ Modern observability systems generally fall into two categories: those where ser
 observability system pulls data from services. We find that both approaches are suitable: they both have advantages
 and disadvantages, and one of them can be more desirable than another under certain circumstances.
 
-Pyroscope server can operate in both Pull and Push modes. The current implementation makes extensive use of Prometheus
+Pyroscope server can operate in both Pull and [Push](/docs/golang) modes. The current implementation makes extensive use of Prometheus
 scrape and service discovery mechanisms. We express our deep gratitude to Prometheus team for their incredible work!
-
-:::note
-Pyroscope Pull mode is in early development stage and should be considered as a Feature Preview.
-:::
 
 ## Supported languages and platforms
 
