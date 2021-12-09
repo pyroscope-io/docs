@@ -40,6 +40,7 @@ module.exports = {
           items: [
             "agent-overview",
             "integration-golang",
+            "integration-golang-pull-mode",
             "integration-python",
             "integration-ebpf",
             "integration-java",
@@ -69,7 +70,6 @@ module.exports = {
             },
             "data-retention",
             "metrics-export",
-            "pull-mode",
           ],
         },
         {

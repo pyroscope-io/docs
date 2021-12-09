@@ -1,7 +1,7 @@
 ---
 id: integration-golang
 title: Go
-sidebar_label: Go
+sidebar_label: Golang (Push)
 slug: /golang
 description: Pyroscope Go profiling
 keywords: [ pyroscope, go, golang, profiling ]
@@ -20,12 +20,10 @@ Pyroscope uses the standard `runtime/pprof` package to collect profiling data. R
 ### Profiling Go application
 
 
-:::caution
-This current version of the Go integration requires you to run pyroscope server version `0.3.1` or higher.
-:::
 
 :::important
-It is better because it has less dependencies and better performance as it offloads more data processing to the server. We strongly recommend that you upgrade your golang integrations to use this new version, especially if you previously had issues adding pyroscope to your applications due to a large number of external dependencies. If for some reason you're not able to use the new version of golang integration, we make the old documentation available [here](/docs/golang-old).
+This current version of the Go integration requires you to run pyroscope server version `0.3.1` or higher.
+We strongly recommend you to upgrade your pyroscope server version and use this new version of the golang client. It reduces both the number of dependancies and peformance overhead. The old documentation is still available [here](/docs/golang-old).
 :::
 
 
