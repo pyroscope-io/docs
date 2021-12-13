@@ -29,6 +29,7 @@ Pyroscope team maintain and sign packages for the following Linux distributions:
     {label: 'CentOS/RHEL', value: 'centos'},
     {label: 'Fedora', value: 'fedora'},
     {label: 'Amazon Linux', value: 'amazon-linux'},
+    {label: 'Arch Linux', value: 'archlinux'},
   ]}>
 
   <TabItem value="ubuntu">
@@ -87,6 +88,15 @@ Pyroscope team maintain and sign packages for the following Linux distributions:
     <CodeBlock className="language-shell">
       {
         `sudo yum localinstall pyroscope-${Object.keys(packages.releases)[0].substr(1)}-1-x86_64.rpm`.replace(/^\s+/mg, "")
+      }
+    </CodeBlock>
+  </TabItem>
+
+  <TabItem value="archlinux">
+    Pyroscope is in <a href="https://aur.archlinux.org/packages/pyroscope-bin/">AUR</a>:
+    <CodeBlock className="language-shell">
+      {
+        "yay -S pyroscope-bin"
       }
     </CodeBlock>
   </TabItem>
