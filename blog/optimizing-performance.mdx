@@ -1,0 +1,112 @@
+---
+title: Optimizing Performance of Pyroscope with... Pyroscope
+sidebar_label: Optimizing Performance of Pyroscope
+slug: /optimizing-performance
+---
+
+## Overview
+
+Recently we releases a new feature that we call pull mode. It allows you to get profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. This was an often requested feature as a lot of people are already using prometheus where pull mode is the default.
+
+Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and even though in push mode pyroscope is usually capable of handling this kind of load, in pull mode it failed to do so.
+
+Implementing pull mode meant moving some of the data processing that we did on the client to the server so we immediately suspected that it might has something to do with that. Doing a little bit of work on 1000 clients was not a big deal, but now that it's all happening in one place it was taking up all the resources.
+
+## Identifying the issue
+
+By default, pyroscope profiles itself so when these kinds of issues happen we're usually able to quickly diagnose them.
+
+<div style={{ width: "100%", margin: "auto" }}>
+
+![screenshot of pyroscope showing the performance issue](https://user-images.githubusercontent.com/662636/146624710-0307eb84-772f-4b08-911a-26bd0d8ae7e6.png)
+
+</div>
+<center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing the performance issue</i></center>
+
+When we looked at the flamegraph, there were two functions that immediately stood out: `FindFunction` and `FindLocation`. They are part of the process of parsing data coming in in pprof format. There were other things that looked suspicious that we ended up improving as well, but in order to keep this blog post short we're not going to cover them here.
+
+Both functions do the same thing. Profiling data coming in pprof format includes arrays representing `functions` and `locations`. The objects in these arrays are identified by id, and they are typically come pre-sorted.
+
+<div style={{ width: "100%", margin: "auto", background: "rgba(255,255,255,0.33)", borderRadius: "10px" }}>
+
+![diagram of objects represented in pprof](https://pyroscope-public.s3.amazonaws.com/blog/pprof.dot.svg)
+
+</div>
+<center style={{margin:"-15px 20px 20px"}}><i>diagram of objects represented in pprof</i></center>
+
+<div></div>
+
+
+
+```go
+func FindFunction(x *Profile, fid uint64) (*Function, bool) {
+	idx := sort.Search(len(x.Function), func(i int) bool {
+		return x.Function[i].Id >= fid
+	})
+	if idx < len(x.Function) {
+		if f := x.Function[idx]; f.Id == fid {
+			return f, true
+		}
+	}
+	return nil, false
+}
+```
+
+And if you look closer at the functions they seem to be pretty optimized already — they use `sort.Search` which is a go implementation of [binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm). And what can be quicker than binary search?
+
+Turns out that we were calling these functions so many times that they actually took 40% of all CPU time.
+
+## First attempt at solving the issue
+
+In our first attempt at fixing the issue we tried a technique commonly known as caching. Instead of performing the binary search every time we needed to find a function, we cached the data in a hash map.
+
+That did improve the situation a little bit, but in a way we traded one relatively expensive operation (binary search) for another one (map lookups) that was slightly cheaper, but still expensive.
+
+<div style={{ width: "100%", margin: "auto" }}>
+
+![screenshot of pyroscope showing the impact of the first attempt at fixing the issue](https://user-images.githubusercontent.com/662636/146624710-0307eb84-772f-4b08-911a-26bd0d8ae7e6.png)
+
+</div>
+
+<center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing the impact of the first attempt at fixing the issue</i></center>
+
+## Second attempt at solving the issue
+
+As I mentioned earlier, objects in those arrays were usually sorted by ID. Upon closer inspection we found that not only were they sorted, but the IDs also started with 1 and each next object had ID of the previous one + 1. So if you wanted to get an object with ID of 10, you could just look at the object at position 9.
+
+Armed with this knowledge we rewrote these functions to simply lookup objects in the existing array by `their ID - 1`. As you can imagine, this essentially removed the need to do anything complicated to find objects and as a result made everything 40% faster.
+
+<div style={{ width: "100%", margin: "auto" }}>
+
+![screenshot of pyroscope showing that the issue was fixed](https://user-images.githubusercontent.com/80059/147078837-e711026d-0309-40fb-a32b-c24a52d31a55.png)
+
+</div>
+
+<center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing that the issue was fixed</i></center>
+
+## Continuous Benchmarking
+
+One technique we're using at Pyroscope is what we call continuous benchmarking. As part of the continuous integration process, we run a benchmark on each commit. It runs pyroscope server with some synthesized load and this allows us to catch any performance regressions as well as test assumptions when it comes to performance improvements.
+
+As the benchmark runs it collects various metrics about the performance of the server. These metrics provide a glance view of what's going on with the performance for each particular PR.
+
+For example, for the improvement discussed in this blog post the benchmark showed the following results:
+
+![screenshot of PR message](https://user-images.githubusercontent.com/662636/147839175-732c7a8f-eabd-4b4e-97eb-c40693be5b8e.png)
+<center style={{margin:"-15px 20px 20px"}}><i>screenshot of PR message</i></center>
+
+If you want to implement something like this for your own project, I welcome you to check out [the source code](https://github.com/pyroscope-io/pyroscope/tree/main/benchmark) of the benchmark suite.
+
+Currently we have the whole suite implemented in one docker-compose file with configuration happening via environment variables. Here's a diagram of different components involved in the process:
+
+![diagram of the continuous benchmarking integration](https://pyroscope-dima.s3.amazonaws.com/uploads/2021-12-31-13-24-36-BQQFLIKZFXLISIEW.svg)
+<center style={{margin:"-15px 20px 20px"}}><i>diagram of the continuous benchmarking integration</i></center>
+
+## Conclusion
+
+In this blog post we've showed you how to methodically address performance issues and also how to implement a practice of continuous benchmarking in your own projects.
+
+## Links
+
+* [Pull Request described here](https://github.com/pyroscope-io/pyroscope/pull/628)
+* [Benchmark suite](https://github.com/pyroscope-io/pyroscope/tree/main/benchmark)
