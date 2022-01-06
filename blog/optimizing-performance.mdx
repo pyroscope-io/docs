@@ -6,15 +6,19 @@ slug: /optimizing-performance
 
 ## Overview
 
-Recently we releases a new feature that we call pull mode. It allows you to get profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. This was an often requested feature as a lot of people are already using prometheus where pull mode is the default.
+Recently we released a new feature that we call pull mode. It allows you to get profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. This was an often requested feature as a lot of people are already using prometheus where pull mode is the default.
 
-Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and even though in push mode pyroscope is usually capable of handling this kind of load, in pull mode it failed to do so.
+![image describing the difference between push mode and pull mode](https://user-images.githubusercontent.com/23323466/148311629-942596e5-73f0-419d-a07e-3345908c56dc.png)
 
-Implementing pull mode meant moving some of the data processing that we did on the client to the server so we immediately suspected that it might has something to do with that. Doing a little bit of work on 1000 clients was not a big deal, but now that it's all happening in one place it was taking up all the resources.
+Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and about 1 TB of raw profiling data per day.
 
-## Identifying the issue
+In push mode, we've seen pyroscope handle similar amounts of traffic without issues. This is because in push mode pprof transcoding was done on each profiling target, and so the load was distributed across the many targets.
 
-By default, pyroscope profiles itself so when these kinds of issues happen we're usually able to quickly diagnose them.
+In pull mode, however, this transcoding logic was moved to the server, and thus no longer distributed across many targets. So, we immediately suspected that this performance regression might have something to do with the load increase on the pulling server.
+
+## Using profiling to spot performance issues in Go
+
+Pyroscope server is written in Golang and it continuously profiles itself. So, when these kinds of issues happen we're usually able to quickly find them.
 
 <div style={{ width: "100%", margin: "auto" }}>
 
@@ -23,26 +27,29 @@ By default, pyroscope profiles itself so when these kinds of issues happen we're
 </div>
 <center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing the performance issue</i></center>
 
-When we looked at the flamegraph, there were two functions that immediately stood out: `FindFunction` and `FindLocation`. They are part of the process of parsing data coming in in pprof format. There were other things that looked suspicious that we ended up improving as well, but in order to keep this blog post short we're not going to cover them here.
+On this screenshot you can see that the 2 functions that take up a lot of time are `FindFunction` and `FindLocation`. Pyroscope transcodes each pprof profile into an internal flamegraph format and these functions are called as part of that process.
 
-Both functions do the same thing. Profiling data coming in pprof format includes arrays representing `functions` and `locations`. The objects in these arrays are identified by id, and they are typically come pre-sorted.
+In order to understand why they're taking a lot of time let's see what a pprof object looks like:
 
 <div style={{ width: "100%", margin: "auto", background: "rgba(255,255,255,0.33)", borderRadius: "10px" }}>
 
-![diagram of objects represented in pprof](https://pyroscope-public.s3.amazonaws.com/blog/pprof.dot.svg)
+
+![anatomy of a pprof profile](https://user-images.githubusercontent.com/23323466/147887879-84058c51-5be4-4ccc-8c37-6784ddfc577d.png)
 
 </div>
-<center style={{margin:"-15px 20px 20px"}}><i>diagram of objects represented in pprof</i></center>
+<center style={{margin:"-15px 20px 20px"}}><i>anatomy of a pprof profile</i></center>
 
-<div></div>
+Note that `location` and `function` fields are actually arrays, containing the locations and functions respectively. The objects in these arrays are identified by `ID`s.
 
-
+`FindFunction` and `FindLocation` functions are almost identical and they both go over their respective arrays searching for objects by `ID`s.
 
 ```go
 func FindFunction(x *Profile, fid uint64) (*Function, bool) {
+	// this sort.Search function is the expensive part
 	idx := sort.Search(len(x.Function), func(i int) bool {
 		return x.Function[i].Id >= fid
 	})
+
 	if idx < len(x.Function) {
 		if f := x.Function[idx]; f.Id == fid {
 			return f, true
@@ -52,15 +59,15 @@ func FindFunction(x *Profile, fid uint64) (*Function, bool) {
 }
 ```
 
-And if you look closer at the functions they seem to be pretty optimized already — they use `sort.Search` which is a go implementation of [binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm). And what can be quicker than binary search?
+And if you look closer at the functions they seem to be pretty optimized already — they use `sort.Search` which is a go implementation of [binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm). We initially *assumed* that binary search would be the fastest here, because it's typically the fastest way to search for an element in a sorted array.
 
-Turns out that we were calling these functions so many times that they actually took 40% of all CPU time.
+However, looking at the flamegraph, this was the bottleneck that was slowing down the whole system.
 
-## First attempt at solving the issue
+## Performance Improvement Attempt 1: When all else fails... Cache it!
 
-In our first attempt at fixing the issue we tried a technique commonly known as caching. Instead of performing the binary search every time we needed to find a function, we cached the data in a hash map.
+In our first attempt at fixing the issue we tried to use caching. Instead of performing the binary search every time we needed to find a function, we cached the data in a hash map.
 
-That did improve the situation a little bit, but in a way we traded one relatively expensive operation (binary search) for another one (map lookups) that was slightly cheaper, but still expensive.
+That did improve the performance a little bit, but really we just traded one relatively expensive operation (binary search) for another one (map lookups) that was slightly cheaper, but still expensive.
 
 <div style={{ width: "100%", margin: "auto" }}>
 
@@ -68,13 +75,17 @@ That did improve the situation a little bit, but in a way we traded one relative
 
 </div>
 
-<center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing the impact of the first attempt at fixing the issue</i></center>
+<center style={{margin:"-15px 20px 20px"}}><i>TODO explain screenshot</i></center>
 
 ## Second attempt at solving the issue
 
-As I mentioned earlier, objects in those arrays were usually sorted by ID. Upon closer inspection we found that not only were they sorted, but the IDs also started with 1 and each next object had ID of the previous one + 1. So if you wanted to get an object with ID of 10, you could just look at the object at position 9.
+As I mentioned earlier, objects in `function` and `location` arrays were sorted by `ID`. Upon closer inspection, we discovered that not only were the arrays sorted, but the `ID`s also started at 1 and ascended in consecutive numerical order (`1,2,3,4,5`). So if you wanted to get an object with ID of 10, you look at the object at position 9.
 
-Armed with this knowledge we rewrote these functions to simply lookup objects in the existing array by `their ID - 1`. As you can imagine, this essentially removed the need to do anything complicated to find objects and as a result made everything 40% faster.
+<!-- (TODO: ask Anton about pprof spec) -->
+
+So, although we initially thought binary search was the fastest way to find `function`s and `location`s in their respective arrays, it turned out that we could eliminate the need to search altogether by referencing objects by their `ID – 1`.
+
+This resulted in complete removal of the performance overhead caused by `FindFunction` and `FindLocation` functions.
 
 <div style={{ width: "100%", margin: "auto" }}>
 
@@ -82,7 +93,7 @@ Armed with this knowledge we rewrote these functions to simply lookup objects in
 
 </div>
 
-<center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing that the issue was fixed</i></center>
+<center style={{margin:"-15px 20px 20px"}}><i>TODO: explain what happened</i></center>
 
 ## Continuous Benchmarking
 
