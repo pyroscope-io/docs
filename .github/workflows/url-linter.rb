@@ -47,7 +47,8 @@ end
 puts "warnings:"
 puts warnings.map(&:yellow)
 
-exit 1 if errors.any?
 
 puts "errors:"
 puts errors.map(&:red)
+
+exit 1 if errors.any?
