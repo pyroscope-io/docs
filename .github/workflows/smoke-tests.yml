@@ -18,6 +18,6 @@ jobs:
         run: yarn build
 
       - name: install gems
-        run: gem install http colorize
+        run: sudo gem install http colorize
       - name: run url linter
         run: .github/workflows/url-linter.rb
