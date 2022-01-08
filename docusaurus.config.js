@@ -12,10 +12,11 @@ module.exports = {
   tagline: 'Debug performance issues down to a single line of code',
   url: 'https://pyroscope.io',
   baseUrl: '/',
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
   organizationName: 'pyroscope-io', // Usually your GitHub org/user name.
   projectName: 'pyroscope', // Usually your repo name.
+  trailingSlash: false,
   customFields: {
     apiAddress: process.env.API_ADDRESS || 'https://pyroscope.io', // Usually your repo name.
   },

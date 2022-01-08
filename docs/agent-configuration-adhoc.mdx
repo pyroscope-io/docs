@@ -33,7 +33,7 @@ The different supported ways are:
 - `push`. Pyroscope creates a different process for the profiled program
   and launches an HTTP server with an ingestion endpoint.
   It's useful to profile programs already integrated with Pyroscope using its
-  [HTTP API](docs/server-api-reference#http-api).
+  [HTTP API](server-api-reference.mdx#http-api).
   Push mode is used by default when no spy is detected and no `--url` flag is
   provided. It can also be override the default exec mode with the `--push` flag.
 - `pull`. This is the adhoc version of pull-mode,

@@ -1,0 +1,23 @@
+name: Smoke Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: install dependencies
+        run: yarn install
+
+      - name: ensure docusaurus can build
+        run: yarn build
+
+      - name: install gems
+        run: gem install http colorize
+      - name: run url linter
+        run: .github/workflows/url-linter.rb
