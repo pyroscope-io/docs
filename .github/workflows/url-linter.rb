@@ -27,7 +27,7 @@ puts added_urls.map(&:green)
 puts "removed urls:"
 puts removed_urls.map(&:red)
 
-if removed_urls
+unless removed_urls.empty?
   errors << "Looks like you deleted some pages. This has negative SEO implications. Deleted pages: #{removed_urls.inspect}"
 end
 
