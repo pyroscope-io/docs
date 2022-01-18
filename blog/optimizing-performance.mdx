@@ -8,7 +8,7 @@ slug: /optimizing-performance
 
 Recently we released a new feature that we call pull mode. It allows you to get profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. This was an often requested feature as a lot of people are already using prometheus where pull mode is the default.
 
-![image describing the difference between push mode and pull mode](https://user-images.githubusercontent.com/23323466/148311629-942596e5-73f0-419d-a07e-3345908c56dc.png)
+![push_vs_pull_diagram_07](https://user-images.githubusercontent.com/23323466/149289440-564c6e34-03cb-496d-bddc-faa96d075ced.gif)
 
 Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and about 1 TB of raw profiling data per day.
 
