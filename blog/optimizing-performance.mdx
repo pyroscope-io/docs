@@ -8,7 +8,7 @@ slug: /optimizing-performance
 
 Recently we released a new feature that we call pull mode. It allows you to get profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. This was an often requested feature as a lot of people are already using prometheus where pull mode is the default.
 
-![image describing the difference between push mode and pull mode](https://user-images.githubusercontent.com/23323466/148311629-942596e5-73f0-419d-a07e-3345908c56dc.png)
+![push_vs_pull_diagram_07](https://user-images.githubusercontent.com/23323466/149289440-564c6e34-03cb-496d-bddc-faa96d075ced.gif)
 
 Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and about 1 TB of raw profiling data per day.
 
@@ -94,24 +94,6 @@ This resulted in complete removal of the performance overhead caused by `FindFun
 </div>
 
 <center style={{margin:"-15px 20px 20px"}}><i>TODO: explain what happened</i></center>
-
-## Continuous Benchmarking
-
-One technique we're using at Pyroscope is what we call continuous benchmarking. As part of the continuous integration process, we run a benchmark on each commit. It runs pyroscope server with some synthesized load and this allows us to catch any performance regressions as well as test assumptions when it comes to performance improvements.
-
-As the benchmark runs it collects various metrics about the performance of the server. These metrics provide a glance view of what's going on with the performance for each particular PR.
-
-For example, for the improvement discussed in this blog post the benchmark showed the following results:
-
-![screenshot of PR message](https://user-images.githubusercontent.com/662636/147839175-732c7a8f-eabd-4b4e-97eb-c40693be5b8e.png)
-<center style={{margin:"-15px 20px 20px"}}><i>screenshot of PR message</i></center>
-
-If you want to implement something like this for your own project, I welcome you to check out [the source code](https://github.com/pyroscope-io/pyroscope/tree/main/benchmark) of the benchmark suite.
-
-Currently we have the whole suite implemented in one docker-compose file with configuration happening via environment variables. Here's a diagram of different components involved in the process:
-
-![diagram of the continuous benchmarking integration](https://pyroscope-dima.s3.amazonaws.com/uploads/2021-12-31-13-24-36-BQQFLIKZFXLISIEW.svg)
-<center style={{margin:"-15px 20px 20px"}}><i>diagram of the continuous benchmarking integration</i></center>
 
 ## Conclusion
 
