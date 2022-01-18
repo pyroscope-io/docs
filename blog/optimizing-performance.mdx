@@ -1,5 +1,5 @@
 ---
-title: Optimizing Performance of Pyroscope with... Pyroscope
+title: What Happens when you Profiler a Profiler
 sidebar_label: Optimizing Performance of Pyroscope
 slug: /optimizing-performance
 ---
@@ -22,7 +22,7 @@ Pyroscope server is written in Golang and it continuously profiles itself. So, w
 
 <div style={{ width: "100%", margin: "auto" }}>
 
-![screenshot of pyroscope showing the performance issue](https://user-images.githubusercontent.com/662636/146624710-0307eb84-772f-4b08-911a-26bd0d8ae7e6.png)
+![screenshot of pyroscope showing the performance issue](https://user-images.githubusercontent.com/662636/149874240-438e017e-3c99-457f-963b-9d91d2a586ec.png)
 
 </div>
 <center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing the performance issue</i></center>
@@ -71,11 +71,11 @@ That did improve the performance a little bit, but really we just traded one rel
 
 <div style={{ width: "100%", margin: "auto" }}>
 
-![screenshot of pyroscope showing the impact of the first attempt at fixing the issue](https://user-images.githubusercontent.com/662636/146624710-0307eb84-772f-4b08-911a-26bd0d8ae7e6.png)
+![](https://user-images.githubusercontent.com/662636/149875102-d01f11cd-07a3-4f52-8c3a-3bc1c2d6e9e1.png)
 
 </div>
 
-<center style={{margin:"-15px 20px 20px"}}><i>TODO explain screenshot</i></center>
+<center style={{margin:"-15px 20px 20px"}}><i><code>tree.FindLocation</code> and <code>tree.FindFunction</code> are gone, but now we have <code>runtime.mapaccess2_fast64</code></i></center>
 
 ## Second attempt at solving the issue
 
