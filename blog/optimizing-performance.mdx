@@ -1,5 +1,5 @@
 ---
-title: What Happens when you Profiler a Profiler
+title: What Happens when you Profile a Profiler
 sidebar_label: Optimizing Performance of Pyroscope
 slug: /optimizing-performance
 ---
@@ -38,28 +38,29 @@ So, we immediately suspected that this performance regression might have somethi
 
 Pyroscope server is written in Golang and it continuously profiles itself. So, when these kinds of issues happen we're usually able to quickly find them.
 
+On this screenshot you can see that the 2 functions that take up a lot of time are `FindFunction` and `FindLocation`. When Pyroscope transcodes pprof profiles into an internal flamegraph format these functions are called as part of that process.
+However, it seemed suspicious that such simple functions were consuming so much CPU time.
+
 <div style={{ width: "100%", margin: "auto" }}>
 
 ![screenshot of pyroscope showing the performance issue](https://user-images.githubusercontent.com/662636/149874240-438e017e-3c99-457f-963b-9d91d2a586ec.png)
 
 </div>
-<center style={{margin:"-15px 20px 20px"}}><i>screenshot of pyroscope showing the performance issue</i></center>
+<center style={{margin:"-15px 20px 20px"}}><i>`FindFunction` and `FindLocation` consume a significant amount of CPU</i></center>
 
-On this screenshot you can see that the 2 functions that take up a lot of time are `FindFunction` and `FindLocation`. Pyroscope transcodes each pprof profile into an internal flamegraph format and these functions are called as part of that process.
 
-In order to understand why they're taking a lot of time let's see what a pprof object looks like:
-
+To understand what it taks to "find" `Location` and `Function` we looked up how pprof objects are structured:
 <div style={{ width: "100%", margin: "auto", background: "rgba(255,255,255,0.33)", borderRadius: "10px" }}>
 
 
 ![anatomy of a pprof profile](https://user-images.githubusercontent.com/23323466/147887879-84058c51-5be4-4ccc-8c37-6784ddfc577d.png)
 
 </div>
-<center style={{margin:"-15px 20px 20px"}}><i>anatomy of a pprof profile</i></center>
+<center style={{margin:"-15px 20px 20px"}}><i>The id field for both Location and Function arrays ascend in consecutive numerical order for each new object</i></center>
 
 Note that `location` and `function` fields are actually arrays, containing the locations and functions respectively. The objects in these arrays are identified by `ID`s.
 
-`FindFunction` and `FindLocation` functions are almost identical and they both go over their respective arrays searching for objects by `ID`s.
+`FindFunction` and `FindLocation` functions are almost identical and they both search through their respective arrays searching for objects by `ID`s.
 
 ```go
 func FindFunction(x *Profile, fid uint64) (*Function, bool) {
@@ -77,25 +78,25 @@ func FindFunction(x *Profile, fid uint64) (*Function, bool) {
 }
 ```
 
-And if you look closer at the functions they seem to be pretty optimized already — they use `sort.Search` which is a go implementation of [binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm). We initially *assumed* that binary search would be the fastest here, because it's typically the fastest way to search for an element in a sorted array.
+And if you look closer at the functions they seem to be pretty optimized already — they use `sort.Search` which is a Golang implementation of [binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm). We initially *assumed* that binary search would be the fastest here, because it's typically the fastest way to search for an element in a sorted array.
 
 However, looking at the flamegraph, this was the bottleneck that was slowing down the whole system.
 
-## Performance Improvement Attempt 1: When all else fails... Cache it!
+## Performance Optimization #1: Caching the data in a hash map
 
 In our first attempt at fixing the issue we tried to use caching. Instead of performing the binary search every time we needed to find a function, we cached the data in a hash map.
 
-That did improve the performance a little bit, but really we just traded one relatively expensive operation (binary search) for another one (map lookups) that was slightly cheaper, but still expensive.
+That did improve the performance a little bit, but we only traded one relatively expensive operation (binary search - Green) for another one (map lookups - Red) that used slightly less CPU, but still were expensive.
 
 <div style={{ width: "100%", margin: "auto" }}>
 
-![](https://user-images.githubusercontent.com/662636/149875102-d01f11cd-07a3-4f52-8c3a-3bc1c2d6e9e1.png)
+![second_fg_image](https://user-images.githubusercontent.com/23323466/150471936-05090ee0-a962-4699-94d0-a18f3168f7cc.png)
 
 </div>
 
-<center style={{margin:"-15px 20px 20px"}}><i><code>tree.FindLocation</code> and <code>tree.FindFunction</code> are gone, but now we have <code>runtime.mapaccess2_fast64</code></i></center>
+<center style={{margin:"-15px 20px 20px"}}><i>The green nodes are functions where we decreased CPU usage and the red nodes are functions where we added CPU usage for this optimization. While we removed <code>FindName</code> and <code>FindLocation</code>, we added <code>runtime.mapaccess2_fast64</code></i></center>
 
-## Second attempt at solving the issue
+## Performance Optimization #2: Eliminating the need for binary search
 
 As I mentioned earlier, objects in `function` and `location` arrays were sorted by `ID`. Upon closer inspection, we discovered that not only were the arrays sorted, but the `ID`s also started at 1 and ascended in consecutive numerical order (`1,2,3,4,5`). So if you wanted to get an object with ID of 10, you look at the object at position 9.
 
@@ -107,15 +108,21 @@ This resulted in complete removal of the performance overhead caused by `FindFun
 
 <div style={{ width: "100%", margin: "auto" }}>
 
-![Screen Shot 2022-01-17 at 11 07 24 PM](https://user-images.githubusercontent.com/662636/149887746-91d4c4fe-274d-4d13-b386-61c192a01c48.png)
-
+![third_fg_image](https://user-images.githubusercontent.com/23323466/150475638-d85225d1-030c-4112-ba11-50a0b9e570b1.png)
 </div>
 
-<center style={{margin:"-15px 20px 20px"}}><i>TODO: explain what happened</i></center>
+<center style={{margin:"-15px 20px 20px"}}><i>The green nodes are functions where we decreased CPU usage and the red nodes are functions where we added CPU usage for this optimization. We removed <code>FindName</code> and <code>FindLocation</code> and also removed <code>runtime.mapaccess2_fast64</code></i></center>
 
-## Conclusion
+## What happens when you profile a profiler?
 
-In this blog post we've showed you how to methodically address performance issues and also how to implement a practice of continuous benchmarking in your own projects.
+In retrospect, we probably should have _started_ with looking at the specifications for a pprof object before assuming that binary search was the best way to find objects.
+But we wouldn't have even know to look at the specifications until we started profiling our own code.
+
+It's just the nature of developing software that as complexity increases over time, more performance issues sneak their way into the codebase. 
+
+However, with continuous profiling enabled, it allows you to spot these performance issues in your code and understand which parts of your code are consuming the most resources. 
+
+If you'd like to learn more about how to get started with Pyroscope and learn where your code's bottleneck is, check out the [Pyroscope documentation](/docs/installing-pyroscope-overview).
 
 ## Links
 
