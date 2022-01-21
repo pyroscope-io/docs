@@ -6,15 +6,33 @@ slug: /optimizing-performance
 
 ## Overview
 
-Recently we released a new feature that we call pull mode. It allows you to get profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. This was an often requested feature as a lot of people are already using prometheus where pull mode is the default.
+Recently we released a new feature where users can run Pyroscope in **pull mode**. It allows you to pull profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. 
+
+For Pyroscope, the difference between push and pull mode is that:
+- **Push mode**: Sends a `POST` request with profiling data from the application to the Pyroscope server and return a simple response
+- **Pull mode**: Pyroscope sends a `GET` request to targets (identified in config file) and the targets return profiling data in the response.
 
 ![push_vs_pull_diagram_07](https://user-images.githubusercontent.com/23323466/149289440-564c6e34-03cb-496d-bddc-faa96d075ced.gif)
 
-Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and about 1 TB of raw profiling data per day.
+One of the major benefits of pull mode is creating meaningful tags. For example, in Kubernetes workflows you can tag profiles with popular metadata fields:
+- **pod_name**: Name of the pod
+- **container_name**: Name of the container
+- **namespace**: Namespace of the pod
+- **service_name**: Name of the service
+- etc
 
-In push mode, we've seen pyroscope handle similar amounts of traffic without issues. This is because in push mode pprof transcoding was done on each profiling target, and so the load was distributed across the many targets.
+Then using Pyroscope's query language, [FlameQL](/docs/flameql), you can filter profiles by those tags over time to see where the application is spending most of its time.
 
-In pull mode, however, this transcoding logic was moved to the server, and thus no longer distributed across many targets. So, we immediately suspected that this performance regression might have something to do with the load increase on the pulling server.
+Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and about **1 TB of raw profiling data per day**, but their Pyroscope server was running into some performance issues. 
+
+This was surprising to us because in push mode, we've seen pyroscope handle similar amounts of traffic without issues. Therefore, we suspected that the performance issue had to do with one of the key architectural difference between push mode and pull mode. 
+
+While `pprof` is a great format for representing profiling data, but it's not the most optimal format when it comes to storing profiling data. So, we transcode `pprof` into our internal format that we optimized for storage in our [custom storage engine](/docs/storage-design).
+- **Push mode**: In push mode pprof transcoding is done on each profiling target so the load was distributed across many targets
+- **Pull mode**: In pull mode we moved pprof transcoding to the server side so the load was distributed across only one target
+
+So, we immediately suspected that this performance regression might have something to do with the load increase on the pulling server.
+![pprof_transcoding_04](https://user-images.githubusercontent.com/23323466/150457067-3f62aa87-e05b-48d2-821e-6d2770155f9c.gif)
 
 ## Using profiling to spot performance issues in Go
 
