@@ -27,7 +27,7 @@ Early on we had a user who ran pyroscope in pull mode with about a thousand of p
 
 This was surprising to us because in push mode, we've seen pyroscope handle similar amounts of traffic without issues. Therefore, we suspected that the performance issue had to do with one of the key architectural difference between push mode and pull mode. 
 
-While `pprof` is a great format for representing profiling data, but it's not the most optimal format when it comes to storing profiling data. So, we transcode `pprof` into our internal format that we optimized for storage in our [custom storage engine](/docs/storage-design).
+While `pprof` is a great format for representing profiling data, it's not the most optimal format when it comes to storing profiling data. So, we transcode `pprof` into our internal format that we optimized for storage in our [custom storage engine](/docs/storage-design).
 - **Push mode**: In push mode pprof transcoding is done on each profiling target so the load was distributed across many targets
 - **Pull mode**: In pull mode we moved pprof transcoding to the server side so the load was distributed across only one target
 
