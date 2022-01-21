@@ -32,6 +32,7 @@ While `pprof` is a great format for representing profiling data, it's not the mo
 - **Pull mode**: In pull mode we moved pprof transcoding to the server side so the load was distributed across only one target
 
 So, we immediately suspected that this performance regression might have something to do with the load increase on the pulling server.
+
 ![pprof_transcoding_04](https://user-images.githubusercontent.com/23323466/150457067-3f62aa87-e05b-48d2-821e-6d2770155f9c.gif)
 
 ## Using profiling to spot performance issues in Go
