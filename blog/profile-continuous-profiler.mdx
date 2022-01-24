@@ -1,0 +1,132 @@
+---
+title: What happens when you profile a continuous profiler?
+sidebar_label: Optimizing Performance of Pyroscope Server
+slug: /profile-continuous-profiler
+date: "2022-01-24"
+---
+
+## Overview
+
+Recently we released a new feature where users can run Pyroscope in **pull mode**. It allows you to pull profiling data from applications and it has various discovery mechanisms so that you can easily integrate with things like kubernetes and start profiling all of your pods with minimum setup. 
+
+For Pyroscope, the difference between push and pull mode is that:
+- **Push mode**: Sends a `POST` request with profiling data from the application to the Pyroscope server and return a simple response
+- **Pull mode**: Pyroscope sends a `GET` request to targets (identified in config file) and the targets return profiling data in the response.
+
+![push_vs_pull_diagram_07](https://user-images.githubusercontent.com/23323466/149289440-564c6e34-03cb-496d-bddc-faa96d075ced.gif)
+
+One of the major benefits of pull mode is creating meaningful tags. For example, in Kubernetes workflows you can tag profiles with popular metadata fields:
+- **pod_name**: Name of the pod
+- **container_name**: Name of the container
+- **namespace**: Namespace of the pod
+- **service_name**: Name of the service
+- etc
+
+Then using Pyroscope's query language, [FlameQL](/docs/flameql), you can filter profiles by those tags over time to see where the application is spending most of its time.
+
+Early on we had a user who ran pyroscope in pull mode with about a thousand of profiling targets and about **1 TB of raw profiling data per day**, but their Pyroscope server was running into some performance issues. 
+
+This was surprising to us because in push mode, we've seen pyroscope handle similar amounts of traffic without issues. Therefore, we suspected that the performance issue had to do with one of the key architectural difference between push mode and pull mode. 
+
+While `pprof` is a great format for representing profiling data, it's not the most optimal format when it comes to storing profiling data. So, we transcode `pprof` into our internal format that we optimized for storage in our [custom storage engine](/docs/storage-design).
+- **Push mode**: In push mode pprof transcoding is done on each profiling target so the load was distributed across many targets
+- **Pull mode**: In pull mode we moved pprof transcoding to the server side so the load was distributed across only one target
+
+So, we immediately suspected that this performance regression might have something to do with the load increase on the pulling server.
+
+![pprof_transcoding_04](https://user-images.githubusercontent.com/23323466/150457067-3f62aa87-e05b-48d2-821e-6d2770155f9c.gif)
+
+## Using profiling to spot performance issues in Go
+
+Pyroscope server is written in Golang and it continuously profiles itself. So, when these kinds of issues happen we're usually able to quickly find them.
+
+On this screenshot you can see that the 2 functions that take up a lot of time are `FindFunction` and `FindLocation`. When Pyroscope transcodes pprof profiles into an internal flamegraph format these functions are called as part of that process.
+However, it seemed suspicious that such simple functions were consuming so much CPU time.
+
+<div style={{ width: "100%", margin: "auto" }}>
+
+![screenshot of pyroscope showing the performance issue](https://user-images.githubusercontent.com/662636/149874240-438e017e-3c99-457f-963b-9d91d2a586ec.png)
+
+</div>
+<center style={{margin:"-15px 20px 20px"}}><i><code>FindFunction</code> and <code>FindLocation</code> consume a significant amount of CPU</i></center>
+
+
+To understand the necessary elements to "find" `Location` and `Function` we looked up how pprof objects are structured:
+<div style={{ width: "100%", margin: "auto", background: "rgba(255,255,255,0.33)", borderRadius: "10px" }}>
+
+
+![anatomy of a pprof profile](https://user-images.githubusercontent.com/23323466/147887879-84058c51-5be4-4ccc-8c37-6784ddfc577d.png)
+
+</div>
+<center style={{margin:"-15px 20px 20px"}}><i>The id field for both Location and Function arrays ascend in consecutive numerical order for each new object</i></center>
+
+Note that `location` and `function` fields are actually arrays, containing the locations and functions respectively. The objects in these arrays are identified by `ID`s.
+
+`FindFunction` and `FindLocation` functions are almost identical and they both search through their respective arrays searching for objects by `ID`s.
+
+```go
+func FindFunction(x *Profile, fid uint64) (*Function, bool) {
+	// this sort.Search function is the expensive part
+	idx := sort.Search(len(x.Function), func(i int) bool {
+		return x.Function[i].Id >= fid
+	})
+
+	if idx < len(x.Function) {
+		if f := x.Function[idx]; f.Id == fid {
+			return f, true
+		}
+	}
+	return nil, false
+}
+```
+
+And if you look closer at the functions they seem to be pretty optimized already — they use `sort.Search` which is a Golang implementation of [binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm). We initially *assumed* that binary search would be the fastest here, because it's typically the fastest way to search for an element in a sorted array.
+
+However, looking at the flamegraph, this was the bottleneck that was slowing down the whole system.
+
+## Performance Optimization #1: Caching the data in a hash map
+
+In our first attempt at fixing the issue we tried to use caching. Instead of performing the binary search every time we needed to find a function, we cached the data in a hash map.
+
+That did improve the performance a little bit, but we only traded one relatively expensive operation (binary search - Green) for another one (map lookups - Red) that used slightly less CPU, but still were expensive.
+
+<div style={{ width: "100%", margin: "auto" }}>
+
+![second_fg_image](https://user-images.githubusercontent.com/23323466/150471936-05090ee0-a962-4699-94d0-a18f3168f7cc.png)
+
+</div>
+
+<center style={{margin:"-15px 20px 20px"}}><i>The green nodes are functions where we decreased CPU usage and the red nodes are functions where we added CPU usage for this optimization. While we removed <code>FindName</code> and <code>FindLocation</code>, we added <code>runtime.mapaccess2_fast64</code></i></center>
+
+## Performance Optimization #2: Eliminating the need for binary search
+
+As I mentioned earlier, objects in `function` and `location` arrays were sorted by `ID`. Upon closer inspection, we discovered that not only were the arrays sorted, but the `ID`s also started at 1 and ascended in consecutive numerical order (`1,2,3,4,5`). So if you wanted to get an object with ID of 10, you look at the object at position 9.
+
+<!-- (TODO: ask Anton about pprof spec) -->
+
+So, although we initially thought binary search was the fastest way to find `function`s and `location`s in their respective arrays, it turned out that we could eliminate the need to search altogether by referencing objects by their `ID – 1`.
+
+This resulted in complete removal of the performance overhead caused by `FindFunction` and `FindLocation` functions.
+
+<div style={{ width: "100%", margin: "auto" }}>
+
+![third_fg_image](https://user-images.githubusercontent.com/23323466/150475638-d85225d1-030c-4112-ba11-50a0b9e570b1.png)
+</div>
+
+<center style={{margin:"-15px 20px 20px"}}><i>The green nodes are functions where we decreased CPU usage and the red nodes are functions where we added CPU usage for this optimization. We removed <code>FindName</code> and <code>FindLocation</code> and also removed <code>runtime.mapaccess2_fast64</code></i></center>
+
+## What happens when you profile a profiler?
+
+In retrospect, we probably should have _started_ with looking at the specifications for a pprof object before assuming that binary search was the best way to find objects.
+But we wouldn't have even know to look at the specifications until we started profiling our own code.
+
+It's just the nature of developing software that as complexity increases over time, more performance issues sneak their way into the codebase. 
+
+However, with continuous profiling enabled, it allows you to spot these performance issues in your code and understand which parts of your code are consuming the most resources. 
+
+If you'd like to learn more about how to get started with Pyroscope and learn where your code's bottlenecks are, check out the [Pyroscope documentation](/docs/installing-pyroscope-overview).
+
+## Links
+
+* [Pull Request described here](https://github.com/pyroscope-io/pyroscope/pull/628)
+* [Benchmark suite](https://github.com/pyroscope-io/pyroscope/tree/main/benchmark)
