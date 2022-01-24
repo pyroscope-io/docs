@@ -9,14 +9,14 @@ keywords: [ pyroscope, profiler, spy, integration ]
 
 ## Existing integrations
 
-|                      | Spy Name     | Type         | Linux | macOS | Windows | Docker |
-|:--------------------:|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
-| [**eBPF**](ebpf)     | ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
-| [**Go**](golang)     | n/a          | `standalone` |   ✅  |   ✅  |    ✅   |   ✅   |
-| [**PHP**](php)       | phpspy       | `embedded`   |   ✅  |       |         |   ✅   |
-| [**Python**](python) | pyspy        | `embedded`   |   ✅  |   ✅  |         |   ✅   |
-| [**Ruby**](ruby)     | rbspy        | `embedded`   |   ✅  |   ✅  |         |   ✅   |
-| [**.NET**](dotnet)   | dotnetspy    | `embedded`   |   ✅  |   ✅  |    ✅   |   ✅   |
+|                                      | Spy Name     | Type         | Linux | macOS | Windows | Docker |
+|:------------------------------------:|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
+| [**eBPF**](integration-ebpf.mdx)     | ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
+| [**Go**](integration-golang.mdx)     | n/a          | `standalone` |   ✅  |   ✅  |    ✅   |   ✅   |
+| [**PHP**](integration-php.mdx)       | phpspy       | `embedded`   |   ✅  |       |         |   ✅   |
+| [**Python**](integration-python.mdx) | pyspy        | `embedded`   |   ✅  |   ✅  |         |   ✅   |
+| [**Ruby**](integration-ruby.mdx)     | rbspy        | `embedded`   |   ✅  |   ✅  |         |   ✅   |
+| [**.NET**](integration-dotnet.mdx)   | dotnetspy    | `embedded`   |   ✅  |   ✅  |    ✅   |   ✅   |
 
 
 ## Profilers
@@ -57,4 +57,4 @@ func main() {
 }
 ```
 
-If you want to contribute, please check out [Creating New Integrations](new-integrations) page.
+If you want to contribute, please check out [Creating New Integrations](new-integrations.mdx) page.

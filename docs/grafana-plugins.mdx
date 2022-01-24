@@ -10,9 +10,9 @@ Grafana plugins allow to add pyroscope flamegraph to your Grafana dashboard.
 ![Grafana dashboard example](/img/docs/grafana-plugins/dashboard.jpeg)
 
 ## Installation Guide
-1. Install [panel plugin](https://grafana.com/grafana/plugins/pyroscope-panel/)
-2. Install [datasource plugin](https://grafana.com/grafana/plugins/pyroscope-datasource/)
-3. Open Grafana ang go to **Configuratin -> Plugins**
+1. Install the [panel plugin](https://grafana.com/grafana/plugins/pyroscope-panel/)
+2. Install the [datasource plugin](https://grafana.com/grafana/plugins/pyroscope-datasource/)
+3. Open Grafana and go to **Configuratin -> Plugins**
 4. Check that plugins are available
 5. Set up data source plugin:
    * **Configuration -> Data Sources -> Add data source**
@@ -29,3 +29,27 @@ Grafana plugins allow to add pyroscope flamegraph to your Grafana dashboard.
 
 Congratulations! Now you can monitor application flamegraph on your Grafana dashboard!
 ![dashboard](/img/docs/grafana-plugins/dashboard.jpeg)
+
+## Running latest plugin versions
+Grafana plugin approval takes some time, so if you want to run the latest versions you can do by:
+
+Running grafana with the `GF_INSTALL_PLUGINS` environment variable with (broken in 2 lines for readability:)
+```
+https://github.com/pyroscope-io/grafana-panel-plugin/releases/download/v1.1.0/pyroscope-panel-1.1.0.zip;pyroscope-panel,
+https://github.com/pyroscope-io/grafana-datasource-plugin/releases/download/v1.1.0/pyroscope-datasource-1.1.0.zip;pyroscope-datasource
+```
+
+You can get the correct URLS by looking at our releases in the [grafana-datasource-plugin repo](https://github.com/pyroscope-io/grafana-datasource-plugin/releases) and the [grafana-panel-plugin repo](https://github.com/pyroscope-io/grafana-panel-plugin/releases)
+
+For example:
+```
+GF_INSTALL_PLUGINS=https://github.com/pyroscope-io/grafana-panel-plugin/releases/download/v1.1.0/pyroscope-panel-1.1.0.zip;pyroscope-panel,https://github.com/pyroscope-io/grafana-datasource-plugin/releases/download/v1.1.0/pyroscope-datasource-1.1.0.zip;pyroscope-datasource
+
+```
+
+## Using variables
+Since version `1.1.0` of the `pyroscope-datasource` we support querying using variables.
+
+
+For example:
+![query variables](/img/docs/grafana-plugins/variables.png)

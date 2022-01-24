@@ -21,7 +21,7 @@ retention: 720h # 30 days
 The standard [Go time duration format](https://pkg.go.dev/time#ParseDuration) is used.
 :::
 
-See the [server configuration](server-configuration) page for more details on the Pyroscope configuration file.
+See the [server configuration](configuration.mdx) page for more details on the Pyroscope configuration file.
 
 Pyroscope periodically deletes data that has passed the threshold: the process can take some time and cause an increase
 in memory and CPU consumption, especially if the retention policy has been enabled for the first time.

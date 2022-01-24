@@ -10,9 +10,12 @@ keywords: [ pyroscope, adhoc, config, start, launch, config, configure, configur
 
 ### `pyroscope adhoc`
 
-This command saves profiling data into a file instead of sending it to a server.
-These files can then be analyzed using the pyroscope UI.
-It's useful for testing programs that are short-lived (scripts, benchmarks, etc.)
+This command saves profiling data into files instead of sending it to a server.
+It generates two kind of files: profiling data that is stored locally in the
+pyroscope data directory and can be later analyzed using the pyroscope UI
+and standalone HTML files that can be used without a running pyrsocope server.
+
+pyroscope adhoc is useful for testing programs that are short-lived (scripts, benchmarks, etc.)
 and it also makes it easy to share profiling results.
 
 There are multiple ways to gather the profiling data (it supports all the agent modes),
@@ -33,7 +36,7 @@ The different supported ways are:
 - `push`. Pyroscope creates a different process for the profiled program
   and launches an HTTP server with an ingestion endpoint.
   It's useful to profile programs already integrated with Pyroscope using its
-  [HTTP API](docs/server-api-reference#http-api).
+  [HTTP API](server-api-reference.mdx#http-api).
   Push mode is used by default when no spy is detected and no `--url` flag is
   provided. It can also be override the default exec mode with the `--push` flag.
 - `pull`. This is the adhoc version of pull-mode,
@@ -71,6 +74,8 @@ The different supported ways are:
 | push | false | push | Use push mode, exposing an ingestion endpoint for the profiled program to use. |
 | url |  | pull | URL to gather profiling data from. |
 | output-format | json | all | Format to export profiling data, supported formats are: json, pprof, collapsed. |
+| no-standalone-html | false | all | Disables generating a standalone HTML file(s), only save profiles to pyroscope data directory. |
+| data-path | OS dependent | all | Directory where pyroscope stores adhoc profiles. |
 | max-nodes-render | 8192 | all | Max number of nodes used to display data on the frontend. |
 | max-nodes-serialization | 2048 | all | Max number of nodes used when saving profiles to disk. |
 <!-- /generate-sample-config -->

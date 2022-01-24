@@ -105,6 +105,7 @@ class Download extends React.Component {
                               { label: 'Standalone Binaries', value: 'standalone' },
                               { label: 'RHEL / CentOS / Fedora / Amazon Linux (.rpm)', value: 'rpm' },
                               { label: 'Ubuntu / Debian (.deb)', value: 'deb' },
+                              { label: 'Arch Linux', value: 'archlinux' },
                             ]
                             }>
                             <TabItem value="standalone">
@@ -144,6 +145,15 @@ class Download extends React.Component {
                           wget https://dl.pyroscope.io/release/pyroscope_${v(this.state.version)}_${arch}.deb
                           sudo apt-get install ./pyroscope_${v(this.state.version)}_${arch}.deb
                         `.replace(/^\s+/mg, "")
+                              }</CodeBlock>
+                            </TabItem>
+                            <TabItem value="archlinux">
+                              <hr />
+                              <div className="instructions-wrapper">
+                                <h3 className="instructions-header">Instructions</h3>
+                              </div>
+                              <CodeBlock className="language-shell">{
+                                `yay -S pyroscope-bin`
                               }</CodeBlock>
                             </TabItem>
                           </Tabs>

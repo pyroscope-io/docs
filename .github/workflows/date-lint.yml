@@ -1,0 +1,16 @@
+name: Blog Date Linter
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Blog date linter
+        run: |
+          find blog -name '*.mdx' | xargs -I {} sh -c "grep 'date:' {} || exit 1" || echo "make sure all blog posts have a date: attribute"
