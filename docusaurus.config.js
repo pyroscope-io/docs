@@ -172,7 +172,7 @@ module.exports = {
           ],
         },
       ],
-      copyright: `Copyright © 2020 – ${new Date().getFullYear()} Pyroscope, Inc`,
+      copyright: `Copyright © 2020 – ${new Date().getFullYear()} <img style="width:22px; vertical-align: sub;" src="/img/logo.svg"/> Pyroscope, Inc`,
     },
   },
   presets: [
