@@ -1,5 +1,5 @@
 ---
-title: Introducing Pyroscope adhoc profiling
+title: Introducing Pyroscope's adhoc profiling mode
 description: Easily capture, analyze, and share performance flamegraphs
 sidebar_label: Introducing Pyroscope adhoc profiling
 image: https://user-images.githubusercontent.com/23323466/151271223-f308890a-8e32-42f6-ab2a-b78178e869da.png
@@ -14,41 +14,20 @@ authors:
 tags: [observability, flamegraphs, profiling, go]
 ---
 
-# Introducing Pyroscope Adhoc Profiling
 ![image](https://user-images.githubusercontent.com/23323466/151271223-f308890a-8e32-42f6-ab2a-b78178e869da.png)
 
-With the recent popularity of *continuous profiling* it may seem as though profiling is a new technology in the observability world. In actuality, profiling has been around for *decades* and larger  companies like [Google](https://research.google/pubs/pub36575/), [Netflix](https://www.brendangregg.com/blog/2015-02-27/linux-profiling-at-netflix.html), and others have even been using continuous profiling in some form for over a decade. 
 
-With companies like these using continuous profiling, clearly it has a lot of potential value. When we created Pyroscope, we did so with the intention to bring the same cost savings, but more importantly debugging capabilities to *all* companies through making Pyroscope an open source continuous profiling solution.
-
-If we were building everything from scratch this would be very unfeasible to do. However, our goal was, and still is, to make Pyroscope a one-stop shop for profiling. And thanks to the open source contributions from hundreds of contributors of the projects that Pyroscope relies on we now support continuous profiling the following languages:
-
-- Go
-- Python
-- ruby
-- eBPF
-- .NET
-- Java
-- Php
-- Rust
-
-Like any good open source project we built on the many open source profilers that came before us and so this would not have been possible without the hard work of :
-
-- Brendan Gregg — inventor of Flame Graphs
-- Julia Evans — creator of rbspy — sampling profiler for Ruby
-- Vladimir Agafonkin — creator of flamebearer — fast flamegraph renderer
-- Ben Frederickson — creator of py-spy — sampling profiler for Python
-- Adam Saponara — creator of phpspy — sampling profiler for PHP
-- Alexei Starovoitov, Brendan Gregg, and many others who made BPF based profiling in Linux kernel possible
-- and many more
-
-### Continuous vs Adhoc Profiling
+### When to use Continuous vs Adhoc Profiling
 
 Typically, the profilers mentioned above have been built for more static or adhoc analysis (i.e. profiling a script) as opposed to Pyroscope’s version which added the dimension of time which allows people to do a more continuous analysis (i.e. profiling a server). 
 
 Over time as we continued to improve on the UI/UX of Pyroscope and [dogfooding our own product](profile-continuous-profiler) we started to realize that there are a lot of situations where its actually ideal to use profiling in this static manner vs running a profiler continuously. 
 
-Again our goal is to make Pyroscope a one-stop-shop for *all* profiling needs... And that means supporting all languages, all flamegraph formats, continuously profiling a servers, and -- the topic of this post -- quickly profiling an adhoc script.
+- **Profiling servers**: Continuous profiling
+- **Profiling scripts**: Adhoc profiling
+- **Attaching to a running process**: Adhoc profiling
+
+Our goal is to make Pyroscope a one-stop-shop for *all* profiling needs... And that means supporting all languages, all flamegraph formats, continuously profiling a servers, and -- the topic of this post -- quickly profiling an adhoc script.
 
 ### Introducing Adhoc profiling
 
@@ -56,7 +35,7 @@ That being said, we are excited to officially release Adhoc profiling mode for P
 
 ### Exporting interactive Flamegraph HTML from Pyroscope Adhoc mode
 
-You can use a Pyroscope command to profile a script and export an HTML file which contains an interactive profile that you can view, play with, and share with your team. 
+You can use the `pyroscope adhoc` command to profile a script and export an HTML file which contains an interactive profile that you can view, play with, and share with your team. 
 
 For example, in Go to profile a script you simply run:
 
@@ -66,12 +45,16 @@ pyroscope adhoc go run adhoc-push.go
 which will produce a folder containing a `.html` file with an interactive flamegraph (for each of the pprof profiles)
 ![image](https://user-images.githubusercontent.com/23323466/151047215-4cce89a1-4403-48c6-92b0-b6f1291af7c5.png)
 
-This comand will profile the file passed in and then export an html file which looks like the Pyroscope UI, but is a simple standalone HTML file:
+This comand will profile the file passed in and then export an html file which looks like the Pyroscope UI, but is **exported as a simple standalone HTML file**:
 ![image](https://user-images.githubusercontent.com/23323466/151047638-f79db7c0-945e-4862-9c34-1654c89782fa.png)
 
-This is the simplest way to use Pyroscope adhoc mode and is great for quickly viewing and sharing profiles. However, one of the benefits of running a Pyroscope server is that it also has a built in database that allows you to store these exported flamegraphs and revisit them later.
+Note: This html export can also be achieved through the file exported dropdown available in the flamegraph toolbar:
+![image](https://user-images.githubusercontent.com/23323466/151273431-701f0fe4-4031-467e-8c13-189482771493.png)
+
+This is the simplest way to use Pyroscope adhoc mode and is great for quickly viewing and sharing profiles that are richer than a simple screenshot. 
 
 ### Analyzing Pyroscope-generated Adhoc Flamegraphs
+While standalone mode is great for many use cases, one of the benefits of running a Pyroscope server is that it also has a built in mechanisms for storage that allow you to store these exported flamegraphs and revisit them later.
 Pyroscope stores data in the `~/.pyroscope/` directory. If you run:
 ```
 pyroscope server
@@ -86,9 +69,10 @@ For now this functionality requires server-side code so it is only available for
 ![image](https://user-images.githubusercontent.com/23323466/151269754-fb1f8c1c-8a0b-48bc-9566-e860e7e08f8c.png)
 
 ### Coming soon!
-As of right now (Jan 26), this mode is mostly for two main use cases:
+As of right now (Jan 26), this mode is mostly for three main use cases:
 - Profiling scripts using pyroscope: Running `pyroscope adhoc` command in some form and being able to view the flamegraphs that save to `~/.pyroscope`
 - Viewing profiles exported from pyroscope: Dragging and dropping files that have been exported to `json` format and then analyzing those flamegraphs
+- Getting a shareable standalone flamegraph that has the same UI and analysis features as the web interface
 
 However, over time we plan to expand this so that we can support more langauges formats and use cases:
 - Supporting drag-and-drop for pprof files
