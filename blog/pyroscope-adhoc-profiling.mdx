@@ -37,7 +37,7 @@ That being said, we are excited to officially release Adhoc profiling mode for P
 
 You can use the `pyroscope adhoc` command to profile a script and export an HTML file which contains an interactive profile that you can view, play with, and share with your team. 
 
-For example, in Go to profile a script you simply run:
+For example, to profile a Golang script you simply run:
 
 ```sh
 pyroscope adhoc go run adhoc-push.go
@@ -48,7 +48,7 @@ which will produce a folder containing a `.html` file with an interactive flameg
 This comand will profile the file passed in and then export an html file which looks like the Pyroscope UI, but is **exported as a simple standalone HTML file**:
 ![image](https://user-images.githubusercontent.com/23323466/151047638-f79db7c0-945e-4862-9c34-1654c89782fa.png)
 
-Note: This html export can also be achieved through the file exported dropdown available in the flamegraph toolbar:
+Note: This html export can also be achieved through the file exported dropdown available in the flamegraph toolbar of your continuous profiling flamegraphs:
 ![image](https://user-images.githubusercontent.com/23323466/151273431-701f0fe4-4031-467e-8c13-189482771493.png)
 
 This is the simplest way to use Pyroscope adhoc mode and is great for quickly viewing and sharing profiles that are richer than a simple screenshot. 
@@ -65,7 +65,7 @@ And go to port `:4040`, you will see a web interface that you can use to view an
 
 ### Viewing Flamgraph diffs between two adhoc profiles
 Similar to how we have diff view for continuous profiling. Adhoc also supports calculating the diff between two Flamegraphs. 
-For now this functionality requires server-side code so it is only available for files saved inthe `~/.pyroscope` directory. However, we plan to improve on this over time (or potentially even compile these functions to [WASM](https://github.com/pyroscope-io/pyroscope/pull/571) — but thats another post for a nother time).
+For now this functionality requires server-side code so it is only available for files saved inthe `~/.pyroscope` directory. However, we plan to improve on this over time (or potentially even compile these functions to [WASM](https://github.com/pyroscope-io/pyroscope/pull/571) — but thats another post for another time).
 ![image](https://user-images.githubusercontent.com/23323466/151269754-fb1f8c1c-8a0b-48bc-9566-e860e7e08f8c.png)
 
 ### Coming soon!
