@@ -19,7 +19,7 @@ tags: [observability, flamegraphs, profiling, go]
 
 ### When to use Continuous vs Adhoc Profiling
 
-Typically, the profilers mentioned above have been built for more static or adhoc analysis (i.e. profiling a script) as opposed to Pyroscope’s version which added the dimension of time which allows people to do a more continuous analysis (i.e. profiling a server). 
+Historically, most profilers have been built for more static or adhoc analysis (i.e. profiling a script) as opposed to Pyroscope's continuous profiling which added the dimension of time. This allows people to do a more continuous analysis (i.e. profiling a server) and jump around to any point in time. 
 
 Over time as we continued to improve on the UI/UX of Pyroscope and [dogfooding our own product](/blog/profile-continuous-profiler) we started to realize that there are a lot of situations where its actually ideal to use profiling in this static manner vs running a profiler continuously. 
 
