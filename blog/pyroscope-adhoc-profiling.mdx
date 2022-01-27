@@ -51,7 +51,7 @@ This comand will profile the file passed in and then export an html file which l
 Note: This html export can also be achieved through the file exported dropdown available in the flamegraph toolbar of your continuous profiling flamegraphs:
 ![image](https://user-images.githubusercontent.com/23323466/151273431-701f0fe4-4031-467e-8c13-189482771493.png)
 
-This is the simplest way to use Pyroscope adhoc mode and is great for quickly viewing and sharing profiles that are richer than a simple screenshot. 
+This is the simplest way to use Pyroscope adhoc mode and is great for quickly viewing and sharing profiles in a format with more functionality than a simple screenshot. 
 
 ### Analyzing Pyroscope-generated Adhoc Flamegraphs
 While standalone mode is great for many use cases, one of the benefits of running a Pyroscope server is that it also has a built in mechanisms for storage that allow you to store these exported flamegraphs and revisit them later.
@@ -70,7 +70,7 @@ For now this functionality requires server-side code so it is only available for
 
 ### Coming soon!
 As of right now (Jan 26), this mode is mostly for three main use cases:
-- Profiling scripts using pyroscope: Running `pyroscope adhoc` command in some form and being able to view the flamegraphs that save to `~/.pyroscope`
+- Profiling scripts using pyroscope: Running `pyroscope adhoc` command and being able to view/share the resulting flamegraphs
 - Viewing profiles exported from pyroscope: Dragging and dropping files that have been exported to `json` format and then analyzing those flamegraphs
 - Getting a shareable standalone flamegraph that has the same UI and analysis features as the web interface
 
