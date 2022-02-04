@@ -79,3 +79,17 @@ requests.post(url, data = data)
 
   </TabItem>
 </Tabs>
+
+### Adhoc support
+
+In [adhoc profiling mode](https://pyroscope.io/blog/pyroscope-adhoc-profiling/) the way Pyroscope works with integrations that use
+the HTTP API is as follows:
+- Pyroscope starts listening to profiles in an available port.
+- Pyroscope sets the environment variable `PYROSCOPE_ADHOC_SERVER_ADDRESS` with the address where its listening.
+- Pyroscope launches the profiled application.
+- the profiled application sends the profiling data through the HTTP API.
+
+For this to work as expected, the new integrations should check if this environment variable exists and in that case,
+they should override the server address with this value. This is enough to make adhoc profiling work seamlessly with the new integration.
+
+How adhoc profiling mode was added to the [java integration](https://github.com/pyroscope-io/pyroscope-java/pull/5) can be used as an example.
