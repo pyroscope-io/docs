@@ -36,6 +36,9 @@ This is the easiest way to configure pyroscope. For the list of command line arg
 | hide-applications | [] | Please don't use, this will soon be deprecated. |
 | retention | 0s | Sets the maximum amount of time the profiling data is stored for. Data before this threshold is deleted. Disabled by default. |
 | retention-levels | {} | Specifies how long the profiling data is stored per aggregation level. Disabled by default. |
+| tls-certificate-file | "" | Location of TLS Certificate file (.crt). |
+| tls-key-file | "" | Location of TLS Private key file (.key). |
+
 <!-- /generate-sample-config -->
 
 ## Environment variables
@@ -92,6 +95,13 @@ cache-evict-threshold: "0.25"
 # Percentage of cache that is evicted per eviction run.
 cache-evict-volume: "0.33"
 
+# Database configuration. By default, Pyroscope Server uses embedded sqlite3 database.
+database:
+  # Indicates the database type. Supported DB engines: sqlite3.
+  type: "sqlite3"
+  # Database connection string. Specific to the engine.
+  url: "/var/lib/pyroscope/pyroscope.db"
+
 # Indicates whether value log files should be truncated to delete corrupt data, if any.
 badger-no-truncate: "false"
 
@@ -120,11 +130,18 @@ metrics-export-rules: {}
 
 # A list of scrape configurations.
 scrape-configs: []
+
+# Location of TLS Certificate file (.crt).
+tls-certificate-file: ""
+
+# Location of TLS Private key file (.key).
+tls-key-file: ""
+
 ```
 <!-- /generate-sample-config -->
 
 ## Authentication
-See the [server authentication](auth-google.mdx) page for more details on how to add authentication to your Pyroscope server.
+See the [server authentication](auth-overview.mdx) page for more details on how to add authentication to your Pyroscope server.
 
 ## Data retention
 See the [data retention](retention.mdx) page for more details on how to configure retention policies.
