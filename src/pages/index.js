@@ -384,7 +384,7 @@ function Home() {
                 </div>
                 <div className='col col--6'>
                   <h2 className="subsection-title align-left">Pyroscope Cloud</h2>
-                  <p>A fully-managed, continous profiling service powered by Pyroscope team. The fastests, easiest way to start using Pyroscope.</p>
+                  <p>A fully-managed, continous profiling service powered by Pyroscope team. The fastest, easiest way to start using Pyroscope.</p>
                   <a className="button button--action button--lg" href="https://pyroscope.io/cloud">Create a Pyroscope Server</a>
                 </div>
               </div>
