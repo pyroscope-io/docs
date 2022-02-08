@@ -4,7 +4,7 @@ title: Internal Authentication Provider
 sidebar_label: Internal
 slug: /auth-internal
 description: Pyroscope Server Authentication
-keywords: [ pyroscope, server, config, github, auth, oauth2, authentication, authorization ]
+keywords: [ pyroscope, server, config, github, auth, oauth2, authentication, authorization, reset, password, admin ]
 ---
 
 :::note
@@ -55,6 +55,11 @@ auth:
     signup-enabled: true
 ```
 
+The options can be also specified via CLI flags or environment variables. See the [server configuration](configuration.mdx)
+page for more details on the Pyroscope configuration.
+
+You will need to restart Pyroscope Server for the configuration to take effect.
+
 #### Bulit-in admin
 
 Pyroscope Server has a built-in `admin` user with administrative permissions: the account is being created during the
@@ -75,14 +80,14 @@ auth:
       create: false
 ```
 
-:::note
-After the server started for the first time, the admin user can't be changed via the configuration.
-:::
+After the server started for the first time, the admin user can't be changed via the configuration. You can reset the
+admin password using the following command:
 
-The options can be also specified via CLI flags or environment variables. See the [server configuration](configuration.mdx)
-page for more details on the Pyroscope configuration.
+```bash
+pyroscope admin user reset-password --username {admin-username} --password {new-password}
+```
 
-You will need to restart Pyroscope Server for the configuration to take effect.
+Specify `--enable` flag to enable the user, if required.
 
 ## Login
 
