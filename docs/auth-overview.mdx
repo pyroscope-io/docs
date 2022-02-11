@@ -69,3 +69,16 @@ You can configure `auth.cookie-same-site` parameter to override this.
 
 Please see **[the documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)** to learn more.
 :::
+
+## Migrating From Previous Versions
+
+In versions before 0.10.0, Pyroscope Server only supported OAuth providers and had no concept of user management.
+If you already use OAuth authentication providers, after upgrading to 0.10.0, by default you will be granted `ReadOnly`
+role that does not allow you managing Users and API keys:
+
+1. If you only use OAuth providers, we recommend you to change `auth.signup-default-role` to `Admin` at the first launch.
+Alternatively, you can enable the internal authentication provider via the `auth.internal.enabled` option, log in using
+the default `admin` credentials, and grant `Admin` role to eligible users.
+
+2. If you decided to enable the internal authentication provider and allow users to signup via the
+`auth.internal.signup-enabled` option, we strongly recommend you to set `auth.signup-default-role` to `ReadOnly` (the default value).
