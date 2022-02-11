@@ -30,7 +30,17 @@ auth:
     enabled: true
 ```
 
-### Configuration options
+## Login
+
+After enabling the internal authentication provider, Pyroscope Server will prompt you for credentials when you open the UI.
+You should be able to log in using the default `admin` username and password (or the values you specified in `auth.internal.admin`):
+
+* Username: `admin`
+* Password: `admin`
+
+## Configuration Options
+
+The section describes internal authentication provider configuration options.
 
 | Name | Default Value | Usage |
 | :- | :- | :- |
@@ -60,7 +70,7 @@ page for more details on the Pyroscope configuration.
 
 You will need to restart Pyroscope Server for the configuration to take effect.
 
-#### Bulit-in admin
+### Bulit-in admin
 
 Pyroscope Server has a built-in `admin` user with administrative permissions: the account is being created during the
 first launch and this can be altered by changing the configuration options:
@@ -88,12 +98,3 @@ pyroscope admin user reset-password --username {admin-username} --password {new-
 ```
 
 Specify `--enable` flag to enable the user, if required.
-
-## Login
-
-After enabling the internal authentication provider, Pyroscope Server will prompt you for credentials when you open the UI.
-You should be able to log in using the default `admin` username and password (or the values you specified in `auth.internal.admin`):
-
-* Username: `admin`
-* Password: `admin`
-

@@ -34,6 +34,10 @@ Specify the Client ID and Secret in the Pyroscope configuration file. For exampl
 
 ```
 auth:
+  # Specifies which role will be granted to a newly signed up user.
+  # Supported roles: Admin, ReadOnly. Defaults to ReadOnly.
+  # The parameter affects all authentication providers.
+  signup-default-role: ReadOnly
   gitlab:
     enabled: true
     client-id: CLIENT_ID
