@@ -15,6 +15,8 @@ Pyroscope consists of 2 core components:
 * webapp, mostly JS code, UI for the web application
 * go code, this is all the backend code including profiling code and the storage engine.
 
+Both run under the port `4040`.
+
 ## Dependencies
 
 Make sure you have the following dependencies installed before setting up your developer environment:
@@ -168,6 +170,9 @@ ENABLED_SPIES=none make build
 make server
 ```
 
+#### 7. Access the server
+It should be available at [http://localhost:4040](http://localhost:4040)
+
 ---
 
 ## Developing pyroscope
@@ -216,6 +221,10 @@ make install-dev-tools
 ```shell
 ENABLED_SPIES=none make dev
 ```
+
+8. Access the server
+
+It should be available at [http://localhost:4040](http://localhost:4040)
 
 ## Text Editors
 
