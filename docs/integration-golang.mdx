@@ -51,6 +51,9 @@ func main() {
     // you can disable logging by setting this to nil
     Logger:          pyroscope.StandardLogger,
 
+    // optionally, if authentication is enabled, specify the API key:
+    // AuthToken: os.Getenv("PYROSCOPE_AUTH_TOKEN"),
+
     // by default all profilers are enabled,
     // but you can select the ones you want to use:
     ProfileTypes: []pyroscope.ProfileType{

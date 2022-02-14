@@ -14,6 +14,34 @@ import TabItem from '@theme/TabItem';
 
 ## HTTP API
 
+### Authentication
+
+When Pyroscope Server [authentication providers](auth-overview.mdx) are configured,
+API clients should provide a **Bearer** authentication token in the **Authorization** header, like this:
+
+```
+GET http://your.pyroscope.com/render HTTP/1.1
+Accept: application/json
+Authorization: Bearer psx-BWlqy_dW1Wxg6oBjuCWD28HxGCkB1Jfzt-jjtqHzrkzI
+```
+
+cURL example:
+```shell
+curl --fail \
+  -H "Authorization: Bearer psx-BWlqy_dW1Wxg6oBjuCWD28HxGCkB1Jfzt-jjtqHzrkzI" \
+  http://localhost:4040/render\?from\=now-1h\&until\=now\&query\=pyroscope.server.cpu%7B%7D\&max-nodes\=1024\&format\=json
+```
+
+Please refer to the [API Key Authentication](auth-overview.mdx/#api-key-authentication) paragraph to learn how to create
+an API key.
+
+:::note
+`/ingest` endpoint authentication is configured separately via the `auth.ingest.enabled` parameter. Please see the
+[agent authentication](auth-overview.mdx/#agent-authentication) paragraph for details.
+:::
+
+### Ingestion
+
 Currently there's just one endpoint: `POST /ingest`. It takes profile data in request body and metadata as query params.
 
 It takes mutliple query parameters:
@@ -41,7 +69,7 @@ foo;baz 200
 my.awesome.app.cpu{env=staging,region=us-west-1}
 ```
 
-### Examples
+#### Examples
 
 Here's a sample code that uploads a very simple profile to pyroscope:
 <Tabs
