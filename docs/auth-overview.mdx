@@ -15,13 +15,15 @@ Pyroscope server has a built-in user authentication system with support for exte
 authentication is disabled.
 
 Internal authentication provider implements login-password authentication mechanism based on JSON Web Tokens using the
-internal database. Please see the [internal authentication provider](auth-internal.mdx) page for more details on how to
-enable and configure it. The list of external authentication providers includes:
+internal database. 
+
+### Supported Authentication Providers
+The list of external authentication providers includes:
  - [Google OAuth2](auth-google.mdx)
  - [Github OAuth2](auth-github.mdx)
  - [Gitlab OAuth2](auth-gitlab.mdx)
-
-Internal and external providers can be used independently.
+ Pyroscope also supports an internal provider as well
+ - [internal authentication](auth-internal.mdx)
 
 When the internal authentication provider is enabled, administrators can also allow users to sign up. On successful
 authentication with an external provider, user accounts are created in the internal database automatically, and
