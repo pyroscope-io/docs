@@ -11,6 +11,8 @@ keywords: [ pyroscope, server, config, github, auth, oauth2, authentication, aut
 This functionality is available starting from version 0.10.0. Make sure to upgrade before you use this.
 :::
 
+## Authentication Providers
+
 Pyroscope server has a built-in user authentication system with support for external providers. By default, user
 authentication is disabled.
 
@@ -51,11 +53,37 @@ auth:
   # Supported values: Lax, Strict, None. Default to Lax.
   cookie-same-site: Lax
 
+  # Specifies Secure attribute for the JWT token cookie.
+  # If cookie-same-site is set to None, Secure attribute
+  # will be set automatically. Default to false.
+  cookie-secure: false
+
   # JWT signing string. Generated at provisioning if not specified explicitly.
   jwt-secret: ""
 
   # Amount of days after which user will be logged out. 0 means non-expiring.
   login-maximum-lifetime-days: 0
+
+  # Data ingestion authentication options.
+  ingestion:
+    enabled: false
+
+  # Internal authentication provider settings.
+  internal:
+    enabled: false
+
+  # Google OAuth2 authentication settings.
+  google:
+    enabled: false
+
+  # Github OAuth2 authentication settings.
+  github:
+    enabled: false
+
+  # Gitlab OAuth2 authentication settings.
+  gitlab:
+    enabled: false
+
 ```
 
 The options can be also specified via CLI flags or environment variables. See the [server configuration](configuration.mdx)
@@ -71,6 +99,70 @@ You can configure `auth.cookie-same-site` parameter to override this.
 
 Please see **[the documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)** to learn more.
 :::
+
+## API Key Authentication
+
+When one of the authentication providers configured, [API clients](server-api-reference.mdx) should provide an
+authentication token. You can generate it via the UI, if you have `Admin` role:
+1. Log in using an account with the **Admin** role.
+2. Navigate to **Settings** page in the left sidebar.
+3. Open **API keys** tab.
+4. Click on **Add Key** button.
+5. Type in a descriptive unique API key name.
+6. Select the appropriate role.
+7. Specify expiration period in seconds. Set 0, if you want the key to never expire.
+8. Click **Add API Key** button.
+9. Copy the key. The key is not stored and can't be viewed after the creation.
+
+## Agent Authentication
+
+Pyroscope Server can be configured to require authentication from the agents ingesting data in the push mode.
+By default, anyone can send data to Pyroscope Server without any authentication.
+
+### 1. Enable Agent Authentication
+
+In order to secure the data ingestion, specify the `auth.ingestion.enabled` parameter in the Pyroscope configuration file:
+
+```yaml
+auth:
+  ingestion:
+    enabled: true
+```
+
+The options can be also specified via CLI flags or environment variables. See the [server configuration](configuration.mdx)
+page for more details on the Pyroscope configuration.
+
+You will need to restart Pyroscope Server for the configuration to take effect.
+
+### 2. Get API Key
+
+First, we need to get an API key with the `Agent` role that would allow agents to authenticate and ingest data.
+[API Key Authentication](#api-key-authentication) paragraph describes how a new key can be generated.
+
+### 3. Specify Authentication Token
+
+Now the API Key should be provided to the agent as the authentication token. The way an authentication token is specified
+on the agent side depends on the integration used and is described in [the corresponding page](agent-overview.mdx).
+
+For example, in Go you should specify `AuthToken` configuration parameter:
+```go
+package main
+
+import "github.com/pyroscope-io/client/pyroscope"
+
+func main() {
+  pyroscope.Start(pyroscope.Config{
+    ApplicationName: "simple.golang.app",
+    ServerAddress:   "http://pyroscope-server:4040",
+    AuthToken:       os.Getenv("PYROSCOPE_AUTH_TOKEN"),
+  })
+
+  // your code goes here
+}
+```
+
+If the application is profiled using `exec` or `connect` mode, we recommend you specifying the API Key via the
+`PYROSCOPE_AUTH_TOKEN` environment variable.
 
 ## Migrating From Previous Versions
 
