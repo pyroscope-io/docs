@@ -68,10 +68,11 @@ module.exports = {
               collapsed: true,
               items: [
                 "auth-overview",
-                "auth-internal",
+                "api-key-authentication",
                 "auth-google",
                 "auth-github",
                 "auth-gitlab",
+                "auth-internal",
               ],
             },
             "data-retention",
