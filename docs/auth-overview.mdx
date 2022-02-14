@@ -1,0 +1,84 @@
+---
+id: auth-overview
+title: Authentication
+sidebar_label: Overview
+slug: /auth-overview
+description: Pyroscope Server Authentication
+keywords: [ pyroscope, server, config, github, auth, oauth2, authentication, authorization ]
+---
+
+:::note
+This functionality is available starting from version 0.10.0. Make sure to upgrade before you use this.
+:::
+
+Pyroscope server has a built-in user authentication system with support for external providers. By default, user
+authentication is disabled.
+
+Internal authentication provider implements login-password authentication mechanism based on JSON Web Tokens using the
+internal database. Please see the [internal authentication provider](auth-internal.mdx) page for more details on how to
+enable and configure it. The list of external authentication providers includes:
+ - [Google OAuth2](auth-google.mdx)
+ - [Github OAuth2](auth-github.mdx)
+ - [Gitlab OAuth2](auth-gitlab.mdx)
+
+Internal and external providers can be used independently.
+
+When the internal authentication provider is enabled, administrators can also allow users to sign up. On successful
+authentication with an external provider, user accounts are created in the internal database automatically, and
+administrators are able to manage them. By default, users are granted `ReadOnly` role on sign up, which can be changed
+in the server configuration.
+
+Pyroscope Server has a built-in `admin` user with administrative permissions: the account is being created during the
+first launch and this can be altered by changing the configuration options. Please refer to the [internal authentication provider](auth-internal.mdx)
+documentation.
+
+:::note
+Users signed up via OAuth providers are not allowed to use password authentication.
+:::
+
+Below you can see available configuration options and their default values.
+
+```yaml
+auth:
+  # Specifies which role will be granted to a newly signed up user.
+  # Supported roles: Admin, ReadOnly. Defaults to ReadOnly.
+  # The parameter affects all authentication providers.
+  signup-default-role: ReadOnly
+
+  # Specifies SameSite attribute for the JWT token cookie.
+  # Supported values: Lax, Strict, None. Default to Lax.
+  cookie-same-site: Lax
+
+  # JWT signing string. Generated at provisioning if not specified explicitly.
+  jwt-secret: ""
+
+  # Amount of days after which user will be logged out. 0 means non-expiring.
+  login-maximum-lifetime-days: 0
+```
+
+The options can be also specified via CLI flags or environment variables. See the [server configuration](configuration.mdx)
+page for more details on the Pyroscope configuration.
+
+:::note
+Pyroscope Server stores user authentication tokens in Cookies. Be default, the cookie is attributed with `SameSite: Lax`
+value meaning that it is not sent on normal cross-site subrequests (for example to load images or frames into a third
+party site), but is sent when a user is navigating to the origin site (i.e., when following a link). This ensures that
+users have reasonably robust defense against some classes of cross-site request forgery (CSRF) attacks.
+
+You can configure `auth.cookie-same-site` parameter to override this.
+
+Please see **[the documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)** to learn more.
+:::
+
+## Migrating From Previous Versions
+
+In versions before 0.10.0, Pyroscope Server only supported OAuth providers and had no concept of user management.
+If you already use OAuth authentication providers, after upgrading to 0.10.0, by default you will be granted `ReadOnly`
+role that does not allow you managing Users and API keys:
+
+1. If you only use OAuth providers, we recommend you to change `auth.signup-default-role` to `Admin` at the first launch.
+Alternatively, you can enable the internal authentication provider via the `auth.internal.enabled` option, log in using
+the default `admin` credentials, and grant `Admin` role to eligible users.
+
+2. If you decided to enable the internal authentication provider and allow users to signup via the
+`auth.internal.signup-enabled` option, we strongly recommend you to set `auth.signup-default-role` to `ReadOnly` (the default value).
