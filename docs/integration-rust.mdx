@@ -1,0 +1,144 @@
+---
+id: integration-rust
+title: Rust 
+sidebar_label: Rust
+slug: /rust
+description: Pyroscope Rust profiling
+keywords: [ pyroscope, rust, pprof-rs, profiling ]
+---
+
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+
+### Supported platforms
+
+| Linux | macOS | Windows | Docker |
+|:-----:|:-----:|:-------:|:------:|
+|   ✅  |   ✅  |         |   ✅   |
+
+### Profiling Rust applications
+
+Add the `pyroscope` crate to your Cargo.toml:
+
+```bash
+cargo add pyroscope
+```
+
+### Minimal Configuration
+
+At a minimum, you need to provide the URL of the Pyroscope Server and the name of your application. This does not start profiling but only configure the agent.
+
+```rust
+let mut agent =
+PyroscopeAgent::builder("http://localhost:4040", "myapp")
+.build()?;
+```
+
+You can start profiling by invoking
+
+```rust
+ agent.start();
+```
+
+The agent can be stopped at any point, and it'll send a last report to the server. The agent can be restarted at a later point.
+
+```rust
+ agent.stop();
+```
+
+### Tags
+
+Tags can be added or removed after the agent is started. The function `add_tags` accepts a vector of `(&str, &str)`. The first element in the tuple is the key and the second element is the value.
+
+```rust
+// Configure the agent
+let agent = PyroscopeAgent::builder("http://localhost:8080", "my-app").build().unwrap();
+
+// Start Profiling
+agent.start();
+
+// Profiled code (with no tags) 
+
+// Add tags to the agent
+agent.add_tags(vec![("tag", "value")]).unwrap();
+
+// This portion will be profiled with the specified tag. 
+
+// Stop the agent 
+agent.stop();
+```
+
+To remove tags, you can call `remove_tags` with a vector of `&str` that contains the key of the tag to remove.
+
+```rust
+agent.remove_tags(vec!["tag"]).unwrap();
+```
+
+### Full Configuration
+
+The agent accepts additional initial parameters.
+
+- **Backend**: Profiler used, do not set this if you are profiling Rust applications. Default is Pprof.
+- **Sample Rate**: Sampling Frequency in Hertz. Default is 100.
+- **Tags**: Initial tags.
+
+```rust
+let mut agent =
+PyroscopeAgent::builder("http://localhost:4040", "myapp")
+// Profiler
+.backend(Pprof::default())
+// Sample rate
+.sample_rate(100)
+// Tags
+.tags(vec![("env", "dev")])
+// Create the agent
+.build()?;
+```
+
+
+### Technical Details
+
+- **Backend**: The Pyroscope Agent uses [pprof-rs](https://github.com/tikv/pprof-rs) as a backend. As a result, the [limitations](https://github.com/tikv/pprof-rs#why-not-) for pprof-rs also applies.
+- **Tagging**: Adding or removing tags is not possible within threads. In general, the [Pyroscope Agent](https://docs.rs/pyroscope/latest/pyroscope/pyroscope/struct.PyroscopeAgent.html) is not Sync; and as a result a reference cannot be shared between threads. A multi-threaded program could be profiled but the agent is not thread-aware and a particular thread cannot be tagged.
+- **Timer**: epoll (for Linux) and kqueue (for macOS) are required for a more precise timer.
+- **Shutdown**: The Pyroscope Agent might take some time (usually less than 10 seconds) to shutdown properly and drop its threads.
+- **Relevant Links**
+  - [Github Repository](https://github.com/pyroscope-io/pyroscope-rs)
+  - [Cargo crate](https://crates.io/crates/pyroscope)
+  - [Crate documentation](https://docs.rs/pyroscope/latest/pyroscope/index.html)
+
+
+### Examples
+
+
+#### Library Examples
+
+Several examples are available that can showcase how the library can be used. These examples could be run from the library repository.
+
+For example, to run the `tags` example.
+
+```bash
+cargo run --example tags 
+```
+
+**Usage Examples**
+
+- [**basic**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/basic.rs): Minimal configuration example.
+- [**tags**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/tags.rs): Example using Tags.
+- [**async**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/async.rs): Example using Async code with Tokio.
+- [**multi-thread**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/multi-thread.rs): Example using multiple threads.
+- [**with-logger**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/with-logger.rs): Example with logging to stdout.
+- [**error**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/error.rs): Example with an invalid server address.
+
+**Internals Examples**
+
+- [**backend**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/backend.rs): Setting a backend for the agent.
+- [**backend-pprof**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/backend-pprof.rs): Running the pprof-rs backend separately.
+- [**internals-timer**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/internals-timer.rs): Using the Agent internal timer.
+
+#### Stand-alone Examples
+
+- [**basic**](https://github.com/pyroscope-io/pyroscope/tree/main/examples/rust/basic): Simple Rust application that uses the Pyroscope Library.
+- [**rideshare**](https://github.com/pyroscope-io/pyroscope/tree/main/examples/rust/rideshare): A multi-instances web service running on Docker.

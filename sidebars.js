@@ -45,6 +45,7 @@ module.exports = {
             "integration-ebpf",
             "integration-java",
             "integration-ruby",
+            "integration-rust",
             "integration-php",
             "integration-dotnet",
           ],
