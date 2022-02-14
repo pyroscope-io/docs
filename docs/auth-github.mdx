@@ -38,8 +38,12 @@ For the most recent version of these instructions visit [Github's documentation]
 
 Specify the Client ID and Secret in the Pyroscope configuration file. For example:
 
-```
+```yaml
 auth:
+  # Specifies which role will be granted to a newly signed up user.
+  # Supported roles: Admin, ReadOnly. Defaults to ReadOnly.
+  # The parameter affects all authentication providers.
+  signup-default-role: Admin
   github:
     enabled: true
     client-id: CLIENT_ID
@@ -48,6 +52,11 @@ auth:
       - mycompany
       - myorganization
 ```
+
+:::note
+If you decided to enable the internal authentication provider and allow users to signup via the
+`auth.internal.signup-enabled` option, we strongly recommend you to set `auth.signup-default-role` to `ReadOnly` (the default value).
+:::
 
 See the [server configuration](configuration.mdx) page for more details on the Pyroscope configuration file.
 

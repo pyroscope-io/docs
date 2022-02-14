@@ -1,0 +1,104 @@
+---
+id: auth-internal
+title: Internal Authentication Provider
+sidebar_label: Internal Authentication
+slug: /auth-internal
+description: Pyroscope Server Authentication
+keywords: [ pyroscope, server, config, github, auth, oauth2, authentication, authorization, reset, password, admin ]
+---
+
+:::note
+This functionality is available starting from version 0.10.0. Make sure to upgrade before you use this.
+:::
+
+:::caution
+User credentials are transmitted from the browser to **Pyroscope Server** over the network in plain text.
+We strongly recommend you to enable TLS in order to secure the user data.
+
+Please refer to the [server configuration](configuration.mdx) page for more details.
+:::
+
+Internal authentication provider implements login-password authentication mechanism based on JSON Web Tokens.
+User accounts are stored in the internal database and are managed by **Pyroscope Server** administrators.
+
+## Enable Minimal Internal Authentication
+
+The minimal configuration required for enabling internal authentication provider takes the following form:
+```yaml
+auth:
+  internal:
+    enabled: true
+```
+
+## Login
+
+After enabling the internal authentication provider, Pyroscope Server will prompt you for credentials when you open the UI.
+You should be able to log in using the default `admin` username and password (or the values you specified in `auth.internal.admin`):
+
+* Username: `admin`
+* Password: `admin`
+
+:::caution
+We strongly recommend you to change `admin` user password after the first login.
+:::
+
+## Configuration Options
+
+The section describes internal authentication provider configuration options.
+
+| Name | Default Value | Usage |
+| :- | :- | :- |
+| enabled | false | Allow users to authenticate using the login and password. |
+| signup-enabled | false | Allow users to create accounts. |
+| admin | {} | Built-in admin user. |
+
+By default, users are not allowed to sign up, and administrators should create user accounts on demand, or allow users
+to authenticate using external providers.
+
+You can override this behaviour using `auth.internal.signup-enabled` and `auth.signup-default-role` options:
+
+```yaml
+auth:
+  # Specifies which role will be granted to a newly signed up user.
+  # Supported roles: Admin, ReadOnly. Defaults to ReadOnly.
+  # The parameter affects all authentication providers.
+  signup-default-role: ReadOnly
+  # Internal authentication provider configuration.
+  internal:
+    enabled: true
+    signup-enabled: true
+```
+
+The options can be also specified via CLI flags or environment variables. See the [server configuration](configuration.mdx)
+page for more details on the Pyroscope configuration.
+
+You will need to restart Pyroscope Server for the configuration to take effect.
+
+### Configuring built-in admin user
+
+Pyroscope Server has a built-in `admin` user with administrative permissions: the account is being created during the
+first launch and this can be altered by changing the configuration options:
+
+| Name | Default Value | Usage |
+| :- | :- | :- |
+| create | true | Indicates whether to create built-in `admin` account. |
+| name | admin | Username of the built-in `admin` account. |
+| password | admin | Password of the built-in `admin` account. |
+| email | admin@localhost.localdomain | Email of the built-in `admin` account. |
+
+In particular, the user creation can be disabled:
+```yaml
+auth:
+  internal:
+    admin:
+      create: false
+```
+
+After the server started for the first time, the admin user can't be changed via the configuration. You can reset the
+admin password using the following command:
+
+```bash
+pyroscope admin user reset-password --username {admin-username} --password {new-password}
+```
+
+Specify `--enable` flag to enable the user, if required.
