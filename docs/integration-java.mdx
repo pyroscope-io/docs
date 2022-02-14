@@ -41,6 +41,9 @@ To start profiling a Java application, run your application with `pyroscope.jar`
 export PYROSCOPE_APPLICATION_NAME=my.java.app
 export PYROSCOPE_SERVER_ADDRESS=http://pyroscope-server:4040
 
+# Optionally, if authentication is enabled, specify the API key.
+# export PYROSCOPE_AUTH_TOKEN={YOUR_API_KEY}
+
 java -javaagent:pyroscope.jar -jar app.jar
 ```
 
