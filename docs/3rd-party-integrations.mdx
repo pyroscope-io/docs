@@ -1,0 +1,134 @@
+---
+id: 3rd-party-integrations
+title: 3rd-party-integrations
+sidebar_label: 3rd-party-integrations
+slug: /3rd-party-integrations
+description: 3rd-party-integrations
+---
+
+# Integration scenarios
+
+## 1. Server-side HTTP API Client
+
+:::tip
+We strongly recommend you to integrated with Pyroscope using this method.
+:::
+
+In this scenario, Pyroscope HTTP API is called from your service.
+
+### Authentication disabled
+
+No additional configuration is required.
+
+### Authentication enabled
+
+[API Key authentication](/auth-overview.mdx/#api-key-authentication) should be used to authenticate the calling service.
+
+## 2. Client-side HTTP API Client
+
+### Authentication disabled
+
+Pyroscope HTTP API requests can be made from the user browser using XHR/Fetch API.
+
+Pyroscope server CORS policy should be configured to allow cross-origin requests (alternatively, a reverse-proxy
+can be used).
+
+Server configuration:
+```yaml
+cors:
+  allowed-origins: [ 'https://your.site.com' ]
+  allowed-methods: [ 'OPTIONS', 'GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE' ]
+  allowed-headers: [ 'Content-Type', 'Accept', 'Accept-Language', 'Content-Language', 'Origin' ]
+```
+
+Although, the configuration supposes that the pyroscope server is called from **https://your.site.com** origin,
+a wildcard ("*") can be used.
+
+Example request:
+
+```javascript
+fetch('https://your.pyroscope.com/render?from=now-1h&until=now&query=pyroscope.server.cpu%7B%7D&max-nodes=1024&format=json')
+  .then(res => res.json())
+  .then(console.log)
+```
+
+### Authentication enabled
+
+Both [Cross-site cookies](#cross-site-cookies) and CORS should be configured. Note that all the origins must be
+explicitly listed in the `allowed-origins` parameter:
+
+> Note: When responding to a credentialed requests request, the server must specify an origin in
+the value of the Access-Control-Allow-Origin header, instead of specifying the "*" wildcard.
+
+[MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#examples_of_access_control_scenarios)
+
+Server configuration:
+```yaml
+tls-certificate-file: ./server.crt
+tls-key-file: ./server.key
+
+auth:
+  cookie-same-site: None
+  cookie-secure: true
+
+cors:
+  allowed-origins: [ 'https://your.site.com' ]
+  allowed-methods: [ 'OPTIONS', 'GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'DELETE' ]
+  allowed-headers: [ 'Content-Type', 'Accept', 'Accept-Language', 'Content-Language', 'Origin' ]
+  allow-credentials: true
+```
+
+Example request:
+
+```javascript
+fetch('https://your.pyroscope.com/render?from=now-1h&until=now&query=pyroscope.server.cpu%7B%7D&max-nodes=1024&format=json', {
+  method: 'GET',
+  credentials: 'include'
+})
+  .then(res => res.json())
+  .then(console.log)
+```
+
+## 3. Embed Pyroscope API via `iframe`
+
+### Authentication disabled
+
+Pyroscope UI can be embedded into another page using the following snippet:
+```html
+<iframe src="https://your.pyroscope.com" height="100%" width="100%"/>
+```
+
+Pyroscope server does not require any additional configuration.
+
+### Authentication enabled
+
+In this case, Pyroscope UI should be embedded using the following snippet:
+```html
+<iframe src="https://your.pyroscope.com" height="100%" width="100%" sandbox="allow-scripts allow-forms"/>
+```
+
+In addition, [Cross-site cookies](#cross-site-cookies) configuration should be applied:
+
+```yaml
+tls-certificate-file: ./server.crt
+tls-key-file: ./server.key
+
+auth:
+  cookie-same-site: None
+  cookie-secure: true
+```
+
+# Appendix
+
+## Cross-site cookies
+
+:::warning
+This configuration is vulnerable to CSRF attacks.
+:::
+
+When authentication is enabled in Pyroscope Server, it stores user authentication tokens in cookies.
+In order to make this cookie available for 3-rd party sites (or, authenticate users transparently),
+the following requirements should be fulfilled:
+1. The cookie should have `SameSite=None;Secure` attributes.
+2. Connection between the browser and the pyroscope server must be secured with TSL.
+3. 3-rd party cookies must be enabled in the client browser.
