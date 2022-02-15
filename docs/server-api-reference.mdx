@@ -32,12 +32,12 @@ curl --fail \
   http://localhost:4040/render\?from\=now-1h\&until\=now\&query\=pyroscope.server.cpu%7B%7D\&max-nodes\=1024\&format\=json
 ```
 
-Please refer to the [API Key Authentication](auth-overview.mdx/#api-key-authentication) paragraph to learn how to create
+Please refer to the [API Key Authentication](api-key-authentication.mdx) paragraph to learn how to create
 an API key.
 
 :::note
 `/ingest` endpoint authentication is configured separately via the `auth.ingest.enabled` parameter. Please see the
-[agent authentication](auth-overview.mdx/#agent-authentication) paragraph for details.
+[agent authentication](api-key-authentication.mdx/#authenticate-agents-with-an-api-key) paragraph for details.
 :::
 
 ### Ingestion

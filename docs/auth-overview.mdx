@@ -20,12 +20,13 @@ Internal authentication provider implements login-password authentication mechan
 internal database. 
 
 ### Supported Authentication Providers
+
 The list of external authentication providers includes:
  - [Google OAuth2](auth-google.mdx)
  - [Github OAuth2](auth-github.mdx)
  - [Gitlab OAuth2](auth-gitlab.mdx)
- Pyroscope also supports an internal provider as well
- - [internal authentication](auth-internal.mdx)
+
+Pyroscope also supports an [internal authentication provider](auth-internal.mdx) as well.
 
 When the internal authentication provider is enabled, administrators can also allow users to sign up. On successful
 authentication with an external provider, user accounts are created in the internal database automatically, and
@@ -100,18 +101,17 @@ You can configure `auth.cookie-same-site` parameter to override this.
 Please see **[the documentation](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie/SameSite)** to learn more.
 :::
 
-## Generate an API Key for Pyroscope server
+## Generate an API Key
 
 When one of the authentication providers is configured, [API clients](server-api-reference.mdx) should provide an
 authentication token. You can generate it via the UI, if you have `Admin` role. For more details check [API key docs](api-key-authentication.mdx).
 
 ![image](https://user-images.githubusercontent.com/23323466/153949862-5e3959c9-66be-48be-9b15-2da4126714c0.png)
 
-
 ## Authenticate Agents with an API Key
 
 Pyroscope Server can be configured to require authentication from the agents ingesting data in the push mode.
-By default, anyone can send data to Pyroscope Server without any authentication. for more details check [API key docs](api-key-authentication.mdx).
+By default, anyone can send data to Pyroscope Server without any authentication. for more details check [API key docs](api-key-authentication.mdx/#authenticate-agents-with-an-api-key).
 
 ## Migrating From Previous Versions
 
