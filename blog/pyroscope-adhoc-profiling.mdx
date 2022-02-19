@@ -19,9 +19,7 @@ tags: [observability, flamegraphs, profiling, go]
 
 ### Why we added adhoc profiling
 
-Pyroscope offers continuous analysis by adding the dimension of time. While most profilers are built for more static or adhoc analysis (ie.profiling a script), Pyroscope's continuous profiling gives you the opportunity to jump around to any point in time. 
-
-This fluid profiling is beneficial for understanding performance issues in your application. However, as we continued to improve on Pyroscope UI/UX, we identified ideal situations to use static profiling instead of running a profiler continuously, including profiling scripts and attaching a running process.
+While most profilers are built for more static or adhoc analysis (ie.profiling a script), Pyroscope's continuous profiling gives you the opportunity to jump around to any point in time. This fluid profiling is beneficial for understanding performance issues in your application. However, as we continued to improve on Pyroscope UI/UX, we identified ideal situations to use static profiling instead of running a profiler continuously, including profiling scripts and attaching a running process.
 
 Our goal is to make Pyroscope a one-stop-shop for all profiling needs. That means supporting all languages, all flamegraph formats, continuously profiling servers, and, of course, quickly profiling an adhoc script.
 
@@ -40,22 +38,22 @@ For example, to profile a Golang script [like this one](https://github.com/pyros
 ```sh
 pyroscope adhoc go run adhoc-push.go
 ```
-which will produce a folder containing an `.html` file with an interactive flamegraph (for each of the pprof profiles).
+which will produce a folder containing an `.html` file with an interactive flamegraph for each of the pprof profiles.
 
 ![image](https://user-images.githubusercontent.com/23323466/151047215-4cce89a1-4403-48c6-92b0-b6f1291af7c5.png)
 
-This command will profile the file passed in and then export an html file which looks like the Pyroscope UI, but is **exported as a simple standalone HTML file**:
+This command will profile the file passed in and then export an HTML file that looks like the Pyroscope UI, but it is **exported as a simple standalone HTML file**:
 
 ![image](https://user-images.githubusercontent.com/23323466/151047638-f79db7c0-945e-4862-9c34-1654c89782fa.png)
 
-Note: This html export can also be achieved through the file exported dropdown available in the flamegraph toolbar of your continuous profiling flamegraphs:
+Note: This HTML export can also be achieved through the file exported dropdown available in the flamegraph toolbar of your continuous profiling flamegraphs:
 
 ![image](https://user-images.githubusercontent.com/23323466/151273431-701f0fe4-4031-467e-8c13-189482771493.png)
 
 This is the simplest way to use Pyroscope adhoc mode. The new feature is great for quickly viewing and sharing profiles in a format with more functionality than a simple screenshot. 
 
 ### Analyzing Pyroscope-generated Adhoc Flamegraphs
-HTML file export allows you to easily share profiles with other people. Pyroscope also permanently stores all of your profiles in the `~/.pyroscope/` directory so you can revisit or compare profiles. In order to do that run:
+HTML file export allows you to easily share profiles with other people. Pyroscope also permanently stores all of your profiles in the `~/.pyroscope/` directory so you can revisit or compare profiles. In order to do that, run:
 Pyroscope stores data in the `~/.pyroscope/` directory. If you run:
 ```
 pyroscope server
@@ -66,7 +64,7 @@ And go to port `:4040` to access the flamegraphs you have created via the `pyros
 
 
 ### Viewing Flamgraph diffs between two adhoc profiles
-Similar to how we have diff view for continuous profiling. Adhoc also supports calculating the diff between two Flamegraphs. 
+Similar to how we have the diff view for continuous profiling, Adhoc also supports calculating the diff between two flamegraphs. 
 This functionality requires server-side code, so it is only available for files saved in the `~/.pyroscope` directory. We plan to improve this over time, or potentially even compile these functions to [WASM](https://github.com/pyroscope-io/pyroscope/pull/571). 
 
 ![image](https://user-images.githubusercontent.com/23323466/151269754-fb1f8c1c-8a0b-48bc-9566-e860e7e08f8c.png)
