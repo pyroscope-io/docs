@@ -64,8 +64,7 @@ This functionality is available starting from
 Make sure to upgrade before you use this.
 :::
 
-If your pyroscope instance uses authentication, it's likely that the grafana datasource plugin won't have access
-to the pyroscope instance. Therefore an **API KEY** must be created and configured for the datasource to use it:
+If you have user authentication enabled in the pyroscope server, you will also need to create an API key (`ReadOnly` role is sufficient) and specify it in the datasource configuration:
 
 1. [Create an API Key](/docs/api-key-authentication)
 2. In the pyroscope datasource config add the **API KEY**. If you are using [config file provisioning](https://grafana.com/docs/grafana/latest/administration/provisioning/) the configuration will look like this:
