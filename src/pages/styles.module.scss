@@ -1,10 +1,9 @@
-/* stylelint-disable docusaurus/copyright-header */
-
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
-
+// TODO: move vars to a file
+$pc: hsl(211, 48 * 1%,  60 * 1%);
+$bottom-bg: darken($pc, 50%);
+$bg: darken($pc, 45%);
+$pc: adjust-color($pc, $hue: -45deg);
+$pc: #3DC1D3;
 
 .heroBanner {
   padding: 4rem 0;
@@ -12,6 +11,17 @@
   position: relative;
   overflow: hidden;
   background-color: var(--palette-black-20);
+}
+
+$s1gb: darken($bg, 5%);
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--palette-black-20);
+  background-color: $s1gb;
+  color:  var(--ifm-heading-color);
 }
 
 @media screen and (max-width: 966px) {
@@ -44,24 +54,6 @@
   text-align: center;
 }
 
-
-// TODO: move vars to a file
-
-// these are the colors that kinda fit
-$pc: hsl(211, 48 * 1%,  60 * 1%);
-// $pc: hsl(246, 40,  65);
-// $pc: hsl(194, 52,  61);
-// $pc: rgb(128, 110, 183);
-// $pc: rgb(81,  149, 206);
-
-$bottom-bg: darken($pc, 50%);
-$bg: darken($pc, 45%);
-
-$pc: adjust-color($pc, $hue: -45deg);
-$pc: #3DC1D3;
-
-// TODO
-
 .cloudCanvas {
   position: absolute;
   top: 0;
@@ -86,11 +78,6 @@ $pc: #3DC1D3;
   left: 0;
   right: 0;
   z-index: 1;
-
-  // otherwise it's overwritten by var(--ifm-button-color)
-  .button{
-    color: white;
-  }
 }
 
 .cloudSectionWrapper {
@@ -158,4 +145,8 @@ $s2gb: lighten($bg, 0%);
   margin: 50px 0;
   // margin: 50px 0 -200px;
   box-shadow: inset 0 -100px 50px rgba(0,0,0, 0.93);
+}
+
+.heroSubtitle {
+  margin: 1.25rem 0 1.75rem;
 }

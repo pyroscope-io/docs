@@ -30,7 +30,7 @@ function FooterLink({to, href, label, prependBaseUrlToHref, icon, ...props}) {
             to: toUrl,
           })}
       {...props}>
-      {icon ? <img className="footer-icon" src={icon}/> : ''}
+      {icon ? <img className={styles.footerIcon} src={icon}/> : ''}
       {label}
     </Link>
   );
@@ -61,7 +61,7 @@ function Footer(): JSX.Element | null {
             {links.map((linkItem, i) => (
               <div key={i} className="col footer__col">
                 {linkItem.title != null ? (
-                  <h4 className="footer__title">{linkItem.title}</h4>
+                  <h4 className={clsx("footer__title", styles.footerTitle)}>{linkItem.title}</h4>
                 ) : null}
                 {linkItem.items != null &&
                 Array.isArray(linkItem.items) &&

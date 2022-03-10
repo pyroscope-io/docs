@@ -13,3 +13,14 @@
 .footerLogoLink:hover {
   opacity: 1;
 }
+
+.footerTitle {
+  font-weight: bold;
+}
+
+.footerIcon {
+  width: 18px;
+  height: 18px;
+  vertical-align: text-top;
+  margin-right: 4px;
+}

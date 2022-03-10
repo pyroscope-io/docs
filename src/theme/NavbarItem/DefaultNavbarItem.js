@@ -10,6 +10,7 @@ import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import {useLocation} from '@docusaurus/router';
 import {isSamePath} from '../../utils';
+import styles from './styles.module.scss';
 
 function NavLink({
   activeBasePath,
@@ -52,7 +53,7 @@ function NavLink({
           })}
       {...props}>
       <span>
-      {icon ? <img className="navbar-icon" src={icon}/> : ""}
+      {icon ? <img className={styles.navbarIcon} src={icon}/> : ""}
       {label}
       </span>
     </Link>

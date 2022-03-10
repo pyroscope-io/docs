@@ -83,11 +83,11 @@ function Home() {
           <h1 className="hero__title" style={{marginBottom: "0px"}}>
             {siteConfig.title}
           </h1>
-          <p className="hero__subtitle">{siteConfig.tagline}</p>
+          <p className={clsx("hero__subtitle", styles.heroSubtitle)}>{siteConfig.tagline}</p>
           <div className={styles.buttons}>
             <Link
               className={clsx(
-                'button button--outline button--live-demo button--lg',
+                'button button--outline button--action button--lg',
               )}
               to={"https://demo.pyroscope.io/?name=hotrod.python.frontend%7B%7D"}>
               Live Demo

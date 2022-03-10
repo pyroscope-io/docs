@@ -1,0 +1,179 @@
+
+$pc: hsl(211, 48 * 1%,  60 * 1%);
+$bottom-bg: darken($pc, 50%);
+$bg: darken($pc, 45%);
+$pc: #3DC1D3;
+
+:root {
+  --ifm-code-font-size: 95%;
+
+  --palette-charade: #002035;
+  --palette-gray: #32343e;
+  --palette-green: #66bb6a;
+  --palette-midnight: #141725;
+  --palette-pale-blue: #b1b5d3;
+  --palette-orange: #e68828;
+  --palette-orange-darker: #d62828;
+  --palette-rock: rgb(var(--palette-rock-raw));
+  --palette-rock-raw: 38, 40, 51;
+  --palette-sky: #81d3f9;
+  --palette-turquoise: #2176ff;
+  --palette-yellow: #fcbf49;
+
+  --palette-white: #fff;
+  --palette-white-03: rgba(255, 255, 255, 0.03);
+  --palette-white-05: rgba(255, 255, 255, 0.05);
+  --palette-white-10: rgba(255, 255, 255, 0.1);
+  --palette-white-20: rgba(255, 255, 255, 0.2);
+  --palette-white-30: rgba(255, 255, 255, 0.3);
+
+  --palette-black-03: rgba(0, 0, 0, 0.03);
+  --palette-black-05: rgba(0, 0, 0, 0.05);
+  --palette-black-10: rgba(0, 0, 0, 0.1);
+  --palette-black-20: rgba(0, 0, 0, 0.2);
+  --palette-black-30: rgba(0, 0, 0, 0.3);
+
+  // --docsearch-searchbox-background: var(--palette-black-30);
+  // --docsearch-searchbox-focus-background: var(--palette-black-30);
+  // --docsearch-primary-color: var(--palette-gray);
+
+
+  --palette-white-darker: #d9d9d9;
+
+  --transition-bezier: cubic-bezier(0.17, 0.67, 0.83, 0.67);
+
+  --font-family-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, Cantarell, Helvetica, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Android Emoji", EmojiSymbols, "EmojiOne Mozilla",
+    "Twemoji Mozilla", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* --font-size-small: 15px;
+  --font-size-normal: 16px;
+  --font-size-large: 18px;
+  --font-size-llarge: 24px;
+  --font-size-xlarge: 32px;
+  --font-size-xxlarge: 46px;
+  --font-size-xxxlarge: 64px; */
+
+  --primary-color: #{$pc};
+  --bg-color: #{$bg};
+
+  --logo-red-color: #EF2136;
+
+  --logo-orange-color: #FC851B;
+  --logo-yellow-color: #FEB20B;
+
+  --action-color: #{mix(#EF2136,#FC851B)};
+  --action-color: var(--palette-green);
+
+  --ifm-menu-color: #c5c5c5;
+
+  --announcement-bar-bg-color: var(--action-color);
+  --announcement-bar-text-color: #fff;
+
+  --ifm-blockquote-color: var(--palette-pale-blue);
+  --ifm-code-background: var(--palette-gray);
+  --ifm-code-color: var(--palette-white);
+ // --ifm-code-font-size: var(--font-size-small);
+  --ifm-color-emphasis-300: var(--palette-pale-blue);
+  --ifm-color-primary: var(--primary-color);
+  --ifm-color-primary-dark: #c93261;
+  --ifm-color-primary-darker: var(--palette-orange-darker);
+  --ifm-color-primary-darkest: #9c274b;
+  --ifm-color-primary-dark: #d75c82;
+  --ifm-color-primary-darker: #d9688b;
+  --ifm-color-primary-darkest: #e289a4;
+  --ifm-color-info: var(--palette-sky);
+  --ifm-dropdown-background-color: var(--palette-rock);
+  --ifm-font-color-base: var(--palette-white);
+//  --ifm-font-family-base: var(--font-family-base);
+  --ifm-font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+//  --ifm-font-size-base: var(--font-size-small);
+  --ifm-global-border-radius: 8px;
+  --ifm-h1-font-size: var(--font-size-xxlarge);
+  --ifm-h2-font-size: var(--font-size-llarge);
+  --ifm-h4-font-size: var(--font-size-large);
+  --ifm-heading-margin-bottom: 1.5rem;
+  --ifm-hr-border-color: var(--palette-white-20);
+  --ifm-link-color: var(--primary-color);
+//  --ifm-menu-link-sublist-icon: url("/img/infima/arrow.svg");
+  --ifm-navbar-background-color: var(--bg-color);
+  --ifm-navbar-height: 80px;
+  --ifm-navbar-item-padding-horizontal: 20px;
+  --ifm-navbar-shadow: 0 1px 0 0 var(--palette-white-10);
+  --ifm-paragraph-margin-bottom: 1.25rem;
+  --ifm-pre-background: var(--palette-midnight);
+  --ifm-table-cell-padding: 0.15rem 1rem;
+  --ifm-toc-border-color: var(--palette-white-10);
+
+
+
+  // overrides colors for alerts (admonitions), default ones don't look good on our dark background
+  // --ifm-color-note-contrast-background: #193c47 !important;
+  // --ifm-color-tip-contrast-background: #4b1113 !important;
+  --ifm-color-info-contrast-background: #2f758d !important;
+  --ifm-color-warning-contrast-background: #c99838 !important;
+  --ifm-color-danger-contrast-background: #a52328 !important;
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #{$bottom-bg};
+}
+
+
+
+html[data-theme='dark'] .DocSearch {
+  --docsearch-primary-color: var(--palette-gray);
+  --docsearch-text-color: #1c1e21;
+  --docsearch-spacing: 12px;
+  --docsearch-icon-stroke-width: 1.4;
+  --docsearch-highlight-color: var(--docsearch-primary-color);
+  --docsearch-muted-color: #969faf;
+  --docsearch-container-background: rgba(101,108,133,0.8);
+  --docsearch-logo-color: #5468ff;
+  --docsearch-modal-width: 560px;
+  --docsearch-modal-height: 600px;
+  --docsearch-modal-background: #f5f6f7;
+  --docsearch-modal-shadow: inset 1px 1px 0 0 hsla(0,0%,100%,0.5),0 3px 8px 0 #555a64;
+  --docsearch-searchbox-height: 56px;
+  --docsearch-searchbox-background: #ebedf0;
+  --docsearch-searchbox-focus-background: #fff;
+  --docsearch-searchbox-shadow: none;
+  --docsearch-hit-height: 56px;
+  --docsearch-hit-color: #444950;
+  --docsearch-hit-active-color: #fff;
+  --docsearch-hit-background: #fff;
+  --docsearch-hit-shadow: 0 1px 3px 0 #d4d9e1;
+  --docsearch-key-gradient: linear-gradient(-225deg,#d5dbe4,#f8f8f8);
+  --docsearch-key-shadow: inset 0 -2px 0 0 #cdcde6,inset 0 0 1px 1px #fff,0 1px 2px 1px rgba(30,35,90,0.4);
+  --docsearch-footer-height: 44px;
+  --docsearch-footer-background: #fff;
+  --docsearch-footer-shadow: 0 -1px 0 0 #e0e3e8,0 -3px 6px 0 rgba(69,98,155,0.12);
+}
+
+html[data-theme='dark'] {
+  --primary-color: #{$pc};
+  --bg-color: #{$bg};
+
+  --logo-red-color: #EF2136;
+
+  --logo-orange-color: #FC851B;
+  --logo-yellow-color: #FEB20B;
+
+  --action-color: #{mix(#EF2136,#FC851B)};
+  --action-color: var(--palette-green);
+
+  --ifm-menu-color: #c5c5c5;
+
+  --announcement-bar-bg-color: var(--action-color);
+  --announcement-bar-text-color: #fff;
+
+  --ifm-background-color: var(--bg-color);
+  --ifm-color-warning-dark: var(--palette-yellow);
+  --ifm-color-success-contrast-background: var(--palette-green);
+//  --ifm-alert-background-color: red !important;
+
+  --ifm-color-secondary-contrast-background: var(--ifm-color-secondary);
+  --ifm-color-secondary-contrast-foreground: var(--ifm-color-gray-900);
+}
