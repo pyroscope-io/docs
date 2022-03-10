@@ -16,7 +16,18 @@ const keys = {
 };
 
 function Tabs(props) {
-  const {block, children, defaultValue, values, groupId, className} = props;
+  const {
+    block,
+    children,
+    defaultValue,
+    values,
+    groupId,
+    className,
+    itemClassName,
+    itemActiveClassName,
+    iconClassName,
+    labelClassName
+  } = props;
   const {tabGroupChoices, setTabGroupChoices} = useUserPreferencesContext();
   const [selectedValue, setSelectedValue] = useState(defaultValue);
   const [keyboardPress, setKeyboardPress] = useState(false);
@@ -115,8 +126,9 @@ function Tabs(props) {
             role="tab"
             tabIndex={0}
             aria-selected={selectedValue === value}
-            className={clsx('tabs__item', styles.tabItem, {
+            className={clsx('tabs__item', itemClassName, styles.tabItem, {
               'tabs__item--active': selectedValue === value,
+              [itemActiveClassName]: selectedValue === value,
             })}
             style={
               keyboardPress
@@ -137,8 +149,8 @@ function Tabs(props) {
               setKeyboardPress(false);
             }}
             onPointerDown={() => setKeyboardPress(false)}>
-            {icon ? <div className="tabs__item__icon"><FontAwesomeIcon icon={icon}/></div> : ""}
-            {icon ? <div className="tabs__item__label">{label}</div>: label}
+            {icon ? <div className={clsx(iconClassName, "tabs__item__icon")}><FontAwesomeIcon icon={icon}/></div> : ""}
+            {icon ? <div className={clsx(labelClassName, "tabs__item__label")}>{label}</div>: label}
           </li>
         ))}
       </ul>

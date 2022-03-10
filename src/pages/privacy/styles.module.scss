@@ -1,0 +1,41 @@
+.privacyPage {
+  h1 {
+    font-size: 3rem;
+  }
+  > p, ul {
+    margin-left: 30px;
+  }
+
+  > ul {
+    counter-reset: list;
+    > li {
+      list-style: none;
+      position: relative;
+    }
+    > li:before {
+      counter-increment: list;
+      text-align: right;
+      content: counter(list, lower-alpha) ") ";
+      position: absolute;
+      right: 100%;
+      padding-right: 8px;
+      width: 2em;
+    }
+  }
+  > ul ul {
+    counter-reset: list;
+    > li {
+      list-style: none;
+      position: relative;
+    }
+    > li:before {
+      counter-increment: list;
+      text-align: right;
+      content: counter(list, lower-roman) ") ";
+      position: absolute;
+      right: 100%;
+      padding-right: 8px;
+      width: 2em;
+    }
+  }
+}

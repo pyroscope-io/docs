@@ -3,6 +3,7 @@ import Layout from '@theme/Layout';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
+import clsx from 'clsx';
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
@@ -10,7 +11,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faApple, faLinux, faDocker, faWindows } from '@fortawesome/free-brands-svg-icons';
 import { faSyncAlt } from '@fortawesome/free-solid-svg-icons';
 
-import packages from '../../packages.manifest.json';
+import packages from '../../../packages.manifest.json';
+import styles from './styles.module.scss';
 
 const RPM_ARCH = {
   "arm64": "aarch64",
@@ -32,15 +34,15 @@ class Download extends React.Component {
   render() {
     return (
       <Layout title="Download Pyroscope">
-        <main className="download-page">
+        <main className={styles.downloadPage}>
           <div className="container">
-            <h1 className="download-page-title">Download Pyroscope</h1>
-            <div className="download-info-table">
-              <div className="download-info-row">
-                <div className="download-info-col download-info-title">
+            <h1 className={styles.downloadPageTitle}>Download Pyroscope</h1>
+            <div className={styles.downloadInfoTable}>
+              <div className={styles.downloadInfoRow}>
+                <div className={clsx(styles.downloadInfoCol, styles.downloadInfoTitle)}>
                   Version:
                 </div>
-                <div className="download-info-col">
+                <div className={styles.downloadInfoCol}>
                   <select onChange={this.changeHandler.bind(this)}>
                     {
                       Object.keys(packages.releases).map((x) => {
@@ -51,20 +53,20 @@ class Download extends React.Component {
                 </div>
               </div>
 
-              <div className="download-info-row">
-                <div className="download-info-col download-info-title">
+              <div className={styles.downloadInfoRow}>
+                <div className={clsx(styles.downloadInfoCol, styles.downloadInfoTitle)}>
                   License:
                 </div>
-                <div className="download-info-col">
+                <div className={styles.downloadInfoCol}>
                   Apache 2
                 </div>
               </div>
 
-              <div className="download-info-row">
-                <div className="download-info-col download-info-title">
+              <div className={styles.downloadInfoRow}>
+                <div className={clsx(styles.downloadInfoCol, styles.downloadInfoTitle)}>
                   Release Date:
                 </div>
-                <div className="download-info-col">
+                <div className={styles.downloadInfoCol}>
                   {packages.releases[this.state.version]}
                 </div>
               </div>
@@ -72,7 +74,10 @@ class Download extends React.Component {
             <hr />
             <h3>Platforms</h3>
             <Tabs
-              className="tabs-platforms"
+              itemClassName={styles.tabItem}
+              itemActiveClassName={styles.tabItemActive}
+              iconClassName={styles.tabsIcon}
+              className={styles.tabsPlatforms}
               groupId="platforms"
               defaultValue="linux"
               values={[
@@ -82,10 +87,13 @@ class Download extends React.Component {
                 { icon: faDocker, label: 'Docker', value: 'docker' },
               ]
               }>
-              <TabItem value="linux">
+              <TabItem className={styles.tabItem} value="linux">
                 <h3>Architecture</h3>
                 <Tabs
-                  className="tabs-arch"
+                  itemClassName={styles.tabItem}
+                  itemActiveClassName={styles.tabItemActive}
+                  iconClassName={styles.tabsIcon}
+                  className={styles.tabsArch}
                   groupId="archs"
                   defaultValue="amd64"
                   values={[
@@ -94,11 +102,14 @@ class Download extends React.Component {
                   ]
                   }>{
                     ["amd64", "arm64"].map((arch) => {
-                      return <TabItem key={arch} value={arch}>
+                      return <TabItem className={styles.tabItem} key={arch} value={arch}>
                         <h3>Package Type</h3>
-                        <div className="download-details">
+                        <div className={styles.downloadDetails}>
                           <Tabs
-                            className="tabs-packages"
+                            itemClassName={styles.tabItem}
+                            itemActiveClassName={styles.tabItemActive}
+                            iconClassName={styles.tabsIcon}
+                            className={styles.tabsPackages}
                             groupId="package-types"
                             defaultValue="standalone"
                             values={[
@@ -108,10 +119,10 @@ class Download extends React.Component {
                               { label: 'Arch Linux', value: 'archlinux' },
                             ]
                             }>
-                            <TabItem value="standalone">
+                            <TabItem className={styles.tabItem} value="standalone">
                               <hr />
-                              <div className="instructions-wrapper">
-                                <h3 className="instructions-header">Instructions</h3><div className="sha">{packages.shaMapping[`pyroscope-${v(this.state.version)}-linux-${arch}.tar.gz`]}</div>
+                              <div className={styles.instructionsWrapper}>
+                                <h3 className={styles.instructionsHeader}>Instructions</h3><div className={styles.sha}>{packages.shaMapping[`pyroscope-${v(this.state.version)}-linux-${arch}.tar.gz`]}</div>
                               </div>
                               <CodeBlock className="language-shell">{
                                 `
@@ -119,13 +130,13 @@ class Download extends React.Component {
                           tar -zxvf pyroscope-${v(this.state.version)}-linux-${arch}.tar.gz
                         `.replace(/^\s+/mg, "")
                               }</CodeBlock>
-                              <h3 className="instructions-header">Running server</h3>
+                              <h3 className={styles.instructionsHeader}>Running server</h3>
                               <p>To start pyroscope server run <code>pyroscope server</code></p>
                             </TabItem>
-                            <TabItem value="rpm">
+                            <TabItem className={styles.tabItem} value="rpm">
                               <hr />
-                              <div className="instructions-wrapper">
-                                <h3 className="instructions-header">Instructions</h3><div className="sha">{packages.shaMapping[`pyroscope-${v(this.state.version)}-1-${RPM_ARCH[arch]}.rpm`]}</div>
+                              <div className={styles.instructionsWrapper}>
+                                <h3 className={styles.instructionsHeader}>Instructions</h3><div className={styles.sha}>{packages.shaMapping[`pyroscope-${v(this.state.version)}-1-${RPM_ARCH[arch]}.rpm`]}</div>
                               </div>
                               <CodeBlock className="language-shell">{
                                 `
@@ -135,10 +146,10 @@ class Download extends React.Component {
                               }</CodeBlock>
                               <p></p>
                             </TabItem>
-                            <TabItem value="deb">
+                            <TabItem className={styles.tabItem} value="deb">
                               <hr />
-                              <div className="instructions-wrapper">
-                                <h3 className="instructions-header">Instructions</h3><div className="sha">{packages.shaMapping[`pyroscope_${v(this.state.version)}_${arch}.deb`]}</div>
+                              <div className={styles.instructionsWrapper}>
+                                <h3 className={styles.instructionsHeader}>Instructions</h3><div className={styles.sha}>{packages.shaMapping[`pyroscope_${v(this.state.version)}_${arch}.deb`]}</div>
                               </div>
                               <CodeBlock className="language-shell">{
                                 `
@@ -147,10 +158,10 @@ class Download extends React.Component {
                         `.replace(/^\s+/mg, "")
                               }</CodeBlock>
                             </TabItem>
-                            <TabItem value="archlinux">
+                            <TabItem className={styles.tabItem} value="archlinux">
                               <hr />
-                              <div className="instructions-wrapper">
-                                <h3 className="instructions-header">Instructions</h3>
+                              <div className={styles.instructionsWrapper}>
+                                <h3 className={styles.instructionsHeader}>Instructions</h3>
                               </div>
                               <CodeBlock className="language-shell">{
                                 `yay -S pyroscope-bin`
@@ -162,9 +173,9 @@ class Download extends React.Component {
                     })
                   }</Tabs>
               </TabItem>
-              <TabItem value="macos">
-                <div className="instructions-wrapper">
-                  <h3 className="instructions-header">Instructions</h3>
+              <TabItem className={styles.tabItem} value="macos">
+                <div className={styles.instructionsWrapper}>
+                  <h3 className={styles.instructionsHeader}>Instructions</h3>
                 </div>
                 <CodeBlock className="language-shell">{
                   `
@@ -172,9 +183,9 @@ class Download extends React.Component {
                   `.replace(/^\s+/mg, "")
                 }</CodeBlock>
               </TabItem>
-              <TabItem value="windows">
-                <div className="instructions-wrapper">
-                  <h3 className="instructions-header">Instructions</h3>
+              <TabItem className={styles.tabItem} value="windows">
+                <div className={styles.instructionsWrapper}>
+                  <h3 className={styles.instructionsHeader}>Instructions</h3>
                 </div>
                 <CodeBlock className="language-shell">{
                   `[Net.ServicePointManager]::SecurityProtocol = "tls12"\n` +
@@ -183,9 +194,9 @@ class Download extends React.Component {
                 }</CodeBlock>
                 <p>For instruction on how to install <b>Pyroscope Agent</b> on Windows, see our <a href="/docs/agent-install-windows">Documentation</a>.</p>
               </TabItem>
-              <TabItem value="docker">
-                <div className="instructions-wrapper">
-                  <h3 className="instructions-header">Instructions</h3>
+              <TabItem className={styles.tabItem} value="docker">
+                <div className={styles.instructionsWrapper}>
+                  <h3 className={styles.instructionsHeader}>Instructions</h3>
                 </div>
                 <CodeBlock className="language-shell">{
                   `
@@ -195,7 +206,7 @@ class Download extends React.Component {
               </TabItem>
             </Tabs>
           </div>
-          <div className="extra-space"></div>
+          <div className={styles.extraSpace}></div>
         </main>
       </Layout>
     );
