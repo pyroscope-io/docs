@@ -139,7 +139,7 @@ export default function TerminalRow() {
       title="Start the server"
       onStop={ () => { terminalTwoStart = true } }
       startCondition={ () => true }
-    />;
+    />
     <TerminalWindowWrapper
       lines={[
         "$ pyroscope exec python server.py",
@@ -150,6 +150,6 @@ export default function TerminalRow() {
       title="Start the client"
       onStop={ () => { terminalTwoStart = true } }
       startCondition={ () => terminalTwoStart }
-    />;
+    />
   </div>
 }

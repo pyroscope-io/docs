@@ -104,17 +104,17 @@ function Home() {
             </Link>
           </div>
 
-          <video className="demo-video" src="/videos/demo5.mov" preload="auto" controls muted playsInline loop autoPlay width="100%" style={{borderRadius: "11px"}}>
+          <video className={styles.demoVideo} src="/videos/demo5.mov" preload="auto" controls muted playsInline loop autoPlay width="100%" style={{borderRadius: "11px"}}>
             <source src="/videos/demo5.mov"></source>
           </video>
         </div>
       </header>
-      <main >
-        <div className="slanted-wrapper">
-          <section className={clsx(styles.features, "slanted-section")}>
-            <div className="container index-page-section" >
-              <h2 className="subsection-title-container">
-                <span className="subsection-title">Start profiling your apps in two simple steps</span>
+      <main>
+        <div className={styles.slantedWrapper}>
+          <section className={clsx(styles.features, styles.slantedSection)}>
+            <div className={clsx("container", styles.indexPageSection)} >
+              <h2 className={styles.subsectionTitleContainer}>
+                <span className={styles.subsectionTitle}>Start profiling your apps in two simple steps</span>
               </h2>
               <TerminalRow/>
               <p className={styles.terminalNotes}>
@@ -123,10 +123,10 @@ function Home() {
             </div>
           </section>
         </div>
-        <section className={clsx(styles.features, "brighter-section")}>
-          <div className="container index-page-section" >
-            <h2 className="subsection-title-container">
-              <span className="subsection-title">Why Pyroscope?</span>
+        <section className={clsx(styles.features, styles.brighterSection)}>
+          <div className={clsx("container", styles.indexPageSection)} >
+            <h2 className={styles.subsectionTitleContainer}>
+              <span className={styles.subsectionTitle}>Why Pyroscope?</span>
             </h2>
             <div className="row">
                 {features.map((props, idx) => (
@@ -135,21 +135,22 @@ function Home() {
             </div>
           </div>
         </section>
-        <div className="cloud-section-wrapper">
-          <canvas className="cloud-canvas" ref={canvasRef} ></canvas>
-          <section className="cloud-section">
-            <div className="container index-page-section" >
-              <h2 className="subsection-title-container">
-                <span className="subsection-title">&nbsp;</span>
+        <div className={styles.cloudSectionWrapper}>
+          <canvas className={styles.cloudCanvas} ref={canvasRef} ></canvas>
+          <section className={styles.cloudSection}>
+            <div className={clsx("container", styles.indexPageSection)} >
+              <h2 className={styles.subsectionTitleContainer}>
+                <span className={styles.subsectionTitle}>&nbsp;</span>
               </h2>
               <div className="row">
                 <div className='col col--6'>
                   <IndexPageCloud/>
                 </div>
                 <div className='col col--6'>
-                  <h2 className="subsection-title align-left">Pyroscope Cloud</h2>
+                {/* subsection-title align-left */}
+                  <h2 className={clsx(styles.subsectionTitle, styles.alignLeft)}>Pyroscope Cloud</h2>
                   <p>A fully-managed, continous profiling service powered by Pyroscope team. The fastest, easiest way to start using Pyroscope.</p>
-                  <a className="button button--action button--lg" href="https://pyroscope.io/cloud">Create a Pyroscope Server</a>
+                  <a className={clsx(styles.button, "button", "button--action", "button--lg")} href="https://pyroscope.io/cloud">Create a Pyroscope Server</a>
                 </div>
               </div>
             </div>

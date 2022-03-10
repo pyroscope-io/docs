@@ -43,3 +43,119 @@
   margin: auto;
   text-align: center;
 }
+
+
+// TODO: move vars to a file
+
+// these are the colors that kinda fit
+$pc: hsl(211, 48 * 1%,  60 * 1%);
+// $pc: hsl(246, 40,  65);
+// $pc: hsl(194, 52,  61);
+// $pc: rgb(128, 110, 183);
+// $pc: rgb(81,  149, 206);
+
+$bottom-bg: darken($pc, 50%);
+$bg: darken($pc, 45%);
+
+$pc: adjust-color($pc, $hue: -45deg);
+$pc: #3DC1D3;
+
+// TODO
+
+.cloudCanvas {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+}
+
+
+.indexPageSection {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.cloudSection {
+  height: 700px;
+  color: white;
+  position: absolute;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  // otherwise it's overwritten by var(--ifm-button-color)
+  .button{
+    color: white;
+  }
+}
+
+.cloudSectionWrapper {
+  position: relative;
+  background:#1f81e0;
+  width: 100%;
+  height: 700px;
+
+  $slant: 10%;
+  clip-path: polygon(0 $slant, 100% 0, 100% (100%), 0% 100%);
+}
+
+
+.subsectionTitleContainer {
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.subsectionTitle {
+  font-size: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.subsectionTitle {
+  font-size: 3rem;
+  display: flex;
+  text-align: center;
+}
+
+h2.subsectionTitle.alignLeft {
+  text-align: left;
+  justify-content: left;
+}
+
+.slantedSection {
+  background-color: lighten($bg, 5%);
+}
+
+$s1gb: darken($bg, 5%);
+$s2gb: lighten($bg, 0%);
+.brighterSection {
+  background-color: $s2gb;
+}
+
+
+@media screen and (min-width: 768px) {
+  .slantedWrapper {
+    // background-color: var(--palette-black-20);
+    background-image: linear-gradient(180deg, $s1gb 0%, $s1gb 49%, $s2gb 50%, $s2gb 100%);
+  }
+
+  .slantedSection {
+    $slant: 10%;
+    clip-path: polygon(0 $slant, 100% 0, 100% (100% - $slant), 0% 100%);
+    // important otherwise it's overwritten by
+    // .features_src-pages-styles-module
+    padding: 8rem 0 !important;
+    margin: -4rem 0 0;
+  }
+}
+
+
+.demoVideo {
+  margin: 50px 0;
+  // margin: 50px 0 -200px;
+  box-shadow: inset 0 -100px 50px rgba(0,0,0, 0.93);
+}

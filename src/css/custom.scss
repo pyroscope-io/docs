@@ -8,44 +8,28 @@
 /* You can override the default Infima variables here. */
 @use "sass:math";
 
-// these are colors from the main app
-$pc: hsl(24,  69 * 1%,  60 * 1%);
-$pc: hsl(34,  65 * 1%,  65 * 1%);
-$pc: hsl(194, 52 * 1%,  61 * 1%);
-$pc: hsl(163, 45 * 1%,  55 * 1%);
-$pc: hsl(305, 63 * 1%,  79 * 1%);
-$pc: hsl(47,  100 * 1%, 73 * 1%);
 
-$pc: rgb(183, 219, 171);
-$pc: rgb(244, 213, 152);
-$pc: rgb(112, 219, 237);
-$pc: rgb(249, 186, 143);
-$pc: rgb(242, 145, 145);
-$pc: rgb(130, 181, 216);
-$pc: rgb(229, 168, 226);
-$pc: rgb(174, 162, 224);
-$pc: rgb(154, 196, 138);
-$pc: rgb(242, 201, 109);
-$pc: rgb(101, 197, 219);
-$pc: rgb(249, 147, 78);
-$pc: rgb(234, 100, 96);
-$pc: rgb(81,  149, 206);
-$pc: rgb(214, 131, 206);
-$pc: rgb(128, 110, 183);
+/*
+                          _
+                         (_)
+__      ____ _ _ __ _ __  _ _ __   __ _
+\ \ /\ / / _` | '__| '_ \| | '_ \ / _` |
+ \ V  V / (_| | |  | | | | | | | | (_| |
+  \_/\_/ \__,_|_|  |_| |_|_|_| |_|\__, |
+                                   __/ |
+                                  |___/
 
-// these are the colors that kinda fit
+
+Please don't add more things to this file.
+For new components use styles.module.scss approach instead.
+
+TODO: move more of these to styles.modules.scss files
+
+*/
 $pc: hsl(211, 48 * 1%,  60 * 1%);
-// $pc: hsl(246, 40,  65);
-// $pc: hsl(194, 52,  61);
-// $pc: rgb(128, 110, 183);
-// $pc: rgb(81,  149, 206);
-
 $bottom-bg: darken($pc, 50%);
 $bg: darken($pc, 45%);
-
-$pc: adjust-color($pc, $hue: -45deg);
 $pc: #3DC1D3;
-// $pc: adjust-color($pc, $hue: 15deg);
 
 :root {
   --ifm-code-font-size: 95%;
@@ -177,6 +161,11 @@ $pc: #3DC1D3;
   color:  var(--ifm-heading-color);
 }
 
+$s1gb: darken($bg, 5%);
+.hero.hero--primary {
+  background-color: $s1gb;
+}
+
 @media screen and (max-width: 966px) {
   .heroBanner {
     padding: 2rem;
@@ -292,7 +281,6 @@ table tr:nth-child(2n) {
   }
 }
 
-
 .button--live-demo,
 .button--action {
   background: var(--action-color);
@@ -303,57 +291,6 @@ table tr:nth-child(2n) {
   }
 }
 
-.demo-video {
-  margin: 50px 0;
-  // margin: 50px 0 -200px;
-  box-shadow: inset 0 -100px 50px rgba(0,0,0, 0.93);
-}
-
-.title-logo {
-  display: inline-block;
-  vertical-align: text-bottom;
-  width: 60px;
-  margin-right: 5px;
-}
-
-
-.index-page-section {
-  padding-top: 2rem;
-  padding-bottom: 2rem;
-}
-
-$s1gb: darken($bg, 5%);
-.hero.hero--primary {
-  background-color: $s1gb;
-}
-
-$s2gb: lighten($bg, 0%);
-.brighter-section {
-  background-color: $s2gb;
-}
-
-
-.slanted-section {
-  background-color: lighten($bg, 5%);
-}
-
-@media screen and (min-width: 768px) {
-  .slanted-wrapper {
-    // background-color: var(--palette-black-20);
-    background-image: linear-gradient(180deg, $s1gb 0%, $s1gb 49%, $s2gb 50%, $s2gb 100%);
-  }
-
-  .slanted-section {
-    $slant: 10%;
-    clip-path: polygon(0 $slant, 100% 0, 100% (100% - $slant), 0% 100%);
-    // important otherwise it's overwritten by
-    // .features_src-pages-styles-module
-    padding: 8rem 0 !important;
-    margin: -4rem 0 0;
-  }
-}
-
-
 // fixes an annoying bug
 .navbar__inner.inner_src-theme-Navbar- {
   max-width: var(--ifm-container-width);
@@ -361,34 +298,11 @@ $s2gb: lighten($bg, 0%);
   padding: 0 1rem;
 }
 
-.subsection-title-container {
-  margin-bottom: 10px;
-  margin-top: 20px;
+.footer__title {
+  font-weight: bold;
 }
 
-.subsection-title {
-  font-size: 3rem;
-  display: flex;
-  justify-content: center;
-}
-
-.subsection-title {
-  font-size: 3rem;
-  display: flex;
-  text-align: center;
-}
-
-
-
-.cloud-section-wrapper {
-  position: relative;
-  background:#1f81e0;
-  width: 100%;
-  height: 700px;
-
-  $slant: 10%;
-  clip-path: polygon(0 $slant, 100% 0, 100% (100%), 0% 100%);
-}
+// BACKEND related, need to move this
 
 .cloud-signup {
   position: relative;
@@ -412,31 +326,6 @@ $s2gb: lighten($bg, 0%);
   }
 }
 
-.cloud-canvas {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 0;
-}
-
-.cloud-section {
-  height: 700px;
-  color: white;
-  position: absolute;
-  top: 100px;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-
-  // otherwise it's overwritten by var(--ifm-button-color)
-  .button{
-    color: white;
-  }
-}
-
 .cloud-server-icon {
   display: inline-block;
   width: 30px;
@@ -457,11 +346,9 @@ $s2gb: lighten($bg, 0%);
   }
 }
 
-h2.subsection-title.align-left {
-  text-align: left;
-  justify-content: left;
-}
-
 
 @import 'extra-styles';
+
+
+
 
