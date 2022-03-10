@@ -15,12 +15,7 @@
   height: var(--docusaurus-announcement-bar-height);
   background-color: var(--ifm-color-primary);
   color: var(--ifm-color-black);
-}
-
-@media screen and (min-width: 1024px) {
-  :root {
-    --docusaurus-announcement-bar-height: 30px;
-  }
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 .announcementBarClose {
