@@ -21,3 +21,15 @@ yarn start
 ### Contributing
 
 Feel free to contribute to the project by forking the repository and submitting pull requests.
+
+### Changing Docusaurus Components
+
+Sometimes you might want to change a docusaurus component (for example, `Footer`). To do that you'll need to copy the component from docusaurus. This process is callsed swizzling and here's the best way to do it:
+
+```console
+yarn run swizzle <theme name> [component name]
+# for example:
+yarn run swizzle @docusaurus/theme-classic Footer
+```
+
+You can learn more about swizzling in [docusaurus docs](https://docusaurus.io/docs/swizzling).
