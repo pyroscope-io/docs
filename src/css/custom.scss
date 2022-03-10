@@ -223,16 +223,6 @@ $pc: #3DC1D3;
   margin-right: 4px;
 }
 
-.terminal-row {
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  margin-left: calc(var(--ifm-spacing-horizontal) * -1);
-  margin-right: calc(var(--ifm-spacing-horizontal) * -1);
-  margin-bottom: 20px;
-}
-
 .hero__subtitle {
   margin: 1.25rem 0 1.75rem;
 }
@@ -371,52 +361,6 @@ $s2gb: lighten($bg, 0%);
   padding: 0 1rem;
 }
 
-
-.logo-icon {
-  width: 60px;
-  display: inline-block;
-  vertical-align: baseline;
-}
-
-.step-instructions-container {
-  display: flex;
-  justify-content: center;
-  margin: 10px;
-}
-
-.step-number {
-  border-radius: 20%;
-  background-color: #62B5E5;
-  width: 50px;
-  margin-right: 10px;
-  display: flex;
-}
-
-.step-instructions {
-  font-size: 28px;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-.step-instructions svg {
-  display: inline-block;
-  vertical-align: bottom;
-
-  filter: drop-shadow( 0 0 2px rgba(0, 0, 0, .3));
-}
-.step-instructions span {
-  display: inline-block;
-  vertical-align: baseline;
-}
-
-.step-index {
-  display: inline-block;
-  vertical-align: baseline;
-  position: relative;
-  right: 38px;
-  width: 0;
-  text-shadow: 0 1px 2px rgba(0,0,0, 0.3);
-}
-
 .subsection-title-container {
   margin-bottom: 10px;
   margin-top: 20px;
@@ -434,129 +378,7 @@ $s2gb: lighten($bg, 0%);
   text-align: center;
 }
 
-.logo-step-number {
-  height: 50px;
-}
 
-.terminal-window {
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 6px;
-  border-bottom-left-radius: 6px;
-  overflow: hidden;
-  -webkit-box-flex: 0;
-  -webkit-flex: 0 0 auto;
-  -ms-flex: 0 0 auto;
-  flex: 0 0 auto;
-  border-style: solid;
-  border-width: 1px;
-  border-color: rgba(0,0,0,.3);
-  background-color: rgba(0,0,0,0.3);
-  box-shadow: 0 1px 13px rgba(0,0,0, 0.3);
-
-  &.white-bg {
-    background-color: rgba(255,255,255,1);
-    border-color: rgba(255,255,255,.3);
-    // box-shadow: 0 1px 13px rgba(255,255,255, 0.3);
-    color: #333;
-  }
-
-  h3 {
-    margin: 0.5em 10px;
-  }
-}
-
-.terminal-notes {
-  margin: auto;
-  text-align: center;
-}
-
-.terminal-bar {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 10px 8px;
-  background-color: #fff;
-  border-top-left-radius: 6px;
-  border-top-right-radius: 6px;
-
-  &.gray-bg {
-    background-color: #ccc;
-    background-image: linear-gradient(#fff, #ddd);
-  }
-}
-
-.code-box {
-  display: block;
-  overflow: hidden;
-  padding: 15px;
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  font-family: var(--ifm-font-family-monospace);
-  color: rgba(white, 0.5);
-  font-weight: 400;
-  white-space: pre;
-  -o-object-fit: fill;
-  object-fit: fill;
-}
-
-.cursor {
-  font-weight: bold;
-  color: white;
-}
-
-.command-text {
-  font-weight: normal;
-  color: white;
-}
-
-.terminal-bar-dot {
-  width: 10px;
-  height: 10px;
-  margin-right: 5px;
-  border-radius: 50%;
-  background-color: #efefef;
-  box-shadow: 0 0 1px inset rgba(0, 0, 0, 0.33);
-
-}
-
-.red {
-  background-color: #ee6b60;
-}
-
-.yellow {
-  background-color: #f5be4f;
-}
-
-.green {
-  background-color: #63c353;
-}
-
-.terminal-wrapper {
-  width: 435px;
-  min-width: 435px;
-  font-size: 15px;
-  margin: 10px;
-}
-
-.terminal-window {
-  min-height: 220px;
-}
-
-@media screen and (max-width: 435px) {
-
-.terminal-window {
-  min-height: 200px;
-}
-  .terminal-wrapper {
-    width: 300px;
-    min-width: 300px;
-    font-size: 10px;
-  }
-}
 
 .cloud-section-wrapper {
   position: relative;
@@ -632,39 +454,6 @@ $s2gb: lighten($bg, 0%);
   }
   .cloud-section {
 
-  }
-}
-
-
-.server {
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin: 10px;
-  // height: 50px;
-  color: #333;
-  padding: 10px 15px;
-  padding-left: 55px;
-  position: relative;
-
-  .server-logo {
-    position: absolute;
-    background: url(/img/logo-v3-small.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 80px;
-    left: 8px;
-    top: 12px;
-    bottom: 12px;
-  }
-  .server-name {
-    font-weight: bold;
-  }
-  .server-stats {
-    color: #999;
-    font-size: 0.8em;
-  }
-  .server-status {
-    color: #2ECC40;
   }
 }
 
