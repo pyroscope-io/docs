@@ -1,11 +1,20 @@
 ---
 id: integration-golang
-title: Go
+title: Go Integration (Push Mode)
 sidebar_label: Golang (Push)
 slug: /golang
 description: Pyroscope Go profiling
 keywords: [ pyroscope, go, golang, profiling ]
 ---
+
+import IntegrationHeader from '../src/components/IntegrationHeader';
+
+<IntegrationHeader
+  demoURL="https://golang-push-rideshare.examples.pyroscope.io/"
+  blogURL="https://pyroscope.io/blog/profiling-go-apps-with-pyroscope/"
+  youtubeURL="https://www.youtube.com/embed/zy5W79Hbq4c"
+  sourceURL="https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang-push"
+/>
 
 Pyroscope uses the standard `runtime/pprof` package to collect profiling data. Refer to
 [the official documentation](https://golang.org/doc/diagnostics#profiling) for details.
