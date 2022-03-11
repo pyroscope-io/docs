@@ -23,7 +23,6 @@
     &.whiteBg {
       background-color: rgba(255,255,255,1);
       border-color: rgba(255,255,255,.3);
-      // box-shadow: 0 1px 13px rgba(255,255,255, 0.3);
       color: #333;
     }
 
@@ -41,6 +40,7 @@
     background-color: #fff;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.1);
 
     &.grayBg {
       background-color: #ccc;
@@ -57,7 +57,7 @@
     -ms-flex: 1;
     flex: 1;
     font-family: var(--ifm-font-family-monospace);
-    color: rgba(white, 0.5);
+    color: var(--ifm-color-content);
     font-weight: 400;
     white-space: pre;
     -o-object-fit: fill;
@@ -66,12 +66,13 @@
 
   .cursor {
     font-weight: bold;
-    color: white;
+    color: var(--ifm-color-content);
   }
 
   .commandText {
     font-weight: normal;
-    color: white;
+    font-weight: bold;
+    color: var(--ifm-color-content);
   }
 
   .terminalBarDot {

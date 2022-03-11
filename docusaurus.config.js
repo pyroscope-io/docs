@@ -40,8 +40,8 @@ module.exports = {
       trackingID: 'UA-185672451-1'
     },
     colorMode: {
-      defaultMode: 'dark',
-      disableSwitch: true
+      defaultMode: 'light',
+      disableSwitch: false
     },
     navbar: {
       title: 'Pyroscope',

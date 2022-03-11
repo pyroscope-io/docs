@@ -73,9 +73,9 @@ function Home() {
       .then(res => setInstanceCount(res));
   })
 
-
   return (
     <Layout
+      className={styles.home}
       title={`${siteConfig.title} | ${siteConfig.tagline}`}
       description="Find bottlenecks in your code and fix performance issues">
       <header className={clsx('hero hero--primary', styles.heroBanner)}>

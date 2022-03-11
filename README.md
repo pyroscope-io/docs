@@ -33,3 +33,13 @@ yarn run swizzle @docusaurus/theme-classic Footer
 ```
 
 You can learn more about swizzling in [docusaurus docs](https://docusaurus.io/docs/swizzling).
+
+### Upgrading Docusaurus
+
+The biggest thing you need to keep in mind is that all components that were updated manually (swizzled) have to be updated as well.
+
+### Syncing videos (requires AWS permissions)
+
+```
+aws s3 sync s3://pyroscope.io/videos ./static/videos
+```

@@ -1,9 +1,4 @@
-// TODO: move vars to a file
-$pc: hsl(211, 48 * 1%,  60 * 1%);
-$bottom-bg: darken($pc, 50%);
-$bg: darken($pc, 45%);
-$pc: adjust-color($pc, $hue: -45deg);
-$pc: #3DC1D3;
+$slant: 10%;
 
 .heroBanner {
   padding: 4rem 0;
@@ -13,14 +8,13 @@ $pc: #3DC1D3;
   background-color: var(--palette-black-20);
 }
 
-$s1gb: darken($bg, 5%);
 .heroBanner {
   padding: 4rem 0;
   text-align: center;
   position: relative;
   overflow: hidden;
   background-color: var(--palette-black-20);
-  background-color: $s1gb;
+  background-color: var(--ifm-background-color-darker);
   color:  var(--ifm-heading-color);
 }
 
@@ -86,7 +80,6 @@ $s1gb: darken($bg, 5%);
   width: 100%;
   height: 700px;
 
-  $slant: 10%;
   clip-path: polygon(0 $slant, 100% 0, 100% (100%), 0% 100%);
 }
 
@@ -114,24 +107,20 @@ h2.subsectionTitle.alignLeft {
 }
 
 .slantedSection {
-  background-color: lighten($bg, 5%);
+  background-color: var(--ifm-background-color-lighter);
 }
 
-$s1gb: darken($bg, 5%);
-$s2gb: lighten($bg, 0%);
 .brighterSection {
-  background-color: $s2gb;
+  background-color: var(--ifm-background-color);
 }
-
 
 @media screen and (min-width: 768px) {
   .slantedWrapper {
     // background-color: var(--palette-black-20);
-    background-image: linear-gradient(180deg, $s1gb 0%, $s1gb 49%, $s2gb 50%, $s2gb 100%);
+    background-image: linear-gradient(180deg, var(--ifm-background-color-darker) 0%, var(--ifm-background-color-darker) 49%, var(--ifm-background-color) 50%, var(--ifm-background-color) 100%);
   }
 
   .slantedSection {
-    $slant: 10%;
     clip-path: polygon(0 $slant, 100% 0, 100% (100% - $slant), 0% 100%);
     // important otherwise it's overwritten by
     // .features_src-pages-styles-module
@@ -143,8 +132,7 @@ $s2gb: lighten($bg, 0%);
 
 .demoVideo {
   margin: 50px 0;
-  // margin: 50px 0 -200px;
-  box-shadow: inset 0 -100px 50px rgba(0,0,0, 0.93);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
 }
 
 .heroSubtitle {

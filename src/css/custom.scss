@@ -41,9 +41,9 @@ table tr:nth-child(2n) {
 }
 
 .button--action {
-  background: var(--action-color);
-  border-color: var(--action-color);
-  color: white;
+  background: var(--ifm-color-success-contrast-background);
+  border-color: var(--ifm-color-success-contrast-background);
+  color: var(--ifm-heading-color);
   &:hover {
     background: #3ebe44;
     border-color: #3ebe44;
