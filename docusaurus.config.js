@@ -30,6 +30,11 @@ module.exports = {
     prism: {
       additionalLanguages: ['ruby', 'rust'],
     },
+    posthog: {
+      apiKey: "phc_MwF5liyV3wxYN2keLgioVUu4FMiMze7Iu3rh6denuDb",
+      appUrl: "https://app.posthog.com",  // optional
+      enableInDevelopment: false,  // optional
+    },
     algolia: {
       apiKey: '36ebff722c41a8fb7d1b11b4abcc980c',
       indexName: 'pyroscope',
@@ -197,5 +202,6 @@ module.exports = {
   plugins: [
     'docusaurus-plugin-sass',
     'webpack-plugin',
+    'posthog-docusaurus'
   ].concat(extraPlugins)
 };
