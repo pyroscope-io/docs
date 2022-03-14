@@ -7,7 +7,7 @@ import IndexPageCloud from '../components/IndexPageCloud';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 import styles from './styles.module.scss';
-import {init} from './../utils/clouds';
+// import {init} from './../utils/clouds';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faServer, faHdd, faMicrochip, faMemory } from "@fortawesome/free-solid-svg-icons";
@@ -66,11 +66,11 @@ function Home() {
   const [instanceCount, setInstanceCount] = useState(0);
 
   useEffect(() => {
-    init(canvasRef.current);
+    // init(canvasRef.current);
 
-    fetch("/cloud/special-offer-count")
-      .then(res => res.text())
-      .then(res => setInstanceCount(res));
+    // fetch("/cloud/special-offer-count")
+    //   .then(res => res.text())
+    //   .then(res => setInstanceCount(res));
   })
 
   return (
@@ -135,7 +135,7 @@ function Home() {
             </div>
           </div>
         </section>
-        <div className={styles.cloudSectionWrapper}>
+        {/* <div className={styles.cloudSectionWrapper}>
           <canvas className={styles.cloudCanvas} ref={canvasRef} ></canvas>
           <section className={styles.cloudSection}>
             <div className={clsx("container", styles.indexPageSection)} >
@@ -147,7 +147,6 @@ function Home() {
                   <IndexPageCloud/>
                 </div>
                 <div className='col col--6'>
-                {/* subsection-title align-left */}
                   <h2 className={clsx(styles.subsectionTitle, styles.alignLeft)}>Pyroscope Cloud</h2>
                   <p>A fully-managed, continous profiling service powered by Pyroscope team. The fastest, easiest way to start using Pyroscope.</p>
                   <a className={clsx(styles.button, "button", "button--action", "button--lg")} href="https://pyroscope.io/cloud">Create a Pyroscope Server</a>
@@ -155,7 +154,7 @@ function Home() {
               </div>
             </div>
           </section>
-        </div>
+        </div> */}
       </main>
     </Layout>
   );

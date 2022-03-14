@@ -62,7 +62,6 @@ module.exports = {
           position: 'left',
         },
         {to: 'blog', label: 'Blog', position: 'left'},
-        {href: 'https://pyroscope.io/cloud', label: 'Cloud', position: 'left'},
         {
           href: 'https://pyroscope.io/slack',
           icon: "/img/navbar/slack.svg",
@@ -169,10 +168,6 @@ module.exports = {
             {
               label: 'Contact Us',
               href: 'mailto:contact@pyroscope.io',
-            },
-            {
-              label: 'Cloud',
-              href: 'https://pyroscope.io/cloud',
             },
           ],
         },
