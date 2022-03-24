@@ -39,8 +39,16 @@ module.exports = {
           collapsed: false,
           items: [
             "agent-overview",
-            "integration-golang",
-            "integration-golang-pull-mode",
+            {
+              type: "category",
+              label: "Go",
+              collapsed: false,
+              items: [
+                "integration-golang",
+                "integration-golang-tracing",
+                "integration-golang-pull-mode",
+              ],
+            },
             "integration-python",
             "integration-ebpf",
             "integration-java",
