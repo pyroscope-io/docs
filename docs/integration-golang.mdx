@@ -97,6 +97,85 @@ import _ "net/http/pprof"
 * For information on how to use `net/http/pprof` refer to official [net/http/pprof documentation](https://pkg.go.dev/net/http/pprof).
 * For more information on how to set up pyroscope server to pull data from your applications, refer to [pull mode documentation](/docs/golang-pull-mode).
 
+
+### Tracing integration
+
+Pyroscope can integrate with distributed tracing systems supporting [**OpenTelemetry**](https://opentelemetry.io/docs/instrumentation/go/getting-started/) standard which allows you to
+link traces with the profiling data, and find specific lines of code related to a performance issue.
+
+:::note
+ * Only CPU profiling is supported at the moment.
+ * We recommend you using Go 1.18 to ensure accurate results.
+ * Because of how sampling profilers work, spans shorter than the sample interval may not be captured. Go CPU profiler probes stack traces 100 times per second, meaning that spans shorter than 10ms may not be captured.
+:::
+
+Go code can be easily instrumented with [otelpyroscope](https://github.com/pyroscope-io/otelpyroscope) package -
+a `TracerProvider` implementation, that annotates profiling data with span IDs which makes it possible to filter
+out profile of a particular trace span in Pyroscope:
+
+```shell
+go get github.com/pyroscope-io/otelpyroscope
+```
+
+Now we can create and configure the tracer provider:
+```go
+// Create an exporter that prints traces to stdout.
+exporter, _ := stdouttrace.New(stdouttrace.WithPrettyPrint())
+tp := trace.NewTracerProvider(
+    trace.WithSampler(trace.AlwaysSample()),
+    trace.WithBatcher(exporter),
+)
+defer func() {
+    if err := tp.Shutdown(context.Background()); err != nil {
+        log.Fatal(err)
+    }
+}()
+
+// We wrap the tracer provider to also annotate goroutines with Span ID so
+// that pprof would add corresponding labels to profiling samples.
+otel.SetTracerProvider(otelpyroscope.NewTracerProvider(tp,
+    otelpyroscope.WithAppName("simple.golang.app"),
+    otelpyroscope.WithPyroscopeURL("http://pyroscope-server:4040"),
+    otelpyroscope.WithRootSpanOnly(true),
+    otelpyroscope.WithAddSpanName(true),
+    otelpyroscope.WithProfileURL(true),
+    otelpyroscope.WithProfileBaselineURL(true),
+))
+```
+
+Please notice the `WithRootSpanOnly` option: when enabled, the tracer will annotate only the first span created locally
+(the root span), but the profile will include samples of all the nested spans. This may be helpful in case if the trace
+consists of multiple spans shorter than 10ms and profiler can't collect and annotate samples properly.
+
+Another option that you may find useful is `WithAddSpanName` that controls whether the span name added to profile labels
+automatically. You can find description of all the options in [the package documentation](https://pkg.go.dev/github.com/pyroscope-io/otelpyroscope#Option).
+
+:::important
+If you enable `WithAddSpanName` option, please make sure span names do not contain unique values, for example, a URL.
+Otherwise, this can increase data cardinality and slow down queries.
+:::
+
+Now that we set up the tracer, we can create a new trace from anywhere:
+```go
+ctx, span := otel.Tracer("tracerName").Start(context.Background(), "ExampleSpan")
+defer span.End()
+
+// Your code goes here.
+```
+
+Collected profiles can be viewed in Pyroscope UI using FlameQL:
+ - `simple.golang.app.cpu{profile_id="<spanID>"}` - Shows flamegraph for a particular span.
+ - `simple.golang.app.cpu{span_name="ExampleSpan"}` - Shows aggregateg profile for all spans named **ExampleSpan**.
+
+For convenience, the tracer annotates profiled spans with extra attributes:
+ - `pyroscope.profile.id` - is set to span ID to indicate that profile was captured for a span.
+ - `pyroscope.profile.url` - contains the URL to the flamegraph in Pyroscope UI.
+ - `pyroscope.profile.baseline.url` - contains the URL to the baseline comparison view in Pyroscope UI.
+
+You can find a complete example application that demonstrates tracing integration features in our repository:
+ - [Jaeger](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger)
+ - [Honeycomb](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/honeycomb)
+
 ### Examples
 
 Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang-push) directory in our repository to learn more 🔥
