@@ -4,7 +4,7 @@ title: Go
 sidebar_label: Golang (Push)
 slug: /golang
 description: Pyroscope Go profiling
-keywords: [ pyroscope, go, golang, profiling ]
+keywords: [ pyroscope, go, golang, profiling, tracing, opentelemetry, otelpyroscope ]
 ---
 
 Pyroscope uses the standard `runtime/pprof` package to collect profiling data. Refer to
@@ -171,6 +171,14 @@ For convenience, the tracer annotates profiled spans with extra attributes:
  - `pyroscope.profile.id` - is set to span ID to indicate that profile was captured for a span.
  - `pyroscope.profile.url` - contains the URL to the flamegraph in Pyroscope UI.
  - `pyroscope.profile.baseline.url` - contains the URL to the baseline comparison view in Pyroscope UI.
+
+A **baseline profile** is an aggregate of all span profiles. For example, consider two exemplars (the number here
+replaces profiling data):
+ - `app.cpu{region="us=east",env="dev",span_name="FetchData",profile_id="abc"}` 100
+ - `app.cpu{region="us=east",env="dev",span_name="FetchData",profile_id="zyx"}` 200
+
+Then, the baseline profile for each of them is:
+ - `app.cpu{region="us=east",env="dev",span_name="FetchData"}` 300
 
 You can find a complete example application that demonstrates tracing integration features in our repository:
  - [Jaeger](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger)
