@@ -17,6 +17,12 @@ You can configure a specific period of time for which data will be stored in the
 retention: 720h # 30 days
 ```
 
+Note that Pyroscope uses a separate storage for exemplars created using tracing integration, and allows configuring
+the retention period for them separately:
+```yaml
+exemplars-retention: 72h # 3 days
+```
+
 :::note
 The standard [Go time duration format](https://pkg.go.dev/time#ParseDuration) is used.
 :::
