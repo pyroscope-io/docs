@@ -20,32 +20,41 @@ import TabItem from '@theme/TabItem';
 
 ### Profiling Rust applications
 
-Add the `pyroscope` crate to your Cargo.toml:
+Add the `pyroscope` and `pyroscope_pprofrs` crates to your Cargo.toml:
 
 ```bash
 cargo add pyroscope
+cargo add pyroscope_pprofrs
 ```
 
 ### Minimal Configuration
 
-At a minimum, you need to provide the URL of the Pyroscope Server and the name of your application. This does not start profiling but only configure the agent.
+At a minimum, you need to provide the URL of the Pyroscope Server and the name
+of your application. You also need to configure a profiling backend. For Rust,
+you can use [pprof-rs](https://github.com/pyroscope-io/pyroscope-rs/tree/main/pyroscope_backends/pyroscope_pprofrs).
 
 ```rust
+// Configure profiling backend
+let pprof_config = PprofConfig::new().sample_rate(100);
+let pprof_backend = Pprof::new(pprof_config);
+
+// Configure Pyroscope Agent
 let mut agent =
 PyroscopeAgent::builder("http://localhost:4040", "myapp")
+.backend(pprof_backend)
 .build()?;
 ```
 
 You can start profiling by invoking
 
 ```rust
- agent.start();
+ agent.start().unwrap();
 ```
 
 The agent can be stopped at any point, and it'll send a last report to the server. The agent can be restarted at a later point.
 
 ```rust
- agent.stop();
+ agent.stop().unwrap();
 ```
 
 ### Tags
@@ -53,9 +62,6 @@ The agent can be stopped at any point, and it'll send a last report to the serve
 Tags can be added or removed after the agent is started. The function `add_tags` accepts a vector of `(&str, &str)`. The first element in the tuple is the key and the second element is the value.
 
 ```rust
-// Configure the agent
-let agent = PyroscopeAgent::builder("http://localhost:8080", "my-app").build().unwrap();
-
 // Start Profiling
 agent.start();
 
@@ -80,15 +86,20 @@ agent.remove_tags(vec!["tag"]).unwrap();
 
 The agent accepts additional initial parameters.
 
-- **Backend**: Profiler used, do not set this if you are profiling Rust applications. Default is Pprof.
+- **Backend**: Profiling backend. For Rust, it's [pprof-rs](https://github.com/pyroscope-io/pyroscope-rs/tree/main/pyroscope_backends/pyroscope_pprofrs)
 - **Sample Rate**: Sampling Frequency in Hertz. Default is 100.
 - **Tags**: Initial tags.
 
 ```rust
+// Configure Profiling backend
+let pprof_config = PprofConfig::new().sample_rate(100);
+let pprof_backend = Pprof::new(pprof_config);
+
+// Configure Pyroscope Agent
 let mut agent =
 PyroscopeAgent::builder("http://localhost:4040", "myapp")
-// Profiler
-.backend(Pprof::default())
+// Profiling backend
+.backend(pprof_backend)
 // Sample rate
 .sample_rate(100)
 // Tags
@@ -131,12 +142,6 @@ cargo run --example tags
 - [**multi-thread**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/multi-thread.rs): Example using multiple threads.
 - [**with-logger**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/with-logger.rs): Example with logging to stdout.
 - [**error**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/error.rs): Example with an invalid server address.
-
-**Internals Examples**
-
-- [**backend**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/backend.rs): Setting a backend for the agent.
-- [**backend-pprof**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/backend-pprof.rs): Running the pprof-rs backend separately.
-- [**internals-timer**](https://github.com/pyroscope-io/pyroscope-rs/blob/main/examples/internals-timer.rs): Using the Agent internal timer.
 
 #### Stand-alone Examples
 
