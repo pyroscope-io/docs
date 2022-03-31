@@ -1,7 +1,7 @@
 ---
 id: integration-golang
 title: Go
-sidebar_label: Golang (Push)
+sidebar_label: Client
 slug: /golang
 description: Pyroscope Go profiling
 keywords: [ pyroscope, go, golang, profiling ]
@@ -96,6 +96,12 @@ import _ "net/http/pprof"
 
 * For information on how to use `net/http/pprof` refer to official [net/http/pprof documentation](https://pkg.go.dev/net/http/pprof).
 * For more information on how to set up pyroscope server to pull data from your applications, refer to [pull mode documentation](/docs/golang-pull-mode).
+
+### Tracing Integraiton
+
+Pyroscope can integrate with distributed tracing systems supporting OpenTelemetry standard which allows you to link
+traces with the profiling data, and find specific lines of code related to a performance issue. For more information,
+refer to [tracing integration documentation](/docs/golang-tracing).
 
 ### Examples
 
