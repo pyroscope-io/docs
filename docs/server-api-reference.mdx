@@ -44,30 +44,73 @@ an API key.
 
 Currently there's just one endpoint: `POST /ingest`. It takes profile data in request body and metadata as query params.
 
-It takes mutliple query parameters:
+It takes multiple query parameters:
 
-| Name         | Description                             | Notes                          |
-| :----------- | :-------------------------------------- | :----------------------------- |
-| `name`       | Application Name                        | required, should be url-encoded|
-| `from`       | UNIX time of when the profiling started | required                       |
-| `until`      | UNIX time of when the profiling stopped | required                       |
-| `format`     | format of the profiling data            | optional (default is `folded`) |
-| `sampleRate` | sample rate used in Hz                  | optional (default is 100 Hz)   |
-| `spyName`    | name of the spy used                    | optional                       |
-
-Request body contains the profiling data.
-
-* `format`. Pyroscope supports different formats, the simplest one is `folded`. With this format you put one stacktrace per line with a number of samples you've captured for that particular stacktrace, for example:
-
-```
-foo;bar 100
-foo;baz 200
-```
+| Name               | Description                             | Notes                           |
+|:-------------------|:----------------------------------------|:--------------------------------|
+| `name`             | application name                        | required, should be url-encoded |
+| `from`             | UNIX time of when the profiling started | required                        |
+| `until`            | UNIX time of when the profiling stopped | required                        |
+| `format`           | format of the profiling data            | optional (default is `folded`)  |
+| `sampleRate`       | sample rate used in Hz                  | optional (default is 100 Hz)    |
+| `spyName`          | name of the spy used                    | optional                        |
+| `units`            | name of the profiling data unit         | optional (default is `samples`  |
+| `aggregrationType` | type of aggregration to merge profiles  | optional (default is `sum`)     |
 
 * `name` specifies application name. It may be specified in the fully qualified application name notation as described in [the specification](/docs/flameql#notation). For example:
 ```
 my.awesome.app.cpu{env=staging,region=us-west-1}
 ```
+
+Request body contains the profiling data, and request header `Content-Type` may also be alongside `format` to determine profiling data format.
+
+Some of the query parameters depend on the format of profiling data. Pyroscope currently supports three major ingestion formats.
+
+#### Formats with a single profile type.
+
+Most simple ingestion formats send a single type of profiling data and don't usually support any metadata within the format to indicate which kind of data they are sending.
+In these cases, all the metadata is taken from the query parameters, and the format itself is defined by a combination of both `from` query parameter and `Content-Type` body header.
+The formats that work this way are:
+
+* `folded`. This is the default format. With this format you put one stacktrace per line with a number of samples you've captured for that particular stacktrace, for example:
+```
+foo;bar 100
+foo;baz 200
+```
+* `trie`. A `Content-Type` set to `binary/octet-stream+trie` and a `format` set to `trie` indicates that profile data is sent in this format.
+  This format uses a stacktrace trie and variable-length integers to serialize data in a highly space-optimized way. It's not recommended for third-party integrations.
+* `tree` A `Content-Type` set to `binary/octet-stream+tree` and a `format` set to `tree` indicates that profile data is sent in this format.
+  This format uses a stacktrace tree and variable-length integers to serialize data in an efficient way that matches Pyroscope's internal tree representation. It's not recommended for third-party integrations.
+* `lines` A `format` set to `lines` indicates that profile data is sent in this format. This format is similar to `folded`, except there's no number of samples per stacktrace but a single line per sample, for example:
+```
+foo;bar
+foo;bar
+foo;baz
+foo;bar
+```
+  
+#### pprof format
+
+TBD
+
+#### JFR format
+
+This is the [Java Flight Recorder](https://openjdk.java.net/jeps/328) format, typically used by JVM-based profilers, also supported by [our Java integration](https://github.com/pyroscope-io/pyroscope-java#jfr-format-and-multiple-event-support).
+
+When this format is used, some of the query parameters behave slightly different:
+* `format` should be set to `jfr`.
+* `name` contains the _prefix_ of the application name. Since a single request may contain multiple profile types, the final application name is created concatenating this prefix and the profile type.
+* `units` is ignored, and the actual units depends on the profile types available in the data.
+* `aggregationType` is ignored, and the actual aggregation type depends on the profile types available in the data.
+
+JFR ingestion support uses the profile metadata to determine which profile types are included, which depend on the kind of profiling being done. Currently supported profile types include:
+* `cpu` samples, which includes only profiling data from runnable threads.
+* `itimer` samples, similar to `cpu` profiling.
+* `wall` samples, which includes samples from any threads independently of their state. 
+* `alloc_in_new_tlab_objects`, which indicates the number of new TLAB objects created.
+* `alloc_in_new_tlab_bytes`, which indicates the size in bytes of new TLAB objects created.
+* `alloc_outside_tlab_objects`, which indicates the number of new allocated objects outside any TLAB.
+* `alloc_in_new_tlab_bytes`, which indicates the size in bytes of new allocated objects outside any TLAB.
 
 #### Examples
 
