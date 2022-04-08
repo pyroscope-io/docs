@@ -25,10 +25,9 @@ Pyroscope uses [async-profiler](https://github.com/jvm-profiling-tools/async-pro
 Java integration is distributed as a single jar file: `pyroscope.jar`. It contains native `async-profiler` libraries for:
 
 * Linux on x64;
-* Linux on x86;
-* Linux on AArch64;
-* Linux on ARM;
+* Linux on ARM64;
 * MacOS on x64.
+* MacOS on ARM64.
 
 Visit our GitHub [releases](https://github.com/pyroscope-io/pyroscope-java/releases) page to download the latest version of `pyroscope.jar`.
 
@@ -46,6 +45,13 @@ export PYROSCOPE_SERVER_ADDRESS=http://pyroscope-server:4040
 
 java -javaagent:pyroscope.jar -jar app.jar
 ```
+
+Starting with v0.5.0, Java integration supports JFR format to be able to support multiple events (JFR is the only output format that supports [multiple events in `async-profiler`](https://github.com/jvm-profiling-tools/async-profiler#multiple-events)). There are several environment variables that define how multiple event configuration works:
+
+* `PYROSCOPE_FORMAT` sets the profiler output format. The default is `collapsed`, but in order to support multiple formats it must be set to `jfr`.
+* `PYROSCOPE_PROFILER_EVENT` sets the profiler event. With JFR format enabled, this event refers to one of the possible CPU profiling events: `itimer`, `cpu`, `wall`. The default is `itimer`.
+* `PYROSCOPE_PROFILER_ALLOC` sets the allocation threshold to register the events, in bytes (equivalent to `--alloc=` in `async-profiler`). The default value is 0, which means that allocation profiling is disabled. Setting it to `1` will register all the events.
+* `PYROSCOPE_PROFILER_LOCK` sets the lock threshold to register the events, in nanoseconds (equivalent to `--lock=` in `async-profiler`). The default value is -1, which means that allocation profiling is disabled. Setting it to `0` will register all the events.
 
 ### Examples
 
