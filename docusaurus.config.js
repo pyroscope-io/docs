@@ -169,6 +169,10 @@ module.exports = {
               label: 'Contact Us',
               href: 'mailto:contact@pyroscope.io',
             },
+            {
+              label: 'Status Page',
+              href: 'https://pyroscope.statuspage.io/',
+            }
           ],
         },
       ],
