@@ -14,38 +14,79 @@ authors:
 tags: [observability, flamegraphs, profiling, go]
 ---
 
-[Pyroscope GIF Demo](https://user-images.githubusercontent.com/23323466/143324845-16ff72df-231e-412d-bd0a-38ef2e09cba8.gif)
+![Pyroscope GIF Demo](https://user-images.githubusercontent.com/23323466/143324845-16ff72df-231e-412d-bd0a-38ef2e09cba8.gif)
 
 
-What exactly is continuous profiling? Some say it’s a buzzword, while some thinks it’s another shiny, cool tech that would fade away in a few years time. I believe its here to stay.
-Before we jump into what continuous profiling means, it’s important you first understand profiling on a basic level.
+Coming from a background working as a frontend developer at Grafana I'm no stranger to open source performance monitoring. I was part of a team that was responsible for the overall user experience of Grafana and performance was one of the key considerations. Along the line, I learned about a debugging technique known as profiling for monitoring application performance and fell in love ever since.
 
-## Background
-Let’s imagine for one second. We own and manage one of the most popular socia media platforms in the world. With millions of daily active usage comes with it a million responsibilities! Operating at that scale means that there should be a team that handles the overall availability of our services.
+![browser-profiler](https://user-images.githubusercontent.com/29557702/165289655-58cd9a0b-8848-4e03-b7e5-afdf822cf577.png)
 
-Operating at that scale means that we end up using a lot of computer resources- storage and CPU. This accounts for 60% of our total monthly expenditure. As a business, it’s very important we optimize for better performance by using as little resources as possible which in turn reduces infrastructure costs.
 
-As engineers, we tend to measure the quality of our code by how well it scaleses. Scalability here basically means, how much CPU are we consuming? How much memory are we using? These are the kind of questions engineering teams ask. And the way they find the answers is by performing an action known as profiling.
+## Introduction
+“Profiling” is a dynamic method of analyzing the complexity of a program, such as CPU utilization or the frequency and duration of function calls. With profiling, you can locate exactly which parts of your application are consuming the most resources. “Continuous profiling” is a more powerful version of profiling that adds the dimension of time. By understanding your system's resources over time, you can then locate, debug, and fix issues related to performance. 
 
-## What is Profiling?
-According to Wikipedia, Profiling is a form of dynamic program analysis that measures, for example, the space (memory) or time complexity of a program, the usage of particular instructions, or the frequency and duration of function calls. Basically, profiling allows you to record and analyze performance data, so as to assess the consumption of available resources and assist in optimizing for better performance.
+As a frontend developer, my experience with profiling was limited to the browser. However, in the course of my study, I discovered a new pattern of profiling that seems exciting– continuous profiling. Similar to how you use the profiler in the dev console to understand frontend performance issues, continuous profiling allows you to profile servers from various languages 24/7 and be able to understand resource usage at any particular time. 
 
-Profiling is an effective way of understanding which parts of your application are consuming the most resources. It allows engineering teams to build highly performant applications which leads to an increase in customer satisfaction and in turn, provides value for the business.
+![gwp-diagram-edited](https://user-images.githubusercontent.com/29557702/165291203-68d7acff-4b05-41f9-9d24-9ea4bb4fa48d.png)
 
-## What is continuous profiling?
-Now, on the other hand, continuous profiling is the same as profiling but with an added functionality- long-term storage. Continuous Profiling adds a dimension of time that allows you to understand your system's resource usage (i.e. CPU, Memory, etc.) over time and gives you the ability to locate, debug, and fix issues related to performance. Continuous profiling thrives in a production environment where application performance data is retrieved and stored over time. This can come in handy during debugging.
+While continuous profiling is new to many, the concept is actually relatively old. In 2010, Google released a paper titled [“Google Wide profiling: A continuous profiling infrastructure for data centers”](https://research.google/pubs/pub36575/) where they make the case for the value of adding continuous profiling to your applications. 
 
-## Pyroscope
-Pyroscope is an open-source continuous profiling platform that allows you to:
-- Find performance issues in your code
-- Resolve issues with high CPU utilization
-- Locate and fix memory leaks
-- Understand the call tree of your application
-- Track changes over time
+## Industry traction for continuous profiling
+Since then, many major performance monitoring solutions have joined them in releasing continuous profiling products. At the same time, many other companies and VCs are making major investments in Continuous Profiling as well to catch up to the popular demand for this tool.
 
-Pyroscope also provides you with multi-language support, ad-hoc profiling, profile sharing, and more.
+![cp_timeline_08-01](https://user-images.githubusercontent.com/29557702/165291672-88805173-4bf4-4029-9b6c-3b31951733bd.png)
 
-Now, you might be asking: does this benefits engineering teams that run on large-scale infrastructure alone? No, it doesn’t. In fact, profiling should be adopted by engineering teams of all sizes: small, medium, or large. For small-medium enterprises, profiling your code and applications can save alot of infrastructure costs for you. It helps you narrow down to the different parts of your application or codebase that utilizes resources the most, which in turn allows you to optimize for better performance.
+It’s not just major cloud providers and venture capitalists who are excited about continuous profiling, our industry leaders are super pumped about continuous profiling too! 
+
+![Screenshot 2022-04-25 at 06 46 47](https://user-images.githubusercontent.com/29557702/165292882-6a51fb4b-35bb-463a-805f-e9f7997f871d.png)
+
+Chris Aniszczyk, CTO of the Cloud Native Computing Foundation (CNCF) agrees that continuous profiling is an integral part of the observability stack.
+
+![Screenshot 2022-04-25 at 06 50 50](https://user-images.githubusercontent.com/29557702/165292984-a0219d7e-f4cc-4db8-8b45-818c1e7485c4.png)
+
+This poll by Michael Hausenblas, solution engineering lead at AWS is good evidence that continuous performance profiling is becoming a culture for most engineering teams.
+
+<img width="601" alt="Screenshot 2022-04-25 at 19 13 32" src="https://user-images.githubusercontent.com/29557702/165293723-4ab25678-0d07-495e-b3b5-61318c337d80.png">
+
+Even Carl Bergquist, Principal Engineer at Grafana, predicts that the popular FOSDEM conference will see more profiling talks moving forward.
+
+![Screenshot 2022-04-25 at 06 46 18](https://user-images.githubusercontent.com/29557702/165293941-d1e4dc06-a831-417a-8e17-ad76ce5f9ac2.png)
+
+And like Liz Fong-Jones, Principal developer advocate at Honeycomb, many in the tech world are “buzzing” about continuous profiling!
+
+**Simply put, continuous profiling is the future of application performance assessment**
+
+## Continuous profiling using Pyroscope
+
+At Pyroscope, we actually profile our own servers using Pyroscope and have found many cases where profiling has saved us a lot of time and money by identifying performance issues. Pyroscope allows: 
+
+- Developers
+  - Understand the call tree of their application
+  - Locate and fix memory leaks
+  - Resolve issues with high CPU utilization
+- Engineering Managers
+  - Easily spot performance regression in their codebase
+  - 360 performance coverage of their infrastructure
+  - Create a performance-driven culture where performance testing is carried out throughout the software development cycle.
+- Executives
+  - Have access to performance insight for better decision making
+  - Reduce cost allocation for computing resources
+  - Get real-time analysis of their compute resource utilization
+
+Pyroscope also provides you with multi-language support, ad-hoc profiling, profile sharing, and more!
+
+<img width="1771" alt="Screenshot 2022-04-25 at 15 58 36" src="https://user-images.githubusercontent.com/29557702/165295656-2a693a49-55da-46ce-a317-f5bc02b66ab9.png">
+
+## What makes Pyroscope unique?
+Pyroscope is open-source which means that it’s easier to get started and try out than cloud providers profilers. Pyroscope’s custom storage engine is language-agnostic so profilers such as Rbspy, eBPF, and even Bloomberg's new memory profiler Memray, can easily send data to Pyroscope and have it stored and queried efficiently. Pyroscope is also built to be easy to use by everyone. The pyroscope UI in particular was designed to be super intuitive for anyone to play around, analyze, and understand profiles.
+
+Whether you are operating at a small scale or enterprise level, the power of continuous profiling can quickly and easily reduce infrastructure costs and improve scalability.  With Pyroscope, you can build high-performance applications that increase customer satisfaction and put value back into your business. 
+
+## How to get started with Pyroscope
+
+Given my experience with profiling in the browser, the easiest way for me to get started with continuous profiling was to install pyroscope. To learn how to perform continuous profiling in your code or application, I would suggest you run the [examples in the examples folder on GitHub](https://github.com/pyroscope-io/pyroscope/tree/main/examples). 
+Pyroscope has offered me useful features that make profiling fun and exciting. With Pyroscope, I’ve been able to understand how my application, server, and code are running. The best part is that I can use Pyroscope without paying any money; it’s completely free!
+
 
 To get started with Pyroscope, take a look at our installation guide [here](https://pyroscope.io/docs/installing-pyroscope-overview/).
 
