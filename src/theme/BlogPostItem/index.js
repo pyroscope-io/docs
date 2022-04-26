@@ -7,6 +7,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import {MDXProvider} from '@mdx-js/react';
+import {MDXEmbedProvider} from 'mdx-embed';
 import Translate, {translate} from '@docusaurus/Translate';
 import Link from '@docusaurus/Link';
 import {useBaseUrlUtils} from '@docusaurus/useBaseUrl';
@@ -92,6 +93,7 @@ function BlogPostItem(props) {
   };
 
   return (
+    <MDXEmbedProvider>
     <article
       className={!isBlogPostPage ? 'margin-bottom--xl' : undefined}
       itemProp="blogPost"
@@ -150,6 +152,7 @@ function BlogPostItem(props) {
         </footer>
       )}
     </article>
+    </MDXEmbedProvider>
   );
 }
 
