@@ -17,6 +17,7 @@ jobs:
           repository: 'pyroscope-io/docs-private'
           ref: 'master'
           path: 'docs-private'
+          token: ${{ secrets.DOCS_PRIVATE_ACCESS_TOKEN }}
       - name: copy Makefile
         run: mv docs-private/Makefile Makefile
       - name: copy extra-plugins.js
