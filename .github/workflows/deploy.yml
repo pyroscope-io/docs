@@ -1,0 +1,24 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # TODO(petethepig): make it run only when tests passed
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          repository: 'pyroscope-io/docs-private'
+          path: 'docs-private'
+      - name: copy Makefile
+        run: mv docs-private/Makefile Makefile
+      - name: copy extra-plugins.js
+        run: docs-private/extra-plugins.js extra-plugins.js
+      - name: deploy
+        run: make deploy
