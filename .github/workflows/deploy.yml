@@ -21,6 +21,6 @@ jobs:
       - name: copy Makefile
         run: mv docs-private/Makefile Makefile
       - name: copy extra-plugins.js
-        run: docs-private/extra-plugins.js extra-plugins.js
+        run: mv docs-private/extra-plugins.js extra-plugins.js
       - name: deploy
         run: make deploy
