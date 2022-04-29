@@ -1,0 +1,116 @@
+---
+id: integration-nodejs
+title: NodeJS
+sidebar_label: Client
+slug: /nodejs
+description: Pyroscope NodeJS profiling
+keywords: [ pyroscope, node, nodejs, profiling ]
+---
+
+Pyroscope uses the standard `runtime/pprof` package to collect profiling data. Refer to
+[the official documentation](https://golang.org/doc/diagnostics#profiling) for details.
+
+
+#### Supported platforms
+
+| Spy Name     | Type         | Linux | macOS | Windows | Docker |
+|:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
+| nodespy      | `standalone` |   ✅  |   ✅  |    ✅   |   ✅   |
+
+### Profiling NodeJS application
+
+
+
+:::important
+This current version of the NodeJS integration requires you to run pyroscope server version `0.15.4` or higher.
+:::
+
+
+
+To start profiling a NodeJS application, you need to include our npm module in your app:
+```
+# make sure you also upgrade pyroscope server to version 0.15.4 or higher
+npm install @pyroscope/nodejs
+
+# or
+yarn isntall @pyroscope/nodejs
+
+```
+
+Then add the following code to your application:
+
+```javascript
+const Pyroscope = require('@pyroscope/nodejs');
+
+Pyroscope.init({
+  server: 'http://pyroscope:4040',
+});
+```
+
+### Tags
+
+It is possible to add tags (labels) to the profiling data. These tags can be used to filter the data in the UI. Dynamic tagging isn't supported yet
+
+```javascript
+Pyroscope.init({
+  server: 'http://pyroscope:4040',
+  tags: {
+    region: ENV['region']
+  }
+});
+```
+
+### Troubleshooting
+
+You may set `DEBUG` env to `pyroscope` and see debugging information which can help you understand if everything is OK.
+
+```bash
+DEBUG=pyroscope node index.js
+```
+
+### Pull Mode
+
+NodeJS integration also supports pull mode. For that to work you will need to make sure you have profiling routes (`/debug/pprof`) enabled in your http server. For that you may use our `expressMiddleware` or create endpoints yourself
+```javascript
+const { expressMiddleware } = require('@pyroscope/nodejs');
+
+app.use(expressMiddleware())
+```
+
+#### Scrape configuration
+
+Pyroscope uses exactly the same mechanisms as Prometheus does in order to ensure smooth user experience. Therefore, it
+is configured in almost identical way, and [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
+can be used as a reference.
+
+You will need to add the following content to your `pyroscope/server.yml` Pyroscope config file. See the [Server config documentation](/docs/server-configuration#configuration-file) for more information on where this config is located by default on your system.
+
+```yaml
+---
+# A list of scrape configurations.
+scrape-configs:
+  # The job name assigned to scraped profiles by default.
+  - job-name: pyroscope
+
+    # The list of profiles to be scraped from the targets.
+    enabled-profiles: [cpu, mem]
+
+    # List of labeled statically configured targets for this job.
+    static-configs:
+      - application: my-nodejsapp-name
+        spy-name: nodespy 
+        targets:
+          - hostname:6060
+        labels:
+          env: dev
+```
+
+:::note
+ * `application` is the name of the application being profiled. Mandatory field.
+ * `spy-name` should be set to `nodespy` for NodeJS applications . Mandatory field.
+ * `targets` lists application instances. It is important to avoid mixing profiles of different applications.
+:::
+
+### Examples
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/nodejs) directory in our repository to learn more 🔥
