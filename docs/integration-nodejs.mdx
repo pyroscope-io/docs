@@ -7,9 +7,8 @@ description: Pyroscope NodeJS profiling
 keywords: [ pyroscope, node, nodejs, profiling ]
 ---
 
-Pyroscope uses the standard `runtime/pprof` package to collect profiling data. Refer to
-[the official documentation](https://golang.org/doc/diagnostics#profiling) for details.
-
+Node.js is an open-source, cross-platform, back-end JavaScript runtime environment that runs on the V8 engine and executes JavaScript code outside a web browser. 
+Pyroscope use internal V8 profiler to collect profiling data
 
 #### Supported platforms
 
@@ -19,21 +18,17 @@ Pyroscope uses the standard `runtime/pprof` package to collect profiling data. R
 
 ### Profiling NodeJS application
 
-
-
 :::important
 This current version of the NodeJS integration requires you to run pyroscope server version `0.15.4` or higher.
 :::
 
 
-
-To start profiling a NodeJS application, you need to include our npm module in your app:
+To start profiling a NodeJS application, you need to include the npm module in your app:
 ```
-# make sure you also upgrade pyroscope server to version 0.15.4 or higher
 npm install @pyroscope/nodejs
 
 # or
-yarn install @pyroscope/nodejs
+yarn add @pyroscope/nodejs
 
 ```
 
@@ -60,6 +55,9 @@ Pyroscope.init({
 });
 ```
 
+And then pyroscope will start profiling both Cpu and Heap automatically. To prevent this use `{ autoStart: false }` option and then 
+call `Pyroscope.startCpuProfiling()` or `Pyroscope.startHeapProfiling()` 
+
 ### Troubleshooting
 
 You may set `DEBUG` env to `pyroscope` and see debugging information which can help you understand if everything is OK.
@@ -70,7 +68,7 @@ DEBUG=pyroscope node index.js
 
 ### Pull Mode
 
-NodeJS integration also supports pull mode. For that to work you will need to make sure you have profiling routes (`/debug/pprof`) enabled in your http server. For that you may use our `expressMiddleware` or create endpoints yourself
+NodeJS integration also supports pull mode. For that to work you will need to make sure you have profiling routes (`/debug/pprof/profile` and `/debug/pprof/heap`) enabled in your http server. For that you may use our `expressMiddleware` or create endpoints yourself
 ```javascript
 const { expressMiddleware } = require('@pyroscope/nodejs');
 
@@ -78,10 +76,6 @@ app.use(expressMiddleware())
 ```
 
 #### Scrape configuration
-
-Pyroscope uses exactly the same mechanisms as Prometheus does in order to ensure smooth user experience. Therefore, it
-is configured in almost identical way, and [Prometheus documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#scrape_config)
-can be used as a reference.
 
 You will need to add the following content to your `pyroscope/server.yml` Pyroscope config file. See the [Server config documentation](/docs/server-configuration#configuration-file) for more information on where this config is located by default on your system.
 
