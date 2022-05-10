@@ -14,7 +14,7 @@ Pyroscope use internal V8 profiler to collect profiling data
 
 | Spy Name     | Type         | Linux | macOS | Windows | Docker |
 |:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
-| nodespy      | `standalone` |   ✅  |   ✅  |    ✅   |   ✅   |
+| nodespy      | `standalone` |   ✅  |   ✅   |          |   ✅   |
 
 ### Profiling NodeJS application
 
@@ -38,8 +38,11 @@ Then add the following code to your application:
 const Pyroscope = require('@pyroscope/nodejs');
 
 Pyroscope.init({
-  server: 'http://pyroscope:4040',
+  serverAddress: 'http://pyroscope:4040',
 });
+
+Pyroscope.startCpuProfiling()
+Pyroscope.startHeapProfiling()
 ```
 
 ### Tags
@@ -48,15 +51,16 @@ It is possible to add tags (labels) to the profiling data. These tags can be use
 
 ```javascript
 Pyroscope.init({
-  server: 'http://pyroscope:4040',
+  serverAddress: 'http://pyroscope:4040',
   tags: {
     region: ENV['region']
   }
 });
+
+Pyroscope.startCpuProfiling()
+Pyroscope.startHeapProfiling()
 ```
 
-And then pyroscope will start profiling both Cpu and Heap automatically. To prevent this use `{ autoStart: false }` option and then 
-call `Pyroscope.startCpuProfiling()` or `Pyroscope.startHeapProfiling()` 
 
 ### Troubleshooting
 
