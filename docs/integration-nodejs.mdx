@@ -39,10 +39,10 @@ const Pyroscope = require('@pyroscope/nodejs');
 
 Pyroscope.init({
   serverAddress: 'http://pyroscope:4040',
+  appName: 'myNodeService'
 });
 
-Pyroscope.startCpuProfiling()
-Pyroscope.startHeapProfiling()
+Pyroscope.start()
 ```
 
 ### Tags
@@ -52,13 +52,13 @@ It is possible to add tags (labels) to the profiling data. These tags can be use
 ```javascript
 Pyroscope.init({
   serverAddress: 'http://pyroscope:4040',
+  appName: 'myNodeService',
   tags: {
     region: ENV['region']
   }
 });
 
-Pyroscope.startCpuProfiling()
-Pyroscope.startHeapProfiling()
+Pyroscope.start()
 ```
 
 
@@ -74,10 +74,14 @@ DEBUG=pyroscope node index.js
 
 NodeJS integration also supports pull mode. For that to work you will need to make sure you have profiling routes (`/debug/pprof/profile` and `/debug/pprof/heap`) enabled in your http server. For that you may use our `expressMiddleware` or create endpoints yourself
 ```javascript
-const { expressMiddleware } = require('@pyroscope/nodejs');
+const Pyroscope, { expressMiddleware } = require('@pyroscope/nodejs');
+
+Pyroscope.init({...})
 
 app.use(expressMiddleware())
 ```
+
+Note: you don't need to `.start()` but you'll need to `.init()`
 
 #### Scrape configuration
 
