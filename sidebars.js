@@ -56,6 +56,7 @@ module.exports = {
             "integration-rust",
             "integration-php",
             "integration-dotnet",
+            "integration-nodejs",
           ],
         },
       ],
