@@ -29,7 +29,7 @@ A flamegraph is a complete visualization of hierarchical data (e.g stack traces,
 Flamegraphs allow you to view a call stack in a much more visual way. They give you insight into your code performance and allow you to debug efficiently by drilling down to the origin of a bug, thereby increasing the performance of your application.
 
 ### How are flamegraphs generated?
-![tree-flamegraph (2)](https://user-images.githubusercontent.com/29557702/167637379-9f0fab16-f94d-4681-a8ac-42c97d3dfd39.png)
+![tree-flamegraph](https://user-images.githubusercontent.com/29557702/168056611-aa1378ae-3145-4ca1-a2fe-2b099f5f2c51.png)
 
 Flamegraphs are generated as a by-product of software profilers. They are represented in a tree-like structure where a node connects to another node to show their parent-child relationship. This corresponds to a call stack where one function calls another until it gets to the last function in the stack. The tree structure is then converted into a collection of boxes stacked together according to their relationship. This is known as a flamegraph.
 
