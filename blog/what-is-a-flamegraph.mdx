@@ -28,6 +28,11 @@ A flamegraph is a complete visualization of hierarchical data (e.g stack traces,
 
 Flamegraphs allow you to view a call stack in a much more visual way. They give you insight into your code performance and allow you to debug efficiently by drilling down to the origin of a bug, thereby increasing the performance of your application.
 
+:::note
+Technically, a _flamegraph_ has it's root at the bottom and child nodes are shown above their parents while an _icicle graph_ has it's root at the top and child nodes are shown below their parents. 
+However, for the purposes of this article, we will be using the _flamegraph_ terminology.
+:::
+
 ### How are flamegraphs generated?
 ![tree-flamegraph](https://user-images.githubusercontent.com/29557702/168056611-aa1378ae-3145-4ca1-a2fe-2b099f5f2c51.png)
 
