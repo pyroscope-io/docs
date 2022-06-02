@@ -1,0 +1,111 @@
+---
+title: Visualize profiles in Grafana with Pyroscope Flamegraph plugin
+description: Learn how to integrate pyroscope in your grafana instance
+sidebar_label: Visualize profiles in Grafana with Pyroscope Flamegraph plugin
+image: https://user-images.githubusercontent.com/29557702/171664018-dbf9f8bb-ed71-4262-981c-a6e8e250dda9.png
+slug: /visualize-flamegraph-in-grafana
+date: "2022-06-06"
+
+authors:
+  - name: Uchechukwu obasi
+    url: https://github.com/thisisobate
+    image_url: https://avatars.githubusercontent.com/u/29557702?v=4
+  
+  - name: Ekaterina Patrice 
+    url: https://github.com/ekpatrice
+    image_url: https://avatars.githubusercontent.com/u/77462462?v=4
+
+tags: [observability, flamegraphs, profiling, grafana]
+---
+
+Grafana is an open-source observability and monitoring platform used by individuals and organizations to monitor their applications and infrastructures. Grafana leverages the three pillars of observability- metrics, logs, and traces- to deliver insights into how well your systems are doing. Nowadays, Observability involves a whole lot more than metrics, logs, and tracing; it also involves profiling.
+
+In this article, I will show you how to leverage continuous profiling in Grafana using Pyroscope’s panel and datasource plugin.
+
+## Introduction
+![pillars-of-observability-complete](https://user-images.githubusercontent.com/29557702/171664145-189f0768-de3b-4fa2-b8c6-112737103238.png)
+
+Grafana provides you with tools to visualize your metrics, view logs, and analyze traces, but it is incomplete without the added benefits of profiling. Continuous Profiling is super critical when you’re looking to debug an existing performance issue in your application. It enables you to monitor your application’s performance over time and provides insights into parts of your application that are consuming resources the most. Continuous profiling is used to locate and fix memory leaks, clean up unused code, and understand the call tree of your application. This results in a more efficient application.
+
+## Benefits of using Pyroscope in Grafana
+### Unified view for complete observability
+Using Pyroscope in Grafana provides you with complete observability without leaving your Grafana application. Grafana consolidates the powerful features of Pyroscope to take complete control of your application’s end-to-end observability and makes things like debugging easy. You can now see your profiles alongside corresponding logs, metrics, and traces to tell the complete story of your application. 
+
+### Zero migration cost
+It costs nothing to migrate your application profile from Pyroscope’s UI dashboard into Grafana. Simply open Grafana and install both the Pyroscope panel and datasource plugin, and you’re all set!
+
+![left-right: flamegraph in Pyroscope, flamegraph in Grafana](https://user-images.githubusercontent.com/29557702/171664702-7008acdf-0227-4b54-842a-742ddfdd0686.png)
+
+### Single authentication
+Because your profiling data is visualized in Grafana, you can login using just your Grafana credentials. Single authentication reduces the stress of logging into both Grafana and Pyroscope applications to visualize your profiles.
+
+### Manage user permissions
+Pyroscope leverages Grafana's multi user feature, which allows you as an admin to manage permissions for different users that have access to your dashboard. This comes in handy when you want to share access to multiple users within your team or organization.
+
+## Install Pyroscope’s Flamegraph’s plugin in Grafana
+To install Pyroscope’s flamegraph plugin in Grafana, you will need Pyroscope’s panel plugin and Pyroscope’s datasource plugin. The Pyroscope panel plugin serves as the visualization option in which we use to show our profiling data. This is represented as a flamegraph on your Grafana dashboard. The Pyroscope datasource plugin connects your Grafana instance to the host– Pyroscope server.
+
+:::note
+To run Pyroscope’s data source, you need to be running on Grafana 7.2 or later. To perform actions such as variable querying in Pyroscope’s flamegraph, you need to install version 1.1.0 or later of the Pyroscope-datasource.
+:::
+
+### Pyroscope Panel plugin
+To install the panel plugin, navigate to your Grafana directory using your terminal: cd projects/Grafana/Grafana.
+Run this command `Grafana-cli plugins install Pyroscope-panel`.
+This command installs the Pyroscope-panel plugin into your Grafana application.
+
+### Pyroscope Datasource plugin
+To install the panel plugin, run this command `Grafana-cli plugins install Pyroscope-datasource`. The plugin will be installed into your Grafana plugins directory; the default is `/var/lib/Grafana/plugins`.
+
+![grafana configuration page](https://user-images.githubusercontent.com/29557702/171667513-5913355c-0fdc-4d0a-a151-fe06360eb5ec.png)
+
+Once you are done installing the two plugins, restart your Grafana so that your plugins can be loaded properly into Grafana.
+
+## Configure the Pyroscope Data source
+:::note
+make sure your Pyroscope server is up and running before attempting to configure your data source.
+:::
+
+In order to use the Pyroscope datasource plugin, you need to configure your datasource appropriately. To configure the Pyroscope data source, you need to follow these steps:
+
+1. Navigate to the datasources page
+
+![grafana home navigation](https://user-images.githubusercontent.com/29557702/171684554-2a9b5ec8-c490-4e8a-a04e-5b79141ab4cb.png)
+
+2. Click the button to add your datasource.
+3. Search for **Pyroscope datasource** and Click on it.
+4. Specify Pyroscope host in Instance field- [http://localhost:4040](http://localhost:4040)
+5. Click the button to **save and test**.
+
+![pyroscope grafana datasource configuration page](https://user-images.githubusercontent.com/29557702/171677420-fff0cd48-db2c-401c-9cc6-92795bc833ae.png)
+## Adding API keys if using authentication
+You can add API keys to your Grafana instance. Check out [Pyroscope authentication page](https://pyroscope.io/docs/auth-overview/) to learn more.
+
+## Setup Dashboard
+Once you’ve successfully configured your datasource, follow these steps to create your dashboard:
+1. Navigate to your dashboard
+2. Click the “add a new panel” button to add an empty panel to your dashboard.
+3. Navigate to the visualization list and select Pyroscope-panel
+4. Under panel view in Query tab, select “Pyroscope-datasource” as your datasource
+5. In the query input, enter the name to the specific profile you’re looking for. In my own case, I’m interested in the Pyroscope server allocation space so I enter **Pyroscope.server.alloc_space** to view profile.
+6. Click Apply
+
+![grafana visualization list](https://user-images.githubusercontent.com/29557702/171678805-7adcfd75-ce1d-480f-b76e-46dfcad1c8e3.png)
+You should see a flamegraph appear in the panel.
+
+## Interact with the flamegraph
+Interacting with flamegraphs is no different from how it’s done in the Pyroscope UI. you can perform actions such as clicking to zoom/expand a node and mouse hover for information within the Grafana dashboard.
+
+## Add a variable
+Pyroscope provides support for variables in Grafana. You can add a variable to your dashboard and use it to query your profiling data:
+1. Go to the dashboard settings page
+2. On the Variables tab, click New.
+3. Enter a Name for your variable.
+4. In the Type list, select Query.
+5. Click the update button to save changes.
+6. Go back to your flamegraph dashboard and open the panel in edit
+7. In the query field, enter a query
+8. Save and refresh the dashboard to view variables in action.
+
+## Summary
+Now that you have learned how to create flamegraphs in Grafana using Pyroscope’s plugin, I encourage you to try it yourself so you can appreciate Grafana’s interoperability with Pyroscope
