@@ -53,6 +53,27 @@ Starting with v0.5.0, Java integration supports JFR format to be able to support
 * `PYROSCOPE_PROFILER_ALLOC` sets the allocation threshold to register the events, in bytes (equivalent to `--alloc=` in `async-profiler`). The default value is "" - empty string, which means that allocation profiling is disabled. Setting it to `0` will register all the events.
 * `PYROSCOPE_PROFILER_LOCK` sets the lock threshold to register the events, in nanoseconds (equivalent to `--lock=` in `async-profiler`). The default value is "" - empty string, which means that lock profiling is disabled. Setting it to `0` will register all the events.
 
+### Labels
+
+It is possible to add dynamic tags (labels) to the profiling data. These tags can be used to filter the data in the UI.
+
+```java
+import io.pyroscope.labels.LabelsSet;
+import io.pyroscope.labels.Pyroscope;
+
+Pyroscope.LabelsWrapper.run(new LabelsSet("controller", "slow_controller"), () -> {
+    slowCode();
+});
+```
+
+It is also possible to possible to add static tags (labels) to the profiling data. .
+
+```java
+import io.pyroscope.labels.Pyroscope;
+
+Pyroscope.setStaticLabels(Map.of("REGION", System.getenv("REGION")));
+```
+
 ### Examples
 
 Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/java) folder in our repository to learn more 🔥
