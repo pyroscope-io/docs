@@ -57,6 +57,11 @@ Starting with v0.5.0, Java integration supports JFR format to be able to support
 
 It is possible to add dynamic tags (labels) to the profiling data. These tags can be used to filter the data in the UI.
 
+Add pyroscope dependency to your `build.gradle`:
+```kotlin
+implementation("io.pyroscope:agent:${pyroscope_version}")
+```
+Add labels dynamically:
 ```java
 import io.pyroscope.labels.LabelsSet;
 import io.pyroscope.labels.Pyroscope;
@@ -66,7 +71,7 @@ Pyroscope.LabelsWrapper.run(new LabelsSet("controller", "slow_controller"), () -
 });
 ```
 
-It is also possible to possible to add static tags (labels) to the profiling data. .
+It is also possible to possible to add static tags (labels) to the profiling data:
 
 ```java
 import io.pyroscope.labels.Pyroscope;
