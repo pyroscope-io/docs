@@ -61,15 +61,17 @@ Consider a user that is running Pyroscope Open Source, and wants to experiment w
 
 It requires updating all apps to point to Pyroscope Cloud, regenerating all API Keys, redeploying all apps, etc. Which is cumbersome.
 
-Which remote write one only needs to add the Pyroscope Cloud instance as a target. For example:
+With remote write one only needs to add the Pyroscope Cloud instance as a target. For example:
 ```yaml
 remote-write:
   enabled: true
+  disable-local-writes: true
   targets:
-    mycluster:
-      address: https://ingest.pyroscope.io
+    pyroscope-cloud:
+      address: https://ingest.pyroscope.cloud
       auth-token: MY_AUTH_TOKEN
       tags:
+        # optional tag to distinguish between different clusters you have
         cluster-name: my-cluster
 ```
 ## Disabling local writes
@@ -106,11 +108,11 @@ remote-write:
 
 The fields should be self-explanatory, but for completeness they are:
 
-| Field | Description |
-|--------|-------|
-| `timeout`   | Maximum amount of time each upload can take. It uses the standard [Go time duration format](https://pkg.go.dev/time#ParseDuration). |
-| `queue-size`       | Maximum amount of items that can be stored in the queue at a time. |
-| `queue-workers`       | How many queue workers are running. |
+| Field | Description | Default Value |
+|--------|-------|-------|
+| `timeout`   | Maximum amount of time each upload can take. It uses the standard [Go time duration format](https://pkg.go.dev/time#ParseDuration). | `10s` |
+| `queue-size`       | Maximum amount of items that can be stored in the queue at a time. | `100` |
+| `queue-workers`       | How many queue workers are running. | `max(numCPU * 4, 64)` |
 
 
 ### Metrics
@@ -135,11 +137,10 @@ remote-write:
       address: http://bar:4040
 ```
 
-It will create metrics with the following labels (`targetName/targetAddress`):
+It will create metrics with the following labels (`target_name/target_address`):
 ```
-pyroscope_remote_write_queue_pending{targetAddress="http://bar:4040",targetName="my-cluster"} 0
+pyroscope_remote_write_queue_pending{target_address="http://bar:4040",target_name="my-cluster"} 0
 ```
 
 ### Other Considerations
 * Enabling remote write will increase bandwith usage, since every ingestion is replicated to the number of targets.
-* Also memory usage is increased, since data is replicated in memory to the number of targets.
