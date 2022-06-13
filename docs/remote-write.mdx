@@ -48,15 +48,14 @@ For every ingested profile, it will also write to 2 pyroscope instances: `http:/
 ## What are the use cases?
 There are mainly 2 use cases:
 
-### Case 1: Running Pyroscope at the "edge"
+### Case 1: Aggregating Pyroscope data from multiple remote targets
 Consider the following situation in an organization:
 * Multiple Kubernetes clusters are [running pull mode](https://pyroscope.io/docs/golang-pull-mode/), ie. Pyroscope scrapes apps (ie. Pyroscope scrapes apps)
 * A central pyroscope instance stores data in one place which aggregates profiling data from all of these apps
-* a central Pyroscope instance that these other remote pyroscope instances write to
 
 Pyroscope's `remote-write` option enables collecting data on the _centralized_ Pyroscope instance and only exposing this one instance while allowing the various internal Pyroscope instances remain private.
 
-### Case 2: migrating to Pyroscope Cloud
+### Case 2: Migrating to Pyroscope Cloud
 For users who are running Pyroscope's Open Source version and would like to migrate to Pyroscope's Cloud version, _before_ `remote-write` it required:
 
 1. Updating applications to point to Pyroscope Cloud
