@@ -42,7 +42,7 @@ remote-write:
         foo: baz
 ```
 
-For every single ingested profile, it will also write to 2 pyroscope instances: `http://bar:4040` and `http://baz:4040`.
+For every ingested profile, it will also write to 2 pyroscope instances: `http://bar:4040` and `http://baz:4040`.
 [Tags](https://pyroscope.io/blog/profiling-go-apps-with-pyroscope/#narrowing-in-on-the-issue-using-tags) can (and should) be added, so that you can identify where the profiling data is coming from.
 
 ## What are the use cases?
@@ -50,18 +50,25 @@ There are mainly 2 use cases:
 
 ### Case 1: Running Pyroscope at the "edge"
 Consider the following situation in an organization:
-* multiple Kubernetes clusters
-* [running pull mode](https://pyroscope.io/docs/golang-pull-mode/), ie. Pyroscope scrapes apps
+* Multiple Kubernetes clusters are [running pull mode](https://pyroscope.io/docs/golang-pull-mode/), ie. Pyroscope scrapes apps (ie. Pyroscope scrapes apps)
+* A central pyroscope instance stores data in one place which aggregates profiling data from all of these apps
 * a central Pyroscope instance that these other remote pyroscope instances write to
 
-That enables not exposing these internal Pyroscope instances, since they only scrape data. Therefore the only exposed instance is the central one.
+Pyroscope's `remote-write` option enables collecting data on the _centralized_ Pyroscope instance and only exposing this one instance while allowing the various internal Pyroscope instances remain private.
 
 ### Case 2: migrating to Pyroscope Cloud
-Consider a user that is running Pyroscope Open Source, and wants to experiment with the [Pyroscope Cloud version](https://pyroscope.cloud) (or any other implementation of the `/ingest` endpoint, as for example a Pyroscope Canary instance).
+For users who are running Pyroscope's Open Source version and would like to migrate to Pyroscope's Cloud version, _before_ `remote-write` it required:
 
-It requires updating all apps to point to Pyroscope Cloud, regenerating all API Keys, redeploying all apps, etc. Which is cumbersome.
+1. Updating applications to point to Pyroscope Cloud
+2. Replacing API Keys
+3. Redeploying applications
 
-With remote write one only needs to add the Pyroscope Cloud instance as a target. For example:
+:::note
+If you'd like to join the closed beta for Pyroscope cloud, please reach out to support@pyroscope.io and we'll work with you to get you started!
+:::
+
+
+With remote write, migrating to the cloud is simple as adding the Pyroscope Cloud instance as a target (and as you transition your open source data will be unaffected)! For example:
 ```yaml
 remote-write:
   enabled: true
@@ -76,9 +83,9 @@ remote-write:
 ```
 ## Disabling local writes
 The `disable-local-writes` configuration allows disabling writes to the local storage.
-It's useful if you need just to relay data to another pyroscope instance.
+We recommend using this option if you only want to relay data to another pyroscope instance and don't need to write it locally.
 
-Keep in mind it may be useful to leave local writes enabled, so that if the remote target is having issues, it's still possible to access the ingested data.
+Keep in mind, in some situations it may be useful to leave local writes enabled, so that if a remote target is having issues, it's still possible to access the ingested data locally.
 
 ```yaml
 remote-write:
@@ -106,7 +113,6 @@ remote-write:
       queue-workers: 4
 ```
 
-The fields should be self-explanatory, but for completeness they are:
 
 | Field | Description | Default Value |
 |--------|-------|-------|
