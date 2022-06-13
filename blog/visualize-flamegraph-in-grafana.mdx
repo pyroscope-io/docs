@@ -43,7 +43,9 @@ Because your profiling data is visualized in Grafana, you can login using just y
 Pyroscope leverages Grafana's multi user feature, which allows you as an admin to manage permissions for different users that have access to your dashboard. This comes in handy when you want to share access to multiple users within your team or organization.
 
 ## Install Pyroscope’s Flamegraph’s plugin in Grafana
-To install Pyroscope’s flamegraph plugin in Grafana, you will need Pyroscope’s panel plugin and Pyroscope’s datasource plugin. The Pyroscope panel plugin serves as the visualization option in which we use to show our profiling data. This is represented as a flamegraph on your Grafana dashboard. The Pyroscope datasource plugin connects your Grafana instance to the host– Pyroscope server.
+To install Pyroscope’s flamegraph plugin in Grafana, you will need the Pyroscope [panel plugin](https://grafana.com/grafana/plugins/pyroscope-panel/) and the Pyroscope [datasource plugin](https://grafana.com/grafana/plugins/pyroscope-datasource/). 
+
+The Pyroscope panel plugin serves as the visualization option in which we use to show our profiling data. This is represented as a flamegraph on your Grafana dashboard. The Pyroscope datasource plugin connects your Grafana instance to the host, Pyroscope server.
 
 :::note
 To run Pyroscope’s data source, you need to be running on Grafana 7.2 or later. To perform actions such as variable querying in Pyroscope’s flamegraph, you need to install version 1.1.0 or later of the Pyroscope-datasource.
