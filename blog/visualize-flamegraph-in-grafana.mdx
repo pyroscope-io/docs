@@ -1,9 +1,9 @@
 ---
 title: Visualize profiles in Grafana with Pyroscope Flamegraph plugin
-description: Learn how to integrate pyroscope in your grafana instance
-sidebar_label: Visualize profiles in Grafana with Pyroscope Flamegraph plugin
-image: https://user-images.githubusercontent.com/29557702/171664018-dbf9f8bb-ed71-4262-981c-a6e8e250dda9.png
-slug: /visualize-flamegraph-in-grafana
+description: Learn how to integrate Pyroscope into your Grafana instance
+sidebar_label: Visualize profiles in Grafana with Pyroscope
+image: https://user-images.githubusercontent.com/29557702/171678805-7adcfd75-ce1d-480f-b76e-46dfcad1c8e3.png
+slug: /visualize-flamegraphs-in-grafana
 date: "2022-06-13"
 
 authors:
@@ -24,7 +24,13 @@ tags: [observability, flamegraphs, profiling, grafana]
 
 Grafana is an open-source observability and monitoring platform used by individuals and organizations to monitor their applications and infrastructures. Grafana leverages the three pillars of observability, metrics, logs, and traces, to deliver insights into how well your systems are doing. Nowadays, Observability involves a whole lot more than metrics, logs, and tracing; it also involves profiling.
 
-In this article, I will show you how to leverage continuous profiling in Grafana using the Pyroscope flamegraph panel and datasource plugin. To learn more about flamegraphs, see [this post](/blog/what-is-a-flamegraph)
+In this article, I will:
+1. Describe how to leverage continuous profiling in Grafana by installing the Pyroscope flamegraph panel and datasource plugin
+2. Show how to configure the plugins properly
+3. Explain how to setup your first dashboard that includes profiling
+4. Give a [sneak peak](/blog/visualize-flamegraphs-in-grafana/#sneak-peak-at-whats-next-for-pyroscope-x-grafana-integration) of an upcoming feature that wil let you link profiles to logs, metrics, and traces
+
+If you're new to flamegraphs and would like to learn more about what they are and how to use them, see [this blog post](/blog/what-is-a-flamegraph).
 
 ## Introduction
 ![pillars-of-observability-complete](https://user-images.githubusercontent.com/29557702/171664145-189f0768-de3b-4fa2-b8c6-112737103238.png)
@@ -107,5 +113,5 @@ We believe that one of the biggest opportunities for Pyroscope to integrate into
 1. Auto-instrument your code with trace-specific profiles
 2. Link directly from logs or traces to the profiles that are associated with them (i.e. via derived fields in the explore tab)
 
-Here's a preview of what that ends up looking like in practice. Stay tuned for more info on our upcoming (official) release of this feature or if you want to try it out yourself try our [tracing examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger) from the repo.
+Here's a preview of what that ends up looking like in practice. Stay tuned for more info on our upcoming (official) release of this feature or if you want to try it out yourself this [tracing example](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger) is available in the repo.
 <iframe width="100%" height="600" src="https://www.youtube.com/embed/_Hwuee5JnbU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
