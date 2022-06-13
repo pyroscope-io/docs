@@ -15,6 +15,10 @@ authors:
     url: https://github.com/ekpatrice
     image_url: https://avatars.githubusercontent.com/u/77462462?v=4
 
+  - name: Ryan Perry
+    url: https://github.com/Rperry2174
+    image_url: https://avatars.githubusercontent.com/u/23323466?v=4
+
 tags: [observability, flamegraphs, profiling, grafana]
 ---
 
@@ -95,19 +99,13 @@ Once you’ve successfully configured your datasource, follow these steps to cre
 ![grafana visualization list](https://user-images.githubusercontent.com/29557702/171678805-7adcfd75-ce1d-480f-b76e-46dfcad1c8e3.png)
 You should see a flamegraph appear in the panel.
 
-## Interact with the flamegraph
-Interacting with flamegraphs is no different from how it’s done in the Pyroscope UI. You can perform actions such as clicking to zoom/expand a node and mouse hover for information within the Grafana dashboard.
+## Running dockerized grafana example
+If you’re interested in seeing the Pyroscope Grafana plugin in action, check out the [example](https://github.com/pyroscope-io/pyroscope/tree/main/examples/grafana-integration) from the Pyroscope repo.
 
-## Add a variable
-Pyroscope provides support for variables in Grafana. You can add a variable to your dashboard and use it to query your profiling data:
-1. Go to the dashboard settings page
-2. On the Variables tab, click New.
-3. Enter a Name for your variable.
-4. In the Type list, select Query.
-5. Click the update button to save changes.
-6. Go back to your flamegraph dashboard and open the panel in edit
-7. In the query field, enter a query
-8. Save and refresh the dashboard to view variables in action.
+## Sneak Peak at What's next for Pyroscope x Grafana integration
+We believe that one of the biggest opportunities for Pyroscope to integrate into Grafana workflows is by linking directly with other observability data. Using our [otel-pyroscope](https://github.com/pyroscope-io/otelpyroscope) package we've shown how you can:
+1. Auto-instrument your code with trace-specific profiles
+2. Link directly from logs or traces to the profiles that are associated with them (i.e. via derived fields in the explore tab)
 
-## Summary
-Now that you have learned how to create flamegraphs in Grafana using Pyroscope’s plugin, I encourage you to try it yourself so you can appreciate Grafana’s interoperability with Pyroscope
+Here's a preview of what that ends up looking like in practice. Stay tuned for more info on our upcoming (official) release of this feature or if you want to try it out yourself try our [tracing examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger) from the repo.
+<iframe width="100%" height="600" src="https://www.youtube.com/embed/_Hwuee5JnbU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
