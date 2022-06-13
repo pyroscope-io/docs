@@ -143,5 +143,3 @@ pyroscope_remote_write_queue_pending{targetAddress="http://bar:4040",targetName=
 ### Other Considerations
 * Enabling remote write will increase bandwith usage, since every ingestion is replicated to the number of targets.
 * Also memory usage is increased, since data is replicated in memory to the number of targets.
-* Although [it's possible to disable local ingestion](https://github.com/pyroscope-io/pyroscope/issues/1140), it may be useful to let it turned on, so that you can debug issues even when the remote targets are suffering an outage.
-
