@@ -61,13 +61,15 @@ The Pyroscope panel plugin serves as the visualization option in which we use to
 To run Pyroscope’s data source, you need to be running on Grafana 7.2 or later. To perform actions such as variable querying in Pyroscope’s flamegraph, you need to install version 1.1.0 or later of the pyroscope-datasource.
 :::
 
-### Pyroscope Panel plugin
-To install the panel plugin, first navigate to your Grafana directory using your terminal.
-Run this command `grafana-cli plugins install pyroscope-panel`.
-This command installs the Pyroscope-panel plugin into your Grafana application.
+### How to Install the Pyroscope Panel and Pyroscope Datasource plugins
+To install the two plugins that you'll need, first navigate to your Grafana directory using your terminal.
+Then, run this command:
 
-### Pyroscope Datasource plugin
-To install the panel plugin, run this command `grafana-cli plugins install pyroscope-datasource`. The plugin will be installed into your Grafana plugins directory; the default is `/var/lib/Grafana/plugins`.
+```
+grafana-cli plugins install pyroscope-panel # Installs the Pyroscope panel plugin
+grafana-cli plugins install pyroscope-datasource # Installs the Pyroscope datasource plugin
+```
+These commands install the two plugin into your Grafana application.
 
 ![grafana configuration page](https://user-images.githubusercontent.com/29557702/171667513-5913355c-0fdc-4d0a-a151-fe06360eb5ec.png)
 
