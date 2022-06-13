@@ -1,0 +1,153 @@
+---
+id: remote-write
+title: Remote Write
+sidebar_label: Remote Write
+slug: /remote-write
+description: Push data to another pyroscope instance
+keywords: [ pyroscope, server, remote, write, storage ]
+---
+
+:::note
+This functionality is available starting from [pyroscope version 0.19.0](https://github.com/pyroscope-io/pyroscope/releases/tag/v0.19.0).
+
+Make sure to upgrade before you use this.
+:::
+
+## What is Remote Write?
+Remote Write is a feature that allows writing data to a remote Pyroscope instance (ie. not the same one that is immediately ingesting the data).
+
+## How does it work?
+<!-- TODO: create a diagram? -->
+
+Its current implementation is simple: for all ingested data, the same data is sent to the remote targets' `/ingest` endpoint, concurrently.
+
+:::note
+We currently do not provide any guarantees this data is going to be delivered (think for example, network failures). Although in future versions we may implement retries.
+:::
+
+## Basic Example
+```yaml
+remote-write:
+  enabled: true
+  targets:
+    bar:
+      address: http://bar:4040
+      auth-token: MY_AUTH_TOKEN
+      tags:
+        foo: bar
+    baz:
+      address: http://baz:4040
+      auth-token: MY_AUTH_TOKEN
+      tags:
+        foo: baz
+```
+
+For every ingested profile, it will also write to 2 pyroscope instances: `http://bar:4040` and `http://baz:4040`.
+[Tags](https://pyroscope.io/blog/profiling-go-apps-with-pyroscope/#narrowing-in-on-the-issue-using-tags) can (and should) be added, so that you can identify where the profiling data is coming from.
+
+## What are the use cases?
+There are mainly 2 use cases:
+
+### Case 1: Aggregating Pyroscope data from multiple remote targets
+Consider the following situation in an organization:
+* Multiple Kubernetes clusters are [running pull mode](https://pyroscope.io/docs/golang-pull-mode/), ie. Pyroscope scrapes apps (ie. Pyroscope scrapes apps)
+* A central pyroscope instance stores data in one place which aggregates profiling data from all of these apps
+
+Pyroscope's `remote-write` option enables collecting data on the _centralized_ Pyroscope instance and only exposing this one instance while allowing the various internal Pyroscope instances remain private.
+
+### Case 2: Migrating to Pyroscope Cloud
+For users who are running Pyroscope's Open Source version and would like to migrate to Pyroscope's Cloud version, _before_ `remote-write` it required:
+
+1. Updating applications to point to Pyroscope Cloud
+2. Replacing API Keys
+3. Redeploying applications
+
+:::note
+If you'd like to join the closed beta for Pyroscope cloud, please reach out to support@pyroscope.io and we'll work with you to get you started!
+:::
+
+
+With remote write, migrating to the cloud is simple as adding the Pyroscope Cloud instance as a target (and as you transition your open source data will be unaffected)! For example:
+```yaml
+remote-write:
+  enabled: true
+  disable-local-writes: true
+  targets:
+    pyroscope-cloud:
+      address: https://ingest.pyroscope.cloud
+      auth-token: MY_AUTH_TOKEN
+      tags:
+        # optional tag to distinguish between different clusters you have
+        cluster-name: my-cluster
+```
+## Disabling local writes
+The `disable-local-writes` configuration allows disabling writes to the local storage.
+We recommend using this option if you only want to relay data to another pyroscope instance and don't need to write it locally.
+
+Keep in mind, in some situations it may be useful to leave local writes enabled, so that if a remote target is having issues, it's still possible to access the ingested data locally.
+
+```yaml
+remote-write:
+  enabled: true
+  disable-local-writes: true
+```
+## Tuning
+
+ We recommend using the following [defaults](https://github.com/pyroscope-io/pyroscope/blob/12cf3a975215b9cb8b5c14d75b89437140c79284/pkg/remotewrite/concurrency.go#L9), however, not every environment is the same. If you have trouble configuring these values please, create an [issue](https://github.com/pyroscope-io/pyroscope/issues) reach out to support@pyroscope.io or join our [slack channel](https://pyroscope.io/slack) and we'd love to help. 
+ 
+ That being said, Pyroscope has a few key configurable options:
+
+
+```yaml
+remote-write:
+  enabled: true
+  targets:
+    bar:
+      address: http://bar:4040
+      auth-token: MY_AUTH_TOKEN
+      tags:
+        foo: bar
+
+      # tweakable
+      timeout: 1m
+      queue-size: 100
+      queue-workers: 4
+```
+
+
+| Field | Description | Default Value |
+|--------|-------|-------|
+| `timeout`   | Maximum amount of time each upload can take. It uses the standard [Go time duration format](https://pkg.go.dev/time#ParseDuration). | `10s` |
+| `queue-size`       | Maximum amount of items that can be stored in the queue at a time. | `100` |
+| `queue-workers`       | How many queue workers are running. | `max(numCPU * 4, 64)` |
+
+
+### Metrics
+Prometheus metrics are also exposed:
+
+
+| Metric | Type | Description  |
+|--------|-------|---|
+| `pyroscope_remote_write_client_response_time`   | histogram     |   |
+| `pyroscope_remote_write_client_sent_bytes`       | counter      | The total number of bytes of data (not metadata) sent to the remote target.  |
+| `pyroscope_remote_write_queue_capacity`       | gauge      | How many items the queue can hold. |
+| `pyroscope_remote_write_queue_dropped` | counter      | How many items were dropped (as in not accepted into the queue). |
+| `pyroscope_remote_write_queue_workers_total` | gauge | Total number of queue workers. |
+
+
+Also notice that the key in the yaml is used as `targetName` in the metric. For example, given the following configuration:
+```yaml
+remote-write:
+  enabled: true
+  targets:
+    my-cluster:
+      address: http://bar:4040
+```
+
+It will create metrics with the following labels (`target_name/target_address`):
+```
+pyroscope_remote_write_queue_pending{target_address="http://bar:4040",target_name="my-cluster"} 0
+```
+
+### Other Considerations
+* Enabling remote write will increase bandwith usage, since every ingestion is replicated to the number of targets.
