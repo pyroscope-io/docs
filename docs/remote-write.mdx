@@ -16,6 +16,15 @@ Make sure to upgrade before you use this.
 ## What is Remote Write?
 Remote Write is a feature that allows writing data to a remote Pyroscope instance (ie. not the same one that is immediately ingesting the data).
 
+## How does it work?
+<!-- TODO: create a diagram? -->
+
+Its current implementation is simple: for all ingested data, the same data is sent to the remote targets' `/ingest` endpoint, concurrently.
+
+:::note
+We currently do not provide any guarantees this data is going to be delivered (think for example, network failures). Although in future versions we may implement retries.
+:::
+
 ## Basic Example
 ```yaml
 remote-write:
@@ -63,16 +72,17 @@ remote-write:
       tags:
         cluster-name: my-cluster
 ```
-## How does it work?
-<!-- TODO: create a diagram? -->
+## Disabling local writes
+The `disable-local-writes` configuration allows disabling writes to the local storage.
+It's useful if you need just to relay data to another pyroscope instance.
 
-Its current implementation is simple: for all ingested data, the same data is sent to the remote targets' `/ingest` endpoint, concurrently.
+Keep in mind it may be useful to leave local writes enabled, so that if the remote target is having issues, it's still possible to access the ingested data.
 
-:::note
-We currently do not provide any guarantees this data is going to be delivered (think for example, network failures). Although in future versions we may implement retries.
-
-:::
-
+```yaml
+remote-write:
+  enabled: true
+  disable-local-writes: true
+```
 ## Tuning
 
 Although we try to provide [smart defaults](https://github.com/pyroscope-io/pyroscope/blob/12cf3a975215b9cb8b5c14d75b89437140c79284/pkg/remotewrite/concurrency.go#L9), not every environment is the same. Therefore we also allow a few configurable points:
