@@ -87,6 +87,7 @@ module.exports = {
             },
             "data-retention",
             "metrics-export",
+            "remote-write",
           ],
         },
         {
