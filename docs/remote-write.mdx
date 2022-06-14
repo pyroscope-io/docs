@@ -17,12 +17,11 @@ Make sure to upgrade before you use this.
 Remote Write is a feature that allows writing data to a remote Pyroscope instance (ie. not the same one that is immediately ingesting the data).
 
 ## How does it work?
-<!-- TODO: create a diagram? -->
-
 Its current implementation is simple: for all ingested data, the same data is sent to the remote targets' `/ingest` endpoint, concurrently.
+![remote_write_diagram_01_optimized](https://user-images.githubusercontent.com/23323466/173495597-ecbe1f83-174b-4fa5-80b5-7b3d55b08672.gif)
 
 :::note
-We currently do not provide any guarantees this data is going to be delivered (think for example, network failures). Although in future versions we may implement retries.
+We currently do not provide any guarantees this data is going to be delivered (think for example, network failures). Although in future versions we will implement retries.
 :::
 
 ## Basic Example
