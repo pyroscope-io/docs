@@ -121,9 +121,6 @@ If you are using a later Debian version the default golang package should work f
 
 ## Developing pyroscope
 
-
-### Mac/Linux
-
 #### 1. Clone the repo:
 ```shell
 git@github.com:pyroscope-io/pyroscope.git
@@ -159,38 +156,6 @@ ENABLED_SPIES=none make dev
 :::
 
 #### 4. Access the server
-It should be available at [http://localhost:4040](http://localhost:4040)
-
-### Windows
-
-1. Install [Docker](https://www.docker.com/products/docker-desktop).
-
-2. Install [VSCode](https://code.visualstudio.com/).
-
-3. Clone [pyroscope](https://github.com/pyroscope-io/pyroscope) repository and open in VSCode:
-```shell
-git clone https://github.com/pyroscope-io/pyroscope.git
-```
-
-4. Install [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) VSCode extension.
-
-5. Press ` F1` to bring up the Command Palette and select `Remote-Containers: Reopen in Container`.
-
-6. Install project dependencies:  
-   open VSCode terminal (bash) and run
-
-```shell
-make install-dev-tools
-```
-
-7. Run server:
-
-```shell
-ENABLED_SPIES=none make dev
-```
-
-8. Access the server
-
 It should be available at [http://localhost:4040](http://localhost:4040)
 
 ## Text Editors
