@@ -188,8 +188,10 @@ Ensure `$GOPATH/bin` in your `PATH`. (`GOPATH` is usually `~/go`)
 (Only run these commands once)
 ```shell
 make install-dev-tools
+# optional step, only run if you need to work on ruby/python/php integrations
 make build-third-party-dependencies
 make install-web-dependencies
+make web-bootstrap
 ```
 
 Then run
@@ -197,6 +199,8 @@ Then run
 make dev
 ```
 It builds assets in watch mode + builds the main binary and starts the server all on one command.
+
+The server should be available at [http://localhost:4040](http://localhost:4040)
 
 :::note
 If you are getting a `bad file descriptor` or `too many open files` error, then run this command: `ulimit -S -n 2048`. Once you do that, run the `make dev` command again. Please note that the ulimit shell command only works on Unix-like OS (e.g. Linux/macOS).
