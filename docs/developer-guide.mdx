@@ -117,121 +117,45 @@ If you are using a later Debian version the default golang package should work f
 
 </Tabs>
 
+---
 
-## Building pyroscope locally
-
-To build pyroscope you need to run a few commands:
-
+## Developing pyroscope
 
 #### 1. Clone the repo:
 ```shell
 git@github.com:pyroscope-io/pyroscope.git
 ```
 
-#### 2. Install go developer tools:
+#### 2. Bootstrap
 
-These are required to build the go code.
-
-```shell
-make install-dev-tools
-```
-
-#### 3. Build third-party dependencies (optional):
-
-:::note
-This step is optional, you can skip it if you don't need to work on Python, Ruby or PHP integrations.
-:::
-
-```shell
-# if this command doesn't succeed consider skipping this step (see comment above)
-make build-third-party-dependencies
-```
-
-
-#### 4. Build web assets (JavaScript + SCSS code):
-```shell
-make assets-release
-```
-
-#### 5. Builds the main binary, puts it in `bin/pyroscope`:
-```shell
-make build
-```
-
-:::note
-If you have skipped step 3 (build third-party dependencies), you'll need to build the binary without third party integrations:
-```
-ENABLED_SPIES=none make build
-```
-:::
-
-#### 6. Starts pyroscope server:
-```shell
-make server
-```
-
-#### 7. Access the server
-It should be available at [http://localhost:4040](http://localhost:4040)
-
----
-
-## Developing pyroscope
-
-If you're going to be working on pyroscope a lot, consider doing the following:
-
-### Mac/Linux
-
-:::note
-Ensure `$GOPATH/bin` in your `PATH`. (`GOPATH` is usually `~/go`)
-:::
+These are required to build the go code, among other things.
 
 (Only run these commands once)
 ```shell
 make install-dev-tools
+
+# optional step, only run if you need to work on ruby/python/php integrations
 make build-third-party-dependencies
+
 make install-web-dependencies
+make web-bootstrap
 ```
 
-Then run
+#### 3. Run the server
+
 ```shell
 make dev
 ```
 It builds assets in watch mode + builds the main binary and starts the server all on one command.
 
 :::note
-If you are getting a `bad file descriptor` or `too many open files` error, then run this command: `ulimit -S -n 2048`. Once you do that, run the `make dev` command again. Please note that the ulimit shell command only works on Unix-like OS (e.g. Linux/macOS).
-:::
-
-### Windows
-
-1. Install [Docker](https://www.docker.com/products/docker-desktop).
-
-2. Install [VSCode](https://code.visualstudio.com/).
-
-3. Clone [pyroscope](https://github.com/pyroscope-io/pyroscope) repository and open in VSCode:
-```shell
-git clone https://github.com/pyroscope-io/pyroscope.git
+If you have skipped building `third-party dependencies`, you'll need to build the binary without third party integrations:
 ```
-
-4. Install [Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) VSCode extension.
-
-5. Press ` F1` to bring up the Command Palette and select `Remote-Containers: Reopen in Container`.
-
-6. Install project dependencies:  
-   open VSCode terminal (bash) and run
-
-```shell
-make install-dev-tools
-```
-
-7. Run server:
-
-```shell
 ENABLED_SPIES=none make dev
 ```
+:::
 
-8. Access the server
-
+#### 4. Access the server
 It should be available at [http://localhost:4040](http://localhost:4040)
 
 ## Text Editors
@@ -316,3 +240,10 @@ Helper code / files we use to make releases and generate packages for Linux / ma
 ### /third_party/rustdeps
 
 Pyroscope depends on a few rust projects, particularly `rbspy` and `py-spy`.
+
+## Troubleshooting
+### `goreman: No such file or directory`
+Ensure `$GOPATH/bin` in your `PATH`. (`GOPATH` is usually `~/go`)
+
+### `bad file descriptor/too many open files`
+If you are getting a `bad file descriptor` or `too many open files` error, then run this command: `ulimit -S -n 2048`. Once you do that, run the `make dev` command again. Please note that the ulimit shell command only works on Unix-like OS (e.g. Linux/macOS).
