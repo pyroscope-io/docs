@@ -1,0 +1,61 @@
+---
+title: How to embed a Flamegraph on your website or blog
+sidebar_label: How to embed a Flamegraph on your website
+slug: /how-to-embed-a-flamegraph
+date: "2022-06-27"
+
+authors:
+  - name: Ryan Perry
+    url: https://github.com/Rperry2174
+    image_url: https://avatars.githubusercontent.com/u/23323466?v=4
+
+tags: [flamegraphs, profiling, embed]
+---
+
+## How to embed a Flamegraph on your website or blog
+After several blog posts where we featured flamegraphs as a key piece of the posts we found that screenshotting pictures of
+flamegraphs didn't have the same impact as when its possible to interact with flamegraphs. As a result, we created [flamegraph.com](https://flamegraph.com)
+to have a place where users can upload, view, and share flamegraphs.
+
+We recently released an update to flamegraph.com that solves this problem. To embed a flamegraph on your website/blog you need to:
+
+    1. Upload a flamegraph or flamegraph diff to flamegraph.com
+    2. Click the "Embed" button
+    3. Copy the "Copy" button to copy the embed code snippet
+    4. Paste the embed code snippet into your blog or website
+
+[ gif of embedding a flamegraph ](https://media.giphy.com/media/3o7btLXQZqXqQQQQQQ/giphy.gif)
+
+## Example embedded Flamegraph
+```
+<iframe style="width: 100%; height: auto;min-width: 600px;min-height: 400px;" src="https://flamegraph.com/share/a8c6e7a9-f360-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph" frameBorder="0"></iframe>
+```
+
+## Example ebedded Diff Flamegraph
+```
+# Doesn't work in jsx
+<iframe style="width: 100%; height: auto;min-width: 600px;min-height: 400px;" src="https://flamegraph.com/share/6afa6df7-f362-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph" frameBorder="0"></iframe>
+# Works in jsx
+<iframe frameBorder="0" width="100%" height="auto" src="https://flamegraph.com/share/6afa6df7-f362-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph"></iframe>
+```
+## How to upload a flamegraph to flamegraph.com
+There are a couple of different ways you can get a flamegraph to upload to flamegraph.com. 
+
+### Exporting a flamegraph from Pyroscope
+There are two main ways to export a flamegraph from Pyroscope. The first is to use the "export" mmenu located on the flamgraph:
+[ image ]
+
+The second way is to profile a script using the `pyroscope adhoc` command ([example](https://github.com/pyroscope-io/pyroscope/tree/main/examples/adhoc)), export to JSON, and then upload that JSON to flamegraph.com.
+```
+pyroscope adhoc go run adhoc-push.go
+# INFO profiling data has been saved to ~/.pyroscope/pyroscope/adhoc.example.go.alloc_objects-2022-06-23-21-37-29.json 
+```
+then you can upload the JSON file to flamegraph.com
+[ gif ]
+and click the "embed" button as shown above.
+
+
+
+
+
+
