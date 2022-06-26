@@ -18,42 +18,38 @@ flamegraphs didn't have the same impact as when its possible to interact with fl
 to have a place where users can upload, view, and share flamegraphs.
 
 We recently released an update to flamegraph.com that solves this problem. To embed a flamegraph on your website/blog you need to:
+  1. Upload a flamegraph or flamegraph diff to flamegraph.com
+  2. Click the "Embed" button
+  3. Copy the "Copy" button to copy the embed code snippet
+  4. Paste the embed code snippet into your blog or website
 
-    1. Upload a flamegraph or flamegraph diff to flamegraph.com
-    2. Click the "Embed" button
-    3. Copy the "Copy" button to copy the embed code snippet
-    4. Paste the embed code snippet into your blog or website
+![clicking_embed_button_high_res](https://user-images.githubusercontent.com/23323466/175833273-3560b1ac-4182-4b24-bd3c-dd22645158a2.gif)
 
-[ gif of embedding a flamegraph ](https://media.giphy.com/media/3o7btLXQZqXqQQQQQQ/giphy.gif)
+## Example Embedded Flamegraph
+After you've pasted the embed code snippet into your blog or website you'll see a flamegraph that looks like this:
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/a8c6e7a9-f360-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph"></iframe>
 
-## Example embedded Flamegraph
-```
-<iframe style="width: 100%; height: auto;min-width: 600px;min-height: 400px;" src="https://flamegraph.com/share/a8c6e7a9-f360-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph" frameBorder="0"></iframe>
-```
+## Example embedded Diff Flamegraph
+Diff flamegraphs show the diff between two flamegraphs and looks like this:
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/6afa6df7-f362-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph"></iframe>
 
-## Example ebedded Diff Flamegraph
-```
-# Doesn't work in jsx
-<iframe style="width: 100%; height: auto;min-width: 600px;min-height: 400px;" src="https://flamegraph.com/share/6afa6df7-f362-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph" frameBorder="0"></iframe>
-# Works in jsx
-<iframe frameBorder="0" width="100%" height="auto" src="https://flamegraph.com/share/6afa6df7-f362-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph"></iframe>
-```
 ## How to upload a flamegraph to flamegraph.com
 There are a couple of different ways you can get a flamegraph to upload to flamegraph.com. 
 
 ### Exporting a flamegraph from Pyroscope
-There are two main ways to export a flamegraph from Pyroscope. The first is to use the "export" mmenu located on the flamgraph:
-[ image ]
+There are two main ways to export a flamegraph from Pyroscope. The first is to use the "export" menu located on the flamgraph:
+<img width="730" alt="image" src="https://user-images.githubusercontent.com/23323466/175833562-fcdfc088-9377-40dd-a985-f30a5a49dc64.png"></img>
 
 The second way is to profile a script using the `pyroscope adhoc` command ([example](https://github.com/pyroscope-io/pyroscope/tree/main/examples/adhoc)), export to JSON, and then upload that JSON to flamegraph.com.
 ```
 pyroscope adhoc go run adhoc-push.go
 # INFO profiling data has been saved to ~/.pyroscope/pyroscope/adhoc.example.go.alloc_objects-2022-06-23-21-37-29.json 
 ```
-then you can upload the JSON file to flamegraph.com
-[ gif ]
-and click the "embed" button as shown above.
+![upload_flamegraph](https://user-images.githubusercontent.com/23323466/175833667-7add384e-ebef-4193-b3e9-e2a338419286.gif)
 
+## Get Featured on the Pyroscope blog!
+We love hearing stories about the ways that people have been able to use profiling, Pyroscope, and/or flamegraphs to solve performance problems.
+If you have a story that you'd like to share with us, please [contact us](mailto:contact@pyroscope.io) or let us know on [slack](https://pyroscope.io/slack) and we'll add it to this blog!
 
 
 
