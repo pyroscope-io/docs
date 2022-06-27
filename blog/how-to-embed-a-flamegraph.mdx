@@ -1,6 +1,8 @@
 ---
 title: How to embed a Flamegraph on your website or blog
+description: Learn how to embed a Flamegraph on your website or blog
 sidebar_label: How to embed a Flamegraph on your website
+image: https://user-images.githubusercontent.com/23323466/175955981-fbf8f818-9c55-4cfa-b55e-2e851e344650.png
 slug: /how-to-embed-a-flamegraph
 date: "2022-06-27"
 
@@ -9,13 +11,13 @@ authors:
     url: https://github.com/Rperry2174
     image_url: https://avatars.githubusercontent.com/u/23323466?v=4
 
-tags: [flamegraphs, profiling, embed]
+tags: [embed, upload, flamegraphs, profiling]
 ---
 
 ## Stop screenshotting Flamegraphs and start embedding them
-After several blog posts where we featured flamegraphs as a key piece of the posts we found that screenshotting pictures of
-flamegraphs didn't have the same impact as when its possible to interact with flamegraphs. Typically a flamegraph is only useful when you're able to click into 
-particular nodes or stack traces to understand the program more deeply.
+Typically a flamegraph is _most_ useful when you're able to click into particular nodes or stack traces to understand the program more deeply.
+After several [blog posts](/blog/profile-continuous-profiler/#performance-optimization-1-caching-the-data-in-a-hash-map) where we featured flamegraphs as a key piece of the posts we found that screenshotting pictures of
+flamegraphs was missing this key functionality compared to being able to interact with flamegraphs.
 
 As a result, we created [flamegraph.com](https://flamegraph.com) to have a place where users can upload, view, and share flamegraphs.
 
@@ -39,11 +41,12 @@ Diff flamegraphs show the diff between two flamegraphs and look like this:
 There are three main ways you can upload a flamegraph to flamegraph.com. 
 
 ### Method 1: Exporting a flamegraph directly from Pyroscope
-There are two main ways to export a flamegraph from Pyroscope. The first is to use the "export" menu located on the flamgraph:
+The first method is to use the "export" menu located on the flamegraph:
 <img width="730" alt="image" src="https://user-images.githubusercontent.com/23323466/175833562-fcdfc088-9377-40dd-a985-f30a5a49dc64.png"></img>
 
 ### Method 2: Profile a static script using `pyroscope adhoc` command
-The second way is to profile a script using the `pyroscope adhoc` command ([example](https://github.com/pyroscope-io/pyroscope/tree/main/examples/adhoc)), export to JSON, and then upload that JSON to flamegraph.com.
+The second method is to profile a script using the `pyroscope adhoc` command ([example](https://github.com/pyroscope-io/pyroscope/tree/main/examples/adhoc)), export to JSON, and then upload that JSON to flamegraph.com.
+This is convenient when you don't need to profile a whole application continuously, but rather would like to see a profile for a specific script.
 ```
 pyroscope adhoc go run adhoc-push.go
 # INFO profiling data has been saved to ~/.pyroscope/pyroscope/adhoc.example.go.alloc_objects-2022-06-23-21-37-29.json 
@@ -51,7 +54,7 @@ pyroscope adhoc go run adhoc-push.go
 This will output a json file which you can then upload to flamegraph.com.
 
 ### Method 3: Upload pre-existing pprof or collapsed files
-Similar to Method 2, if you already havea pprof file or collapsed flamegraph file you can upload it to flamegraph.com by using the drag-and-drop uploader.
+Similar to the json from Method 2, if you already have a pprof file or collapsed flamegraph file you can upload it to flamegraph.com by using the drag-and-drop uploader.
 ![upload_flamegraph](https://user-images.githubusercontent.com/23323466/175833667-7add384e-ebef-4193-b3e9-e2a338419286.gif)
 
 ## Get Featured on the Pyroscope Blog / Twitter!
