@@ -27,6 +27,7 @@ In this article, I will introduce you to flamegraphs, how to use them, how to re
 A flamegraph is a complete visualization of hierarchical data (e.g stack traces, file system contents, etc) with a metric, typically resource usage, attached to the data. Flamegraphs were originally invented by Brendan Gregg. He was inspired by the inability to view, read, and understand stack traces using the regular profilers to debug performance issues. The flamegraph was created to fix this exact problem. 
 
 Flamegraphs allow you to view a call stack in a much more visual way. They give you insight into your code performance and allow you to debug efficiently by drilling down to the origin of a bug, thereby increasing the performance of your application.
+<!--truncate-->
 
 :::note
 Technically, a _flamegraph_ has it's root at the bottom and child nodes are shown above their parents while an _icicle graph_ has it's root at the top and child nodes are shown below their parents. 
@@ -43,13 +44,10 @@ Flamegraphs are generated as a by-product of software profilers. They are repres
 ### Example use cases for flamegraphs
 Flamegraphs are often seen as more of a high level or abstract concept, so here are some situations where flamegraphs would be useful.
 
-
-
 #### Using flamegraphs during pager duty response
 Imagine a scenario where you’re the only engineer in your team that is on-call for the week. Days passed and thankfully, you don’t get any outage alert. On the last day of your on-call, you get a pager duty alert showing a spike in latency in the US-east region. You start by checking the metrics and then logs. In the course of your investigation, you notice the problems go even deeper in the stack.
 
 In a scenario like this, you begin to find ways to visualize CPU usage and identify what’s consuming your CPU resource the most. That is exactly where flamegraphs shine! 
-
 
 #### Using flamegraphs for debugging customer complaints
 Let’s assume you work in a team fully focused on improving the performance of your company’s product. While doing your normal morning routine, you notice an escalation from customer support. A customer just reported an unusual delay in load time. Looking at your graph, you notice a spike in latency in the US-east region. In the course of your investigation, you begin to notice the problem goes even deeper in the stack.
@@ -95,10 +93,10 @@ You can read a flamegraph by first understanding its features. They include:
 - Y-axis: The y-axis indicates the depth of the call stack. On Pyroscope, the head/root node is positioned at the top by default. The bottom box (tip of the flame) shows the function call that is on-CPU at the initial point of stack trace collection.
 - Background color: The colors for profiles are generally not significant. They are distributed at random to distinguish between function calls. This helps the eye differentiate one profile from the other.
 
-### Playground
+### Interactive Playground
 With everything you've learned so far about flamegraphs, feel free to play around and interpret this interactive flamegraph embedded below.
 
-<iframe src="https://flamegraph.com/share/158a2160-d06b-11ec-9a10-76ec5fdc56e3/iframe" height="600" width="100%"></iframe>
+<iframe src="https://flamegraph.com/share/158a2160-d06b-11ec-9a10-76ec5fdc56e3/iframe?onlyDisplay=flamegraph" height="600" width="100%"></iframe>
 
 ### Summary
 Now that you’ve learned about flamegraphs and how to use them, I encourage you to take a bold step in making performance profiling a priority in your observability journey.
