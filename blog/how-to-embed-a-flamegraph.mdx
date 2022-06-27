@@ -12,12 +12,14 @@ authors:
 tags: [flamegraphs, profiling, embed]
 ---
 
-## How to embed a Flamegraph on your website or blog
+## Stop screenshotting Flamegraphs and start embedding them
 After several blog posts where we featured flamegraphs as a key piece of the posts we found that screenshotting pictures of
-flamegraphs didn't have the same impact as when its possible to interact with flamegraphs. As a result, we created [flamegraph.com](https://flamegraph.com)
-to have a place where users can upload, view, and share flamegraphs.
+flamegraphs didn't have the same impact as when its possible to interact with flamegraphs. Typically a flamegraph is only useful when you're able to click into 
+particular nodes or stack traces to understand the program more deeply.
 
-We recently released an update to flamegraph.com that solves this problem. To embed a flamegraph on your website/blog you need to:
+As a result, we created [flamegraph.com](https://flamegraph.com) to have a place where users can upload, view, and share flamegraphs.
+
+We recently released an update to flamegraph.com that makes it easy to embed flamegraphs in your blog or website. The steps to embed a flamegraph are:
   1. Upload a flamegraph or flamegraph diff to flamegraph.com
   2. Click the "Embed" button
   3. Copy the "Copy" button to copy the embed code snippet
@@ -30,26 +32,32 @@ After you've pasted the embed code snippet into your blog or website you'll see 
 <iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/a8c6e7a9-f360-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph"></iframe>
 
 ## Example embedded Diff Flamegraph
-Diff flamegraphs show the diff between two flamegraphs and looks like this:
+Diff flamegraphs show the diff between two flamegraphs and look like this:
 <iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/6afa6df7-f362-11ec-bcfa-beb8fdeeb850/iframe?onlyDisplay=flamegraph"></iframe>
 
 ## How to upload a flamegraph to flamegraph.com
-There are a couple of different ways you can get a flamegraph to upload to flamegraph.com. 
+There are three main ways you can upload a flamegraph to flamegraph.com. 
 
-### Exporting a flamegraph from Pyroscope
+### Method 1: Exporting a flamegraph directly from Pyroscope
 There are two main ways to export a flamegraph from Pyroscope. The first is to use the "export" menu located on the flamgraph:
 <img width="730" alt="image" src="https://user-images.githubusercontent.com/23323466/175833562-fcdfc088-9377-40dd-a985-f30a5a49dc64.png"></img>
 
+### Method 2: Profile a static script using `pyroscope adhoc` command
 The second way is to profile a script using the `pyroscope adhoc` command ([example](https://github.com/pyroscope-io/pyroscope/tree/main/examples/adhoc)), export to JSON, and then upload that JSON to flamegraph.com.
 ```
 pyroscope adhoc go run adhoc-push.go
 # INFO profiling data has been saved to ~/.pyroscope/pyroscope/adhoc.example.go.alloc_objects-2022-06-23-21-37-29.json 
 ```
+This will output a json file which you can then upload to flamegraph.com.
+
+### Method 3: Upload pre-existing pprof or collapsed files
+Similar to Method 2, if you already havea pprof file or collapsed flamegraph file you can upload it to flamegraph.com by using the drag-and-drop uploader.
 ![upload_flamegraph](https://user-images.githubusercontent.com/23323466/175833667-7add384e-ebef-4193-b3e9-e2a338419286.gif)
 
-## Get Featured on the Pyroscope blog!
+## Get Featured on the Pyroscope Blog / Twitter!
 We love hearing stories about the ways that people have been able to use profiling, Pyroscope, and/or flamegraphs to solve performance problems.
 If you have a story that you'd like to share with us, please [contact us](mailto:contact@pyroscope.io) or let us know on [slack](https://pyroscope.io/slack) and we'll add it to this blog!
+And if you have a cool flamegraph then tag us on [twitter](https://twitter.com/PyroscopeIO) and we'd love to share your flamegraphs with our followers!
 
 
 
