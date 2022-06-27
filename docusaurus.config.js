@@ -190,6 +190,8 @@ module.exports = {
         blog: {
           showReadingTime: true,
           editUrl: 'https://github.com/pyroscope-io/docs/edit/main/',
+          blogSidebarTitle: 'All posts',
+          blogSidebarCount: 'ALL',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.scss'),
