@@ -14,6 +14,10 @@ and disadvantages, and one of them can be more desirable than another under cert
 Pyroscope server can operate in both Pull and [Push](/docs/golang) modes. The current implementation makes extensive use of Prometheus
 scrape and service discovery mechanisms. We express our deep gratitude to Prometheus team for their incredible work!
 
+:::important
+If you want to use mutex or block profiling you have to explicetely enable it in your application. See [Mutex Profiling](#mutex-profiling) section for more information.
+:::
+
 ## Supported languages and platforms
 
 Any application that exposes data in [`pprof`](https://github.com/google/pprof/blob/master/doc/README.md) format via HTTP can be set as a remote profiling target.
@@ -34,7 +38,7 @@ scrape-configs:
   - job-name: pyroscope
 
     # The list of profiles to be scraped from the targets.
-    enabled-profiles: [cpu, mem]
+    enabled-profiles: [cpu, mem, goroutines, mutex, block]
 
     # List of labeled statically configured targets for this job.
     static-configs:
@@ -66,6 +70,43 @@ Optional labels:
 Where `{profile_name}` must be a valid profile configuration name.
 
 At this point, Pyroscope fully supports only [Kubernetes Service Discovery](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#kubernetes_sd_config).
+
+
+### Mutex Profiling
+
+:::note
+Mutex profiling requires pyroscope v0.20.0 or higher.
+:::
+
+Mutex profiling is useful for finding sources of contention within your application. It helps you to find out which mutexes are being held by which goroutines.
+
+To enable mutex profiling, you need to add the following code to your application:
+```go
+runtime.SetMutexProfileFraction(rate)
+```
+
+`rate` parameter controls the fraction of mutex contention events that are reported in the mutex profile. On average 1/rate events are reported.
+
+
+### Block Profiling
+
+:::note
+Block profiling requires pyroscope v0.20.0 or higher.
+:::
+
+Block profiling lets you analyze how much time your program spends waiting on the blocking operations such as:
+* select
+* channel send/receive
+* semacquire
+* notifyListWait
+
+To enable block profiling, you need to add the following code to your application:
+```go
+runtime.SetBlockProfileRate(rate)
+```
+
+`rate` parameter controls the fraction of goroutine blocking events that are reported in the blocking profile. The profiler aims to sample an average of one blocking event per rate nanoseconds spent blocked.
+
 
 ## Examples
 

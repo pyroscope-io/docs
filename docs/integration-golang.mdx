@@ -17,16 +17,8 @@ Pyroscope uses the standard `runtime/pprof` package to collect profiling data. R
 |:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
 | n/a          | `standalone` |   ✅  |   ✅  |    ✅   |   ✅   |
 
+
 ### Profiling Go application
-
-
-
-:::important
-This current version of the Go integration requires you to run pyroscope server version `0.3.1` or higher.
-We strongly recommend you to upgrade your pyroscope server version and use this new version of the golang client. It reduces both the number of dependancies and peformance overhead. The old documentation is still available [here](/docs/golang-old).
-:::
-
-
 
 To start profiling a Go application, you need to include our go module in your app:
 ```
@@ -42,6 +34,11 @@ package main
 import "github.com/pyroscope-io/client/pyroscope"
 
 func main() {
+  // These 2 lines are only required if you're using mutex or block profiling
+  // Read the explanation below for how to set these rates:
+  runtime.SetMutexProfileFraction(5)
+  runtime.SetBlockProfileRate(5)
+
   pyroscope.Start(pyroscope.Config{
     ApplicationName: "simple.golang.app",
 
@@ -54,20 +51,30 @@ func main() {
     // optionally, if authentication is enabled, specify the API key:
     // AuthToken: os.Getenv("PYROSCOPE_AUTH_TOKEN"),
 
-    // by default all profilers are enabled,
-    // but you can select the ones you want to use:
     ProfileTypes: []pyroscope.ProfileType{
+      // these profile types are enabled by default:
       pyroscope.ProfileCPU,
       pyroscope.ProfileAllocObjects,
       pyroscope.ProfileAllocSpace,
       pyroscope.ProfileInuseObjects,
       pyroscope.ProfileInuseSpace,
+
+      // these profile types are optional:
+      pyroscope.ProfileGoroutines,
+      pyroscope.ProfileMutexCount,
+      pyroscope.ProfileMutexDuration,
+      pyroscope.ProfileBlockCount,
+      pyroscope.ProfileBlockDuration,
     },
   })
 
   // your code goes here
 }
 ```
+
+:::important
+If you want to use mutex or block profiling you have to explicetely enable it in your application. See [Mutex Profiling](#mutex-profiling) section for more information.
+:::
 
 ### Tags
 
@@ -102,6 +109,41 @@ import _ "net/http/pprof"
 Pyroscope can integrate with distributed tracing systems supporting OpenTelemetry standard which allows you to link
 traces with the profiling data, and find specific lines of code related to a performance issue. For more information,
 refer to [tracing integration documentation](/docs/golang-tracing).
+
+### Mutex Profiling
+
+:::note
+Mutex profiling requires pyroscope v0.20.0 or higher and client integration v.0.3.0 or higher.
+:::
+
+Mutex profiling is useful for finding sources of contention within your application. It helps you to find out which mutexes are being held by which goroutines.
+
+To enable mutex profiling, you need to add the following code to your application:
+```go
+runtime.SetMutexProfileFraction(rate)
+```
+
+`rate` parameter controls the fraction of mutex contention events that are reported in the mutex profile. On average 1/rate events are reported.
+
+
+### Block Profiling
+
+:::note
+Block profiling requires pyroscope v0.20.0 or higher and client integration v.0.3.0 or higher.
+:::
+
+Block profiling lets you analyze how much time your program spends waiting on the blocking operations such as:
+* select
+* channel send/receive
+* semacquire
+* notifyListWait
+
+To enable block profiling, you need to add the following code to your application:
+```go
+runtime.SetBlockProfileRate(rate)
+```
+
+`rate` parameter controls the fraction of goroutine blocking events that are reported in the blocking profile. The profiler aims to sample an average of one blocking event per rate nanoseconds spent blocked.
 
 ### Examples
 
