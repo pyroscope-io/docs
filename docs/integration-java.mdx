@@ -35,6 +35,52 @@ The latest release is also available on [Maven Central](https://search.maven.org
 
 ### Profiling Java application
 
+You can start pyroscope either from your apps's java code or attach it as javaagent
+
+#### Start pyroscope from app's java code
+
+Add pyroscope dependency:
+```kotlin
+implementation("io.pyroscope:agent:${pyroscope_version}")
+```
+Then add the following code to your application:
+```java
+PyroscopeAgent.start(
+        new Config.Builder()
+                .setApplicationName("ride-sharing-app-java")
+                .setProfilingEvent(EventType.ITIMER)
+                .setFormat(Format.JFR)
+                .setServerAddress("http://pyroscope-server:4040")
+                // Optionally, if authentication is enabled, specify the API key.
+                // .setAuthToken(System.getenv("PYROSCOPE_AUTH_TOKEN"))
+                .build()
+);
+```
+
+You can also optionally replace some pyroscope components 
+
+```java
+PyroscopeAgent.start(
+        new PyroscopeAgent.Options.Builder(config)
+                .setExporter(snapshot -> {
+                    // Your custom export/upload logic may go here
+                    // It is invoked every 10 seconds by default with snapshot of 
+                    // profiling data
+                })
+                .setLogger((l, msg, args) -> {
+                    // Your custom logging may go here
+                    // Pyroscope does not depend on any logging library
+                    System.out.printf((msg) + "%n", args);
+                })
+                .setScheduler(profiler -> {
+                    // Your custom profiling schedule logic may go here
+                })
+                .build()
+);
+```
+
+
+#### Start pyroscope as javaagent
 To start profiling a Java application, run your application with `pyroscope.jar` javaagent:
 
 ```shell
@@ -47,26 +93,28 @@ export PYROSCOPE_SERVER_ADDRESS=http://pyroscope-server:4040
 java -javaagent:pyroscope.jar -jar app.jar
 ```
 
-Starting with v0.5.0, Java integration supports JFR format to be able to support multiple events (JFR is the only output format that supports [multiple events in `async-profiler`](https://github.com/jvm-profiling-tools/async-profiler#multiple-events)). There are several environment variables that define how multiple event configuration works:
+### Configuration
+
+When you start pyroscope as javaagent or obtain configuration by `Config.build()` pyroscope searches 
+for configuration in multiple sources: system properties, environment variables, pyroscope.properties file. Properties keys has same name as environment variables, but lowercased and replaced `_` with `.`, so `PYROSCOPE_FORMAT` becomes `pyroscope.format`
+
+
+Java integration supports JFR format to be able to support multiple events (JFR is the only output format that supports [multiple events in `async-profiler`](https://github.com/jvm-profiling-tools/async-profiler#multiple-events)). There are several environment variables that define how multiple event configuration works:
 
 * `PYROSCOPE_FORMAT` sets the profiler output format. The default is `collapsed`, but in order to support multiple formats it must be set to `jfr`.
 * `PYROSCOPE_PROFILER_EVENT` sets the profiler event. With JFR format enabled, this event refers to one of the possible CPU profiling events: `itimer`, `cpu`, `wall`. The default is `itimer`.
 * `PYROSCOPE_PROFILER_ALLOC` sets the allocation threshold to register the events, in bytes (equivalent to `--alloc=` in `async-profiler`). The default value is "" - empty string, which means that allocation profiling is disabled. Setting it to `0` will register all the events.
 * `PYROSCOPE_PROFILER_LOCK` sets the lock threshold to register the events, in nanoseconds (equivalent to `--lock=` in `async-profiler`). The default value is "" - empty string, which means that lock profiling is disabled. Setting it to `0` will register all the events.
+* `PYROSCOPE_PUSH_QUEUE_CAPACITY` sets the default pyroscope exporter push queue capacity. The default value is 32 snapshots.
+* `PYROSCOPE_CONFIGURATION_FILE` sets an additional properties configuration file. The default value is `pyroscope.properties`.
+
 
 ### Labels
 
 It is possible to add dynamic tags (labels) to the profiling data. These tags can be used to filter the data in the UI.
 
-Add pyroscope dependency to your `build.gradle`:
-```kotlin
-implementation("io.pyroscope:agent:${pyroscope_version}")
-```
 Add labels dynamically:
 ```java
-import io.pyroscope.labels.LabelsSet;
-import io.pyroscope.labels.Pyroscope;
-
 Pyroscope.LabelsWrapper.run(new LabelsSet("controller", "slow_controller"), () -> {
     slowCode();
 });
@@ -75,9 +123,7 @@ Pyroscope.LabelsWrapper.run(new LabelsSet("controller", "slow_controller"), () -
 It is also possible to possible to add static tags (labels) to the profiling data:
 
 ```java
-import io.pyroscope.labels.Pyroscope;
-
-Pyroscope.setStaticLabels(Map.of("REGION", System.getenv("REGION")));
+Pyroscope.setStaticLabels(Map.of("region", System.getenv("REGION")));
 ```
 
 ### Examples
