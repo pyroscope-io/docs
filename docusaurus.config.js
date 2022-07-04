@@ -28,7 +28,7 @@ module.exports = {
       }
     ],
     prism: {
-      additionalLanguages: ['ruby', 'rust'],
+      additionalLanguages: ['ruby', 'rust', 'java'],
     },
     posthog: {
       apiKey: "phc_MwF5liyV3wxYN2keLgioVUu4FMiMze7Iu3rh6denuDb",
