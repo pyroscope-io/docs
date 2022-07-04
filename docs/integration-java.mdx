@@ -46,14 +46,14 @@ implementation("io.pyroscope:agent:${pyroscope_version}")
 Then add the following code to your application:
 ```java
 PyroscopeAgent.start(
-        new Config.Builder()
-                .setApplicationName("ride-sharing-app-java")
-                .setProfilingEvent(EventType.ITIMER)
-                .setFormat(Format.JFR)
-                .setServerAddress("http://pyroscope-server:4040")
-                // Optionally, if authentication is enabled, specify the API key.
-                // .setAuthToken(System.getenv("PYROSCOPE_AUTH_TOKEN"))
-                .build()
+  new Config.Builder()
+    .setApplicationName("ride-sharing-app-java")
+    .setProfilingEvent(EventType.ITIMER)
+    .setFormat(Format.JFR)
+    .setServerAddress("http://pyroscope-server:4040")
+    // Optionally, if authentication is enabled, specify the API key.
+    // .setAuthToken(System.getenv("PYROSCOPE_AUTH_TOKEN"))
+    .build()
 );
 ```
 
@@ -61,21 +61,21 @@ You can also optionally replace some pyroscope components
 
 ```java
 PyroscopeAgent.start(
-        new PyroscopeAgent.Options.Builder(config)
-                .setExporter(snapshot -> {
-                    // Your custom export/upload logic may go here
-                    // It is invoked every 10 seconds by default with snapshot of 
-                    // profiling data
-                })
-                .setLogger((l, msg, args) -> {
-                    // Your custom logging may go here
-                    // Pyroscope does not depend on any logging library
-                    System.out.printf((msg) + "%n", args);
-                })
-                .setScheduler(profiler -> {
-                    // Your custom profiling schedule logic may go here
-                })
-                .build()
+  new PyroscopeAgent.Options.Builder(config)
+    .setExporter(snapshot -> {
+      // Your custom export/upload logic may go here
+      // It is invoked every 10 seconds by default with snapshot of 
+      // profiling data
+    })
+    .setLogger((l, msg, args) -> {
+      // Your custom logging may go here
+      // Pyroscope does not depend on any logging library
+      System.out.printf((msg) + "%n", args);
+    })
+    .setScheduler(profiler -> {
+      // Your custom profiling schedule logic may go here
+    })
+    .build()
 );
 ```
 
@@ -116,7 +116,7 @@ It is possible to add dynamic tags (labels) to the profiling data. These tags ca
 Add labels dynamically:
 ```java
 Pyroscope.LabelsWrapper.run(new LabelsSet("controller", "slow_controller"), () -> {
-    slowCode();
+  slowCode();
 });
 ```
 
