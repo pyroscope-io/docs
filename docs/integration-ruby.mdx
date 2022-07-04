@@ -34,9 +34,9 @@ Add the following code to your application. If you're using rails, put this into
 require 'pyroscope'
 
 Pyroscope.configure do |config|
-  config.app_name = "my.ruby.app" # replace this with some name for your application
-  config.server_address = "http://my-pyroscope-server:4040" # replace this with the address of your pyroscope server
-# config.auth_token = "{YOUR_API_KEY}" # optionally, if authentication is enabled, specify the API key
+  config.application_name = "my.ruby.app" # replace this with some name for your application
+  config.server_address   = "http://my-pyroscope-server:4040" # replace this with the address of your pyroscope server
+  # config.auth_token     = "{YOUR_API_KEY}" # optionally, if authentication is enabled, specify the API key
 end
 ```
 
@@ -48,7 +48,7 @@ Pyroscope ruby integration provides a number of ways to tag profiling data. For 
 require 'pyroscope'
 
 Pyroscope.configure do |config|
-  config.app_name = "my.ruby.app"
+  config.application_name = "my.ruby.app"
   config.server_address   = "http://my-pyroscope-server:4040"
 
   config.tags = {
@@ -60,15 +60,9 @@ end
 or you can dynamically tag certain parts of your code:
 
 ```ruby
-# You can use a wrapper:
 Pyroscope.tag_wrapper({ "controller": "slow_controller_i_want_to_profile" }) do
   slow_code
 end
-
-# Or you can add / remove tags manually:
-Pyroscope.tag({ "controller": "slow_controller_i_want_to_profile" })
-slow_code
-Pyroscope.remove_tags("controller")
 ```
 
 ### Example
