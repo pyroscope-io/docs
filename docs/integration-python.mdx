@@ -56,7 +56,7 @@ pyroscope.configure(
   gil_only            = True # only include traces for threads that are holding on to the Global Interpreter Lock; default is True
   log_level           = "info" # default is info, possible values: trace, debug, info, warn, error and critical 
   tags           = {
-        "region":   '{os.getenv("REGION")}',
+    "region":   '{os.getenv("REGION")}',
   }
 )
 
