@@ -11,7 +11,7 @@ keywords: [ pyroscope, aws, lambda, profiling ]
 The [Pyroscope AWS Lambda Extension (github)](https://github.com/pyroscope-io/pyroscope-lambda-extension) allows profiling [lambda functions](https://aws.amazon.com/lambda/) with very little latency overhead over your existing code.
 
 ## How it works
-The Pyroscope Lambda Extension runs a relay server on port `4040` in the same network namespace as the lambda function. That way, the Pyroscope Agent can be run as normally, which then ships data to the relay server, providing very little latency in the lambda handling.
+The Pyroscope Lambda Extension runs a relay server on port `4040` in the same network namespace as the lambda function. This allows the Pyroscope Agent to run as normal and send data to the relay server while adding minimal latency in the lambda handling.
 
 
 <!-- TODO: add a diagram -->
@@ -22,9 +22,9 @@ For more information on how AWS Lambda Extensions work, check the [Building Exte
 
 First, [configure your Lambda function to use the extension](https://docs.aws.amazon.com/lambda/latest/dg/invocation-layers.html).
 
-Also set up a remote address the extension will ship data to, using the Environment Variables `PYROSCOPE_REMOTE_ADDRESS`. For more info see the [Configuration section](#configuration).
+Next, set up a remote address the extension will send data to, using the environment variable `PYROSCOPE_REMOTE_ADDRESS`. For more info see the [Configuration section](#configuration).
 
-Then add the Pyroscope Agent to the function:
+Finally, add the Pyroscope Agent to the function:
 
 ### go
 ```go
@@ -47,7 +47,7 @@ func main() {
 ## What are the use cases?
 The Pyroscope Lambda Extension works with any AWS Lambda function in any language.
 
-Although due to its implementation (being a sampling profiler) and the nature of lambda functions (short lived), it may be possible for the lambda to run so fast that no useful data is gathered.
+The extension is most useful in cases where lambdas are "busy" enough and run long enough to capture meaningful data. Due to Pyroscope being a sampling profile, when lambda functions are short-lived it may be possible for the lambda to run so fast that no data is sampled in that short time span. 
 
 ## Configuration
 The extension is configured via Environment Variables:
