@@ -51,7 +51,15 @@ module.exports = {
             },
             "integration-python",
             "integration-ebpf",
-            "integration-java",
+            {
+              type: "category",
+              label: "Java",
+              collapsed: false,
+              items: [
+                "integration-java",
+                "integration-java-tracing",
+              ],
+            },
             "integration-ruby",
             "integration-rust",
             "integration-php",
