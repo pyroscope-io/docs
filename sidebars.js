@@ -57,6 +57,7 @@ module.exports = {
             "integration-php",
             "integration-dotnet",
             "integration-nodejs",
+            "integration-aws-lambda",
           ],
         },
       ],

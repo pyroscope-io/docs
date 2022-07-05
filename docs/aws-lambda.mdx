@@ -1,0 +1,64 @@
+---
+id: integration-aws-lambda
+title: AWS Lambda
+sidebar_label: AWS Lambda Extension
+slug: /aws-lambda
+description: Pyroscope AWS Lambda profiling
+keywords: [ pyroscope, aws, lambda, profiling ]
+---
+
+## What is Pyroscope Lambda Extension?
+The [Pyroscope AWS Lambda Extension (github)](https://github.com/pyroscope-io/pyroscope-lambda-extension) allows profiling [lambda functions](https://aws.amazon.com/lambda/) with very little latency overhead over your existing code.
+
+## How it works
+The Pyroscope Lambda Extension runs a relay server on port `4040` in the same network namespace as the lambda function. That way, the Pyroscope Agent can be run as normally, which then ships data to the relay server, providing very little latency in the lambda handling.
+
+
+<!-- TODO: add a diagram -->
+
+For more information on how AWS Lambda Extensions work, check the [Building Extensions for AWS Lambda blogpost](https://aws.amazon.com/blogs/compute/building-extensions-for-aws-lambda-in-preview/).
+
+## Basic example
+
+First, [configure your Lambda function to use the extension](https://docs.aws.amazon.com/lambda/latest/dg/invocation-layers.html).
+
+Also set up a remote address the extension will ship data to, using the Environment Variables `PYROSCOPE_REMOTE_ADDRESS`. For more info see the [Configuration section](#configuration).
+
+Then add the Pyroscope Agent to the function:
+
+### go
+```go
+func HandleRequest(ctx context.Context) (string, error) {
+	return fmt.Sprintf("Hello world!"), nil
+}
+
+func main() {
+	// start the pyroscope agent before handling requests
+	pyroscope.Start(pyroscope.Config{
+		ApplicationName: "simple.golang.lambda", // YOUR APP NAME
+		ServerAddress:   "http://localhost:4040", // MUST BE localhost:4040
+	})
+
+	lambda.Start(HandleRequest)
+}
+```
+
+
+## What are the use cases?
+The Pyroscope Lambda Extension works with any AWS Lambda function in any language.
+
+Although due to its implementation (being a sampling profiler) and the nature of lambda functions (short lived), it may be possible for the lambda to run so fast that no useful data is gathered.
+
+## Configuration
+The extension is configured via Environment Variables:
+
+| env var                    | default                          | description                                    |
+| -------------------------- | -------------------------------- | ---------------------------------------------- |
+| `PYROSCOPE_REMOTE_ADDRESS` | `https://ingest.pyroscope.cloud` | the pyroscope instance data will be relayed to |
+| `PYROSCOPE_AUTH_TOKEN`     | `""`                             | authorization key (token authentication)       |
+| `PYROSCOPE_SELF_PROFILING` | `false`                          | whether to profile the extension itself or not |
+| `PYROSCOPE_LOG_LEVEL`      | `info`                           | `error` or `info` or `debug` or `trace`        |
+
+## Caveats
+You will still be billed by the entire execution (how long the lambda extension runs). The only optimization the Extension does is regarding lambda latency and execution time.
+
