@@ -170,6 +170,17 @@ We use `revive` for linting. Add `--config=${workspaceFolder}/revive.toml` to `G
 
 To make sure VS Code adds new lines, set `files.insertFinalNewline` to `true`. See [this stack overflow answer](https://unix.stackexchange.com/questions/18743/whats-the-point-in-adding-a-new-line-to-the-end-of-a-file) for context on why this is important.
 
+### GoLand
+
+### Debug
+
+If you're using GoLand IDE and want to debug it, you can set GoLand's run/debug configuration as the following:
+
+* Run Kind :`Package`
+* Package Path: `{Your Project Path}/pyroscope-io/pyroscope/cmd/pyroscope`
+* Program arguments: The sub project your want to run/debug, such as `server`, you can see all of them wih command `pyroscope --help`
+
+
 ## Style Guides
 
 Please checkout out the [style guides](/docs/style-guide) we use.
