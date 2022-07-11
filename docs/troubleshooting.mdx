@@ -1,0 +1,40 @@
+---
+id: troubleshooting-faq
+title: Troubleshooting/FAQ (Frequently Asked Questions)
+sidebar_label: Troubleshooting/FAQ
+slug: /troubleshooting-faq
+description: Install Pyroscope with Kuberenetes using Helm
+keywords: [ pyroscope, server, troubleshooting ]
+---
+
+### What are the recommended requirements for running pyroscope? (RAM, Memory, CPU)
+* RAM (2GB ~ 4GB). See [My pyroscope server runs out of memory](#my-pyroscope-server-runs-out-of-memory) for more details.
+* CPU ???
+* Disk ???
+
+### My pyroscope server runs out of memory
+It's difficult to accurately estimate memory consumption in advance, as it is highly dependent on the workload - mainly the size of profiles and the ingestion rate.
+
+It's fair to estimate resource consumption per agent/target based on the actual memory consumption under the actual load. As a pessimistic estimation we suggest 32 MB per agent/target.
+
+
+Also keep in mind pyroscope reserves some memory at startup (~400 MB), and also makes heavy use of various internal caches that grow over time and affect overall memory consumption. There are 2 parameters to manage this:
+* `cache-evict-threshold`: percentage of consumed memory at which cache evictions start. The parameter relies on the container limits.
+* `cache-evict-volume`: percentage of cache that is evicted per eviction run.
+
+### My pyroscope server is running out of space
+In these cases, you can set up a more aggressive retention policy. See the [Data retention page](/docs/data-retention) for more instructions
+
+### My pyroscope server is crashing due to out of space
+Although pyroscope tries to leave enough space, it may be possible that it gets stuck in a crashing state, where it can't even start due to lack of space.
+
+There are 2 options: increase the disk and free some data.
+
+#### Free some data
+:::warning
+We don't guarantee pyroscope will be able to deal with this correctly. Only use this as a last resort. Preferrably do a backup first. 
+:::
+
+It depends on where you are running, for kubernetes you can overwrite the Deployment's [`args` to run a dummy command](https://github.com/pyroscope-io/helm-chart/blob/bfe876922f6970dc8ccf38c558957de76ce746eb/chart/pyroscope/templates/deployment.yaml#L32-L35) (like `sleep infinity`).
+
+Then, you can the oldest `.vlog` files in the `trees` directory.

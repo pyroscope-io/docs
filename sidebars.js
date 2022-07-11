@@ -55,10 +55,7 @@ module.exports = {
               type: "category",
               label: "Java",
               collapsed: false,
-              items: [
-                "integration-java",
-                "integration-java-tracing",
-              ],
+              items: ["integration-java", "integration-java-tracing"],
             },
             "integration-ruby",
             "integration-rust",
@@ -115,6 +112,7 @@ module.exports = {
           label: "Admin Configuration",
           items: ["admin-server", "admin-server-delete-app"],
         },
+        "troubleshooting-faq",
       ],
     },
     {
