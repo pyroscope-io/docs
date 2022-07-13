@@ -18,17 +18,19 @@ link traces with the profiling data, and find specific lines of code related to 
  * Because of how sampling profilers work, spans shorter than the sample interval may not be captured. Go CPU profiler probes stack traces 100 times per second, meaning that spans shorter than 10ms may not be captured.
 :::
 
-Go code can be easily instrumented with [otelpyroscope](https://github.com/pyroscope-io/otelpyroscope) package -
+Go code can be easily instrumented with [otel-profiling-go](https://github.com/pyroscope-io/otel-profiling-go) package -
 a `TracerProvider` implementation, that annotates profiling data with span IDs which makes it possible to filter
 out profile of a particular trace span in Pyroscope:
 
 ```shell
 # Make sure you also upgrade pyroscope server to version 0.14.0 or higher.
-go get github.com/pyroscope-io/otelpyroscope
+go get github.com/pyroscope-io/otel-profiling-go
 ```
 
 Now we can create and configure the tracer provider:
 ```go
+import otelpyroscope "github.com/pyroscope-io/otel-profiling-go"
+
 // Create an exporter that prints traces to stdout.
 exporter, _ := stdouttrace.New(stdouttrace.WithPrettyPrint())
 tp := trace.NewTracerProvider(
@@ -58,7 +60,7 @@ Please notice the `WithRootSpanOnly` option: when enabled, the tracer will annot
 consists of multiple spans shorter than 10ms and profiler can't collect and annotate samples properly.
 
 Another option that you may find useful is `WithAddSpanName` that controls whether the span name added to profile labels
-automatically. You can find description of all the options in [the package documentation](https://pkg.go.dev/github.com/pyroscope-io/otelpyroscope#Option).
+automatically. You can find description of all the options in [the package documentation](https://pkg.go.dev/github.com/pyroscope-io/otel-profiling-go#Option).
 
 :::important
 If you enable `WithAddSpanName` option, please make sure span names do not contain unique values, for example, a URL.
