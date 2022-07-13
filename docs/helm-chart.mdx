@@ -19,12 +19,12 @@ This guide will help you add Pyroscope to Kubernetes using Helm.
 To install the pyroscope we are going to use the [helm chart](https://pyroscope-io.github.io/helm-chart).
 [Helm](https://helm.sh) must be installed to use the chart. Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 
-## Add the Pyroscope Helm chart
+## Add the Pyroscope Helm repository
 ```
 helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
 ```
 
-## Install the Pyrocope Helm chart:
+## Install Pyroscope
 ```
 helm install pyroscope pyroscope-io/pyroscope 
 ```
@@ -33,3 +33,6 @@ helm install pyroscope pyroscope-io/pyroscope
 ```
 kubectl get pods
 ```
+
+## Recommendations
+Check the [Troubleshooting/FAQ page](/docs/troubleshooting-faq) for recommendations on how to run pyroscope in production.
