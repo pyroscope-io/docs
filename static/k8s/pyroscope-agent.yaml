@@ -14,7 +14,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: pyroscope-agent
     app.kubernetes.io/name: pyroscope-agent
-    app.kubernetes.io/version: "0.11.1"
+    app.kubernetes.io/version: "0.21.0"
   name: pyroscope-agent
   namespace: pyroscope
 spec:
@@ -27,7 +27,7 @@ spec:
       labels:
         app.kubernetes.io/instance: pyroscope-agent
         app.kubernetes.io/name: pyroscope-agent
-        app.kubernetes.io/version: "0.11.1"
+        app.kubernetes.io/version: "0.21.0"
     spec:
       containers:
         - name: pyroscope-agent
@@ -45,7 +45,7 @@ spec:
             privileged: true
             runAsGroup: 0
             runAsUser: 0
-          image: pyroscope/pyroscope:0.11.1
+          image: pyroscope/pyroscope:0.21.0
           resources:
             {}
           volumeMounts:
