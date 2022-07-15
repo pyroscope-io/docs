@@ -18,6 +18,10 @@ scrape and service discovery mechanisms. We express our deep gratitude to Promet
 If you want to use mutex or block profiling you have to explicitly enable it in your application. See [Mutex Profiling](#mutex-profiling) section for more information.
 :::
 
+:::important
+Before golang 1.19 version, goroutine profile will lead to a long time STW proportional to the number of goroutines, see [here](https://github.com/golang/go/issues/33250) for more details. 
+:::
+
 ## Supported languages and platforms
 
 Any application that exposes data in [`pprof`](https://github.com/google/pprof/blob/master/doc/README.md) format via HTTP can be set as a remote profiling target.

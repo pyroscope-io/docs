@@ -76,6 +76,10 @@ func main() {
 If you want to use mutex or block profiling you have to explicitly enable it in your application. See [Mutex Profiling](#mutex-profiling) section for more information.
 :::
 
+:::important
+Before golang 1.19 version, goroutine profile will lead to a long time STW proportional to the number of goroutines, see [here](https://github.com/golang/go/issues/33250) for more details. 
+:::
+
 ### Tags
 
 It is possible to add tags (labels) to the profiling data. These tags can be used to filter the data in the UI. We have a custom API that's in line with our other integrations (e.g [Python](/docs/python) or [Ruby](/docs/ruby)) as well as go-native pprof api:
