@@ -107,6 +107,7 @@ Java integration supports JFR format to be able to support multiple events (JFR 
 * `PYROSCOPE_PROFILER_LOCK` sets the lock threshold to register the events, in nanoseconds (equivalent to `--lock=` in `async-profiler`). The default value is "" - empty string, which means that lock profiling is disabled. Setting it to `0` will register all the events.
 * `PYROSCOPE_PUSH_QUEUE_CAPACITY` sets the default pyroscope exporter push queue capacity. The default value is 32 snapshots.
 * `PYROSCOPE_CONFIGURATION_FILE` sets an additional properties configuration file. The default value is `pyroscope.properties`.
+* `PYROSCOPE_LABELS` sets static labels in the form of comma separated `key=value` pairs. The default value is `""` - enpty string, no labels.
 
 
 ### Labels
@@ -124,7 +125,14 @@ It is also possible to possible to add static tags (labels) to the profiling dat
 
 ```java
 Pyroscope.setStaticLabels(Map.of("region", System.getenv("REGION")));
+// or with Config.Builder if you start pyroscope with PyroscopeAgent.start
+PyroscopeAgent.start(new Config.Builder()
+    .setLabels(mapOf("region", System.getenv("REGION")))
+    // ...
+    .build()
+);
 ```
+
 
 ### Examples
 
