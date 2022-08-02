@@ -1,0 +1,89 @@
+
+.legal-header {
+  display: flex;
+  header, h1, h2, h3 {
+    flex: 1;
+    display: block;
+  }
+  .button-container {
+    padding-top: 5px;
+  }
+
+  .ps-legal__logo {
+
+  }
+}
+
+@media print {
+  @page {
+    margin: 20mm 20mm 20mm 20mm;
+  }
+  html, body, .container, .row, .col {
+    background: white;
+    margin: 0 0 0 0 !important;
+    padding: 0 0 0 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    --ifm-col-width: 100% !important;
+  }
+  .col--8 {
+    width: 100%;
+  }
+  .col--2 {
+    display: none;
+  }
+}
+
+.ps-msa {
+  font-size: 10pt;
+  font-family: "Times New Roman", "Helvetica Neue", "Helvetica", "Arial";
+  line-height: 1.2;
+  .ps-legal__logo {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont,
+    'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
+    font-size: 24pt;
+    margin: 0 0 1em;
+    line-height: 1.2;
+  }
+  .ps-legal__title {
+    font-size: 1em;
+    font-family: "Times New Roman", "Helvetica Neue", "Helvetica", "Arial";
+    margin: 1em 0 2em;
+    line-height: 1.2;
+  }
+  h2 {
+    font-family: "Times New Roman", "Helvetica Neue", "Helvetica", "Arial";
+    font-size: 1.0em;
+    text-transform: capitalize;
+    line-height: 1;
+    margin: 0 0 1em;
+  }
+  .ps-legal__logo {
+    text-align: center;
+    font-weight: bold;
+
+    .logo {
+      display: inline-block;
+      width: 30pt;
+      height: 30pt;
+      background-image: url('/img/logo-v3-small.png');
+      background-size: cover;
+      vertical-align: -12%;
+      margin-right: 3px;
+    }
+  }
+  .logo, h1 {
+    text-align: center;
+  }
+
+  p {
+    text-align: justify;
+    margin: 0 0 1em;
+  }
+
+  p strong {
+    text-align: left;
+    display: inline-block;
+  }
+}
