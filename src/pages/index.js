@@ -89,7 +89,7 @@ function Home() {
               className={clsx(
                 'button button--outline button--action button--lg',
               )}
-              to={"https://demo.pyroscope.io/?name=hotrod.python.frontend%7B%7D"}>
+              to={"https://demo.pyroscope.io/?query=rideshare-app-golang.cpu%7B%7D"}>
               Live Demo
             </Link>
             &nbsp;
