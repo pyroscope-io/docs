@@ -28,45 +28,9 @@ eBPF is an emerging Linux kernel technology that allows for user-supplied progra
 
 For this to work you'll need
 * a Linux machine with the kernel version >= 4.9.
-* BCC tools installed on the system you want to profile. Visit [BCC documentation](https://github.com/iovisor/bcc/blob/master/INSTALL.md#packages) to find the best way of installing it on your system. There are prebuilt binaries available for most flavors of Linux.
 * pyroscope server and agent. Visit our [Getting Started guide](/docs/#step-1-install-the-pyroscope-server) to learn about that.
 
-### Running eBPF profiler
-
-<Tabs
-  defaultValue="kubernetes"
-  values={[
-    {label: 'Kubernetes', value: 'kubernetes'},
-    {label: 'Linux', value: 'linux'},
-  ]}>
-  <TabItem value="linux">
-
-```shell
-export PYROSCOPE_APPLICATION_NAME=my.ebpf.program
-export PYROSCOPE_SERVER_ADDRESS=http://address-of-pyroscope-server:4040/
-export PYROSCOPE_SPY_NAME=ebpfspy
-
-# to wrap an existing program and profile it
-sudo -E pyroscope exec mongod
-
-# to profile the whole system, pass -1 as pid
-sudo -E pyroscope connect -pid -1
-```
-
-### Dealing with [unknowns]
-
-eBPF relies on having debugging symbols available for each program installed in your system. If you don't have those you'll see a lot of stacktraces full of `[unknown]`s. On most systems you can get debugging symbols for most packages with `debuginfo-install` command:
-
-```shell
-sudo debuginfo-install -y <pkg>
-```
-
-### Example
-
-Check out this [docker-compose example in our repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) for an example of how you can use eBPF integration.
-
-  </TabItem>
-  <TabItem value="kubernetes">
+### Running eBPF profiler on Kubernetes
 
 #### Step 1. Install pyroscope server
 
@@ -84,13 +48,50 @@ This will install pyroscope eBPF agent on all of your nodes and start profiling 
 kubectl apply -f https://pyroscope.io/k8s/pyroscope-agent.yaml
 ```
 
+:::note
+If you're using [Pyroscope Cloud](https://pyroscope.cloud/), modify agent manifest
+```
+- "--auth-token"
+- "PYROSCOPE_CLOUD_API_KEY"
+- "--server-address"
+- "https://ingest.pyroscope.cloud"
+```
+:::
+
+### Running eBPF profiler from binary
+
+```shell
+export PYROSCOPE_APPLICATION_NAME=my.ebpf.program
+export PYROSCOPE_SERVER_ADDRESS=http://address-of-pyroscope-server:4040/
+export PYROSCOPE_SPY_NAME=ebpfspy
+# optionally, if authentication is enabled, specify the API key:
+# export PYROSCOPE_AUTH_TOKEN={YOUR_API_KEY}
+
+# to wrap an existing program and profile it
+sudo -E pyroscope exec mongod
+
+# to profile the whole system
+sudo -E pyroscope ebpf
+```
+
+### Dealing with [unknowns]
+
+eBPF relies on having debugging symbols available for each program installed in your system. If you don't have those you'll see a lot of stacktraces full of `[unknown]`s. On most systems you can get debugging symbols for most packages with `debuginfo-install` command:
+
+```shell
+sudo debuginfo-install -y <pkg>
+```
+
+### Configuration
+
+* `PYROSCOPE_KUBERNETES_NODE` Set to current k8s Node.nodeName for service discovery and labeling
+* `PYROSCOPE_ONLY_SERVICES` Ignore processes unknown to service discovery
+* `PYROSCOPE_SYMBOL_CACHE_SIZE` Max size of symbols cache (1 entry per process)
+
+### Example
+
+Check out this [docker-compose example in our repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) for an example of how you can use eBPF integration.
 
 
-  </TabItem>
-</Tabs>
 
-
-### Future of our eBPF integration
-
-One thing we're excited about at Pyroscope is eBPF portability efforts, particularly introduction of BTF (BPF Type Format) technology. You can read more about that [here](https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html). When kernels with BTF support become more mainstream we're gonna embed libbpf directly into our go binary.
 
