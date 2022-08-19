@@ -30,7 +30,7 @@ For this to work you'll need
 * a Linux machine with the kernel version >= 4.9.
 * pyroscope server and agent. Visit our [Getting Started guide](/docs/#step-1-install-the-pyroscope-server) to learn about that.
 
-### Running eBPF profiler on Kubernetes cluster
+### Running eBPF profiler on Kubernetes
 
 #### Step 1. Install pyroscope server
 
@@ -55,9 +55,10 @@ If you're using [Pyroscope Cloud](https://pyroscope.cloud/), modify agent manife
 - "PYROSCOPE_CLOUD_API_KEY"
 - "--server-address"
 - "https://ingest.pyroscope.cloud"
+```
 :::
 
-### Running eBPF profiler on Linux system
+### Running eBPF profiler from binary
 
 ```shell
 export PYROSCOPE_APPLICATION_NAME=my.ebpf.program
