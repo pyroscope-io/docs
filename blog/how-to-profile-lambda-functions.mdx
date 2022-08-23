@@ -49,9 +49,12 @@ Pyroscope's lambda extension works with our various agents and documentation on 
 Once you've added the agent to your code, there are just two steps needed to get up and running with profiling lambda extension:
 
 ### Step 1: Add a new Layer in "function settings"
+Add a new layer using the latest "layer name" from our [releases page](https://github.com/pyroscope-io/pyroscope-lambda-extension/releases).
+
 ![lambda_add_a_layer_01-01](https://user-images.githubusercontent.com/23323466/186029681-22feca30-4754-402a-8acd-c36a7afebe3d.png)
 
 ### Step 2: Add environment variables to configure where to send the profiling data
+You can send data to either either pyroscope cloud or any running pyroscope server. This is configured via environment variables like this:
 ![lambda_env_variables_01-01](https://user-images.githubusercontent.com/23323466/186029684-d5a325f7-1b3e-4373-9e18-81059fc11f87.png)
 
 ## Lambda Function profile
