@@ -12,21 +12,30 @@ The [Pyroscope AWS Lambda Extension (github)](https://github.com/pyroscope-io/py
 
 ## How it works
 The Pyroscope Lambda Extension runs a relay server on port `4040` in the same network namespace as the lambda function. This allows the Pyroscope Agent to run as normal and send data to the relay server while adding minimal latency in the lambda handling.
-
-
-<!-- TODO: add a diagram -->
+![lambda_image_04-01](https://user-images.githubusercontent.com/23323466/186037668-44de7caa-6576-422a-b3f7-8416325f4a98.png)
 
 For more information on how AWS Lambda Extensions work, check the [Building Extensions for AWS Lambda blogpost](https://aws.amazon.com/blogs/compute/building-extensions-for-aws-lambda-in-preview/).
 
 ## Basic example
+### Step 1: Configure your lambda function
+In order to use the extension you'll first need to [configure your Lambda function](https://docs.aws.amazon.com/lambda/latest/dg/invocation-layers.html) to use the extension.
+You can find the most recent release on our [releases page](https://github.com/pyroscope-io/pyroscope-lambda-extension/releases).
 
-First, [configure your Lambda function to use the extension](https://docs.aws.amazon.com/lambda/latest/dg/invocation-layers.html).
+### Step 2: Set up remote address 
+Next, set up a remote address via environment variables where the extension will send data to:
 
-Next, set up a remote address the extension will send data to, using the environment variable `PYROSCOPE_REMOTE_ADDRESS`. For more info see the [Configuration section](#configuration).
+The extension is configured via Environment Variables:
 
-Finally, add the Pyroscope Agent to the function:
+| env var                    | default                          | description                                    |
+| -------------------------- | -------------------------------- | ---------------------------------------------- |
+| `PYROSCOPE_REMOTE_ADDRESS` | `https://ingest.pyroscope.cloud` | the pyroscope instance data will be relayed to |
+| `PYROSCOPE_AUTH_TOKEN`     | `""`                             | authorization key (token authentication)       |
+| `PYROSCOPE_SELF_PROFILING` | `false`                          | whether to profile the extension itself or not |
+| `PYROSCOPE_LOG_LEVEL`      | `info`                           | `error` or `info` or `debug` or `trace`        |
 
-### go
+
+### Step 3: Add the pyroscope agent to your code
+Finally, add the Pyroscope Agent to the function. While this example shows configuration for a golang application, you can use the same configuration for any language.
 ```go
 func HandleRequest(ctx context.Context) (string, error) {
 	return fmt.Sprintf("Hello world!"), nil
@@ -43,22 +52,7 @@ func main() {
 }
 ```
 
-
 ## What are the use cases?
-The Pyroscope Lambda Extension works with any AWS Lambda function in any language.
-
-The extension is most useful in cases where lambdas are "busy" enough and run long enough to capture meaningful data. Due to Pyroscope being a sampling profile, when lambda functions are short-lived it may be possible for the lambda to run so fast that no data is sampled in that short time span. 
-
-## Configuration
-The extension is configured via Environment Variables:
-
-| env var                    | default                          | description                                    |
-| -------------------------- | -------------------------------- | ---------------------------------------------- |
-| `PYROSCOPE_REMOTE_ADDRESS` | `https://ingest.pyroscope.cloud` | the pyroscope instance data will be relayed to |
-| `PYROSCOPE_AUTH_TOKEN`     | `""`                             | authorization key (token authentication)       |
-| `PYROSCOPE_SELF_PROFILING` | `false`                          | whether to profile the extension itself or not |
-| `PYROSCOPE_LOG_LEVEL`      | `info`                           | `error` or `info` or `debug` or `trace`        |
-
-## Caveats
-You will still be billed by the entire execution (how long the lambda extension runs). The only optimization the Extension does is regarding lambda latency and execution time.
+Once you've completed the above steps, you'll be able to use the Pyroscope UI to analyze data surrounding your lambda function and make optimizations accordingly.
+To learn more about the use case for the extension, check out the [Pyroscope AWS Lambda Extension blogpost]()
 
