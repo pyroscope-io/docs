@@ -16,7 +16,7 @@ link traces with the profiling data, and find specific lines of code related to 
  * Because of how sampling profilers work, spans shorter than the sample interval may not be captured. By default pyroscope CPU profiler probes stack traces 100 times per second, meaning that spans shorter than 10ms may not be captured.
 :::
 
-Java code can be easily instrumented with [otelpyroscope](https://github.com/pyroscope-io/pyroscope-java/tree/main/otelpyroscope) package -
+Java code can be easily instrumented with [otel-profiling-java package](https://github.com/pyroscope-io/otel-profiling-java) package -
 a `OpenTelemetry` implementation, that annotates profiling data with span IDs which makes it possible to filter
 out profile of a particular trace span in Pyroscope:
 
@@ -90,5 +90,7 @@ Then, the baseline profile for each of them is:
 ## Examples
 
 Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger/java/rideshare) directory in our repository to
-find a complete example application that demonstrates tracing integration features and learn more 🔥
+find a complete example application that demonstrates tracing integration features (using a custom jaeger ui) and learn more!
  - [Jaeger](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger/)
+
+![jaeger example](https://user-images.githubusercontent.com/23323466/186233918-2461cfb7-1ec5-4c21-8c19-a94bdcf5c269.png)
