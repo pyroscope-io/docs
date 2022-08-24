@@ -1,5 +1,14 @@
+@font-face {
+  font-family: "Sen";
+  src: url("/static/fonts/Sen-Regular.woff") format("woff"),
+    url("/static/fonts/Sen-Bold.woff") format("woff");
+}
+
 .pageLayout {
-    // background-color: red;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+
+  * {
+    font-family: "Sen", var(--ifm-font-family-base);
+  }
 }
