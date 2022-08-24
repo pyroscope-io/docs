@@ -106,7 +106,6 @@
 
         &:hover {
           background-color: rgba(255, 255, 255, 0.5);
-          
         }
       }
     }
@@ -231,10 +230,17 @@
   flex-direction: column;
   cursor: pointer;
   border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  
+  &:first-of-type {
+    margin-right: 16px;
+  }
 
   &:hover {
     background: linear-gradient(68.66deg, #d31b2e 0%, #ffaf0f 100%);
     box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
+    border: none;
   }
 
   .planTitle {

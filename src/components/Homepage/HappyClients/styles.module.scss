@@ -1,0 +1,49 @@
+.sectionWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.section {
+  background-color: transparent;
+  max-width: 1224px;
+  width: 100%;
+  margin-left: 16px;
+  margin-right: 16px;
+  z-index: 1;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 24px;
+  text-align: center;
+  color: #0d1928;
+  padding-top: 17px;
+  margin-bottom: 23px;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: #757996;
+  opacity: 0.9;
+  margin-bottom: 37px;
+}
+
+.logoList {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 16px;
+
+  img {
+    height: 48px;
+    margin: 0 24px;
+  }
+}
