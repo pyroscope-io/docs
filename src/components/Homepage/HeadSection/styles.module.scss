@@ -115,7 +115,7 @@
 .section {
   background-color: transparent;
   max-width: 1224px;
-  width: 100%;
+  width: calc(100% - 32px);
   height: 800px;
   margin-left: 16px;
   margin-right: 16px;
