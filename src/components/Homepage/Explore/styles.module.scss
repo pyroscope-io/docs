@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  overflow: hidden;
 }
 
 .section {
@@ -120,6 +121,8 @@
     ),
     #0d1927;
   filter: drop-shadow(0px 18px 24px rgba(60, 78, 124, 0.15));
+  z-index: 5;
+  position: relative;
 
   .tabs {
     width: 209px;
@@ -156,9 +159,9 @@
   .code {
     width: calc(100% - 209px);
     padding-top: 12px;
-    
+
     * {
-        font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+      font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     }
 
     pre[class*="language-"] {
@@ -175,3 +178,82 @@
     }
   }
 }
+
+.blueStripe {
+  position: absolute;
+  height: 60px;
+  z-index: 4;
+  width: 25vw;
+  box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
+  transform: rotate(-7deg);
+
+  &.left {
+    left: -20px;
+    right: auto;
+    bottom: 280px;
+    background: linear-gradient(
+      -272.79deg,
+      #77e5f4 -15.33%,
+      #3ec1d3 17.42%,
+      #0453ca 42.9%
+    );
+  }
+
+  &.right {
+    left: auto;
+    right: -20px;
+    bottom: 390px;
+    background: linear-gradient(
+      272.79deg,
+      #77e5f4 -15.33%,
+      #3ec1d3 17.42%,
+      #0453ca 42.9%
+    );
+  }
+}
+
+.orangeStripe {
+  background-color: orange;
+  position: absolute;
+  height: 50px;
+  z-index: 3;
+  width: 25vw;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
+  left: -20px;
+  right: 0;
+  bottom: 305px;
+  transform: rotate(-7.3deg);
+
+  &.left {
+    left: -20px;
+    right: auto;
+    bottom: 250px;
+    background: linear-gradient(-65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
+  }
+
+  &.right {
+    left: auto;
+    right: -20px;
+    bottom: 365px;
+    background: linear-gradient(65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
+  }
+}
+
+.blueBall {
+  position: absolute;
+  width: 193px;
+  height: 193px;
+  background: linear-gradient(
+    179.79deg,
+    rgba(203, 194, 255, 0.29) 0.18%,
+    rgba(255, 255, 255, 0.05) 99.82%
+  );
+  backdrop-filter: blur(25px);
+  bottom: 510px;
+  left: 130px;
+  border-radius: 50%;
+}
+
+

@@ -6,6 +6,7 @@ import CodeExamples from './CodeExamples';
 const ExploreSection = () => {
     return (
         <div className={styles.sectionWrapper}>
+
             <div className={styles.section}>
                 <div className={styles.background} />
                 <h2 className={styles.sectionTitle}>
@@ -19,7 +20,15 @@ const ExploreSection = () => {
                     <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
                 </h2>
                 <CodeExamples />
+                <div className={clsx([styles.blueStripe, styles.left])} />
+                <div className={clsx([styles.blueStripe, styles.right])} />
+                <div className={clsx([styles.orangeStripe, styles.left])} />
+                <div className={clsx([styles.orangeStripe, styles.right])} />
+                <div className={styles.blueBall} />
             </div>
+
+
+
         </div>
     )
 }
