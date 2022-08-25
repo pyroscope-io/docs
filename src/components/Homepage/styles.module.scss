@@ -7,6 +7,16 @@
 .pageLayout {
   display: flex;
   flex-direction: column;
+  background: linear-gradient(
+    357.82deg,
+    #f8fbff 39.32%,
+    rgba(248, 251, 255, 0) 56.2%
+  );
+
+  img {
+    pointer-events: none;
+    user-select: none;
+  }
 
   * {
     font-family: "Sen", var(--ifm-font-family-base);

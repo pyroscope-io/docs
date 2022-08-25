@@ -6,7 +6,6 @@ import CodeExamples from './CodeExamples';
 const ExploreSection = () => {
     return (
         <div className={styles.sectionWrapper}>
-
             <div className={styles.section}>
                 <div className={styles.background} />
                 <h2 className={styles.sectionTitle}>
@@ -26,9 +25,9 @@ const ExploreSection = () => {
                 <div className={clsx([styles.orangeStripe, styles.right])} />
                 <div className={styles.blueBall} />
             </div>
-
-
-
+            <div className={clsx([styles.section, styles.center])}>
+                <ProfilingFeatures />
+            </div>
         </div>
     )
 }
@@ -53,6 +52,38 @@ const LeftSide = () => (
 const RightSide = () => (
     <div className={styles.rightSide}>
         <img className={styles.terminalWindow} src='/img/homepage/Group_147.svg' />
+    </div>
+)
+
+const ProfilingFeatures = () => (
+    <div className={styles.profilingFeatures}>
+        <div className={styles.leftSide}>
+            <div className={styles.columnSection}>
+                <h3 className={styles.subsectTitle}>
+                    Whole-system<br />Continuous profiling
+                </h3>
+                <p className={styles.subsectDescription}>Understand usage of CPU and memory resources at<br />any point in time and identify performance issue<br />before your customer do</p>
+            </div>
+            <div className={styles.columnSection}>
+                <h3 className={styles.subsectTitle}>
+                    Profile Exemplars
+                </h3>
+                <p className={styles.subsectDescription}>Link yo your Open Telemetry tracing data and Get<br />request-specific or span-specific profiles to enhance<br />other observability data like traces and logs</p>
+            </div>
+        </div>
+        <div className={styles.centerSide}>
+            <img src='/img/homepage/icon-cpu.png' />
+            <img src='/img/homepage/icon-exemplar.png' />
+            <img src='/img/homepage/icon-profiling.png' />
+        </div>
+        <div className={styles.rightSide}>
+            <div className={styles.columnSection}>
+                <h3 className={styles.subsectTitle}>
+                    Adhoc Profiling Scrips
+                </h3>
+                <p className={styles.subsectDescription}>Collect, store, and analyze profiles from various< br />external profiling tools in one central location</p>
+            </div>
+        </div>
     </div>
 )
 
