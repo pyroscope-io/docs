@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './styles.module.scss';
-import clsx from 'clsx';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 

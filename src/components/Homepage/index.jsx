@@ -3,6 +3,7 @@ import HeadSection from './HeadSection';
 import HappyClients from './HappyClients';
 import Explore from './Explore';
 import Integrations from './Integrations';
+import Security from './Security';
 import styles from './styles.module.scss';
 
 const HomePage = () => {
@@ -12,6 +13,7 @@ const HomePage = () => {
             <HappyClients />
             <Explore />
             <Integrations />
+            <Security />
         </div>
     )
 }
