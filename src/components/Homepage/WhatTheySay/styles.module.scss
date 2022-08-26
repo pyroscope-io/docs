@@ -1,0 +1,164 @@
+.sectionWrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  margin-top: -100px;
+  padding-top: 136px;
+  padding-bottom: 150px;
+  overflow: hidden;
+}
+
+.section {
+  background-color: transparent;
+  max-width: 1224px;
+  width: calc(100% - 32px);
+  margin-left: 16px;
+  margin-right: 16px;
+  z-index: 1;
+
+  &.center {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.bgSphere {
+  position: absolute;
+  z-index: 2;
+  bottom: -80px;
+  left: -50px;
+  transform: scale(1.5);
+}
+
+.bgSphere2 {
+  position: absolute;
+  z-index: 2;
+  bottom: 60px;
+  left: 70%;
+  background: linear-gradient(
+    179.79deg,
+    rgba(203, 194, 255, 0.29) 0.18%,
+    rgba(255, 255, 255, 0.05) 99.82%
+  );
+  backdrop-filter: blur(25px);
+  width: 193px;
+  height: 193px;
+  border-radius: 50%;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 42px;
+  line-height: 24px;
+  text-align: center;
+  color: white;
+  padding-top: 17px;
+  margin-bottom: 23px;
+}
+
+.sectionBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(/img/homepage/head_sect_gradient.png);
+  background-position: left;
+  background-size: cover;
+  clip-path: polygon(0 11%, 100% 0, 100% 100%, 0% 100%);
+  z-index: 0;
+}
+
+.comment {
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
+  padding-top: 40px;
+
+  .inner {
+    height: 100%;
+    width: calc(100% - 32px);
+    background: #ffffff;
+    box-shadow: 0px 9px 20px rgba(0, 51, 153, 0.19);
+    border-radius: 16px;
+    padding: 56px 24px 24px 24px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    position: relative;
+
+    .userPhoto {
+      width: 64px;
+      height: 64px;
+      background: grey;
+      border: 3px solid #ffffff;
+      filter: drop-shadow(0px 4px 8px rgba(85, 111, 163, 0.56));
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      top: -32px;
+    }
+
+    hr {
+      background-color: #dde2e8;
+      width: 123px;
+      align-self: center;
+      margin: 16px 0;
+    }
+
+    .quoteIcon {
+      position: absolute;
+      left: 24px;
+      top: 44px;
+    }
+  }
+
+  .text {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    color: #363351;
+  }
+
+  .userName {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 28px;
+    text-align: center;
+    color: #003399;
+  }
+}
+
+.carouselWrapper {
+  width: 100%;
+  margin-top: 30px;
+  z-index: 3;
+
+  div[aria-hidden="true"] {
+    opacity: 0.3;
+  }
+
+  :global {
+    .slick-arrow {
+      position: absolute;
+      z-index: 3;
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+    }
+    .slick-arrow.slick-prev {
+      left: 6%;
+      top: 210px;
+    }
+
+    .slick-arrow.slick-next {
+      right: 6%;
+      transform: rotate(-180deg);
+      top: 165px;
+    }
+  }
+}
