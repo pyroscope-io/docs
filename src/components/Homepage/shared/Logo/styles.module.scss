@@ -1,0 +1,22 @@
+.headerLogoWrapper {
+  user-select: none;
+
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .appName {
+      font-weight: 700;
+      color: white;
+      font-size: 16px;
+      margin-left: 5px;
+    }
+  }
+}

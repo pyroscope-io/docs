@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import clsx from 'clsx';
+import Logo from '../shared/Logo';
 
 const headerMenuItems = [{
     label: 'Docs',
@@ -61,15 +62,6 @@ const Plan = ({ title, subTitle }) => (
     <div className={styles.plan}>
         <div className={styles.planTitle}>{title}</div>
         <div className={styles.planSubtitle}>{subTitle}</div>
-    </div>
-)
-
-const Logo = () => (
-    <div className={styles.headerLogoWrapper}>
-        <a href='#'>
-            <img src='/img/logo-v3-small.png' />
-            <span>Pyroscope</span>
-        </a>
     </div>
 )
 

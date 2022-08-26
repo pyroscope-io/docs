@@ -4,6 +4,7 @@ import HappyClients from './HappyClients';
 import Explore from './Explore';
 import Integrations from './Integrations';
 import Security from './Security';
+import Footer from './Footer';
 import styles from './styles.module.scss';
 
 const HomePage = () => {
@@ -14,6 +15,8 @@ const HomePage = () => {
             <Explore />
             <Integrations />
             <Security />
+
+            <Footer />
         </div>
     )
 }
