@@ -153,7 +153,7 @@ const CodeExamples = () => {
             </div>
             <div className={styles.code}>
                 <pre className="line-numbers">
-                    <code className={`language-javascript`}>{code}</code>
+                    <code className={`language-javascript`}>{nodeCode}</code>
                 </pre>
             </div>
         </div>
