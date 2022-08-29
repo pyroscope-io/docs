@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './styles.module.scss';
 import clsx from 'clsx';
 import CodeExamples from './CodeExamples';
+import SectionWrapper from '../shared/SectionWrapper';
 
 const ExploreSection = () => {
     return (
-        <div className={styles.sectionWrapper}>
+        <SectionWrapper>
             <div className={styles.section}>
                 <div className={styles.background} />
                 <h2 className={styles.sectionTitle}>
@@ -28,7 +29,7 @@ const ExploreSection = () => {
             <div className={clsx([styles.section, styles.center])}>
                 <ProfilingFeatures />
             </div>
-        </div>
+        </SectionWrapper>
     )
 }
 

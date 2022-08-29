@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './styles.module.scss';
 import Logo from '../shared/Logo';
 import ContactUsImage from '/img/homepage/contact-us.svg';
+import SectionWrapper from '../shared/SectionWrapper';
 
 const Footer = () => {
     return (
-        <div className={styles.sectionWrapper}>
+        <SectionWrapper>
             <HelpUsBanner />
             <div className={styles.section}>
                 <div className={styles.row}>
@@ -42,7 +43,7 @@ const Footer = () => {
                 </div>
                 <div className={styles.copyRight}>Copyright © 2020 – 2022  Pyroscope, Inc</div>
             </div>
-        </div>
+        </SectionWrapper>
     )
 }
 

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import clsx from 'clsx';
 import Logo from '../shared/Logo';
+import SectionWrapper from '../shared/SectionWrapper';
 
 const headerMenuItems = [{
     label: 'Docs',
@@ -26,7 +27,7 @@ const headerMenuItems = [{
 
 const HeadSection = () => {
     return (
-        <div className={styles.sectionWrapper}>
+        <SectionWrapper className={styles.sectionWrapper}>
             <div className={styles.sectionBackground} />
             <div className={styles.section}>
                 <div className={styles.header}>
@@ -54,7 +55,7 @@ const HeadSection = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </SectionWrapper>
     )
 }
 

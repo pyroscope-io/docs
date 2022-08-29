@@ -11,11 +11,11 @@ import SecureNetworkIcon from '/img/homepage/security/icon-secure_network.svg';
 import BgRing from '/img/homepage/ring1.svg';
 import BgSphere from '/img/homepage/sphere.svg';
 import BgEllipse from '/img/homepage/Ellipse_bg.svg';
+import SectionWrapper from '../shared/SectionWrapper';
 
 const SecuritySection = () => {
     return (
-        <div className={styles.sectionWrapper}>
-
+        <SectionWrapper className={styles.sectionWrapper}>
             <div className={styles.section}>
                 <div className={styles.background} />
                 <BgRing className={styles.bgRing} />
@@ -47,7 +47,7 @@ const SecuritySection = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </SectionWrapper>
     )
 }
 

@@ -1,12 +1,3 @@
-.sectionWrapper {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  padding-bottom: 50px;
-}
-
 .section {
   background-color: transparent;
   max-width: 1016px;
@@ -14,6 +5,7 @@
   margin-left: 16px;
   margin-right: 16px;
   z-index: 1;
+  padding-bottom: 20px;
 
   &.center {
     display: flex;

@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import SliderArrow from '/img/homepage/slider_arrow.svg';
 import QuoteIcon from '/img/homepage/quote_icon.svg';
 import BgSphere from '/img/homepage/sphere.svg';
+import SectionWrapper from '../shared/SectionWrapper';
 
 const comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
 
@@ -16,7 +17,7 @@ const SlickButtonFix = ({ currentSlide, slideCount, children, ...props }) => (
 
 const WhatTheySay = () => {
     return (
-        <div className={styles.sectionWrapper}>
+        <SectionWrapper className={styles.sectionWrapper}>
             <BgSphere className={styles.bgSphere} />
             <div className={styles.bgSphere2} />
             <div className={styles.sectionBackground} />
@@ -46,7 +47,7 @@ const WhatTheySay = () => {
                     <Comment text={comment} userName="Chris Wei" />
                 </Slider>
             </div>
-        </div>
+        </SectionWrapper>
 
     )
 }

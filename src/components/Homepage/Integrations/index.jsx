@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './styles.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
+import SectionWrapper from '../shared/SectionWrapper';
 
 const Integrations = () => {
     return (
-        <div className={styles.sectionWrapper}>
+        <SectionWrapper className={styles.sectionWrapper}>
             <div className={styles.section}>
                 <h2 className={styles.title}>Pyroscope Integrations</h2>
                 <p className={styles.description}>Enhance your other observability signals with Pyroscope/s Various Integrations</p>
@@ -21,7 +22,7 @@ const Integrations = () => {
                     <Integration image='/img/homepage/integrations/logo-slack.svg' name='Slack' btnCaption='Slackbot extension' />
                 </div>
             </div>
-        </div>
+        </SectionWrapper>
     )
 }
 
