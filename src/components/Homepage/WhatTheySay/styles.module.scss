@@ -149,6 +149,10 @@
       width: 80px;
       height: 80px;
       cursor: pointer;
+
+      &::before {
+        display: none;
+      }
     }
     .slick-arrow.slick-prev {
       left: 6%;
