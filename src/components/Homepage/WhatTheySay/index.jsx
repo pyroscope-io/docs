@@ -9,6 +9,11 @@ import BgSphere from '/img/homepage/sphere.svg';
 
 const comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
 
+// fixes incorrect html atributes on prev/next buttons
+const SlickButtonFix = ({ currentSlide, slideCount, children, ...props }) => (
+    <span {...props}>{children}</span>
+);
+
 const WhatTheySay = () => {
     return (
         <div className={styles.sectionWrapper}>
@@ -25,8 +30,8 @@ const WhatTheySay = () => {
                     slidesToScroll={1}
                     slidesToShow={3}
                     infinite
-                    prevArrow={<SliderArrow />}
-                    nextArrow={<SliderArrow />}
+                    prevArrow={<SlickButtonFix><SliderArrow /></SlickButtonFix>}
+                    nextArrow={<SlickButtonFix><SliderArrow /></SlickButtonFix>}
                     centerPadding="10%"
                     speed={250}
                 >
