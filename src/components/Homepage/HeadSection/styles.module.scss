@@ -10,9 +10,16 @@
     z-index: 1;
 
     @media (max-width: 992px) {
-      left: -3px;
+      left: -30px;
       bottom: -50px;
-      transform: rotate(-2deg);
+      transform: rotate(-2deg) scale(0.8);
+      
+    }
+
+    @media (max-width: 630px) {
+      left: -100px;
+      bottom: -60px;
+      transform: rotate(-2deg) scale(0.6);
     }
   }
 
@@ -27,8 +34,15 @@
     z-index: 1;
 
     @media (max-width: 992px) {
-      right: -3px;
+      right: -30px;
       bottom: 24px;
+      transform: scale(0.8);
+    }
+
+    @media (max-width: 630px) {
+      right: -70px;
+      transform: rotate(-2deg) scale(0.6);
+      bottom: 15px;
     }
   }
 }

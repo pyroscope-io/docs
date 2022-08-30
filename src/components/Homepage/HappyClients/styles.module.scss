@@ -1,7 +1,8 @@
 .section {
   background-color: transparent;
-  max-width: 1224px;
-  width: calc(100% - 32px);
+  max-width: 1256px;
+  width: 100%;
+  padding: 0 16px;
   margin-left: 16px;
   margin-right: 16px;
   z-index: 1;
@@ -15,6 +16,10 @@
   color: #0d1928;
   padding-top: 17px;
   margin-bottom: 23px;
+
+  @media (max-width: 630px) {
+    font-size: 32px;
+  }
 }
 
 .description {
@@ -33,9 +38,19 @@
   align-items: center;
   justify-content: center;
   padding-bottom: 16px;
+  flex-wrap: wrap;
 
   img {
     height: 48px;
     margin: 0 24px;
+    margin-bottom: 24px;
+
+    @media (max-width: 992px) {
+      height: 40px;
+    }
+
+    @media (max-width: 663px) {
+      height: 30px;
+    }
   }
 }
