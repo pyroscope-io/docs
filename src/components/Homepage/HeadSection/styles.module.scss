@@ -18,7 +18,7 @@
     }
 
     @media (max-width: 630px) {
-      left: -100px;
+      left: -70px;
       top: calc(100% - 45px);
       transform: rotate(-6deg) scale(0.6);
     }
@@ -29,7 +29,7 @@
     position: absolute;
     right: -5px;
     top: calc(100% - 11vw);
-    width: 238px;
+    width: 274px;
     height: 65px;
     z-index: 1;
     background: radial-gradient(
@@ -172,7 +172,7 @@
 
   @media (max-width: 630px) {
     padding: 0 16px;
-    padding-bottom: 200px;
+    padding-bottom: 130px;
   }
 }
 
