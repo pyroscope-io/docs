@@ -13,8 +13,8 @@ const ExploreSection = () => {
                     <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
                 </h2>
                 <div className={styles.row}>
-                    <LeftSide />
-                    <RightSide />
+                    <Features />
+                    <Image />
                 </div>
                 <h2 className={clsx([styles.sectionTitle, styles.bottomTitle])}>
                     <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
@@ -33,8 +33,8 @@ const ExploreSection = () => {
     )
 }
 
-const LeftSide = () => (
-    <div className={styles.leftSide}>
+const Features = () => (
+    <div className={styles.features}>
         <h3 className={styles.subsectTitle}>
             <span className={styles.gradient}>Low-overhead</span> Agents
         </h3>
@@ -50,8 +50,8 @@ const LeftSide = () => (
     </div>
 )
 
-const RightSide = () => (
-    <div className={styles.rightSide}>
+const Image = () => (
+    <div className={styles.image}>
         <img className={styles.terminalWindow} src='/img/homepage/Group_147.svg' />
     </div>
 )
@@ -61,15 +61,21 @@ const ProfilingFeatures = () => (
         <div className={styles.leftSide}>
             <div className={styles.columnSection}>
                 <h3 className={styles.subsectTitle}>
-                    Whole-system<br />Continuous profiling
+                    Whole-system <br />Continuous profiling
                 </h3>
-                <p className={styles.subsectDescription}>Understand usage of CPU and memory resources at<br />any point in time and identify performance issue<br />before your customer do</p>
+                <p className={styles.subsectDescription}>Understand usage of CPU and memory resources at <br />any point in time and identify performance issue <br />before your customer do</p>
+            </div>
+            <div className={clsx([styles.columnSection, styles.mobileVersion])}>
+                <h3 className={styles.subsectTitle}>
+                    Adhoc Profiling Scrips
+                </h3>
+                <p className={styles.subsectDescription}>Collect, store, and analyze profiles from various < br />external profiling tools in one central location</p>
             </div>
             <div className={styles.columnSection}>
                 <h3 className={styles.subsectTitle}>
                     Profile Exemplars
                 </h3>
-                <p className={styles.subsectDescription}>Link yo your Open Telemetry tracing data and Get<br />request-specific or span-specific profiles to enhance<br />other observability data like traces and logs</p>
+                <p className={styles.subsectDescription}>Link yo your Open Telemetry tracing data and Get <br />request-specific or span-specific profiles to enhance <br />other observability data like traces and logs</p>
             </div>
         </div>
         <div className={styles.centerSide}>
@@ -82,7 +88,7 @@ const ProfilingFeatures = () => (
                 <h3 className={styles.subsectTitle}>
                     Adhoc Profiling Scrips
                 </h3>
-                <p className={styles.subsectDescription}>Collect, store, and analyze profiles from various< br />external profiling tools in one central location</p>
+                <p className={styles.subsectDescription}>Collect, store, and analyze profiles from various < br />external profiling tools in one central location</p>
             </div>
         </div>
     </div>
