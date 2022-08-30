@@ -6,7 +6,7 @@ import SectionWrapper from '../shared/SectionWrapper';
 
 const ExploreSection = () => {
     return (
-        <SectionWrapper>
+        <SectionWrapper className={styles.sectionWrapper}>
             <div className={styles.section}>
                 <div className={styles.background} />
                 <h2 className={styles.sectionTitle}>

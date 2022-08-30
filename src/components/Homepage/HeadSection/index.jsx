@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import clsx from 'clsx';
 import Logo from '../shared/Logo';
 import SectionWrapper from '../shared/SectionWrapper';
@@ -40,11 +40,14 @@ const HeadSection = () => {
                         />)}
                     </div>
                     <GetStarted />
+                    <button className={styles.mobileMenuButton}>
+                        <FontAwesomeIcon size='2x' icon={faBars} />
+                    </button>
                 </div>
                 <div className={styles.sectionBody}>
                     <div className={styles.bodyLeft}>
-                        <h1 className={styles.appTitle}>Open Source<br />Continuous<br />Profiling</h1>
-                        <span className={styles.appSubtitle}>Find and debug your most painful performance issue accros code,<br />infrastructure and CI/CD pipelines</span>
+                        <h1 className={styles.appTitle}>Open Source <br />Continuous <br />Profiling</h1>
+                        <div className={styles.appSubtitle}>Find and debug your most painful performance issue accros code,<br /> infrastructure and CI/CD pipelines</div>
                         <div className={styles.plans}>
                             <Plan title='Pyroscope Cloud' subTitle='Try it for free' />
                             <Plan title='Pyroscope OSS' subTitle='Try it for free' />

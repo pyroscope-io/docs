@@ -65,7 +65,8 @@
 }
 
 .banner {
-  width: 1015px;
+  width: 100%;
+  max-width: 1015px;
   height: 132px;
   background: linear-gradient(92.07deg, #913ed3 -26.15%, #1b00c0 100%);
   border-radius: 12px;
