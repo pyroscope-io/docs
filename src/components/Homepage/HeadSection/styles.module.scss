@@ -2,47 +2,56 @@
   &::before {
     content: "";
     position: absolute;
-    left: 0;
-    bottom: -50px;
-    background-image: url(/img/homepage/stripe1.svg);
+    left: -5px;
+    top: calc(100% - 60px);
     width: 274px;
-    height: 133px;
+    height: 65px;
     z-index: 1;
+    background: linear-gradient(-68.87deg, #d31b2e 0%, #ffaf0f 100.29%);
+    box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
+    border-top-right-radius: 60px;
+    transform: rotate(-6deg);
 
     @media (max-width: 992px) {
       left: -30px;
-      bottom: -50px;
-      transform: rotate(-2deg) scale(0.8);
-      
+      transform: scale(0.8) rotate(-6deg);
     }
 
     @media (max-width: 630px) {
       left: -100px;
-      bottom: -60px;
-      transform: rotate(-2deg) scale(0.6);
+      top: calc(100% - 45px);
+      transform: rotate(-6deg) scale(0.6);
     }
   }
 
   &::after {
     content: "";
     position: absolute;
-    right: 0;
-    bottom: 33px;
-    background-image: url(/img/homepage/stripe2.svg);
+    right: -5px;
+    top: calc(100% - 11vw);
     width: 238px;
-    height: 133px;
+    height: 65px;
     z-index: 1;
+    background: radial-gradient(
+      94.84% 555.33% at 5.16% 127.59%,
+      #77e5f4 0%,
+      #3ec1d3 56.25%,
+      #0453ca 100%
+    );
+    border-bottom-left-radius: 60px;
+    box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
+    transform: rotate(-6deg);
 
     @media (max-width: 992px) {
       right: -30px;
-      bottom: 24px;
-      transform: scale(0.8);
+      top: calc(100% - 12vw);
+      transform: scale(0.8) rotate(-6deg);
     }
 
     @media (max-width: 630px) {
       right: -70px;
-      transform: rotate(-2deg) scale(0.6);
-      bottom: 15px;
+      transform: rotate(-6deg) scale(0.6);
+      top: calc(100% - 16vw);
     }
   }
 }
@@ -56,12 +65,8 @@
   background: url(/img/homepage/BG-V2.svg);
   background-position: right;
   background-size: cover;
-  clip-path: polygon(0 0, 100% 0, 100% 84%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11vw), 0% 100%);
   z-index: 0;
-
-  @media (max-width: 992px) {
-    clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 100%);
-  }
 }
 
 .mobileMenuButton {
