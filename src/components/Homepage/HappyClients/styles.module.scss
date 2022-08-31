@@ -11,7 +11,7 @@
 .title {
   font-weight: 700;
   font-size: 42px;
-  line-height: 24px;
+  line-height: 1.5;
   text-align: center;
   color: #0d1928;
   padding-top: 17px;
@@ -25,7 +25,7 @@
 .description {
   font-weight: 400;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 1.5;
   text-align: center;
   color: #757996;
   opacity: 0.9;
@@ -37,7 +37,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: 16px;
+  padding-top: 32px;
+  padding-bottom: 32px;
   flex-wrap: wrap;
 
   img {
@@ -53,4 +54,7 @@
       height: 30px;
     }
   }
+}
+
+.happyClientLogo {
 }
