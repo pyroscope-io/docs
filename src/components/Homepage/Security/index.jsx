@@ -33,16 +33,16 @@ const SecuritySection = () => {
                     </div>
                     <div className={styles.right}>
                         <div className={styles.features}>
-                            <Feature image={SamlIcon} caption={`SAML / SSO\nIntegration`} />
-                            <Feature image={EncryptionIcon} caption={`Encryption at Rest\n& In-Transit`} />
+                            <Feature image={SamlIcon} caption={<span>SAML / SSO <br />Integration</span>} />
+                            <Feature image={EncryptionIcon} caption={<span>Encryption at Rest <br />& In-Transit</span>} />
                         </div>
                         <div className={styles.features}>
-                            <Feature image={MultifactorIcon} caption={`Multi Factor\nAuthentication`} />
-                            <Feature image={ThreatMonitoringIcon} caption={`Intelligent Threat\nMonitoring`} />
+                            <Feature image={MultifactorIcon} caption={<span>Multi Factor <br />Authentication</span>} />
+                            <Feature image={ThreatMonitoringIcon} caption={<span>Intelligent Threat <br />Monitoring</span>} />
                         </div>
                         <div className={styles.features}>
-                            <Feature image={AccessControlIcon} caption={`Least Privilege\nAccess Control`} />
-                            <Feature image={SecureNetworkIcon} caption={`Secure Architecture\n/Network Design`} />
+                            <Feature image={AccessControlIcon} caption={<span>Least Privilege <br />Access Control</span>} />
+                            <Feature image={SecureNetworkIcon} caption={<span>Secure Architecture<br />/Network Design</span>} />
                         </div>
                     </div>
                 </div>
