@@ -27,7 +27,11 @@ const SecuritySection = () => {
                             <img src='/img/homepage/vanta.png' />
                         </div>
                         <h2 className={styles.title}>Self-hosted with OSS or managed with Pyroscope Cloud</h2>
-                        <p className={styles.description}>Pyroscope Cloud is perfectly suited for handling<br />the security and scalability needs of your organization</p>
+                        <p className={styles.description}>
+                            Pyroscope Cloud is perfectly suited for handling<br />
+                            the security and scalability needs of your organization.
+                            Check out our blog post to learn<br /> which option is best for you!
+                        </p>
                         <button className={styles.learnMore}>Learn more<FontAwesomeIcon size='lg' icon={faLongArrowAltRight} /></button>
                     </div>
                     <div className={styles.right}>
