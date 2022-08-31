@@ -25,7 +25,6 @@ const SecuritySection = () => {
                     <div className={styles.left}>
                         <div className={styles.regulators}>
                             <img src='/img/homepage/vanta.png' />
-                            <img src='/img/homepage/gdpr.png' />
                         </div>
                         <h2 className={styles.title}>Security & Privacy</h2>
                         <p className={styles.description}>Protecting your information and privacy is our top<br />priority. We are dedicated to keeping your replay<br />sessions secure at all times</p>
