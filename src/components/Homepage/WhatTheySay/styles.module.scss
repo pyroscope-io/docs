@@ -1,22 +1,23 @@
 .sectionWrapper {
-  margin-top: -100px;
-  padding-top: 136px;
+  margin-top: -200px;
+  padding-top: 240px;
   padding-bottom: 150px;
   overflow: hidden;
+
+  @media (max-width: 720px) {
+    padding-bottom: 75px;
+  }
 }
 
 .section {
   background-color: transparent;
-  max-width: 1224px;
-  width: calc(100% - 32px);
-  margin-left: 16px;
-  margin-right: 16px;
+  max-width: 1256px;
+  width: 100%;
+  padding: 0 16px;
   z-index: 1;
-
-  &.center {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .bgSphere {
@@ -29,7 +30,7 @@
 
 .bgSphere2 {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   bottom: 60px;
   left: 70%;
   background: linear-gradient(
@@ -51,6 +52,20 @@
   color: white;
   padding-top: 17px;
   margin-bottom: 23px;
+
+  @media (max-width: 992px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 720px) {
+    font-size: 32px;
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 28px;
+    line-height: 34px;
+  }
 }
 
 .sectionBackground {
@@ -62,7 +77,7 @@
   background: url(/img/homepage/BG-V2.svg);
   background-position: left;
   background-size: cover;
-  clip-path: polygon(0 11%, 100% 0, 100% 100%, 0% 100%);
+  clip-path: polygon(0 11vw, 100% 0, 100% 100%, 0% 100%);
   z-index: 0;
 }
 
@@ -83,6 +98,10 @@
     justify-content: space-between;
     flex-direction: column;
     position: relative;
+
+    @media (max-width: 1340px) {
+      padding: 56px 12px 12px 12px;
+    }
 
     .userPhoto {
       width: 64px;
@@ -133,31 +152,45 @@
   margin-top: 30px;
   z-index: 3;
 
-  div[aria-hidden="true"] {
-    opacity: 0.3;
+  @media (max-width: 1340px) {
+    width: calc(100% - 75px);
+  }
+
+  @media (max-width: 720px) {
+    width: calc(100% - 55px);
+    margin-top: 0;
   }
 
   :global {
-    .slick-arrow {
-      position: absolute;
-      z-index: 3;
-      width: 80px;
-      height: 80px;
-      cursor: pointer;
+    .slider-frame {
+      overflow: visible !important;
+    }
 
-      &::before {
-        display: none;
+    .slide:not(.slide-visible) {
+      opacity: 0.15 !important;
+    }
+
+    .slider-control-centerleft {
+      cursor: pointer;
+      position: absolute;
+      top: 170px;
+      left: -55px;
+
+      @media (max-width: 720px) {
+        top: 120px;
       }
     }
-    .slick-arrow.slick-prev {
-      left: 6%;
-      top: 210px;
-    }
 
-    .slick-arrow.slick-next {
-      right: 6%;
-      transform: rotate(-180deg);
-      top: 165px;
+    .slider-control-centerright {
+      cursor: pointer;
+      transform: rotate(180deg);
+      position: absolute;
+      top: 157px;
+      right: -55px;
+
+      @media (max-width: 720px) {
+        top: 107px;
+      }
     }
   }
 }
