@@ -6,8 +6,7 @@ const HappyClients = () => {
     return (
         <SectionWrapper>
             <div className={styles.section}>
-                <h2 className={styles.title}>Our Happy Clients</h2>
-                <p className={styles.description}>Join these industry leaders who have added Pyroscope to their observability suite</p>
+                <h2 className={styles.title}>These industry leaders profile with Pyroscope</h2>
                 <div className={styles.logoList}>
                     <div className={styles.row}>
                         <img src='/img/homepage/Google_logo.svg' />
