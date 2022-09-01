@@ -36,8 +36,8 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                 isOpenMenu={isOpenMenu}
                 toggleMenu={() => setIsOpen((prevState) => !prevState)}
             />
-            <div className={styles.sectionBackground} />
             <div className={styles.section}>
+                <div className={styles.sectionBackground} />
                 <div className={styles.header}>
                     <Logo />
                     <div className={styles.menu}>

@@ -21,13 +21,9 @@ const ExploreSection = () => {
                         <span className={styles.gradient}>Analyze application performance</span> profiles<br />using our suite of profiling tools
                     </h2>
                     <CodeExamples />
-                    <div className={styles.leftStripes}>
-                        <div className={clsx([styles.blueStripe, styles.left])} />
-                        <div className={clsx([styles.orangeStripe, styles.left])} />
-                    </div>
-                    <div className={styles.rightStripes}>
-                        <div className={clsx([styles.blueStripe, styles.right])} />
-                        <div className={clsx([styles.orangeStripe, styles.right])} />
+                    <div className={styles.stripes}>
+                        <div className={styles.blueStripe} />
+                        <div className={styles.orangeStripe} />
                     </div>
                     <div className={styles.blueBall} />
                 </div>

@@ -34,9 +34,13 @@ $bg_height_mobile: 1900px;
   background: url(/img/homepage/BG-V2.svg);
   background-position: right;
   background-size: cover;
-  clip-path: polygon(0 11%, 100% 0%, 100% 89%, 0% 100%);
+  clip-path: polygon(0 18%, 100% 0%, 100% 89%, 0% 100%);
   z-index: -1;
   height: $bg_height;
+
+  @media (max-width: 2000px) {
+    clip-path: polygon(0 11vw, 100% 0%, 100% calc(100% - 11vw), 0% 100%);
+  }
 
   @media (max-width: 992px) {
     clip-path: polygon(0 9vw, 100% 0%, 100% calc(100% - 9vw), 0% 100%);
@@ -301,53 +305,24 @@ $bg_height_mobile: 1900px;
   }
 }
 
-.leftStripes {
+.stripes {
   position: absolute;
   left: -20px;
-  right: auto;
-  transform: rotate(-3deg);
-  width: calc(50vw - 300px);
-  top: calc($bg_height - 3%);
+  right: -20px;
+  transform: rotate(-2.5deg);
+  top: calc($bg_height - 9%);
 
   @media (max-width: 3000px) {
-    top: calc($bg_height - 4.5%);
+    top: calc($bg_height - 6%);
     transform: rotate(-4deg);
   }
 
-  @media (max-width: 1800px) {
-    transform: rotate(-5deg);
+  @media (max-width: 2000px) {
+    transform: rotate(-6deg);
   }
 
   @media (max-width: 992px) {
     top: calc($bg_height_tablet - 4.5%);
-    width: 50vw;
-  }
-
-  @media (max-width: 675px) {
-    top: calc($bg_height - 4.5%);
-  }
-}
-
-.rightStripes {
-  position: absolute;
-  right: -20px;
-  transform: rotate(-3deg);
-  width: calc(50vw - 300px);
-  top: calc($bg_height - 10%);
-  left: auto;
-
-  @media (max-width: 3000px) {
-    top: calc($bg_height - 9%);
-    transform: rotate(-4deg);
-  }
-
-  @media (max-width: 1800px) {
-    transform: rotate(-5deg);
-  }
-
-  @media (max-width: 992px) {
-    top: calc($bg_height_tablet - 12.5vw);
-    width: 50vw;
   }
 
   @media (max-width: 675px) {
@@ -360,24 +335,15 @@ $bg_height_mobile: 1900px;
   z-index: 4;
   box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
   position: relative;
-
-  &.left {
-    background: linear-gradient(
-      -272.79deg,
-      #77e5f4 -15.33%,
-      #3ec1d3 17.42%,
-      #0453ca 42.9%
-    );
-  }
-
-  &.right {
-    background: linear-gradient(
-      272.79deg,
-      #77e5f4 -15.33%,
-      #3ec1d3 17.42%,
-      #0453ca 42.9%
-    );
-  }
+  background: linear-gradient(
+    to right,
+    #77e5f4 0,
+    #3ec1d3 10%,
+    #0453ca 30%,
+    #0453ca 70%,
+    #3ec1d3 90%,
+    #77e5f4 100%
+  );
 }
 
 .orangeStripe {
@@ -386,14 +352,7 @@ $bg_height_mobile: 1900px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
   position: relative;
-
-  &.left {
-    background: linear-gradient(-65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
-  }
-
-  &.right {
-    background: linear-gradient(65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
-  }
+  background: linear-gradient(-65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
 }
 
 .blueBall {
