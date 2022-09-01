@@ -194,14 +194,18 @@
     width: 174px;
     min-width: 174px;
     height: 43px;
-    background: linear-gradient(68.66deg, #d31b2e 0%, #ffaf0f 100%);
+    line-height: 43px;
+    background: linear-gradient(68.66deg, #d31b2eee 0%, #ffaf0fcc 100%);
+    &:hover {
+      text-decoration: none;
+      background: linear-gradient(68.66deg, #d31b2e 0%, #ffaf0f 100%);
+    }
     border: 0px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
     border-radius: 8px;
     color: white;
     font-weight: 700;
     font-size: 16px;
-    line-height: 19px;
     text-align: center;
     cursor: pointer;
   }

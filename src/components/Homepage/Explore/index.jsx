@@ -17,7 +17,7 @@ const ExploreSection = () => {
                     <Image />
                 </div>
                 <h2 className={clsx([styles.sectionTitle, styles.bottomTitle])}>
-                    <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
+                    <span className={styles.gradient}>Analyze application performance</span> profiles<br />using our suite of profiling tools
                 </h2>
                 <CodeExamples />
                 <div className={clsx([styles.blueStripe, styles.left])} />
