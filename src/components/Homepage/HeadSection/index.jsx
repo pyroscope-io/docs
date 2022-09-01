@@ -5,6 +5,7 @@ import { faChevronDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import clsx from 'clsx';
 import Logo from '../shared/Logo';
 import SectionWrapper from '../shared/SectionWrapper';
+import GitHubButton from 'react-github-btn';
 
 const headerMenuItems = [{
     label: 'Docs',
@@ -39,7 +40,13 @@ const HeadSection = () => {
                             items={i?.items}
                         />)}
                     </div>
-                    <GetStarted />
+
+                    <div className={styles.rightSideButtons}>
+                        <div className={styles.githubButtonWrapper}>
+                            <GitHubButton href="https://github.com/pyroscope-io/pyroscope" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star pyroscope-io/pyroscope on GitHub">Star</GitHubButton>
+                        </div>
+                        <GetStarted />
+                    </div>
                     <button className={styles.mobileMenuButton}>
                         <FontAwesomeIcon size='2x' icon={faBars} />
                     </button>

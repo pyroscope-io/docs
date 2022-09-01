@@ -4364,6 +4364,11 @@ get-value@^2.0.3, get-value@^2.0.6:
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
+github-buttons@^2.21.1:
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/github-buttons/-/github-buttons-2.22.0.tgz#b2669f8504ce5496ab37b7ce53e8ed01db9818bc"
+  integrity sha512-N5bk01s1WgK1FVtoeSUVkRkJpkaSu8yHMPcjye+PTa0jsRjMRNrYqVLgpUf2RA5Kvec05DfHYAT6/68fwkdqPw==
+
 github-slugger@^1.3.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/github-slugger/-/github-slugger-1.4.0.tgz#206eb96cdb22ee56fdc53a28d5a302338463444e"
@@ -7118,6 +7123,13 @@ react-fast-marquee@^1.3.5:
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/react-fast-marquee/-/react-fast-marquee-1.3.5.tgz#e53995027102fbec92da90606d7ca89703db9903"
   integrity sha512-eOqLoz4iVVBvi2wN/web8hd2XX9y2Z6CYR7g++7nTVHlTOXBtqyARQJ9rYNpbp179hAzloMx0yBFAo8LpNYmKQ==
+
+react-github-btn@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-github-btn/-/react-github-btn-1.3.0.tgz#d5a64d05d3615ec03e863874eac10e70d5e8aff8"
+  integrity sha512-IpyNbbYENfmYOLoRkeKauAZF5PTkplawRquSiI7uDVJBUCVrR5jQ9zYBx4TlpzhWeYU+BIfKNnXtz2wvQJPsZg==
+  dependencies:
+    github-buttons "^2.21.1"
 
 react-helmet@^6.1.0:
   version "6.1.0"
