@@ -1,6 +1,32 @@
 $bg_height: 1536px;
 $bg_height_tablet: 1900px;
-$bg_height_mobile: 1900px;
+
+.bgRing {
+  position: absolute;
+  z-index: 2;
+  right: 15vw;
+  top: 100px;
+  opacity: 0.15;
+
+  @media (max-width: 992px) {
+    right: -10vw;
+    top: 0;
+  }
+}
+
+.bgSphere {
+  position: absolute;
+  z-index: 2;
+  left: 25vw;
+  top: 65%;
+  opacity: 0.15;
+
+  @media (max-width: 992px) {
+    right: 10vw;
+    left: auto;
+    top: 76%;
+  }
+}
 
 .sectionWrapper {
   overflow: hidden;

@@ -3,6 +3,8 @@ import styles from './styles.module.scss';
 import clsx from 'clsx';
 import CodeExamples from './CodeExamples';
 import SectionWrapper from '../shared/SectionWrapper';
+import BgRing from '/img/homepage/ring1.svg';
+import BgSphere from '/img/homepage/sphere.svg';
 
 const ExploreSection = () => {
     return (
@@ -30,6 +32,8 @@ const ExploreSection = () => {
             </SectionWrapper>
             <SectionWrapper className={styles.sectionWrapper}>
                 <div className={clsx([styles.section, styles.center])}>
+                    <BgRing className={styles.bgRing} />
+                    <BgSphere className={styles.bgSphere} />
                     <ProfilingFeatures />
                 </div>
             </SectionWrapper>
