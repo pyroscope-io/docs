@@ -23,7 +23,7 @@ const HomePage = () => {
                 <link rel="preload" href="/static/fonts/Sen-Regular.woff" as="font" type="font/woff2" crossorigin></link>
                 <link rel="preload" href="/static/fonts/Sen-Bold.woff" as="font" type="font/woff2" crossorigin></link>
             </Helmet>
-            <div className={clsx({
+            <div className={clsx(styles.forceLightTheme, {
                 [styles.pageLayout]: true,
                 [styles.hidden]: isOpenMenu
             })}>

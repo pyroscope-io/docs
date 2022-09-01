@@ -8,6 +8,8 @@ import SectionWrapper from '../shared/SectionWrapper';
 import Drawer from 'react-modern-drawer';
 import 'react-modern-drawer/dist/index.css';
 import GitHubButton from 'react-github-btn';
+import Lottie from "lottie-react";
+import frontPageAnimation from "./frontPageAnimation.json";
 
 const headerMenuItems = [{
     label: 'Docs',
@@ -68,7 +70,7 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                         </div>
                     </div>
                     <div className={styles.bodyRight}>
-                        <img alt='Pyroscope' src='/img/homepage/image-hero@2x.svg' />
+                        <Lottie animationData={frontPageAnimation} loop={true} />
                     </div>
                 </div>
             </div>

@@ -132,7 +132,7 @@
   margin-top: -80px;
   padding-top: 160px;
   padding-bottom: 140px;
-  background-color: var(--ifm-background-color-darker);
+  // background-color: var(--ifm-background-color-darker);
   h1,h2,h3 {
     text-align: center;
     font-size: 2.5em;
@@ -314,3 +314,37 @@
 .tweet:nth-child(7) {
   margin-top: 20px;
 }
+
+.background {
+  background-color: var(--ifm-background-color-darker);
+}
+
+// .forceDarkTheme {
+//   background-color: var(--ifm-background-color);
+//   color: white;
+// }
+
+// $slant: 10%;
+
+// .slantedSection {
+//   background-color: var(--ifm-background-color-lighter);
+// }
+
+// .brighterSection {
+//   background-color: var(--ifm-background-color);
+// }
+
+// @media screen and (min-width: 768px) {
+//   .slantedWrapper {
+//     // background-color: var(--palette-black-20);
+//     background-image: linear-gradient(180deg, var(--ifm-background-color-darker) 0%, var(--ifm-background-color-darker) 49%, var(--ifm-background-color) 50%, var(--ifm-background-color) 100%);
+//   }
+
+//   .slantedSection {
+//     clip-path: polygon(0 $slant, 100% 0, 100% (100% - $slant), 0% 100%);
+//     // important otherwise it's overwritten by
+//     // .features_src-pages-styles-module
+//     padding: 8rem 0 !important;
+//     margin: -4rem 0 0;
+//   }
+// }

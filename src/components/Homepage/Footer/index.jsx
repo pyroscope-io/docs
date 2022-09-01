@@ -26,7 +26,6 @@ function FooterLink({to, href, label, prependBaseUrlToHref, icon, ...props}) {
             to: toUrl,
           })}
       {...props}>
-      {/* {icon ? <img className={styles.footerIcon} src={icon}/> : ''} */}
       {label}
     </Link>
   );
