@@ -47,9 +47,9 @@ const HeadSection = () => {
                 <div className={styles.sectionBody}>
                     <div className={styles.bodyLeft}>
                         <h1 className={styles.appTitle}>Open Source <br />Continuous <br />Profiling</h1>
-                        <div className={styles.appSubtitle}>Find and debug your most painful performance issue accros code,<br /> infrastructure and CI/CD pipelines</div>
+                        <div className={styles.appSubtitle}>Find and debug your most painful performance issues across code,<br /> infrastructure and CI/CD pipelines</div>
                         <div className={styles.plans}>
-                            <Plan title='Pyroscope Cloud' subTitle='Try it for free' />
+                            <Plan className={styles.preferred} title='Pyroscope Cloud' subTitle='Try it for free' />
                             <Plan title='Pyroscope OSS' subTitle='Try it for free' />
                         </div>
                     </div>
@@ -62,15 +62,15 @@ const HeadSection = () => {
     )
 }
 
-const Plan = ({ title, subTitle }) => (
-    <div className={styles.plan}>
+const Plan = ({ title, subTitle, className }) => (
+    <a href="https://github.com/pyroscope-io/pyroscope" target="_blank" className={clsx(styles.plan, className)}>
         <div className={styles.planTitle}>{title}</div>
         <div className={styles.planSubtitle}>{subTitle}</div>
-    </div>
+    </a>
 )
 
 const GetStarted = () => (
-    <button className={styles.getStartedButton}>Get Started</button>
+    <a href="https://pyroscope.cloud/signup" target="_blank" className={styles.getStartedButton}>Get Started</a>
 )
 
 const MenuItem = ({ label, items }) => {

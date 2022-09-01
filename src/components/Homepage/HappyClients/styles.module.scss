@@ -2,7 +2,7 @@
   background-color: transparent;
   max-width: 1256px;
   width: 100%;
-  padding: 0 16px;
+  padding: 32px 16px 0;
   margin-left: 16px;
   margin-right: 16px;
   z-index: 1;
@@ -11,7 +11,7 @@
 .title {
   font-weight: 700;
   font-size: 42px;
-  line-height: 1.5;
+  line-height: 48px;
   text-align: center;
   color: #0d1928;
   padding-top: 17px;
@@ -25,7 +25,7 @@
 .description {
   font-weight: 400;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 48px;
   text-align: center;
   color: #757996;
   opacity: 0.9;
@@ -57,4 +57,9 @@
 }
 
 .happyClientLogo {
+
+}
+
+.happyClientLogoSmaller {
+  padding: 7px 0;
 }

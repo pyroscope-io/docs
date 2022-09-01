@@ -51,7 +51,7 @@ const HelpUsBanner = () => (
     <div className={styles.banner}>
         <ContactUsImage />
         <h3 className={styles.title}>Help us build the future of observability<br />for serverless</h3>
-        <button className={styles.joinPrivateBeta}>Join Private Beta</button>
+        <a href="https://pyroscope.cloud/signup" target="_blank" className={styles.joinPrivateBeta}>Join Private Beta</a>
     </div>
 )
 

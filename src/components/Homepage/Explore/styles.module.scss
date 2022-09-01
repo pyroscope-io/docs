@@ -262,14 +262,14 @@ $bg_height_tablet: 1900px;
 
   .code {
     width: calc(100% - 209px);
-    padding-top: 12px;
+    padding-top: 0;
 
     @media (max-width: 992px) {
       width: 100%;
     }
 
     * {
-      font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+      font-family: var(--ifm-font-family-monospace);
     }
 
     pre[class*="language-"] {
@@ -280,6 +280,9 @@ $bg_height_tablet: 1900px;
     }
 
     :global {
+      .line-numbers {
+        padding-left: 5.8em;
+      }
       .line-numbers-rows {
         border-right: none;
       }
