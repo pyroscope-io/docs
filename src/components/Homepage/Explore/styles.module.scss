@@ -1,5 +1,6 @@
 $bg_height: 1536px;
 $bg_height_tablet: 1900px;
+$bg_height_mobile: 1900px;
 
 .sectionWrapper {
   overflow: hidden;
@@ -33,7 +34,7 @@ $bg_height_tablet: 1900px;
   background: url(/img/homepage/BG-V2.svg);
   background-position: right;
   background-size: cover;
-  clip-path: polygon(0 11vw, 100% 0%, 100% calc(100% - 11vw), 0% 100%);
+  clip-path: polygon(0 11%, 100% 0%, 100% 89%, 0% 100%);
   z-index: -1;
   height: $bg_height;
 
@@ -42,7 +43,7 @@ $bg_height_tablet: 1900px;
     height: $bg_height_tablet;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 675px) {
     clip-path: polygon(0 9vw, 100% 0%, 100% calc(100% - 9vw), 0% 100%);
     height: $bg_height;
   }
@@ -300,97 +301,98 @@ $bg_height_tablet: 1900px;
   }
 }
 
-.blueStripe {
+.leftStripes {
   position: absolute;
+  left: -20px;
+  right: auto;
+  transform: rotate(-3deg);
+  width: calc(50vw - 300px);
+  top: calc($bg_height - 3%);
+
+  @media (max-width: 3000px) {
+    top: calc($bg_height - 4.5%);
+    transform: rotate(-4deg);
+  }
+
+  @media (max-width: 1800px) {
+    transform: rotate(-5deg);
+  }
+
+  @media (max-width: 992px) {
+    top: calc($bg_height_tablet - 4.5%);
+    width: 50vw;
+  }
+
+  @media (max-width: 675px) {
+    top: calc($bg_height - 4.5%);
+  }
+}
+
+.rightStripes {
+  position: absolute;
+  right: -20px;
+  transform: rotate(-3deg);
+  width: calc(50vw - 300px);
+  top: calc($bg_height - 10%);
+  left: auto;
+
+  @media (max-width: 3000px) {
+    top: calc($bg_height - 9%);
+    transform: rotate(-4deg);
+  }
+
+  @media (max-width: 1800px) {
+    transform: rotate(-5deg);
+  }
+
+  @media (max-width: 992px) {
+    top: calc($bg_height_tablet - 12.5vw);
+    width: 50vw;
+  }
+
+  @media (max-width: 675px) {
+    top: calc($bg_height - 4.5%);
+  }
+}
+
+.blueStripe {
   height: 60px;
   z-index: 4;
-  width: 25vw;
   box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
-  transform: rotate(-7deg);
+  position: relative;
 
   &.left {
-    left: -20px;
-    right: auto;
-    top: calc($bg_height - 56px);
     background: linear-gradient(
       -272.79deg,
       #77e5f4 -15.33%,
       #3ec1d3 17.42%,
       #0453ca 42.9%
     );
-
-    @media (max-width: 992px) {
-      top: calc($bg_height_tablet - 50px);
-    }
-
-    @media (max-width: 600px) {
-      top: calc($bg_height - 56px);
-    }
   }
 
   &.right {
-    left: auto;
-    right: -20px;
-    top: 1360px;
-    top: calc($bg_height - 170px);
     background: linear-gradient(
       272.79deg,
       #77e5f4 -15.33%,
       #3ec1d3 17.42%,
       #0453ca 42.9%
     );
-
-    @media (max-width: 992px) {
-      top: calc($bg_height_tablet - 110px);
-    }
-
-    @media (max-width: 600px) {
-      top: calc($bg_height - 100px);
-    }
   }
 }
 
 .orangeStripe {
-  background-color: orange;
-  position: absolute;
   height: 50px;
   z-index: 3;
-  width: 25vw;
   border: 1px solid rgba(255, 255, 255, 0.25);
   box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
-  left: -20px;
-  right: 0;
-  bottom: 305px;
-  transform: rotate(-7.3deg);
+  position: relative;
 
   &.left {
-    left: -20px;
-    right: auto;
-    top: calc($bg_height - 10px) ;
     background: linear-gradient(-65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
-
-    @media (max-width: 992px) {
-      top: calc($bg_height_tablet - 15px);
-    }
-
-    @media (max-width: 600px) {
-      top: calc($bg_height - 10px);
-    }
   }
 
   &.right {
-    left: auto;
-    right: -20px;
-    top: calc($bg_height - 130px);
     background: linear-gradient(65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
-
-    @media (max-width: 992px) {
-      top: calc($bg_height_tablet - 75px);
-    }
-
-    @media (max-width: 600px) {
-      top: calc($bg_height - 60px);
-    }
   }
 }
 

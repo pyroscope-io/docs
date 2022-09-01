@@ -6,30 +6,38 @@ import SectionWrapper from '../shared/SectionWrapper';
 
 const ExploreSection = () => {
     return (
-        <SectionWrapper className={styles.sectionWrapper}>
-            <div className={styles.section}>
-                <div className={styles.background} />
-                <h2 className={styles.sectionTitle}>
-                    <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
-                </h2>
-                <div className={styles.row}>
-                    <Features />
-                    <Image />
+        <>
+            <SectionWrapper className={styles.sectionWrapper}>
+                <div className={styles.section}>
+                    <div className={styles.background} />
+                    <h2 className={styles.sectionTitle}>
+                        <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
+                    </h2>
+                    <div className={styles.row}>
+                        <Features />
+                        <Image />
+                    </div>
+                    <h2 className={clsx([styles.sectionTitle, styles.bottomTitle])}>
+                        <span className={styles.gradient}>Analyze application performance</span> profiles<br />using our suite of profiling tools
+                    </h2>
+                    <CodeExamples />
+                    <div className={styles.leftStripes}>
+                        <div className={clsx([styles.blueStripe, styles.left])} />
+                        <div className={clsx([styles.orangeStripe, styles.left])} />
+                    </div>
+                    <div className={styles.rightStripes}>
+                        <div className={clsx([styles.blueStripe, styles.right])} />
+                        <div className={clsx([styles.orangeStripe, styles.right])} />
+                    </div>
+                    <div className={styles.blueBall} />
                 </div>
-                <h2 className={clsx([styles.sectionTitle, styles.bottomTitle])}>
-                    <span className={styles.gradient}>Analyze application performance</span> profiles<br />using our suite of profiling tools
-                </h2>
-                <CodeExamples />
-                <div className={clsx([styles.blueStripe, styles.left])} />
-                <div className={clsx([styles.blueStripe, styles.right])} />
-                <div className={clsx([styles.orangeStripe, styles.left])} />
-                <div className={clsx([styles.orangeStripe, styles.right])} />
-                <div className={styles.blueBall} />
-            </div>
-            <div className={clsx([styles.section, styles.center])}>
-                <ProfilingFeatures />
-            </div>
-        </SectionWrapper>
+            </SectionWrapper>
+            <SectionWrapper className={styles.sectionWrapper}>
+                <div className={clsx([styles.section, styles.center])}>
+                    <ProfilingFeatures />
+                </div>
+            </SectionWrapper>
+        </>
     )
 }
 
