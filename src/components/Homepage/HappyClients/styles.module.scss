@@ -17,8 +17,21 @@
   padding-top: 17px;
   margin-bottom: 23px;
 
-  @media (max-width: 630px) {
+  @media (max-width: 992px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 675px) {
     font-size: 32px;
+
+    br {
+      display: none;
+    }
+  }
+
+  @media (max-width: 500px) {
+    font-size: 28px;
+    line-height: 34px;
   }
 }
 
@@ -57,7 +70,6 @@
 }
 
 .happyClientLogo {
-
 }
 
 .happyClientLogoSmaller {

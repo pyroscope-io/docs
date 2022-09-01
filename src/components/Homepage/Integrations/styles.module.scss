@@ -65,24 +65,21 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  justify-content: center;
 
-  // &:last-of-type {
-    justify-content: center;
+  @media (max-width: 992px) {
+    justify-content: space-between;
+  }
+
+  .integration {
+    margin: 0 12px;
+    margin-bottom: 38px;
 
     @media (max-width: 992px) {
-      justify-content: space-between;
+      margin: 0;
+      margin-bottom: 16px;
     }
-
-    .integration {
-      margin: 0 12px;
-      margin-bottom: 38px;
-
-      @media (max-width: 992px) {
-        margin: 0;
-        margin-bottom: 16px;
-      }
-    }
-  // }
+  }
 }
 
 .integration {
