@@ -350,24 +350,24 @@
     text-decoration: none;
   }
 
-
   &:hover {
     background: rgba(255, 255, 255, 0.3);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0px 8px 22px rgba(0, 14, 137, 0.25);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+      0px 8px 22px rgba(0, 14, 137, 0.25);
   }
 
   &.preferred {
     background: linear-gradient(68.66deg, #d31b2edd 0%, #ffaf0fdd 100%);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0px 8px 22px rgba(0, 14, 137, 0.25);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+      0px 8px 22px rgba(0, 14, 137, 0.25);
     border: none;
     &:hover {
       background: linear-gradient(68.66deg, #d31b2e 0%, #ffaf0f 100%);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0px 8px 22px rgba(0, 14, 137, 0.25);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+        0px 8px 22px rgba(0, 14, 137, 0.25);
       border: none;
     }
   }
-
-
 
   @media (max-width: 992px) {
     margin: 0 16px;
@@ -391,5 +391,69 @@
     line-height: 14px;
     text-align: center;
     margin-top: 2px;
+  }
+}
+
+.drawer {
+  background: #f8fbff !important;
+
+  .mobileMenuBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 16px;
+
+    .logo {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      a span {
+        color: black;
+      }
+    }
+
+    .menuList {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+      margin-top: 16px;
+
+      .mobileMenuItem {
+        width: 100%;
+        margin-bottom: 8px;
+
+        & > a {
+          display: flex;
+          width: 100%;
+          background-color: white;
+          justify-content: center;
+          align-items: center;
+          height: 40px;
+          text-decoration: none;
+          font-weight: bold;
+          color: black;
+          font-size: 16px;
+        }
+
+        .innerItem {
+          height: 40px;
+
+          a {
+            justify-content: center;
+            align-items: center;
+            height: 40px;
+            display: flex;
+            width: 100%;
+            text-decoration: none;
+            color: black;
+          }
+        }
+      }
+    }
   }
 }

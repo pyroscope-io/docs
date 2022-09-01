@@ -14,6 +14,11 @@
   );
   overflow: hidden;
 
+  &.hidden {
+    width: 100vw;
+    height: 100vh;
+  }
+
   img {
     pointer-events: none;
     user-select: none;

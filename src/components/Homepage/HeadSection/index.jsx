@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import styles from './styles.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronDown, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import clsx from 'clsx';
 import Logo from '../shared/Logo';
 import SectionWrapper from '../shared/SectionWrapper';
+import Drawer from 'react-modern-drawer';
+import 'react-modern-drawer/dist/index.css';
 
 const headerMenuItems = [{
     label: 'Docs',
     items: [{
-        label: 'Menu Item 1'
+        label: 'Getting Started'
     }, {
-        label: 'Menu Item 2'
+        label: 'Downloads'
     }, {
-        label: 'Menu Item 3'
+        label: 'Deployment Guide'
+    }, {
+        label: 'Schedule a demo call'
     }]
 }, {
     label: 'Community'
@@ -25,9 +29,13 @@ const headerMenuItems = [{
     label: 'Contact Us'
 }]
 
-const HeadSection = () => {
+const HeadSection = ({ isOpenMenu, setIsOpen }) => {
     return (
         <SectionWrapper className={styles.sectionWrapper}>
+            <MobileMenu
+                isOpenMenu={isOpenMenu}
+                toggleMenu={() => setIsOpen((prevState) => !prevState)}
+            />
             <div className={styles.sectionBackground} />
             <div className={styles.section}>
                 <div className={styles.header}>
@@ -40,7 +48,7 @@ const HeadSection = () => {
                         />)}
                     </div>
                     <GetStarted />
-                    <button className={styles.mobileMenuButton}>
+                    <button onClick={() => setIsOpen((prevState) => !prevState)} className={styles.mobileMenuButton}>
                         <FontAwesomeIcon size='2x' icon={faBars} />
                     </button>
                 </div>
@@ -59,6 +67,40 @@ const HeadSection = () => {
                 </div>
             </div>
         </SectionWrapper>
+    )
+}
+
+const MobileMenu = ({ toggleMenu, isOpenMenu }) => {
+    return (
+        <Drawer
+            open={isOpenMenu}
+            onClose={toggleMenu}
+            direction='top'
+            size={'100%'}
+            className={styles.drawer}
+            duration={200}
+        >
+            <div className={styles.mobileMenuBody}>
+                <div className={styles.logo}>
+                    <Logo />
+                    <FontAwesomeIcon
+                        onClick={toggleMenu}
+                        size='2x'
+                        icon={faTimes}
+                        mask={['fal']}
+                    />
+                </div>
+                <div className={styles.menuList}>
+                    {headerMenuItems.map((i) => (
+                        <MobileMenuItem
+                            key={i.label}
+                            label={i.label}
+                            items={i?.items}
+                        />
+                    ))}
+                </div>
+            </div>
+        </Drawer>
     )
 }
 
@@ -92,6 +134,25 @@ const MenuItem = ({ label, items }) => {
     }
     return (
         <div className={styles.menuItem}>{label}</div>
+    )
+}
+
+const MobileMenuItem = ({ label, items }) => {
+    return (
+        <div className={styles.mobileMenuItem}>
+            <a href='#'>{label}</a>
+            {items?.length ?
+                <div className={styles.innerList}>
+                    {items.map((i) => (
+                        <div className={styles.innerItem} key={i.label}>
+                            <a href='#'>
+                                {i.label}
+                            </a>
+                        </div>
+                    ))}
+                </div>
+                : null}
+        </div>
     )
 }
 

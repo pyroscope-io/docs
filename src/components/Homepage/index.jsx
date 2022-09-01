@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import HeadSection from './HeadSection';
 import HappyClients from './HappyClients';
 import Explore from './Explore';
@@ -8,15 +8,21 @@ import WhatTheySay from './WhatTheySay';
 import Footer from './Footer';
 import styles from './styles.module.scss';
 import { Helmet } from "react-helmet";
+import clsx from 'clsx';
 
 const HomePage = () => {
+    const [isOpenMenu, setIsOpen] = useState(false);
+
     return (
         <>
             <Helmet>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Helmet>
-            <div className={styles.pageLayout}>
-                <HeadSection />
+            <div className={clsx({
+                [styles.pageLayout]: true,
+                [styles.hidden]: isOpenMenu
+            })}>
+                <HeadSection isOpenMenu={isOpenMenu} setIsOpen={setIsOpen} />
                 <HappyClients />
                 <Explore />
                 <Integrations />
