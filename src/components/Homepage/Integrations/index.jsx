@@ -25,7 +25,7 @@ const Integrations = () => {
 
 const Integration = ({ image, name, btnCaption, url }) => (
     <div className={styles.integration}>
-        <img src={image} />
+        <img alt={name} src={image} />
         <div className={styles.name}>{name}</div>
         <a href={url} target="_blank">{btnCaption}
             <FontAwesomeIcon size='lg' icon={faLongArrowAltRight} />

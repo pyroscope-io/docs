@@ -62,7 +62,7 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                         </div>
                     </div>
                     <div className={styles.bodyRight}>
-                        <img src='/img/homepage/image-hero@2x.svg' />
+                        <img alt='Pyroscope' src='/img/homepage/image-hero@2x.svg' />
                     </div>
                 </div>
             </div>

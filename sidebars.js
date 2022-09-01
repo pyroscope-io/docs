@@ -119,7 +119,7 @@ module.exports = {
       type: "category",
       label: "Pyroscope Cloud ☁️",
       collapsed: false,
-      items: ["aws-private-link"],
+      items: [],
     },
     {
       type: "doc",

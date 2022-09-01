@@ -60,7 +60,7 @@ const Features = () => (
 
 const Image = () => (
     <div className={styles.image}>
-        <img className={styles.terminalWindow} src='/img/homepage/Group_147.svg' />
+        <img alt="Terminal Window" className={styles.terminalWindow} src='/img/homepage/Group_147.svg' />
     </div>
 )
 
@@ -87,9 +87,9 @@ const ProfilingFeatures = () => (
             </div>
         </div>
         <div className={styles.centerSide}>
-            <img src='/img/homepage/icon-cpu.png' />
-            <img src='/img/homepage/icon-exemplar.png' />
-            <img src='/img/homepage/icon-profiling.png' />
+            <img alt="Whole-system Continuous profiling" src='/img/homepage/icon-cpu.png' />
+            <img alt="Adhoc Profiling Scrips" src='/img/homepage/icon-exemplar.png' />
+            <img alt="Profile Exemplars" src='/img/homepage/icon-profiling.png' />
         </div>
         <div className={styles.rightSide}>
             <div className={styles.columnSection}>
