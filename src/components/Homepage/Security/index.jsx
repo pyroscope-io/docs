@@ -24,7 +24,7 @@ const SecuritySection = () => {
                 <div className={styles.cols}>
                     <div className={styles.left}>
                         <div className={styles.regulators}>
-                            <img src='/img/homepage/vanta.png' />
+                            <img alt="SOC 2" src='/img/homepage/vanta.png' />
                         </div>
                         <h2 className={styles.title}>Self-hosted with OSS or managed with Pyroscope Cloud</h2>
                         <p className={styles.description}>

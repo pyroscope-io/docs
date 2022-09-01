@@ -3,33 +3,41 @@ import styles from './styles.module.scss';
 import clsx from 'clsx';
 import CodeExamples from './CodeExamples';
 import SectionWrapper from '../shared/SectionWrapper';
+import BgRing from '/img/homepage/ring1.svg';
+import BgSphere from '/img/homepage/sphere.svg';
 
 const ExploreSection = () => {
     return (
-        <SectionWrapper className={styles.sectionWrapper}>
-            <div className={styles.section}>
-                <div className={styles.background} />
-                <h2 className={styles.sectionTitle}>
-                    <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
-                </h2>
-                <div className={styles.row}>
-                    <Features />
-                    <Image />
+        <>
+            <SectionWrapper className={styles.sectionWrapper}>
+                <div className={styles.section}>
+                    <div className={styles.background} />
+                    <h2 className={styles.sectionTitle}>
+                        <span className={styles.gradient}>Explore High-Cardinality</span> profiling<br />data that scales with your needs
+                    </h2>
+                    <div className={styles.row}>
+                        <Features />
+                        <Image />
+                    </div>
+                    <h2 className={clsx([styles.sectionTitle, styles.bottomTitle])}>
+                        <span className={styles.gradient}>Analyze application performance</span> profiles<br />using our suite of profiling tools
+                    </h2>
+                    <CodeExamples />
+                    <div className={styles.stripes}>
+                        <div className={styles.blueStripe} />
+                        <div className={styles.orangeStripe} />
+                    </div>
+                    <div className={styles.blueBall} />
                 </div>
-                <h2 className={clsx([styles.sectionTitle, styles.bottomTitle])}>
-                    <span className={styles.gradient}>Analyze application performance</span> profiles<br />using our suite of profiling tools
-                </h2>
-                <CodeExamples />
-                <div className={clsx([styles.blueStripe, styles.left])} />
-                <div className={clsx([styles.blueStripe, styles.right])} />
-                <div className={clsx([styles.orangeStripe, styles.left])} />
-                <div className={clsx([styles.orangeStripe, styles.right])} />
-                <div className={styles.blueBall} />
-            </div>
-            <div className={clsx([styles.section, styles.center])}>
-                <ProfilingFeatures />
-            </div>
-        </SectionWrapper>
+            </SectionWrapper>
+            <SectionWrapper className={styles.sectionWrapper}>
+                <div className={clsx([styles.section, styles.center])}>
+                    <BgRing className={styles.bgRing} />
+                    <BgSphere className={styles.bgSphere} />
+                    <ProfilingFeatures />
+                </div>
+            </SectionWrapper>
+        </>
     )
 }
 
@@ -52,7 +60,7 @@ const Features = () => (
 
 const Image = () => (
     <div className={styles.image}>
-        <img className={styles.terminalWindow} src='/img/homepage/Group_147.svg' />
+        <img alt="Terminal Window" className={styles.terminalWindow} src='/img/homepage/Group_147.svg' />
     </div>
 )
 
@@ -79,9 +87,9 @@ const ProfilingFeatures = () => (
             </div>
         </div>
         <div className={styles.centerSide}>
-            <img src='/img/homepage/icon-cpu.png' />
-            <img src='/img/homepage/icon-exemplar.png' />
-            <img src='/img/homepage/icon-profiling.png' />
+            <img alt="Whole-system Continuous profiling" src='/img/homepage/icon-cpu.png' />
+            <img alt="Adhoc Profiling Scrips" src='/img/homepage/icon-exemplar.png' />
+            <img alt="Profile Exemplars" src='/img/homepage/icon-profiling.png' />
         </div>
         <div className={styles.rightSide}>
             <div className={styles.columnSection}>

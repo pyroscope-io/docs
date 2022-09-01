@@ -14,8 +14,6 @@ const Integrations = () => {
                     <Integration image='/img/homepage/integrations/logo-honeycomb.svg' name='Honeycomb' btnCaption='Tracing integration' url='https://pyroscope.io/docs/golang-tracing/#examples' />
                     <Integration image='/img/homepage/integrations/logo-jaeger.svg' name='Jaeger' btnCaption='Tracing integration' url='https://pyroscope.io/docs/golang-tracing/#examples' />
                     <Integration image='/img/homepage/integrations/logo-grafana.svg' name='Grafana' btnCaption='Flamegraph plugin' url='https://pyroscope.io/docs/grafana-plugins/' />
-                </div>
-                <div className={styles.integrations}>
                     <Integration image='/img/homepage/integrations/logo-lambda.svg' name='AWS Lambda' btnCaption='Lambda extension' url='https://pyroscope.io/docs/aws-lambda/' />
                     <Integration image='/img/homepage/integrations/logo-prometheus.svg' name='Prometheus' btnCaption='Metrics integration' url='https://pyroscope.io/docs/metrics-export/' />
                     <Integration image='/img/homepage/integrations/logo-slack.svg' name='Slack' btnCaption='Slackbot extension' url='https://slack.com/apps/A02UJVA8A3U-pyroscope' />
@@ -27,7 +25,7 @@ const Integrations = () => {
 
 const Integration = ({ image, name, btnCaption, url }) => (
     <div className={styles.integration}>
-        <img src={image} />
+        <img alt={name} src={image} />
         <div className={styles.name}>{name}</div>
         <a href={url} target="_blank">{btnCaption}
             <FontAwesomeIcon size='lg' icon={faLongArrowAltRight} />

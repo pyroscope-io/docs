@@ -92,8 +92,12 @@
   background: url(/img/homepage/BG-V2.svg);
   background-position: right;
   background-size: cover;
-  clip-path: polygon(0 11vw, 100% 0%, 100% calc(100% - 11vw), 0% 100%);
+  clip-path: polygon(0 18%, 100% 0%, 100% 82%, 0% 100%);
   z-index: -1;
+
+  @media (max-width: 2000px) {
+    clip-path: polygon(0 11vw, 100% 0%, 100% calc(100% - 11vw), 0% 100%);
+  }
 }
 
 .cols {
@@ -174,6 +178,7 @@
 
   @media (max-width: 992px) {
     font-size: 40px;
+    text-align: center;
   }
 
   @media (max-width: 675px) {
