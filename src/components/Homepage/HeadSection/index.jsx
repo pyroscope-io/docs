@@ -11,26 +11,52 @@ import GitHubButton from 'react-github-btn';
 import Lottie from "lottie-react";
 import frontPageAnimation from "./frontPageAnimation.json";
 
-const headerMenuItems = [{
+const headerMenuItems = [
+// {
+//     label: 'Docs',
+//     items: [{
+//         label: 'Getting Started'
+//     }, {
+//         label: 'Downloads'
+//     }, {
+//         label: 'Deployment Guide'
+//     }, {
+//         label: 'Schedule a demo call'
+//     }]
+// },
+{
     label: 'Docs',
+    url: '/docs'
+},
+{
+    label: 'Pricing',
+    url: '/pricing'
+},
+{
+    label: 'Demo',
+    url: 'https://demo.pyroscope.io/'
+},
+{
+    label: 'Community',
     items: [{
-        label: 'Getting Started'
+        label: 'Slack',
+        url: '/slack'
     }, {
-        label: 'Downloads'
+        label: 'GitHub',
+        url: 'https://github.com/pyroscope-io/pyroscope'
     }, {
-        label: 'Deployment Guide'
-    }, {
-        label: 'Schedule a demo call'
+        label: 'Twitter',
+        url: 'https://twitter.com/pyroscopeio'
     }]
-}, {
-    label: 'Community'
-}, {
-    label: 'Blog'
-}, {
-    label: 'Careers'
-}, {
-    label: 'Contact Us'
-}]
+},
+{
+    label: 'Blog',
+    url: '/blog'
+},
+// {
+//     label: 'Contact Us',
+// }
+]
 
 const HeadSection = ({ isOpenMenu, setIsOpen }) => {
     return (
@@ -47,6 +73,7 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                         {headerMenuItems.map((i) => <MenuItem
                             key={i.label}
                             label={i.label}
+                            url={i.url}
                             items={i?.items}
                         />)}
                     </div>
@@ -102,6 +129,7 @@ const MobileMenu = ({ toggleMenu, isOpenMenu }) => {
                     {headerMenuItems.map((i) => (
                         <MobileMenuItem
                             key={i.label}
+                            url={i.url}
                             label={i.label}
                             items={i?.items}
                         />
@@ -123,7 +151,7 @@ const GetStarted = () => (
     <a href="https://pyroscope.cloud/signup" target="_blank" className={styles.getStartedButton}>Get Started</a>
 )
 
-const MenuItem = ({ label, items }) => {
+const MenuItem = ({ label, url, items }) => {
     const [isOpen, toggle] = useState(false);
 
     if (items) {
@@ -135,25 +163,25 @@ const MenuItem = ({ label, items }) => {
                     [styles.menuDropdown]: true,
                     [styles.opened]: isOpen
                 })}>{items.map((i) => (
-                    <div className={styles.menuDropdownItem} key={i.label}>{i.label}</div>
+                    <a href={i.url} className={styles.menuDropdownItem} key={i.label}>{i.label}</a>
                 ))}</div>
             </div>
         )
     }
     return (
-        <div className={styles.menuItem}>{label}</div>
+        <a href={url} className={styles.menuItem}>{label}</a>
     )
 }
 
-const MobileMenuItem = ({ label, items }) => {
+const MobileMenuItem = ({ label, url, items }) => {
     return (
         <div className={styles.mobileMenuItem}>
-            <a href='#'>{label}</a>
+            <a href={url}>{label}</a>
             {items?.length ?
                 <div className={styles.innerList}>
                     {items.map((i) => (
                         <div className={styles.innerItem} key={i.label}>
-                            <a href='#'>
+                            <a href={i.url}>
                                 {i.label}
                             </a>
                         </div>

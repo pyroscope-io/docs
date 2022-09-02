@@ -152,7 +152,6 @@
 }
 
 .carouselWrapper {
-  width: 100%;
   margin-top: 30px;
   z-index: 3;
 
@@ -198,3 +197,45 @@
     }
   }
 }
+
+.tweetsWrapper {
+  width: 100vw;
+  min-height: 600px;
+  margin-top: 50px;
+}
+.tweets > * {
+  align-items: start !important;
+}
+
+.tweet {
+  width: 350px;
+  margin: 0 20px;
+}
+
+// .tweet:nth-child(1) {
+//   margin-top: 50px;
+// }
+
+// .tweet:nth-child(2) {
+//   margin-top: 10px;
+// }
+
+// .tweet:nth-child(3) {
+//   margin-top: 30px;
+// }
+
+// .tweet:nth-child(4) {
+//   margin-top: 70px;
+// }
+
+// .tweet:nth-child(5) {
+//   margin-top: 60px;
+// }
+
+// .tweet:nth-child(6) {
+//   margin-top: 40px;
+// }
+
+// .tweet:nth-child(7) {
+//   margin-top: 20px;
+// }

@@ -46,11 +46,11 @@ const Features = () => (
         <h3 className={styles.subsectTitle}>
             <span className={styles.gradient}>Low-overhead</span> Agents
         </h3>
-        <p className={styles.subsectDescription}>let you tag  your data on the dimensions<br />important for your organization</p>
+        <p className={styles.subsectDescription}>Let you tag your data on the dimensions<br />important for your organization</p>
         <h3 className={styles.subsectTitle}>
             <span className={styles.gradient}>Highly-efficient</span> Storage Engine
         </h3>
-        <p className={styles.subsectDescription}>Compress your profiles to store billions of profiles for x% their<br />raw size</p>
+        <p className={styles.subsectDescription}>Allows you to store large volumes of high cardinality<br />profiling data cheaply and efficiently</p>
         <h3 className={styles.subsectTitle}>
             <span className={styles.gradient}>Profile-Specific</span> Query Engine
         </h3>
@@ -69,7 +69,7 @@ const ProfilingFeatures = () => (
         <div className={styles.leftSide}>
             <div className={styles.columnSection}>
                 <h3 className={styles.subsectTitle}>
-                    Whole-system <br />Continuous profiling
+                    System-wide <br />Continuous profiling
                 </h3>
                 <p className={styles.subsectDescription}>Understand usage of CPU and memory resources at <br />any point in time and identify performance issue <br />before your customer do</p>
             </div>
@@ -83,7 +83,7 @@ const ProfilingFeatures = () => (
                 <h3 className={styles.subsectTitle}>
                     Profile Exemplars
                 </h3>
-                <p className={styles.subsectDescription}>Link yo your Open Telemetry tracing data and Get <br />request-specific or span-specific profiles to enhance <br />other observability data like traces and logs</p>
+                <p className={styles.subsectDescription}>Link yo your Open Telemetry tracing data and get <br />request-specific or span-specific profiles to enhance <br />other observability data like traces and logs</p>
             </div>
         </div>
         <div className={styles.centerSide}>

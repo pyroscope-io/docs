@@ -106,8 +106,8 @@ const Footer = () => {
 const HelpUsBanner = () => (
   <div className={styles.banner}>
     <ContactUsImage />
-    <h3 className={styles.title}>Help us build the future of observability<br />for serverless</h3>
-    <a href="https://pyroscope.cloud/signup" target="_blank" className={styles.joinPrivateBeta}>Join Private Beta</a>
+    <h3 className={styles.title}>Get started with Pyroscope Cloud<br/>for free</h3>
+    <a href="https://pyroscope.cloud/signup" target="_blank" className={styles.joinPrivateBeta}>Sign Up</a>
   </div>
 )
 

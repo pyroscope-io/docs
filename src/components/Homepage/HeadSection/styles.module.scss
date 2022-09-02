@@ -228,7 +228,7 @@
   }
 
   .bodyLeft {
-    width: 50%;
+    width: 44%;
     color: #ffffff;
     order: 1;
 
@@ -257,11 +257,15 @@
   }
 
   .bodyRight {
-    width: 50%;
+    width: 60%;
+    margin-top: 0%;
+    margin-left: -0%;
+    margin-right: -10%;
     position: relative;
     order: 2;
 
     @media (max-width: 992px) {
+      margin-left: 0;
       order: 1;
       width: 100%;
       display: flex;

@@ -9,7 +9,7 @@ const Integrations = () => {
         <SectionWrapper className={styles.sectionWrapper}>
             <div className={styles.section}>
                 <h2 className={styles.title}>Pyroscope Integrations</h2>
-                <p className={styles.description}>Enhance your other observability signals with Pyroscope/s Various Integrations</p>
+                <p className={styles.description}>Enhance your other observability signals with Pyroscope Integrations</p>
                 <div className={styles.integrations}>
                     <Integration image='/img/homepage/integrations/logo-honeycomb.svg' name='Honeycomb' btnCaption='Tracing integration' url='https://pyroscope.io/docs/golang-tracing/#examples' />
                     <Integration image='/img/homepage/integrations/logo-jaeger.svg' name='Jaeger' btnCaption='Tracing integration' url='https://pyroscope.io/docs/golang-tracing/#examples' />

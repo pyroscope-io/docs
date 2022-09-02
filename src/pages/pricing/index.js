@@ -6,7 +6,6 @@ import CodeBlock from '@theme/CodeBlock';
 import clsx from 'clsx';
 
 import {TwitterTweetEmbed} from 'react-twitter-embed';
-
 import Marquee from "react-fast-marquee";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -75,7 +74,7 @@ class Pricing extends React.Component {
                     <p>Hosted and fully–managed version of Pyroscope, designed for all your deployment and business needs.</p>
                     <p>Horizontally scalable and with first-class support for high cardinality data.</p>
                     <div className={styles.action}>
-                      <a target="_blank" href="https://pyroscope.cloud/" className={clsx("button button--action", styles.buttonAction)}>Start Profiling</a>
+                      <a target="_blank" href="https://pyroscope.cloud/signup" className={clsx("button button--action", styles.buttonAction)}>Sign Up</a>
                     </div>
                   </div>
                 </div>
@@ -259,6 +258,13 @@ class Pricing extends React.Component {
                     <td><FontAwesomeIcon icon={faCheck}/></td>
                   </tr>
                   <tr>
+                    <td>Compliance</td>
+                    <td></td>
+                    <td></td>
+                    <td>SOC 2</td>
+                    <td>SOC 2</td>
+                  </tr>
+                  <tr>
                     <td>AWS PrivateLink</td>
                     <td></td>
                     <td></td>
@@ -266,24 +272,17 @@ class Pricing extends React.Component {
                     <td><FontAwesomeIcon icon={faCheck}/></td>
                   </tr>
                   <tr>
-                    <td>Compliance</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>SOC 2</td>
-                  </tr>
-                  <tr>
                     <td>Data Retention</td>
                     <td></td>
-                    <td>7 days</td>
+                    <td>14 days</td>
                     <td>30 days</td>
                     <td>60 days (and higher)</td>
                   </tr>
                   <tr>
-                    <td>Event Volume Limit</td>
+                    <td>Throughput Limit (per month)</td>
                     <td></td>
-                    <td>20 Million</td>
-                    <td>100 Million</td>
+                    <td>100 GB</td>
+                    <td>1 TB</td>
                     <td>Scales to any size</td>
                   </tr>
                   <tr>
@@ -297,7 +296,7 @@ class Pricing extends React.Component {
                     <td>Pricing</td>
                     <td>Free</td>
                     <td>$0 / month</td>
-                    <td>$1,000 / month</td>
+                    <td>$500 / month</td>
                     <td>Contact us</td>
                   </tr>
                   <tr>
@@ -320,9 +319,9 @@ class Pricing extends React.Component {
                   </tr>
                   <tr>
                     <td></td>
-                    <td><a href="/downloads" className={clsx("button button--outline", styles.buttonOutline)}>Download</a></td>
-                    <td><a target="_blank" href="https://pyroscope.cloud/" className={clsx("button button--action", styles.buttonAction)}>Start Profiling</a></td>
-                    <td><a target="_blank" href="https://pyroscope.cloud/" className={clsx("button button--action button--lg", styles.buttonAction)}>Start Profiling</a></td>
+                    <td><a href="https://github.com/pyroscope-io/pyroscope" className={clsx("button button--outline", styles.buttonOutline)}>Download</a></td>
+                    <td><a target="_blank" href="https://pyroscope.cloud/signup" className={clsx("button button--action", styles.buttonAction)}>Sign Up</a></td>
+                    <td><a target="_blank" href="https://pyroscope.cloud/signup" className={clsx("button button--action button--lg", styles.buttonAction)}>Sign Up</a></td>
                     <td><a href="mailto:sales@pyroscope.io" className={clsx("button button--action", styles.buttonAction)}>Contact Us</a></td>
                   </tr>
                 </tbody>
@@ -330,7 +329,7 @@ class Pricing extends React.Component {
             </div>
             <div className={styles.extraSpace}></div>
           </section>
-          <div className={indexStyles.slantedWrapper}>
+          {/* <div className={indexStyles.slantedWrapper}>
             <section className={clsx(indexStyles.slantedSection,styles.faqSection)}>
               <div className="container">
                 <h2>FAQ</h2>
@@ -346,8 +345,8 @@ class Pricing extends React.Component {
                 <h4>Are there limits on event size?</h4>
               </div>
             </section>
-          </div>
-          <section className={clsx(styles.customersSection)}>
+          </div> */}
+          {/* <section className={clsx(styles.customersSection)}>
             <div className="container">
               <h2>What customers are saying</h2>
             </div>
@@ -361,7 +360,7 @@ class Pricing extends React.Component {
                 <div className={styles.tweet}><TwitterTweetEmbed options={{hideConversation: 'on'}} tweetId={'1473042753894375424'}/></div>
               </Marquee>
             </div>
-          </section>
+          </section> */}
         </div>
         {/* <section className={clsx(styles.lastSection)}></section> */}
       </Layout>

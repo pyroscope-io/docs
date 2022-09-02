@@ -218,6 +218,8 @@
 .learnMore {
   width: 184px;
   height: 41px;
+  line-height: 41px;
+  font-size: 12px;
   background: rgba(255, 255, 255, 0.25);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 8px;
@@ -232,6 +234,8 @@
   user-select: none;
 
   &:hover {
+    color: white;
+    text-decoration: none;
     border: 1px solid #ffaf0f;
     background: linear-gradient(90deg, #ff4493 2%, #ffaf0f 100%), #d9d9d9;
   }
@@ -278,7 +282,7 @@
 
 .feature {
   display: flex;
-  width: 339.5px;
+  width: 340px;
   height: 112px;
   margin-left: 24px;
   padding: 24px;
@@ -318,9 +322,15 @@
     margin-bottom: 12px;
   }
 
-  svg {
-    display: flex;
-    flex-shrink: 0;
+  .featureImage {
+    width: 84px;
+    height: 76px;
+  }
+
+  .featureImage.featureImageSmaller {
+    width: 58px;
+    height: 53px;
+    margin: (76px - 53px) / 2 (84px - 58px) / 2;
   }
 
   .caption {
@@ -329,10 +339,10 @@
     font-weight: 700;
     font-size: 20px;
     line-height: 24px;
-    margin-left: 39px;
+    margin-left: 12px;
 
     @media (max-width: 1120px) {
-      margin-left: 24px;
+      margin-left: 12px;
     }
 
     @media (max-width: 730px) {
@@ -354,3 +364,4 @@
     }
   }
 }
+

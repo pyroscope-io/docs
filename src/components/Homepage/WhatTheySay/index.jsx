@@ -6,6 +6,10 @@ import BgSphere from '/img/homepage/sphere.svg';
 import SectionWrapper from '../shared/SectionWrapper';
 import Carousel from 'nuka-carousel';
 
+
+import {TwitterTweetEmbed} from 'react-twitter-embed';
+import Marquee from "react-fast-marquee";
+
 const comment = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip."
 
 const useSlidesToShow = () => {
@@ -43,8 +47,18 @@ const WhatTheySay = () => {
             <div className={styles.sectionBackground} />
             <div className={styles.section}>
                 <h2 className={styles.title}>See What They Say</h2>
-                <div className={styles.carouselWrapper}>
-                    <Carousel
+                <div className={styles.tweetsWrapper}>
+                    <Marquee className={styles.tweets} gradient={false}>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1512404078218915848'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1556121237184647169'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1544218798470971393'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1553151622762549248'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1534550646946504706'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1473042753894375424'}/></div>
+                    </Marquee>
+                </div>
+                {/* <div className={styles.carouselWrapper}> */}
+                    {/* <Carousel
                         renderBottomCenterControls={false}
                         wrapAround={true}
                         slidesToScroll={1}
@@ -65,8 +79,8 @@ const WhatTheySay = () => {
                         <Comment text={comment} userName="Maria Ladowska 7" />
                         <Comment text={comment} userName="Steffany Jessica 8" />
                         <Comment text={comment} userName="Chris Wei 9" />
-                    </Carousel>
-                </div>
+                    </Carousel> */}
+                {/* </div> */}
             </div>
             {/* <div className={styles.carouselWrapper}>
                 <Slider {...settings}

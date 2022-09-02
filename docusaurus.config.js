@@ -82,7 +82,6 @@ module.exports = {
         },
       ],
     },
-    announcementBar: null,
     footer: {
       style: 'dark',
       links: [

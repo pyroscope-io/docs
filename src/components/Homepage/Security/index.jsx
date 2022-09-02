@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import styles from './styles.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +9,11 @@ import MultifactorIcon from '/img/homepage/security/icon-multifactor.svg';
 import ThreatMonitoringIcon from '/img/homepage/security/icon-threat-monitoring.svg';
 import AccessControlIcon from '/img/homepage/security/icon-access-control.svg';
 import SecureNetworkIcon from '/img/homepage/security/icon-secure_network.svg';
+import HSIcon from '/img/homepage/security/horizontal_scalability_logo_02_3.svg';
+import HSIcon2 from '/img/homepage/security/horizontal_scalability_logo_02_4.svg';
+import HAIcon from '/img/homepage/security/high_availability.svg';
+import UserManagementIcon from '/img/homepage/security/user_management.svg';
+
 import BgRing from '/img/homepage/ring1.svg';
 import BgSphere from '/img/homepage/sphere.svg';
 import BgEllipse from '/img/homepage/Ellipse_bg.svg';
@@ -30,9 +36,9 @@ const SecuritySection = () => {
                         <p className={styles.description}>
                             Pyroscope Cloud is perfectly suited for handling<br />
                             the security and scalability needs of your organization.
-                            Check out our blog post to learn<br /> which option is best for you!
+                            {/* Check out our blog post to learn<br /> which option is best for you! */}
                         </p>
-                        <button className={styles.learnMore}>Learn more<FontAwesomeIcon size='lg' icon={faLongArrowAltRight} /></button>
+                        <a href="/pricing" className={styles.learnMore}>Learn more<FontAwesomeIcon size='lg' icon={faLongArrowAltRight} /></a>
                     </div>
                     <div className={styles.right}>
                         <div className={styles.features}>
@@ -41,12 +47,18 @@ const SecuritySection = () => {
                         </div>
                         <div className={styles.features}>
                             <Feature image={MultifactorIcon} caption={<span>Multi Factor <br />Authentication</span>} />
-                            <Feature image={ThreatMonitoringIcon} caption={<span>Intelligent Threat <br />Monitoring</span>} />
+                            <Feature smaller image={HSIcon2} caption={<span>Horizontal<br/>Scalability</span>} />
                         </div>
                         <div className={styles.features}>
-                            <Feature image={AccessControlIcon} caption={<span>Least Privilege <br />Access Control</span>} />
-                            <Feature image={SecureNetworkIcon} caption={<span>Secure Architecture<br />/Network Design</span>} />
+                            <Feature smaller image={HAIcon} caption={<span>High<br/>Availability</span>} />
+                            <Feature smaller image={UserManagementIcon} caption={<span>User<br/>Management</span>} />
                         </div>
+                        {/*
+                            HSIcon
+                            HSIcon2
+                            HAIcon
+                            UserManagementIcon
+                        */}
                     </div>
                 </div>
             </div>
@@ -54,9 +66,11 @@ const SecuritySection = () => {
     )
 }
 
-const Feature = ({ image: Image, caption }) => (
+const Feature = ({ image: Image, caption, smaller }) => (
     <div className={styles.feature}>
-        <Image />
+        <div className={clsx(styles.featureImage, {[styles.featureImageSmaller]: smaller})}>
+            <Image />
+        </div>
         <div className={styles.caption}>{caption}</div>
     </div>
 )
