@@ -51,6 +51,7 @@ const WhatTheySay = () => {
                     <Marquee className={styles.tweets} gradient={false}>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1512404078218915848'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1556121237184647169'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1565339704878596103'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1544218798470971393'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1553151622762549248'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1534550646946504706'}/></div>
