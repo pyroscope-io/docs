@@ -53,14 +53,22 @@ const WhatTheySay = () => {
                 <div className={styles.tweetsWrapper}>
                     <Marquee className={styles.tweets} gradient={false}>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1556121237184647169'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1506864521171808258'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1534550646946504706'}/></div>
-                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1544218798470971393'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1565306324778450944'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1524064195326529541'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1512404078218915848'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1553151622762549248'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1474083458943266817'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1473042753894375424'}/></div>
-                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1565306324778450944'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1565103053367349249'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1538057808687529984'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1542547312370761728'}/></div>                        
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1417512002176626690'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1525131219100393472'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1511082548805480451'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1509924516558180356'}/></div>
+
                     </Marquee>
                 </div>
                 {/* <div className={styles.carouselWrapper}> */}
