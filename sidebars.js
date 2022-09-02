@@ -116,6 +116,12 @@ module.exports = {
       ],
     },
     {
+      type: "category",
+      label: "Pyroscope Cloud ☁️",
+      collapsed: false,
+      items: [],
+    },
+    {
       type: "doc",
       id: "flameql",
     },
