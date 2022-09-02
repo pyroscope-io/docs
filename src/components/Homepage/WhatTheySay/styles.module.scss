@@ -9,6 +9,14 @@
   }
 }
 
+.gradient {
+  background: linear-gradient(88.66deg, #ff47cc -2.29%, #8f67ff 98.12%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
 .section {
   background-color: transparent;
   max-width: 1256px;
@@ -47,7 +55,6 @@
 .title {
   font-weight: 700;
   font-size: 42px;
-  line-height: 24px;
   text-align: center;
   color: white;
   padding-top: 17px;

@@ -46,7 +46,10 @@ const WhatTheySay = () => {
             <div className={styles.bgSphere2} />
             <div className={styles.sectionBackground} />
             <div className={styles.section}>
-                <h2 className={styles.title}>See What They Say</h2>
+                <h2 className={styles.title}>
+                    We've got the <span className={styles.gradient}>best open source community</span><br/>
+                    See for yourself!
+                </h2>
                 <div className={styles.tweetsWrapper}>
                     <Marquee className={styles.tweets} gradient={false}>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1512404078218915848'}/></div>
