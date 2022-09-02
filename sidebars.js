@@ -39,6 +39,7 @@ module.exports = {
           collapsed: false,
           items: [
             "agent-overview",
+            "integration-ebpf",
             {
               type: "category",
               label: "Go",
@@ -50,7 +51,6 @@ module.exports = {
               ],
             },
             "integration-python",
-            "integration-ebpf",
             {
               type: "category",
               label: "Java",
