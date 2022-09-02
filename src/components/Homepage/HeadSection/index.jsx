@@ -92,8 +92,8 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                         <h1 className={styles.appTitle}>Open Source <br />Continuous <br />Profiling</h1>
                         <div className={styles.appSubtitle}>Find and debug your most painful performance issues across code,<br /> infrastructure and CI/CD pipelines</div>
                         <div className={styles.plans}>
-                            <Plan className={styles.preferred} title='Pyroscope Cloud' subTitle='Try it for free' />
-                            <Plan title='Pyroscope OSS' subTitle='Try it for free' />
+                            <Plan className={styles.preferred} title='Pyroscope Cloud' subTitle='Try it for free' url='https://pyroscope.cloud/signup' />
+                            <Plan title='Pyroscope OSS' subTitle='Try it for free' url='https://github.com/pyroscope-io/pyroscope' />
                         </div>
                     </div>
                     <div className={styles.bodyRight}>
@@ -140,8 +140,8 @@ const MobileMenu = ({ toggleMenu, isOpenMenu }) => {
     )
 }
 
-const Plan = ({ title, subTitle, className }) => (
-    <a href="https://github.com/pyroscope-io/pyroscope" target="_blank" className={clsx(styles.plan, className)}>
+const Plan = ({ title, subTitle, className, url }) => (
+    <a href={url} target="_blank" className={clsx(styles.plan, className)}>
         <div className={styles.planTitle}>{title}</div>
         <div className={styles.planSubtitle}>{subTitle}</div>
     </a>
