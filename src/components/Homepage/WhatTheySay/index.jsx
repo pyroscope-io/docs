@@ -56,9 +56,11 @@ const WhatTheySay = () => {
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1534550646946504706'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1544218798470971393'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1512404078218915848'}/></div>
-                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1553151622762549248'}/></div> // liz
-                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1474083458943266817'}/></div> // chris aniszczyk
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1553151622762549248'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1474083458943266817'}/></div>
                         <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1473042753894375424'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1565306324778450944'}/></div>
+                        <div className={styles.tweet}><TwitterTweetEmbed options={{conversation: 'none'}} tweetId={'1565103053367349249'}/></div>
                     </Marquee>
                 </div>
                 {/* <div className={styles.carouselWrapper}> */}
