@@ -93,7 +93,7 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                         <div className={styles.appSubtitle}>Find and debug your most painful performance issues across code,<br /> infrastructure and CI/CD pipelines</div>
                         <div className={styles.plans}>
                             <Plan className={styles.preferred} title='Pyroscope Cloud' subTitle='Try it for free' url='https://pyroscope.cloud/signup' />
-                            <Plan title='Pyroscope OSS' subTitle='Try it for free' url='https://github.com/pyroscope-io/pyroscope' />
+                            <Plan title='Pyroscope OSS' subTitle='Use it for free' url='https://github.com/pyroscope-io/pyroscope' />
                         </div>
                     </div>
                     <div className={styles.bodyRight}>
