@@ -5,7 +5,7 @@ import { FlamegraphRenderer, Box } from '@pyroscope/flamegraph';
 const SimpleTree = {
   topLevel: 0,
   rangeMin: 0,
-  format: 'single' as const,
+  format: 'single',
   numTicks: 988,
   sampleRate: 100,
   names: [
@@ -24,13 +24,13 @@ const SimpleTree = {
   ],
 
   rangeMax: 1,
-  units: Units.Samples,
+  units: 'samples',
   fitMode: 'HEAD',
 
   spyName: 'gospy',
 };
 
-export const Flamegraph = () => {
+const Flamegraph = () => {
   return (
     <FlamegraphRenderer
       profile={SimpleTree}
@@ -39,3 +39,5 @@ export const Flamegraph = () => {
     />
   );
 };
+
+export default Flamegraph;
