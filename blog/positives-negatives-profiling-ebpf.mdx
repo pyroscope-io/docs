@@ -81,9 +81,10 @@ of the operating system there are positives and negatives of profiling at that p
 ![image](https://user-images.githubusercontent.com/23323466/188766116-ebee9e9c-a302-4a4b-a856-79e0bb7ef79b.png)
 
 ## Pyroscope's solution: Merge User-space and Kernel profiling
+<img width="915" alt="image" src="https://user-images.githubusercontent.com/23323466/188767811-a45c0b2c-ec62-4f5e-8fe1-eae3e347e7e0.png">
 
-We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to find
-ways to combine the two. If you notice above, the "negatives" of one are the "positives" of the other and the maximum value comes from the fact that using both cancels out the "negatives" while stil benefiting from the "positives". While the tradeoff is additional overhead incurred, the overhead for _both_ is so negligible that we believe this to be very net-positive, leaving us with the best of both worlds!
+We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
+You may notice above, the "negatives" of one are the "positives" of the other and the maximum value comes from the fact that using both cancels out the "negatives" while stil benefiting from the "positives". While the tradeoff is that additional overhead is incurred, the overhead for _both_ is so negligible that we believe this to be very net-positive, leaving us with the best of both (profiling) worlds!
 
 Long term, we've charted out two potential paths of either:
 - Detecting language via eBPF and using other profilers ccordingly
