@@ -62,19 +62,21 @@ The issues on the "difficult" end of the spectrum are where the various solution
 - Finding efficinet ways to do other kinds of profiling such as memory profiling
 - Finding ways to apply tags dynamically and/or arbitrarily
 
+This blog will focus on Pyroscope's unique approach to solving these issues.
+
 ## Pros and cons of eBPF profiling vs non-eBPF profiling
 
 When it comes to modern profiling, it effectively happens at two different levels of the operating system:
 
-- User space level: Popular profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. 
-- Kernel level: eBPF profilers (Pyroscope, Parca, Pixie, Prodfiler)
+- User-space level: Popular profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. 
+- Kernel-level: eBPF profilers (Pyroscope, Parca, Pixie, Prodfiler)
 
 The reason that there is this [chasm] between eBPF profilers and non-eBPF profilers is because at each level there
 are positives and negatives of profiling at that particular level.
 
-### Pros/Cons of User space profiling (non-eBPF)
+### Pros/Cons of User-space profiling (non-eBPF)
 
-#### Pros of User space profiling
+#### Pros of User-space profiling
 
 - Ability tag application code in flexible way (i.e. tagging spans, controllers, functions, etc.)
 - Ability to profile various specific parts of code (i.e. Lambda functions, Test suites, Adhoc scripts, etc.)
@@ -82,7 +84,7 @@ are positives and negatives of profiling at that particular level.
 - Simplicity of using in local development
 - Consistency of access to symbols across all languages
 
-#### Cons of User space profiling (eBPF)
+#### Cons of User-space profiling (eBPF)
 
 - Complexity, for large multi-language systems, to get fleet-wide view
 - Constraints on ability to auto-tag infrastructure metadata (i.e. kubernetes)
@@ -92,7 +94,7 @@ are positives and negatives of profiling at that particular level.
 #### Pros of Kernal profiling
 
 - Ability to get fleet-wide metrics easily
-- Ability to auto-tag metadata available at kernel level
+- Ability to auto-tag metadata available at kernel-level
 - Simplicity of adding profiling at infrastructure vs application level (particularly for large systems)
 - []
 
