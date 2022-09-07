@@ -32,9 +32,9 @@ there are a few notable companies who are innovating at the intersection of prof
 - Pixie
 - Prodfiler (not open source)
 
-While stars are more of a vanity metric, the collective growth is representative of the rapidly growing interest in this space.
+While stars are more of a vanity metric, the collective growth is representative of the rapidly growing interest in this space Pyroscope, Pixie, and Parca all gained a significant amount of stars over the same 6 month period.
+![image](https://user-images.githubusercontent.com/23323466/188765863-264f9ff3-9d26-4019-8cb3-a26f8535cc7b.png)
 
-[show image of stars over time]
 
 It's also worth noting that all the companies listed above, along with many other open source maintainers, OTel community members, and end-users,
 have officially proposed for OpenTelemetry to support profiling alongside logs, metrics, and traces. For more information on that or to join the
@@ -71,54 +71,32 @@ When it comes to modern profiling, it effectively happens at two different level
 - User-space level: Popular profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. 
 - Kernel-level: eBPF profilers (Pyroscope, Parca, Pixie, Prodfiler)
 
-The reason that there is this [chasm] between eBPF profilers and non-eBPF profilers is because at each level there
-are positives and negatives of profiling at that particular level.
+The reason that there is this chasm between eBPF profilers and non-eBPF profilers is because at each level 
+of the operating system there are positives and negatives of profiling at that particular level.
 
 ### Pros/Cons of User-space profiling (non-eBPF)
-
-#### Pros of User-space profiling
-
-- Ability tag application code in flexible way (i.e. tagging spans, controllers, functions, etc.)
-- Ability to profile various specific parts of code (i.e. Lambda functions, Test suites, Adhoc scripts, etc.)
-- Ability/simplicity to profile other types of data (i.e. Memory profiling, goroutines, etc.)
-- Simplicity of using in local development
-- Consistency of access to symbols across all languages
-
-#### Cons of User-space profiling (eBPF)
-
-- Complexity, for large multi-language systems, to get fleet-wide view
-- Constraints on ability to auto-tag infrastructure metadata (i.e. kubernetes)
+![image](https://user-images.githubusercontent.com/23323466/188766062-6afb3561-a8d6-439b-8818-b13bd461af9a.png)
 
 ### Pros/Cons of Kernel profiling
+![image](https://user-images.githubusercontent.com/23323466/188766116-ebee9e9c-a302-4a4b-a856-79e0bb7ef79b.png)
 
-#### Pros of Kernal profiling
-
-- Ability to get fleet-wide metrics easily
-- Ability to auto-tag metadata available at kernel-level
-- Simplicity of adding profiling at infrastructure vs application level (particularly for large systems)
-- []
-
-#### Cons of Kernal profiling
-
-- Requires particular kernel versions
-- Constraints on being able to tag user-level code
-- Constraints on performant ways to retrive certain kinds of data due to permissions (i.e. Memory profiles)
-- Difficulty of developing locally (usually requires Linux)
-
-## Pyroscope's solution: Merge application and kernel profiling
+## Pyroscope's solution: Merge User-space and Kernel profiling
 
 We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to find
-ways to combine the two. This is particularly appealing because by combining eBPF profiling with user-space
-profilers cancels out all of the negatives leaving us with the best of both worlds.
+ways to combine the two. If you notice above, the "negatives" of one are the "positives" of the other and the maximum value comes from the fact that using both cancels out the "negatives" while stil benefiting from the "positives". While the tradeoff is additional overhead incurred, the overhead for _both_ is so negligible that we believe this to be very net-positive, leaving us with the best of both worlds!
 
 Long term, we've charted out two potential paths of either:
 - Detecting language via eBPF and using other profilers ccordingly
-- Using blablabl to blablablabl (something tolyan said)
+- Using blablabl to blablablabl (something tolyan said?)
 
 However, in the meantime, we recommend to add eBPF profiling to your cluster _and_
-to add a language specific integration if you'd like more granular controls over your profiling data. 
+to add a language-specific integrations if you'd like more granular controls and analytic capabilitys for your profiling data.
+This is actually how we profile our cloud product's code internally. 
+- eBPF for our kubernetes cluster
+- ruby gem, pip package, go client, and java client _with tags_ for our language microservices and testing suites
+- Lambda extension for our lambda functions
 
-We do this internally for our cloud product. We also use eBPF to profile our rideshare example cluster running on kubernetes for our 
+We use eBPF to profile our rideshare example cluster running on kubernetes for our 
 Go, Python, Ruby, Java, and Rust examples. Looking at the resulting flamegraph gives a good insight into the
 type of information and specificity you get for the user-space profiling results vs. the eBPF results. 
 
