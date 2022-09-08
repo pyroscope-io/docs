@@ -173,6 +173,44 @@ type of information and specificity you get for the user-space profiling results
 ### user-space Ruby profiling (pyroscope ruby gem forked from rbspy)
 
 import '@pyroscope/flamegraph/dist/index.css';
-import Flamegraph from '../src/components/Blog';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {GolangEbpf} from '../src/components/Blog/GolangEbpf';
+import {GolangNative} from '../src/components/Blog/GolangNative';
+import {RubyEbpf} from '../src/components/Blog/RubyEbpf';
+import {RubyNative} from '../src/components/Blog/RubyNative';
+import {PythonEbpf} from '../src/components/Blog/PythonEbpf';
+import {PythonNative} from '../src/components/Blog/PythonNative';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+console.log('simple tree', GolangEbpf);
 
-<Flamegraph></Flamegraph>
+<Tabs
+  defaultValue="ebpfGolang"
+  values={[
+    {label: 'eBPF Golang', value: 'ebpfGolang'},
+    {label: 'Native Golang', value: 'nativeGolang'},
+    {label: 'eBPF Ruby', value: 'ebpfRuby'},
+    {label: 'Native Ruby', value: 'nativeRuby'},
+    {label: 'eBPF Python', value: 'ebpfPython'},
+    {label: 'Native Python', value: 'nativePython'},
+  ]}>
+
+  <TabItem value="ebpfGolang">
+    <Flamegraph profileData={GolangEbpf}></Flamegraph>
+  </TabItem>
+  <TabItem value="nativeGolang">
+    <Flamegraph profileData={GolangNative}></Flamegraph>
+  </TabItem>
+  <TabItem value="ebpfRuby">
+    <Flamegraph profileData={RubyEbpf}></Flamegraph>
+  </TabItem>
+  <TabItem value="nativeRuby">
+    <Flamegraph profileData={RubyNative}></Flamegraph>
+  </TabItem>
+    <TabItem value="ebpfPython">
+    <Flamegraph profileData={PythonEbpf}></Flamegraph>
+  </TabItem>
+  <TabItem value="nativePython">
+    <Flamegraph profileData={PythonNative}></Flamegraph>
+  </TabItem>
+</Tabs>
