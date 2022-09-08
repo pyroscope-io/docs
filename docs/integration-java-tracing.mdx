@@ -78,7 +78,7 @@ Configuration options may be set as a system property `-Dotel.pyroscope.start.pr
 - `otel.pyroscope.root.span.only` - Boolean flag. When enabled, the tracer will annotate only the first span created locally
 (the root span), but the profile will include samples of all the nested spans. This may be helpful in case if the trace
 consists of multiple spans shorter than 10ms and profiler can't collect and annotate samples properly. Default: `true`.
-- `tel.pyroscope.add.span.name` - Boolean flag. Controls whether the span name added to profile labels. Default: `true`.
+- `otel.pyroscope.add.span.name` - Boolean flag. Controls whether the span name added to profile labels. Default: `true`.
 automatically. If enabled, please make sure span names do not contain unique values, for example, a URL.  Otherwise, this can increase data cardinality and slow down queries.
 - `otel.pyroscope.add.profile.url` - Boolean flag to attach pyroscope profile urls to spans. Default: true.
 - `otel.pyroscope.add.profile.baseline.url` - Boolean flag to attach pyroscope profile diff/comparison urls to spans. Default: true.
