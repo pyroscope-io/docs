@@ -42,7 +42,7 @@ implementation("io.pyroscope:otel:0.10.1.2")
 ```
 
 Now we can create and configure the tracer provider:
-```javascript
+```java
 // obtain SdkTracerProviderBuilder
 SdkTracerProviderBuilder tpBuilder = ...
 
@@ -60,7 +60,7 @@ tpBuilder.addSpanProcessor(new PyroscopeOtelSpanProcessor(pyroscopeOtelConfig));
 
 
 Now that we set up the tracer, we can create a new trace from anywhere:
-```javascript
+```java
 Span span = tracer.spanBuilder("findNearestVehicle").startSpan();
 try (Scope s = span.makeCurrent()){
     // Your code goes here.
