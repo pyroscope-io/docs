@@ -1,6 +1,6 @@
 ---
 title: Introducing Pyroscope Cloud GA
-sidebar_label: Introducting Pyroscope Cloud
+sidebar_label: Introducing Pyroscope Cloud
 slug: /introducing-pyroscope-cloud
 date: "2022-09-12"
 
@@ -10,30 +10,39 @@ authors:
     image_url: https://avatars.githubusercontent.com/u/23323466?v=4
 ---
 
-# Introducing Pyroscope Cloud GA
+# Introducing Pyroscope Cloud
 
-Pyroscope's mission of making profiling a critical part of every company's observability stack has remained consistent since we started the project in early 2021. However, our communities alignment with this mission has the driving force making Pyroscope the largest and fastest growing profiling library in the space. 
+Pyroscope's mission of making profiling a valuable part of every company's observability stack has remained consistent since we started the project in early 2021. Pyroscope has evolved from helping people debug _known_ performance issues in their applications to _also_ helping discover _unknown_ performance issues that are inevitably hiding in every codebase.
+
+For this reason, we've seen our community using Pyroscope in their day-to-day expand to include:
+- Software engineers: Using Pyroscope to write more performant code, understand their impact on application performance, and debug performance issues
+- Devops engineers: Using Pyroscope to allocate resources more efficiently when scaling infrastructure alongside the business
+- Engineering Managers and executives: Using Pyroscope to understand the performance of their teams and improve collaboration through a shared understanding of their applications performance
+- And many more!
+
 
 ## Why we built a cloud service
 
-As with many open source projects, our community has grown to include a diverse set of users and use cases that call for a solution that _also_ supports these use cases for our community:
+As our community has grown to include this diverse set of users and use-cases, we've had more people express interest in getting all the benefits of Pyroscope, but without some of the costs that come with self-hosting or the limitations that come with scaling open source tools.
+
 - Companies who have less time/resources to dedicate to setting up Pyroscope
-- Companies operating at scale who need a solution that can handle the volume of data that is produced by profiling applications at scale
-- Users who are less technical and want a solution that is easy to use and requires little to no configuration
-- Users who want access to the latest features and bug fixes as soon as they are released
+- Companies operating at scale who need an optimized solution that can handle the volume of data that is produced by profiling applications at scale
+- Users who are less technical and want a solution that's easy to use and requires little to no configuration
+- Users who want access to the latest features and bug fixes as soon as they are released (with zero downtime)
 - Users who want additional access to the Pyroscope team's profiling expertise and support (past our community Slack and GitHub)
 
 And from our side, we believe that a cloud product will help us accelerate our mission of making profiling a critical part of every company's observability stack by: 
 - Making it easier for more companies to adopt Pyroscope
-- Giving us more feedback to help prioritize features on our roadmap
-- Giving us more resources to invest in Pyroscope's open source projects
+- Providing more feedback to help prioritize features on our road map
+- Providing more resources to invest in Pyroscope's open source projects
+- Making it easier to offer integrations with other tools in the observability stack (e.g. Grafana, Honeycomb,  Gitlab, Github, etc.)
 
 ## Introducing Pyroscope Cloud GA
 Today we are excited to announce the general availability of Pyroscope Cloud, our hosted version of Pyroscope!
 
 Pyroscope Cloud enables you to achieve your observability goals by removing concerns around setup, configuration, and scaling. It's designed to be easy to use and gives you a significant amount of insight into your application's performance with very minimal configuration.
 
-Some notable featues for the cloud include:
+Some notable features for the cloud include:
 - Horizontal scalability
 - Support for high-cardinality profiling data
 - Zero-downtime upgrades
@@ -44,18 +53,18 @@ Some notable featues for the cloud include:
 
 
 ## Pyroscope Cloud's Major Scaling Improvements
-Similar to Pyroscope OSS, the cloud service is designed to store, query, and analyze profiling data as efficiently as possible. However, certain limitations that fundamentally limit the scalability of Pyroscope OSS (for now) have been removed in Pyroscope Cloud.
+Similar to Pyroscope Open Source Software(OSS), the cloud service is designed to store, query, and analyze profiling data as efficiently as possible. However, certain limitations that fundamentally limit the scalability of Pyroscope OSS (for now) have been removed in Pyroscope Cloud.
 
-If operating at scale, with many tags, the limitation of Pyroscope OSS is that we rely on BadgerDB as a critical piece of the storage engine which stores the symbol dictionary which allows for compressed storage of the profiles. The reliance on this component makes the OSS version of Pyroscope scale _veritcally_ but not _horizontally_.
+When running Pyroscope OSS at scale, eventually people run into the limitations of the Open Source storage engine. It is built around badgerDB, which is an embeddable key-value database written in Go. The reliance on this component makes the OSS version of Pyroscope scale _vertically_ but not _horizontally_.
 
-[image of vertical scalability (with badger) vs Horizontal sacalability (with s3) ]
+[image of vertical scalability (with badger) vs Horizontal scalability (with s3) ]
 
 In the cloud, we replace BadgerDB with a distributed key-value store which allows us more freedom scale Pyroscope horizontally. We leverage many of the techniques used by Honeycomb and many Grafana projects but with particular adjustments made for the unique requirements of profiling data (stay tuned for future blog post on this).
 
 **This means that with Pyroscope Cloud you don't need to worry about limiting the number of applications, profiles, and tags that you need in order to get the most out of Pyroscope!**
 
 ## Pyroscope Cloud's Major Features
-We've built Pyroscope Cloud with several different use cases in minde:
+We've built Pyroscope Cloud with several different use cases in mind:
 - Continuous profiling
 - Adhoc profiling
 - Tracing exemplars (profiling spans)
