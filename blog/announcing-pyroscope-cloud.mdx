@@ -15,9 +15,9 @@ authors:
 Pyroscope's mission of making profiling a valuable part of every company's observability stack has remained consistent since we started the project in early 2021. Pyroscope has evolved from helping people debug _known_ performance issues in their applications to _also_ helping discover _unknown_ performance issues that are inevitably hiding in every codebase.
 
 For this reason, we've seen our community using Pyroscope in their day-to-day expand to include:
-- Software engineers: Using Pyroscope to write more performant code, understand their impact on application performance, and debug performance issues
-- Devops engineers: Using Pyroscope to allocate resources more efficiently when scaling infrastructure alongside the business
-- Engineering Managers and executives: Using Pyroscope to understand the performance of their teams and improve collaboration through a shared understanding of their applications performance
+- Application developers: Using Pyroscope to write more performant code, understand their impact on application performance, and debug performance issues
+- SREs and Devops engineers: Using Pyroscope to allocate resources more efficiently when scaling infrastructure alongside the business
+- Engineering Managers and executives: Using Pyroscope improve collaboration through a shared understanding of their applications' performance and to view performance through the lense of financial costs
 - And many more!
 
 
@@ -57,8 +57,6 @@ Similar to Pyroscope Open Source Software(OSS), the cloud service is designed to
 
 When running Pyroscope OSS at scale, eventually people run into the limitations of the Open Source storage engine. It is built around badgerDB, which is an embeddable key-value database written in Go. The reliance on this component makes the OSS version of Pyroscope scale _vertically_ but not _horizontally_.
 
-[image of vertical scalability (with badger) vs Horizontal scalability (with s3) ]
-
 In the cloud, we replace BadgerDB with a distributed key-value store which allows us more freedom scale Pyroscope horizontally. We leverage many of the techniques used by Honeycomb and many Grafana projects but with particular adjustments made for the unique requirements of profiling data (stay tuned for future blog post on this).
 
 **This means that with Pyroscope Cloud you don't need to worry about limiting the number of applications, profiles, and tags that you need in order to get the most out of Pyroscope!**
@@ -68,6 +66,7 @@ We've built Pyroscope Cloud with several different use cases in mind:
 - Continuous profiling
 - Adhoc profiling
 - Tracing exemplars (profiling spans)
+- Generic API and analysis UI
 
 ## What's Next for Pyroscope Cloud
 - CI/CD Integrations (GitHub, GitLab, CircleCI, etc.): We've heard many using Pyroscope to profiling their testing suite and we have plans (link) for a UI specifically geared towards analyzing this data
