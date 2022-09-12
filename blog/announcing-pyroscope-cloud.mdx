@@ -63,10 +63,34 @@ In the cloud, we replace BadgerDB with a distributed key-value store which allow
 
 ## Pyroscope Cloud's Major Features
 We've built Pyroscope Cloud with several different use cases in mind:
-- Continuous profiling
-- Adhoc profiling
-- Tracing exemplars (profiling spans)
-- Generic API and analysis UI
+
+### Continuous profiling
+This feature used for profiling your applications across various environments. Most agents have support for tags which will let you differentiate between different environments (e.g. staging vs production) and other metadata (e.g. pod, namespace, region, version, git commit, pr, etc.). Using single, comparison, or diff view in comobination with these tags will let you easily understand and debug performance issues.
+
+[ image ] 
+- Which environment is the most expensive?
+- How did the performance of my application change between versions?
+- What is our most/least frequent code paths?
+- Which libraries are consuming the most resources?
+- Where is this memory leak originating?
+- etc. 
+
+
+### Adhoc profiling
+This feature is used for when you may want to profile something in a more adhoc manner. Most commonly people use this feature to either upload previously recorded profiles or save a profile for a particular script. Where many used to save profiles to a random folder on their computer, they can use our adhoc page to store them more efficiently, share them with others, and view them with the same powerful UI that they use for continuous profiling.
+
+[ image ]
+
+### Tracing exemplars
+This feature is used for when you want to correlate profiling data with tracing data. While traces often will tell you _where_ your application is running slow, profiling gives more granular detail into _why_ and what particular lines of code are responsible for the performance issues. 
+
+[ image ]
+
+### Generic API and analysis UI
+Over time we've found that some of the major companies in various sectors have built their own internal profiling systems which often will ultimately dump a large collection of profiles into some storage system like S3. Pyroscope Cloud's API is built to accept many popular formats for profiling data and then store them in a way that is optimized for querying and analysis. This means that you can redirect your existing profiling data to Pyroscope Cloud and then use the same UI that you use for continuous profiling to analyze it.
+
+[ image ]
+
 
 ## What's Next for Pyroscope Cloud
 - CI/CD Integrations (GitHub, GitLab, CircleCI, etc.): We've heard many using Pyroscope to profiling their testing suite and we have plans (link) for a UI specifically geared towards analyzing this data
