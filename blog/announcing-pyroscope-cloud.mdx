@@ -92,14 +92,53 @@ Over time we've found that some of the major companies in various sectors have b
 
 [Pyroscope Cloud's API](/docs/server-api-reference) is built to accept many popular formats for profiling data and then store them in a way that is optimized for querying and analysis. This means that you can redirect your existing profiling data to Pyroscope Cloud and then use the same UI that you use for continuous profiling to analyze it.
 
-```shell
-# Ingest JFR profiles
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import CodeBlock from '@theme/CodeBlock';
 
-curl -X POST \
-  -F jfr=@profile.jfr \
-  -F labels=@labels.pb  \
-  "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"
-```
+
+<Tabs
+  defaultValue="pprof_ingestion"
+  values={[
+    {label: 'Pprof Ingestion', value: 'pprof_ingestion'},
+    {label: 'JFR Ingestion', value: 'jfr_ingestion'},
+    {label: 'Collapsed Ingestion', value: 'collapsed_ingestion'},
+  ]}>
+    <TabItem value="pprof_ingestion">
+      <CodeBlock className="language-shell">
+      {
+        `# Ingest pprof profiles
+curl -X POST \\
+  -F jfr=@profile.jfr \\
+  -F labels=@labels.pb \\
+  "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"`
+      }
+      </CodeBlock>
+    </TabItem>
+    <TabItem value="jfr_ingestion">
+      <CodeBlock className="language-shell">
+      {
+        `# Ingest JFR profiles
+curl -X POST \\
+  -F jfr=@profile.jfr \\
+  -F labels=@labels.pb \\
+  "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"`
+      }
+      </CodeBlock>
+    </TabItem>
+    <TabItem value="collapsed_ingestion">
+      <CodeBlock className="language-shell">
+      {
+        `# Ingest collapsed profiles
+curl -X POST \\
+  -F jfr=@profile.jfr \\
+  -F labels=@labels.pb \\
+  "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"`
+      }
+      </CodeBlock>
+    </TabItem>
+</Tabs>
+
 
 ## How to get started with Pyroscope Cloud
 ### Migrating from Pyroscope OSS
