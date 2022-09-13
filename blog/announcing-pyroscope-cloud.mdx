@@ -65,7 +65,7 @@ In the cloud, we replace BadgerDB with a distributed key-value store which allow
 We've built Pyroscope Cloud with several different use cases in mind:
 
 ### Continuous profiling
-This feature used for profiling your applications across various environments. Most agents have support for tags which will let you differentiate between different environments (e.g. staging vs production) and other metadata (e.g. pod, namespace, region, version, git commit, pr, etc.). Using single, comparison, or diff view in comobination with these tags will let you easily understand and debug performance issues.
+This feature used for profiling your applications across various environments. Most agents have support for tags which will let you differentiate between different environments (e.g. staging vs production) and other metadata (e.g. pod, namespace, region, version, git commit, pr, etc.). Using single, comparison, or diff view in combination with these tags will let you easily understand and debug performance issues.
 
 <img width="1194" alt="Tag Explorer view" src="https://user-images.githubusercontent.com/23323466/189922694-cf9e6094-b23e-444c-99d8-c71647d5a54a.png"></img>
 
@@ -79,7 +79,7 @@ This feature used for profiling your applications across various environments. M
 
 ### Adhoc profiling
 This feature is used for when you may want to profile something in a more adhoc manner. Most commonly people use this feature to either upload previously recorded profiles or save a profile for a particular script. Where many used to save profiles to a random folder on their computer, they can use our adhoc page to store them more efficiently, share them with others, and view them with the same powerful UI that they use for continuous profiling.
-<img width="1187" alt="ebpf adhoc diff" src="https://user-images.githubusercontent.com/23323466/189827580-adb739de-9eaa-409e-a7d3-ae568a4b210d.png">
+<img width="1187" alt="ebpf adhoc diff" src="https://user-images.githubusercontent.com/23323466/189827580-adb739de-9eaa-409e-a7d3-ae568a4b210d.png"></img>
 
 
 ### Tracing exemplars
@@ -101,13 +101,6 @@ curl -X POST \
   "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"
 ```
 
-
-## What's Next for Pyroscope Cloud
-- CI/CD Integrations (GitHub, GitLab, CircleCI, etc.): We've heard many using Pyroscope to profiling their testing suite and we have plans (link) for a UI specifically geared towards analyzing this data
-- More integrations (Slack, PagerDuty, etc.)
-- More features (Alerting, etc.)
-
-
 ## How to get started with Pyroscope Cloud
 ### Migrating from Pyroscope OSS
 In order to migrate from Pyroscope OSS to Pyroscope Cloud, you can use our [remote write](/docs/remote-write/) feature to send your data to Pyroscope Cloud. This will allow you to continue using Pyroscope OSS while you migrate your data to Pyroscope Cloud.
@@ -115,3 +108,8 @@ In order to migrate from Pyroscope OSS to Pyroscope Cloud, you can use our [remo
 You can also get started directly with Pyroscope Cloud, by signing up for a free account at [pyroscope.cloud](https://pyroscope.cloud/).
 
 
+## What's Next for Pyroscope Cloud
+- CI/CD Integrations (GitHub, GitLab, CircleCI, etc.): We've heard many using Pyroscope to profiling their testing suite and we have plans (link) for a UI specifically geared towards analyzing this data
+- More integrations (Slack, PagerDuty, etc.)
+- More features (Alerting, etc.)
+- More documentation (Tutorials, etc.)
