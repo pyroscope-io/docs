@@ -16,10 +16,41 @@ We started Pyroscope a few years ago, because we had seen, first-hand, how profi
 Since then, we've been working hard not only to make Pyroscope easier to use, but also to make it easier to get value out of it.
 
 As it stands today, Pyroscope has evolved to support an increasingly wide array of our community's day-to-day workflows by adding a valuable extra dimension to their observability stack:
-- Application developers: Using Pyroscope to write more performant code, understand their impact on application performance, and debug performance issues
-- SREs and Devops engineers: Using Pyroscope to allocate resources more efficiently when scaling infrastructure alongside the business
-- Engineering Managers and executives: Using Pyroscope improve collaboration through a shared understanding of their applications' performance and to view performance through the lense of financial costs
-- And we're learning more about how people are using Pyroscope every day!
+
+<div className="blog-new-cloud">
+  <div className="row">
+    <div className="col col--4">
+      <h3>Application Developers</h3>
+      <img src={"/img/personalities/application_developer.svg"} />
+      <ul>
+        <li>Resolve spikes / increases in CPU usage</li>
+        <li>Locate and fix memory leaks and memory errors</li>
+        <li>Understand call trees of your applications</li>
+        <li>Clean up unused / dead code</li>
+      </ul>
+    </div>
+    <div className="col col--4">
+      <h3>SREs</h3>
+      <img src={"/img/personalities/sre.svg"} />
+      <ul>
+        <li>Create performance-driven culture in dev cycle</li>
+        <li>Spot performance regressions in codebase proactively</li>
+        <li>Configure monitoring / alerts for infrastructure</li>
+        <li>Optimize test suites and team productivity</li>
+      </ul>
+    </div>
+    <div className="col col--4">
+      <h3>Engineering Managers</h3>
+      <img src={"/img/personalities/engineering_manager.svg"} />
+      <ul>
+        <li>Get real-time analysis of resource utilization</li>
+        <li>Make efficient cost allocations for resources</li>
+        <li>Use insights for better decision making</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
 
 ## Why we built a cloud service
 
@@ -78,7 +109,7 @@ This feature used for profiling your applications across various environments. M
 - What is our most/least frequently used code paths?
 - Which libraries are consuming the most resources?
 - Where are memory leaks originating?
-- etc. 
+- etc.
 
 
 ### Adhoc profiling for deep-dive debugging
@@ -94,7 +125,7 @@ This feature is used for when you want to correlate profiling data with tracing 
 <img width="1095" alt="Tracing exemplars" src="https://user-images.githubusercontent.com/23323466/189998661-e8f5f5b1-12e2-4ebe-a600-1b04ba5b5f99.png"></img>
 
 ### Profile upload API for automated workflows and migrations
-Over time we've found that some of the major companies in various sectors have built their own internal profiling systems which often will ultimately dump a large collection of profiles into some storage system like S3. 
+Over time we've found that some of the major companies in various sectors have built their own internal profiling systems which often will ultimately dump a large collection of profiles into some storage system like S3.
 
 [Pyroscope Cloud's API](/docs/server-api-reference) is built to accept many popular formats for profiling data and then store them in a way that is optimized for querying and analysis. This means that you can redirect your existing profiling data to Pyroscope Cloud and then use the same UI that you use for continuous profiling to analyze it.
 
@@ -102,6 +133,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import CodeBlock from '@theme/CodeBlock';
 
+import {exampleCollapsed, examplePprof, exampleJFR} from '../src/code-examples';
 
 <Tabs
   defaultValue="pprof_ingestion"
@@ -111,37 +143,13 @@ import CodeBlock from '@theme/CodeBlock';
     {label: 'Collapsed Ingestion', value: 'collapsed_ingestion'},
   ]}>
     <TabItem value="pprof_ingestion">
-      <CodeBlock className="language-shell">
-      {
-        `# Ingest pprof profiles
-curl -X POST \\
-  -F jfr=@profile.jfr \\
-  -F labels=@labels.pb \\
-  "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"`
-      }
-      </CodeBlock>
+      <CodeBlock className="language-shell">{examplePprof}</CodeBlock>
     </TabItem>
     <TabItem value="jfr_ingestion">
-      <CodeBlock className="language-shell">
-      {
-        `# Ingest JFR profiles
-curl -X POST \\
-  -F jfr=@profile.jfr \\
-  -F labels=@labels.pb \\
-  "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"`
-      }
-      </CodeBlock>
+      <CodeBlock className="language-shell">{exampleJFR}</CodeBlock>
     </TabItem>
     <TabItem value="collapsed_ingestion">
-      <CodeBlock className="language-shell">
-      {
-        `# Ingest collapsed profiles
-curl -X POST \\
-  -F jfr=@profile.jfr \\
-  -F labels=@labels.pb \\
-  "http://pyroscope.cloud/ingest?name=curl-test-app&units=samples&aggregationType=sum&sampleRate=100&from=1655834200&until=1655834210&spyName=javaspy&format=jfr"`
-      }
-      </CodeBlock>
+      <CodeBlock className="language-shell">{exampleCollapsed}</CodeBlock>
     </TabItem>
 </Tabs>
 
