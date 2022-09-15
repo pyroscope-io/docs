@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import clsx from 'clsx';
 
 import Head from './Head';
+import TheCloudAdvantage from './TheCloudAdvantage';
 import styles from './styles.module.scss';
 
 
@@ -14,6 +15,7 @@ const PricingPage = () => {
             [styles.hidden]: isOpenMenu
         })}>
             <Head isOpenMenu={isOpenMenu} setIsOpen={setIsOpen} />
+            <TheCloudAdvantage />
         </div>
     )
 }
