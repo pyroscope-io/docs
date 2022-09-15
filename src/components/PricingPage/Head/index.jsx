@@ -5,6 +5,14 @@ import Logo from '../../shared/Logo';
 import GetStartedButton from '../../shared/GetStartedButton';
 import { ToggleMenuButton, MobileMenu } from '../../shared/HeaderMenuMobile'
 import styles from './styles.module.scss';
+import clsx from 'clsx';
+import OpensourceIcon from '/img/pricing/plan_icon_opensource.svg';
+import CloudIcon from '/img/pricing/plan_icon_cloud.svg';
+import LightCircle from '/img/pricing/light_medium_circle.svg';
+import BgSphere from '/img/homepage/sphere.svg';
+import BgEllipse from '/img/pricing/light_ellipse_header.svg';
+import LeftPath from '/img/pricing/path84.svg';
+import RightPath from '/img/pricing/path85.svg';
 
 const headerMenuItems = [
     {
@@ -41,6 +49,10 @@ const headerMenuItems = [
 const Head = ({ isOpenMenu, setIsOpen }) => {
     return (
         <SectionWrapper className={styles.sectionWrapper}>
+            <LightCircle className={styles.lightCircle} />
+            <BgEllipse className={styles.bgEllipse} />
+            <LeftPath className={styles.leftPath} />
+            <RightPath className={styles.rightPath} />
             <MobileMenu
                 menuItems={headerMenuItems}
                 isOpenMenu={isOpenMenu}
@@ -56,9 +68,43 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                     </div>
                     <ToggleMenuButton onClick={() => setIsOpen((prevState) => !prevState)} />
                 </div>
-
+                <h1 className={styles.pageTitle}>
+                    <span className={styles.titleGradient}>Simple </span> and <span className={styles.titleGradient}>Predictable Pricing</span> <br />for Business of any Size
+                </h1>
+                <p className={styles.choosePlanCaption}>
+                    Choose between one of two versions: <span className={styles.bold}>Open Source</span> or <span className={styles.bold}>Cloud</span>
+                </p>
+                <div className={styles.plans}>
+                    <div className={clsx([styles.plan, styles.oss])}>
+                        <OpensourceIcon />
+                        <h3 className={clsx([styles.planName, styles.oss])}>
+                            Open Source
+                        </h3>
+                        <p className={clsx([styles.planDescription, styles.oss])}>
+                            Leading continuous profiling database optimized for throughput and minimizing storage costs.
+                        </p>
+                        <button className={clsx([styles.chooseButton, styles.oss])}>
+                            Download
+                        </button>
+                    </div>
+                    <div className={clsx([styles.plan, styles.cloud])}>
+                        <BgSphere className={styles.bgSphere} />
+                        <div className={styles.recommended}>RECOMMENDED</div>
+                        <CloudIcon />
+                        <h3 className={clsx([styles.planName, styles.cloud])}>
+                            Cloud
+                        </h3>
+                        <p className={clsx([styles.planDescription, styles.cloud])}>
+                            Hosted and fully–managed version of Pyroscope, designed for all your deployment and business needs.
+                            Horizontally scalable and with first-class support for high cardinality data.
+                        </p>
+                        <button className={clsx([styles.chooseButton, styles.cloud])}>
+                            Sign Up
+                        </button>
+                    </div>
+                </div>
             </div>
-        </SectionWrapper>
+        </SectionWrapper >
     )
 }
 
