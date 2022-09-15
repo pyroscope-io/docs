@@ -17,7 +17,7 @@ import UserManagementIcon from '/img/homepage/security/user_management.svg';
 import BgRing from '/img/homepage/ring1.svg';
 import BgSphere from '/img/homepage/sphere.svg';
 import BgEllipse from '/img/homepage/Ellipse_bg.svg';
-import SectionWrapper from '../shared/SectionWrapper';
+import SectionWrapper from '../../shared/SectionWrapper';
 
 const SecuritySection = () => {
     return (

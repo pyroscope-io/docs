@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
-import SectionWrapper from '../shared/SectionWrapper';
+import SectionWrapper from '../../shared/SectionWrapper';
 
 const Integrations = () => {
     return (

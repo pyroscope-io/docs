@@ -100,69 +100,6 @@
   bottom: 0;
 }
 
-.menu {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  user-select: none;
-
-  @media (max-width: 992px) {
-    display: none;
-  }
-
-  .menuItem {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    color: #fff;
-    margin: 0 12px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    position: relative;
-
-    svg {
-      margin-left: 5px;
-      margin-top: 3px;
-      height: 9px;
-    }
-
-    .menuDropdown {
-      position: absolute;
-      display: none;
-      background-color: rgba(255, 255, 255, 0.25);
-      left: 50%;
-      -webkit-transform: translateX(-50%);
-      transform: translateX(-50%);
-      right: 0;
-      top: 150%;
-      border-radius: 8px;
-      width: max-content;
-      flex-direction: column;
-      padding: 8px;
-
-      &.opened {
-        display: flex;
-      }
-
-      .menuDropdownItem {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 17px;
-        color: #fff;
-        display: flex;
-        flex-shrink: 0;
-        padding: 8px;
-        border-radius: 8px;
-
-        &:hover {
-          background-color: rgba(255, 255, 255, 0.5);
-        }
-      }
-    }
-  }
-}
-
 .section {
   background-color: transparent;
   max-width: 1256px;
@@ -299,37 +236,6 @@
   }
 }
 
-.getStartedButton {
-  width: 170px;
-  height: 40px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.25);
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
-  user-select: none;
-
-  color: white;
-  &:hover {
-    color: white;
-    text-decoration: none;
-  }
-
-  &:hover {
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  @media (max-width: 992px) {
-    display: none;
-  }
-}
-
 .plans {
   display: flex;
   padding-top: 40px;
@@ -403,70 +309,6 @@
     line-height: 14px;
     text-align: center;
     margin-top: 2px;
-  }
-}
-
-.drawer {
-  background: #f8fbff !important;
-
-  .mobileMenuBody {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 16px;
-
-    .logo {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-
-      a span {
-        color: black;
-      }
-    }
-
-    .menuList {
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      align-items: center;
-      margin-top: 16px;
-
-      .mobileMenuItem {
-        width: 100%;
-        margin-bottom: 8px;
-
-        & > a {
-          display: flex;
-          width: 100%;
-          background-color: white;
-          justify-content: center;
-          align-items: center;
-          height: 40px;
-          text-decoration: none;
-          font-weight: bold;
-          color: black;
-          font-size: 16px;
-        }
-
-        .innerItem {
-          height: 40px;
-
-          a {
-            justify-content: center;
-            align-items: center;
-            height: 40px;
-            display: flex;
-            width: 100%;
-            text-decoration: none;
-            color: black;
-          }
-        }
-      }
-    }
   }
 }
 

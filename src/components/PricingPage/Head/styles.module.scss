@@ -1,0 +1,72 @@
+.sectionWrapper {
+}
+
+.section {
+  background-color: transparent;
+  max-width: 1256px;
+  width: 100%;
+  padding: 0 16px;
+  height: 800px;
+  margin-left: 16px;
+  margin-right: 16px;
+  z-index: 1;
+
+  @media (max-width: 992px) {
+    height: auto;
+    padding-bottom: 200px;
+  }
+
+  @media (max-width: 630px) {
+    padding: 0 16px;
+    padding-bottom: 130px;
+  }
+}
+
+.sectionBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url(/img/homepage/BG-V2.svg);
+  background-position: right;
+  background-size: cover;
+  clip-path: polygon(0 0, 100% 0, 100% 65%, 0% 100%);
+  z-index: -1;
+
+  @media (max-width: 2000px) {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11vw), 0% 100%);
+  }
+}
+
+.header {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rightSideButtons {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.githubButtonWrapper {
+  justify-items: center;
+  align-self: center;
+  align-items: center;
+  margin-top: 8px;
+  margin-right: 15px;
+}
+
+.mobileMenuButton {
+  background-color: transparent;
+  border: none;
+  color: white;
+  display: none;
+
+  @media (max-width: 992px) {
+    display: block;
+  }
+}

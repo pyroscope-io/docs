@@ -1,30 +1,29 @@
 import React from 'react';
-import clsx from 'clsx';
 import styles from './styles.module.scss';
-import Logo from '../shared/Logo';
+import Logo from '../../shared/Logo';
 import ContactUsImage from '/img/homepage/contact-us.svg';
-import SectionWrapper from '../shared/SectionWrapper';
-import {useThemeConfig} from '@docusaurus/theme-common';
+import SectionWrapper from '../../shared/SectionWrapper';
+import { useThemeConfig } from '@docusaurus/theme-common';
 
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-function FooterLink({to, href, label, prependBaseUrlToHref, icon, ...props}) {
+function FooterLink({ to, href, label, prependBaseUrlToHref, icon, ...props }) {
   const toUrl = useBaseUrl(to);
-  const normalizedHref = useBaseUrl(href, {forcePrependBaseUrl: true});
+  const normalizedHref = useBaseUrl(href, { forcePrependBaseUrl: true });
 
   return (
     <Link
       className="footer__link-item"
       {...(href
         ? {
-            target: href.startsWith('/') ? '_self' : '_blank',
-            rel: 'noopener noreferrer',
-            href: prependBaseUrlToHref ? normalizedHref : href,
-          }
+          target: href.startsWith('/') ? '_self' : '_blank',
+          rel: 'noopener noreferrer',
+          href: prependBaseUrlToHref ? normalizedHref : href,
+        }
         : {
-            to: toUrl,
-          })}
+          to: toUrl,
+        })}
       {...props}>
       {label}
     </Link>
@@ -32,8 +31,8 @@ function FooterLink({to, href, label, prependBaseUrlToHref, icon, ...props}) {
 }
 
 const Footer = () => {
-  const {footer} = useThemeConfig();
-  const {copyright, links = [], logo = {}} = footer || {};
+  const { footer } = useThemeConfig();
+  const { copyright, links = [], logo = {} } = footer || {};
 
   return (
     <SectionWrapper>
@@ -46,26 +45,26 @@ const Footer = () => {
           <div className={styles.links}>
             {links.map((linkItem, i) => (
               <div key={i} className={styles.linksColumn}>
-                  <h4 className={styles.columnTitle}>{linkItem.title}</h4>
-                  <ul className="footer__items">
-                    {linkItem.items.map((item, key) =>
-                      item.html ? (
-                        <li
-                          key={key}
-                          className="footer__item"
-                          // Developer provided the HTML, so assume it's safe.
-                          // eslint-disable-next-line react/no-danger
-                          dangerouslySetInnerHTML={{
-                            __html: item.html,
-                          }}
-                        />
-                      ) : (
-                        <li key={item.href || item.to} className="footer__item">
-                          <FooterLink className={styles.pageLink} {...item} />
-                        </li>
-                      ),
-                    )}
-                  </ul>
+                <h4 className={styles.columnTitle}>{linkItem.title}</h4>
+                <ul className="footer__items">
+                  {linkItem.items.map((item, key) =>
+                    item.html ? (
+                      <li
+                        key={key}
+                        className="footer__item"
+                        // Developer provided the HTML, so assume it's safe.
+                        // eslint-disable-next-line react/no-danger
+                        dangerouslySetInnerHTML={{
+                          __html: item.html,
+                        }}
+                      />
+                    ) : (
+                      <li key={item.href || item.to} className="footer__item">
+                        <FooterLink className={styles.pageLink} {...item} />
+                      </li>
+                    ),
+                  )}
+                </ul>
               </div>
             ))}
           </div>
@@ -106,7 +105,7 @@ const Footer = () => {
 const HelpUsBanner = () => (
   <div className={styles.banner}>
     <ContactUsImage />
-    <h3 className={styles.title}>Get started with Pyroscope Cloud<br/>for free</h3>
+    <h3 className={styles.title}>Get started with Pyroscope Cloud<br />for free</h3>
     <a href="https://pyroscope.cloud/signup" target="_blank" className={styles.joinPrivateBeta}>Sign Up</a>
   </div>
 )

@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import SliderArrow from '/img/homepage/slider_arrow.svg';
 import QuoteIcon from '/img/homepage/quote_icon.svg';
 import BgSphere from '/img/homepage/sphere.svg';
-import SectionWrapper from '../shared/SectionWrapper';
+import SectionWrapper from '../../shared/SectionWrapper';
 import Carousel from 'nuka-carousel';
 
 
