@@ -5,7 +5,7 @@ import Explore from './Explore';
 import Integrations from './Integrations';
 import Security from './Security';
 import WhatTheySay from './WhatTheySay';
-import Footer from './Footer';
+import Footer from '../shared/Footer';
 // import Footer from './../../theme/Footer';
 import styles from './styles.module.scss';
 import { Helmet } from "react-helmet";
@@ -33,7 +33,7 @@ const HomePage = () => {
                 <Integrations />
                 <Security />
                 <WhatTheySay />
-                <Footer />
+                <Footer withHelpUsBanner />
             </div>
         </>
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
-
 import Head from './Head';
 import TheCloudAdvantage from './TheCloudAdvantage';
+import Footer from '../shared/Footer';
 import styles from './styles.module.scss';
 
 
@@ -16,6 +16,7 @@ const PricingPage = () => {
         })}>
             <Head isOpenMenu={isOpenMenu} setIsOpen={setIsOpen} />
             <TheCloudAdvantage />
+            <Footer />
         </div>
     )
 }

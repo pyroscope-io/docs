@@ -1,10 +1,10 @@
 import React from 'react';
+import clsx from 'clsx';
 import styles from './styles.module.scss';
 import Logo from '../../shared/Logo';
 import ContactUsImage from '/img/homepage/contact-us.svg';
 import SectionWrapper from '../../shared/SectionWrapper';
 import { useThemeConfig } from '@docusaurus/theme-common';
-
 import Link from '@docusaurus/Link';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
@@ -30,13 +30,16 @@ function FooterLink({ to, href, label, prependBaseUrlToHref, icon, ...props }) {
   );
 }
 
-const Footer = () => {
+const Footer = ({ withHelpUsBanner }) => {
   const { footer } = useThemeConfig();
   const { copyright, links = [], logo = {} } = footer || {};
 
   return (
-    <SectionWrapper>
-      <HelpUsBanner />
+    <SectionWrapper className={clsx({
+      [styles.withBanner]: withHelpUsBanner,
+      [styles.sectionWrapper]: true
+    })}>
+      {withHelpUsBanner ? <HelpUsBanner /> : null}
       <div className={styles.section}>
         <div className={styles.row}>
           <div className={styles.logo}>
