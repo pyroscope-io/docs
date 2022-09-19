@@ -65,6 +65,21 @@ Pyroscope.tag_wrapper({ "controller": "slow_controller_i_want_to_profile" }) do
 end
 ```
 
-### Example
+### Auto-Instrumentation
+
+#### Rails
+
+By default, if you add pyroscope to a rails application it will automatically tag your actions with `action="<controller_name>/<action_name>"` tag.
+
+To disable rails autoinstrumentation, set `autoinstrument_rails` to `false`:
+```ruby
+Pyroscope.configure do |config|
+  config.autoinstrument_rails = false
+  # more configuration
+end
+
+```
+
+### Examples
 
 Check out this [example ruby project in our repository](https://github.com/pyroscope-io/pyroscope/tree/main/examples/ruby) for examples of how you can use these features.
