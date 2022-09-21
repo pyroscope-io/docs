@@ -138,5 +138,9 @@ module.exports = {
       type: "doc",
       id: "grafana-plugins",
     },
+    {
+      type: "doc",
+      id: "flamegraph-com",
+    },
   ],
 };
