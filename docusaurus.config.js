@@ -82,12 +82,6 @@ module.exports = {
         },
       ],
     },
-    announcementBar: {
-      id: 'give_us_a_star',
-      content: '★&nbsp;If you like Pyroscope, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/pyroscope-io/pyroscope">GitHub</a>!&nbsp;★', //★🔥',
-      backgroundColor: 'var(--announcement-bar-bg-color)', // Defaults to `#fff`
-      textColor: 'var(--announcement-bar-text-color)', // Defaults to `#000`
-    },
     footer: {
       style: 'dark',
       links: [

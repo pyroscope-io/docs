@@ -39,6 +39,7 @@ module.exports = {
           collapsed: false,
           items: [
             "agent-overview",
+            "integration-ebpf",
             {
               type: "category",
               label: "Go",
@@ -50,7 +51,6 @@ module.exports = {
               ],
             },
             "integration-python",
-            "integration-ebpf",
             {
               type: "category",
               label: "Java",
@@ -116,6 +116,12 @@ module.exports = {
       ],
     },
     {
+      type: "category",
+      label: "Pyroscope Cloud ☁️",
+      collapsed: false,
+      items: [],
+    },
+    {
       type: "doc",
       id: "flameql",
     },
@@ -131,6 +137,10 @@ module.exports = {
     {
       type: "doc",
       id: "grafana-plugins",
+    },
+    {
+      type: "doc",
+      id: "flamegraph-com",
     },
   ],
 };

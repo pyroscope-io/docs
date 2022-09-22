@@ -24,33 +24,68 @@ eBPF is an emerging Linux kernel technology that allows for user-supplied progra
 |:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
 | ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
 
-### Prerequisites
+### Benefits of using eBPF for continuous profiling
+The pros of using the eBPF integration are:
+* Easy installation: You can add the agent to your node without making code changes as opposed to adding agent libraries to your code
+* Access to kernel stacktraces: While most agent libraries focus on user-space code performance, eBPF can also give insight into kernel-space code performance
 
-For this to work you'll need
-* a Linux machine with the kernel version >= 4.9.
-* BCC tools installed on the system you want to profile. Visit [BCC documentation](https://github.com/iovisor/bcc/blob/master/INSTALL.md#packages) to find the best way of installing it on your system. There are prebuilt binaries available for most flavors of Linux.
-* pyroscope server and agent. Visit our [Getting Started guide](/docs/#step-1-install-the-pyroscope-server) to learn about that.
+### Tradeoffs of using eBPF for continuous profiling
+Because eBPF is still a growing technology, there's a few tradeoffs that you have to make in order use eBPF for profiling your applications
+* Doesn't work as well with interpreted languages
+* Requires certain kernel versions
 
-### Running eBPF profiler
 
-<Tabs
-  defaultValue="kubernetes"
-  values={[
-    {label: 'Kubernetes', value: 'kubernetes'},
-    {label: 'Linux', value: 'linux'},
-  ]}>
-  <TabItem value="linux">
+
+
+### Getting Started with eBPF Profiling
+For the reasons mentioned above, we recommend an hybrid approach for better results: eBPF to profile the node and specific language instrumentation per application. The following steps will explain how to get started:
+
+#### Prerequisites for profiling with eBPF
+
+For the eBPF integration to work you'll need:
+* A [pyroscope server](https://pyroscope.io/docs/installing-pyroscope-overview/#step-1-install-pyroscope-server) where the agent will send profiling data
+* A Linux machine with the kernel version >= 4.9 (due to [BPF_PROG_TYPE_PERF_EVENT](https://lkml.org/lkml/2016/9/1/831)).
+
+### Running eBPF profiler on Kubernetes
+
+#### Step 1. Install pyroscope agent
+
+First, add the helm repo
+```shell
+helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
+```
+
+Then install the agent
+```shell
+helm install pyroscope-ebpf pyroscope-io/pyroscope-ebpf
+```
+
+It will install pyroscope eBPF agent on all of your nodes and start profiling applications across your cluster.
+
+:::note
+If you're using [Pyroscope Cloud](https://pyroscope.cloud/), you can specify an auth key by populating the `PYROSCOPE_AUTH_TOKEN` environment variable or passing an `--auth-token` flag:
+```
+- "--auth-token"
+- "PYROSCOPE_CLOUD_API_KEY"
+- "--server-address"
+- "https://ingest.pyroscope.cloud"
+```
+:::
+
+### Running eBPF profiler from binary
 
 ```shell
 export PYROSCOPE_APPLICATION_NAME=my.ebpf.program
 export PYROSCOPE_SERVER_ADDRESS=http://address-of-pyroscope-server:4040/
 export PYROSCOPE_SPY_NAME=ebpfspy
+# optionally, if authentication is enabled, specify the API key:
+# export PYROSCOPE_AUTH_TOKEN={YOUR_API_KEY}
 
 # to wrap an existing program and profile it
 sudo -E pyroscope exec mongod
 
-# to profile the whole system, pass -1 as pid
-sudo -E pyroscope connect -pid -1
+# to profile the whole system
+sudo -E pyroscope ebpf
 ```
 
 ### Dealing with [unknowns]
@@ -61,36 +96,25 @@ eBPF relies on having debugging symbols available for each program installed in 
 sudo debuginfo-install -y <pkg>
 ```
 
+### Configuration
+
+All parameters below are also supported as CLI arguments, a full list can be accessed via `pyroscope ebpf --help`. For brevity only environment variables are listed.
+
+* `PYROSCOPE_KUBERNETES_NODE` Set to current k8s Node.nodeName for service discovery and labeling
+* `PYROSCOPE_ONLY_SERVICES` Ignore processes unknown to service discovery
+* `PYROSCOPE_SYMBOL_CACHE_SIZE` Max size of symbols cache (1 entry per process)
+
+| env var                    | default                          | description                                    |
+| -------------------------- | -------------------------------- | ---------------------------------------------- |
+| `PYROSCOPE_KUBERNETES_NODE` | `""` | Used by service discovery. It's automatically set in the Helm Chart. |
+| `PYROSCOPE_ONLY_SERVICES`     | `false`                             | Ignore processes unknown to service discovery. In a Kubernetes cluster it ignores processes like `containerd, runc, kubelet` etc | 
+| `PYROSCOPE_SYMBOL_CACHE_SIZE` | `256`                          | Max size of symbols cache (1 entry per process). Change this value if you’re experiencing memory pressure or have many individual services. |
+
 ### Example
 
+https://demo.pyroscope.io/?query=ebpf.cpu%7B%7D
 Check out this [docker-compose example in our repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) for an example of how you can use eBPF integration.
 
-  </TabItem>
-  <TabItem value="kubernetes">
-
-#### Step 1. Install pyroscope server
-
-This will provision a pyroscope server in your cluster in `pyroscope` namespace.
-
-```shell
-kubectl apply -f https://pyroscope.io/k8s/pyroscope-server.yaml
-```
-
-#### Step 2. Install pyroscope agent
-
-This will install pyroscope eBPF agent on all of your nodes and start profiling applications across your cluster:
-
-```shell
-kubectl apply -f https://pyroscope.io/k8s/pyroscope-agent.yaml
-```
 
 
-
-  </TabItem>
-</Tabs>
-
-
-### Future of our eBPF integration
-
-One thing we're excited about at Pyroscope is eBPF portability efforts, particularly introduction of BTF (BPF Type Format) technology. You can read more about that [here](https://facebookmicrosites.github.io/bpf/blog/2020/02/19/bpf-portability-and-co-re.html). When kernels with BTF support become more mainstream we're gonna embed libbpf directly into our go binary.
 

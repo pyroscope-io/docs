@@ -1,0 +1,70 @@
+---
+title: How to Profile AWS Lambda Functions
+sidebar_label: Profile AWS Lambda Functions
+slug: /profile-aws-lambda-functions
+image: https://user-images.githubusercontent.com/23323466/186095507-d8c9cc9a-1d5c-4b0a-b02a-bcbab2693a81.png
+date: "2022-08-23"
+
+authors:
+  - name: Ryan Perry
+    url: https://github.com/Rperry2174
+    image_url: https://avatars.githubusercontent.com/u/23323466?v=4
+---
+
+![Profile AWS Lambda Functions](https://user-images.githubusercontent.com/23323466/186095507-d8c9cc9a-1d5c-4b0a-b02a-bcbab2693a81.png)
+
+## What is AWS Lambda?
+AWS lambda is a popular serverless computing service that allows you to write code in any language and run it on AWS. 
+In this case "serverless" means that rather than having to manage a server or set of servers, you can instead run your code on-demand on highly-available machines in the cloud. 
+
+Lambda manages your "serverless" infrastructure for you including:
+- Server maintenance
+- Automatic scaling
+- Capacity provisioning
+- and more
+
+## AWS Lambda functions are a "black box"
+However, the tradeoff that happens as a result of using AWS Lambda is that because AWS handles so much of the infrastructure and management for you, it ends up being somewhat of a "black box" with regards to:
+- **Cost**: You have little insight into _why_ your Lambda function is costs so much or what functions are responsible
+- **Performance**: you often run into hard-to-debug latency or memory issues when running your Lambda function
+- **Reliability**: You have little insight into _why_ your Lambda function is failing as much as its failing
+
+Depending on availability of resources, these issues can be balloon over time until they become an expensive foundation which is hard to analyze and fix post-facto once much of your infrastructure relies on these functions.
+
+## Continuous Profiling for Lambda: A window into the serverless "black box" problem
+[Continuous Profiling](/blog/what-is-continuous-profiling) is a method of analyzing the performance of an application giving you a breakdown of which lines of code are consuming the most CPU or memory resources and how much of each resource is being consumed. 
+Since, by definition, a Lambda function is a collection of many lines of code which consume resources (and incur costs) on demand, it makes sense that profiling is the perfect tool to use to understand how you can optimize your Lambda functions and allocate resources to them.
+
+While you can already use our various language-specific integrations to profile your Lambda functions, with the naive approach, adding Pyroscope will add extra overhead to the critical path due to how the [Lambda Execution Lifecycle](https://docs.aws.amazon.com/lambda/latest/dg/runtimes-extensions-api.html#:~:text=Each%20phase%20starts%20with%20an%20event%20from%20Lambda%20to%20the%20runtime%20and%20to%20all%20registered%20extensions.%20The%20runtime%20and%20each%20extension%20signal%20completion%20by%20sending%20a%20Next%20API%20request.%20Lambda%20freezes%20the%20execution%20environment%20when%20each%20process%20has%20completed%20and%20there%20are%20no%20pending%20events.) works:
+![image](https://user-images.githubusercontent.com/23323466/186006278-97b6e88c-b4e9-4186-a6ae-b78f0ad1b56c.png)
+
+
+However, we've introduced a more optimal solution which gives you insight into the Lambda "black box" without adding extra overhead to the critical path of your Lambda Function: our [Pyroscope AWS Lambda Extension](docs/aws-lambda).
+## Pyroscope Lambda extension adds profiling support without impacting critical path performance
+![lambda_image_04-01](https://user-images.githubusercontent.com/23323466/186037668-44de7caa-6576-422a-b3f7-8416325f4a98.png)
+
+This solution makes use of the extension to delegate profiling-related tasks to an asynchronous path which allows for the critical path to continue to run while the profiling related activities are being performed in the background. 
+You can then use the Pyroscope UI to dive deeper into the various profiles and make the necessary changes to optimize your Lambda function!
+
+## How to add Pyroscope's Lambda Extension to your Lambda Function
+Pyroscope's lambda extension works with our various agents and documentation on how to integrate with those can be found in the [integrations](/docs/installing-pyroscope-overview) section of our documentation.
+Once you've added the agent to your code, there are just two steps needed to get up and running with profiling lambda extension:
+
+### Step 1: Add a new Layer in "function settings"
+Add a new layer using the latest "layer name" from our [releases page](https://github.com/pyroscope-io/pyroscope-lambda-extension/releases).
+
+![lambda_add_a_layer_01-01](https://user-images.githubusercontent.com/23323466/186029681-22feca30-4754-402a-8acd-c36a7afebe3d.png)
+
+### Step 2: Add environment variables to configure where to send the profiling data
+You can send data to either either pyroscope cloud or any running pyroscope server. This is configured via environment variables like this:
+![lambda_env_variables_01-01](https://user-images.githubusercontent.com/23323466/186029684-d5a325f7-1b3e-4373-9e18-81059fc11f87.png)
+
+## Lambda Function profile
+Here's an [interactive flamegraph output](https://flamegraph.com/share/dd8ebc7e-21d9-11ed-9ae5-a2e2e05ea833) of what you will end up with after you add the extension to your Lambda Function:
+![image](https://user-images.githubusercontent.com/23323466/186049312-6e6b3715-6869-4169-8422-177c5cd2c407.png)
+
+While this flamegraph is exported for the purposes of this blog post in the Pyroscope UI you have additional tools for analyzing profiles such as:
+- Labels: to view function cpu performance or memory over time using [FlameQL](/docs/flameql)
+- Time controls: to select and filter for particular time periods of interest
+- Diff view: Compare two profiles and see the differences between them
+- And many more!

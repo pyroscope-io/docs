@@ -8,13 +8,45 @@ metadata:
     pod-security.kubernetes.io/warn: privileged
   name: pyroscope
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/instance: pyroscope-agent
+    app.kubernetes.io/name: pyroscope-agent
+    app.kubernetes.io/version: "0.29.0"
+  name: nodes-reader
+  namespace: pyroscope
+rules:
+- apiGroups: [""]
+  resources: ["nodes", "pods"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: pyroscope-agent
+    app.kubernetes.io/name: pyroscope-agent
+    app.kubernetes.io/version: "0.29.0"
+  name: pyroscope-agent
+  namespace: pyroscope
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nodes-reader
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: pyroscope
+---
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
     app.kubernetes.io/instance: pyroscope-agent
     app.kubernetes.io/name: pyroscope-agent
-    app.kubernetes.io/version: "0.11.1"
+    app.kubernetes.io/version: "0.29.0"
   name: pyroscope-agent
   namespace: pyroscope
 spec:
@@ -27,32 +59,26 @@ spec:
       labels:
         app.kubernetes.io/instance: pyroscope-agent
         app.kubernetes.io/name: pyroscope-agent
-        app.kubernetes.io/version: "0.11.1"
+        app.kubernetes.io/version: "0.29.0"
     spec:
       containers:
         - name: pyroscope-agent
           args:
-            - "connect"
-            - "--spy-name"
-            - "ebpfspy"
-            - "--pid"
-            - "-1"
+            - "ebpf"
+            - "--application-name"
+            - "k8s.ebpf"
             - "--server-address"
             - "http://pyroscope-server:4040"
-            - "--log-level"
-            - "debug"
+          env:
+          - name: PYROSCOPE_KUBERNETES_NODE
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
           securityContext:
             privileged: true
             runAsGroup: 0
             runAsUser: 0
-          image: pyroscope/pyroscope:0.11.1
+          image: "pyroscope/pyroscope:0.29.0"
           resources:
             {}
-          volumeMounts:
-            - mountPath: /lib/modules
-              name: modules
       hostPID: true
-      volumes:
-        - hostPath:
-            path: /lib/modules
-          name: modules
