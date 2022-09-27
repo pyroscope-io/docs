@@ -13,7 +13,7 @@ authors:
 ## What is eBPF?
 
 At its root, eBPF takes advantage of the kernel’s privileged ability to oversee and control the entire system.
-With eBPF you can run sandboxed programs within the operating system and add these to your program at runtime.
+With eBPF you can run sandboxed programs in a privileged context such as the operating system kernel.
 To better understand the implications and learn more check out this [blog post](https://ebpf.io/what-is-ebpf)
 which goes into much more detail.
 
@@ -43,33 +43,24 @@ efforts check out the `#otel-profiling` channel on the CNCF slack!
 ## Current state of eBPF profiling
 
 There's a wide spectrum of "challenges" with eBPF profiling that can drastically change the value you're able to get from eBPF profiling.
-On the "easier" end of that spectrum are fairly standard functionality:
+This is a list roughly sorted from "easier" fairly standard functionality to "harder" more advanced functionality:
 
 - Collecting data with Low-overhead
 - Auto-tagging profiles with available metadata
-- One more example
-
-On the moderate "middle of the spectrum is a tricky, but solvable problem
-
 - Finding the best _format_ in which to send profiling data
-
-These are problems that we're hoping to standardize in alignment with the OpenTelemetry vision.
-
-The issues on the "difficult" end of the spectrum are where the various solutions part ways. In particular:
-
 - Dealing with collecting, storing, and applying Symbols
 - Finding ways to deal with _lack_ of symbols
-- Finding efficinet ways to do other kinds of profiling such as memory profiling
+- Finding efficient ways to do other kinds of profiling such as memory profiling
 - Finding ways to apply tags dynamically and/or arbitrarily
 
-This blog will focus on Pyroscope's unique approach to solving these issues.
+This blog will focus on Pyroscope's unique approach to solving these issues, particularly the more difficult ones.
 
 ## Pros and cons of eBPF profiling vs non-eBPF profiling
 
-When it comes to modern profiling, it effectively happens at two different levels of the operating system:
+When it comes to modern eBPF profiling, it effectively happens at two different levels of the operating system:
 
-- User-space level: Popular profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc.
-- Kernel-level: eBPF profilers (Pyroscope, Parca, Pixie, Prodfiler)
+- User-space level: Popular non-eBPF profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. operate at this level
+- Kernel-level: eBPF profilers operate at this level (examples?)
 
 The reason that there is this chasm between eBPF profilers and non-eBPF profilers is because at each level
 of the operating system there are positives and negatives of profiling at that particular level.
@@ -148,15 +139,17 @@ of the operating system there are positives and negatives of profiling at that p
 <img width="915" alt="image" src="https://user-images.githubusercontent.com/23323466/188767811-a45c0b2c-ec62-4f5e-8fe1-eae3e347e7e0.png"/>
 
 We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
-You may notice above, the "negatives" of one are the "positives" of the other and the maximum value comes from the fact that using both cancels out the "negatives" while stil benefiting from the "positives". While the tradeoff is that additional overhead is incurred, the overhead for _both_ is so negligible that we believe this to be very net-positive, leaving us with the best of both (profiling) worlds!
+You may notice above, the "negatives" of one are the "positives" of the other and the maximum value comes from the fact that using both cancels out
+the "negatives" while still benefiting from the "positives". 
 
-Long term, we've charted out two potential paths of either:
-- Detecting language via eBPF and using other profilers ccordingly
-- Using blablabl to blablablabl (something tolyan said?)
+Long term, we've charted out several promising paths to continue improving our integrations and bridge the gap between eBPF and user-space profiling.
+One of the most promising approaches is: (example)
 
-However, in the meantime, we recommend to add eBPF profiling to your cluster _and_
-to add a language-specific integrations if you'd like more granular controls and analytic capabilitys for your profiling data.
-This is actually how we profile our cloud product's code internally.
+However, in the meantime, we recommend using:
+- Non-eBPF language-specific integrations for more granular control and analytic capabilities (i.e. dynamic tags and labels)
+- eBPF integration for a comprehensive view of the whole cluster
+
+In fact, this is actually how we profile our cloud product's code internally:
 - eBPF for our kubernetes cluster
 - ruby gem, pip package, go client, and java client _with tags_ for our language microservices and testing suites
 - Lambda extension for our lambda functions
