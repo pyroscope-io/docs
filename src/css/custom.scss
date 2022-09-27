@@ -114,80 +114,69 @@ table tr:nth-child(2n) {
   margin: 0 2em 0 0;
 }
 
-
-.blog-pros-cons h3 {
-  font-size: 1.2em;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  margin-left: -10px;
-  margin-right: -10px;
+.blog-title-image {
+  width: 100%;
+  max-height: 400px;
 }
 
+.blog-new-cloud {
+  h3 {
+    font-size: 1.2em;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    margin-left: -10px;
+    margin-right: -10px;
+    padding: 0.5em;
+    background: linear-gradient(68.66deg, #d31b2edd 0%, #ffaf0fdd 100%);
+    color: white;
+  }
+  img {
+    max-width: 150px;
+    max-height: 150px;
+    margin: 1em auto;
+    display: block;
+  }
 
-.blog-pros-cons h3 img {
-  width: 40px;
-  height: 40px;
-  margin: 0 10px;
-}
+  ul li {
+    padding: 0.5em 0;
+    position: relative;
+    list-style: none;
+  }
 
+  ul li::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: -22px;
+    top: 13px;
+    height: 16px;
+    width: 16px;
+    background-size: 16px 16px;
+  }
 
-@media only screen and (max-width: 1200px) {
-  .blog-pros-cons h3 img {
-    display: none;
+  ul li::before {
+    background-image: url(/img/plus_icon.svg);
   }
 }
 
-.blog-pros-cons span {
-  margin: 0 10px;
+@media only screen and (min-width: 1000px) {
+  .blog-new-cloud {
+    h3 {
+      min-height: 70px;
+    }
+  }
 }
 
-.blog-pros-cons h4 {
-  font-size: 1.25em;
-  text-align: center;
-  padding: 0.5em 0;
-  color: white;
+.blog-list-page aside li,
+.blog-post-page aside li {
+  max-width: 15vw;
 }
 
-.blog-pros-cons ul li {
-  padding: 0.5em 0;
-  position: relative;
-  list-style: none;
-}
-
-.blog-pros-cons ul li::before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: -22px;
-  top: 13px;
-  height: 16px;
-  width: 16px;
-  background-size: 16px 16px;
-}
-
-.blog-pros-cons .pros ul li::before {
-  background-image: url(/img/plus_icon.svg);
-}
-
-.blog-pros-cons .cons ul li::before {
-  background-image: url(/img/minus_icon.svg);
-}
-
-.blog-pros-cons .pros h3 {
-  background-image: linear-gradient(to left, #00C9C0, #00E271)
-}
-
-.blog-pros-cons .cons h3 {
-  background-image: linear-gradient(to left, #BB7CF3, #FF65AF)
-}
-
-.blog-pros-cons .pros h4 {
-  background-image: linear-gradient(to left, #00C9C0, #00E271)
-}
-
-.blog-pros-cons .cons h4 {
-  background-image: linear-gradient(to left, #BB7CF3, #FF65AF)
-}
+// @media only screen and (max-width: 1200px) {
+//   .blog-post-page aside {
+//     display: none;
+//   }
+// }

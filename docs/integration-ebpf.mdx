@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinux } from '@fortawesome/free-brands-svg-icons';
 
 
-eBPF is an emerging Linux kernel technology that allows for user-supplied programs to run inside of the kernel. This enables a bunch of interesting usecases, particularly efficient CPU profiling of the whole Linux system.
+eBPF is an emerging Linux kernel technology that allows for user-supplied programs to run inside of the kernel. This enables a bunch of interesting use cases, particularly efficient CPU profiling of the whole Linux system.
 
 #### Supported platforms
 
@@ -24,32 +24,46 @@ eBPF is an emerging Linux kernel technology that allows for user-supplied progra
 |:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
 | ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
 
-### Prerequisites
+### Benefits of using eBPF for continuous profiling
+The pros of using the eBPF integration are:
+* Easy installation: You can add the agent to your node without making code changes as opposed to adding agent libraries to your code
+* Access to kernel stacktraces: While most agent libraries focus on user-space code performance, eBPF can also give insight into kernel-space code performance
 
-For this to work you'll need
-* a Linux machine with the kernel version >= 4.9.
-* pyroscope server and agent. Visit our [Getting Started guide](/docs/#step-1-install-the-pyroscope-server) to learn about that.
+### Tradeoffs of using eBPF for continuous profiling
+Because eBPF is still a growing technology, there's a few tradeoffs that you have to make in order use eBPF for profiling your applications
+* Doesn't work as well with interpreted languages
+* Requires certain kernel versions
+
+
+
+
+### Getting Started with eBPF Profiling
+For the reasons mentioned above, we recommend an hybrid approach for better results: eBPF to profile the node and specific language instrumentation per application. The following steps will explain how to get started:
+
+#### Prerequisites for profiling with eBPF
+
+For the eBPF integration to work you'll need:
+* A [pyroscope server](https://pyroscope.io/docs/installing-pyroscope-overview/#step-1-install-pyroscope-server) where the agent will send profiling data
+* A Linux machine with the kernel version >= 4.9 (due to [BPF_PROG_TYPE_PERF_EVENT](https://lkml.org/lkml/2016/9/1/831)).
 
 ### Running eBPF profiler on Kubernetes
 
-#### Step 1. Install pyroscope server
+#### Step 1. Install pyroscope agent
 
-This will provision a pyroscope server in your cluster in `pyroscope` namespace.
-
+First, add the helm repo
 ```shell
-kubectl apply -f https://pyroscope.io/k8s/pyroscope-server.yaml
+helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
 ```
 
-#### Step 2. Install pyroscope agent
-
-This will install pyroscope eBPF agent on all of your nodes and start profiling applications across your cluster:
-
+Then install the agent
 ```shell
-kubectl apply -f https://pyroscope.io/k8s/pyroscope-agent.yaml
+helm install pyroscope-ebpf pyroscope-io/pyroscope-ebpf
 ```
+
+It will install pyroscope eBPF agent on all of your nodes and start profiling applications across your cluster.
 
 :::note
-If you're using [Pyroscope Cloud](https://pyroscope.cloud/), modify agent manifest
+If you're using [Pyroscope Cloud](https://pyroscope.cloud/), you can specify an auth key by populating the `PYROSCOPE_AUTH_TOKEN` environment variable or passing an `--auth-token` flag:
 ```
 - "--auth-token"
 - "PYROSCOPE_CLOUD_API_KEY"
@@ -84,13 +98,21 @@ sudo debuginfo-install -y <pkg>
 
 ### Configuration
 
+All parameters below are also supported as CLI arguments, a full list can be accessed via `pyroscope ebpf --help`. For brevity only environment variables are listed.
+
 * `PYROSCOPE_KUBERNETES_NODE` Set to current k8s Node.nodeName for service discovery and labeling
 * `PYROSCOPE_ONLY_SERVICES` Ignore processes unknown to service discovery
 * `PYROSCOPE_SYMBOL_CACHE_SIZE` Max size of symbols cache (1 entry per process)
 
+| env var                    | default                          | description                                    |
+| -------------------------- | -------------------------------- | ---------------------------------------------- |
+| `PYROSCOPE_KUBERNETES_NODE` | `""` | Used by service discovery. It's automatically set in the Helm Chart. |
+| `PYROSCOPE_ONLY_SERVICES`     | `false`                             | Ignore processes unknown to service discovery. In a Kubernetes cluster it ignores processes like `containerd, runc, kubelet` etc | 
+| `PYROSCOPE_SYMBOL_CACHE_SIZE` | `256`                          | Max size of symbols cache (1 entry per process). Change this value if you’re experiencing memory pressure or have many individual services. |
+
 ### Example
 
-Check out this [docker-compose example in our repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) for an example of how you can use eBPF integration.
+Check out this [docker-compose example in our repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) for an example of how you can use eBPF integration or see our [demo](https://demo.pyroscope.io/?query=rideshare-cluster-ebpf.cpu%7B%7D).
 
 
 
