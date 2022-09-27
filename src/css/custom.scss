@@ -180,3 +180,64 @@ table tr:nth-child(2n) {
 //     display: none;
 //   }
 // }
+
+.blog-pros-cons h3 {
+  font-size: 1.2em;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  margin-left: -10px;
+  margin-right: -10px;
+}
+
+
+.blog-pros-cons h3 img {
+  width: 40px;
+  height: 40px;
+  margin: 0 10px;
+}
+
+
+@media only screen and (max-width: 1200px) {
+  .blog-pros-cons h3 img {
+    display: none;
+  }
+}
+
+.blog-pros-cons span {
+  margin: 0 10px;
+}
+
+.blog-pros-cons h4 {
+  font-size: 1.25em;
+  text-align: center;
+  padding: 0.5em 0;
+  color: black;
+}
+
+.blog-pros-cons ul li {
+  padding: 0.5em 0;
+  position: relative;
+  list-style: none;
+}
+
+.blog-pros-cons ul li::before {
+  content: '';
+  display: block;
+  position: absolute;
+  left: -22px;
+  top: 13px;
+  height: 16px;
+  width: 16px;
+  background-size: 16px 16px;
+}
+
+.blog-pros-cons .pros ul li::before {
+  background-image: url(/img/plus_icon.svg);
+}
+
+.blog-pros-cons .cons ul li::before {
+  background-image: url(/img/minus_icon.svg);
+}
