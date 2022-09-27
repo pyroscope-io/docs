@@ -62,6 +62,9 @@ When it comes to modern eBPF profiling, it effectively happens at two different 
 - User-space level: Popular non-eBPF profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. operate at this level
 - Kernel-level: eBPF profilers operate at this level (examples?)
 
+Pyroscope is designed to be language agnostic and supports all mentioned profiles above with a specific focus on efficient storage and
+advanced analysis of _all_ profiles.
+
 The reason that there is this chasm between eBPF profilers and non-eBPF profilers is because at each level
 of the operating system there are positives and negatives of profiling at that particular level.
 
@@ -116,7 +119,7 @@ of the operating system there are positives and negatives of profiling at that p
       <h4>Positives</h4>
       <ul>
         <li>Ability to get fleet-wide, whole-system metrics easily</li>
-        <li>Ability to auto-tag metadata that's available at kernel-level (i.e. kubernetes pods, namespaces)</li>
+        <li>Ability to auto-tag metadata that's available when profiling whole system (i.e. kubernetes pods, namespaces)</li>
         <li>Simplicity of adding profiling at infrastructure level (i.e. multi-language systems)</li>
         <li>Consistency of access to symbols across all languages</li>
         <li>Simplicity of using in local development</li>
@@ -139,8 +142,8 @@ of the operating system there are positives and negatives of profiling at that p
 <img width="915" alt="image" src="https://user-images.githubusercontent.com/23323466/188767811-a45c0b2c-ec62-4f5e-8fe1-eae3e347e7e0.png"/>
 
 We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
-You may notice above, the "negatives" of one are the "positives" of the other and the maximum value comes from the fact that using both cancels out
-the "negatives" while still benefiting from the "positives". 
+The negatives of eBPF profiling are the positives of non-eBPF profiling and vice versa. We believe that the best way to get the most value out of profiling
+itself is to actually combine the two.
 
 Long term, we've charted out several promising paths to continue improving our integrations and bridge the gap between eBPF and user-space profiling.
 One of the most promising approaches is: (example)
