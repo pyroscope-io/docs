@@ -25,24 +25,25 @@ and most relevenat to this blog post -- observability (logs, metrics, traces, an
 ## Landscape of eBPF profiling
 
 Over the past few years there has been significant growth in the profiling space as well as the eBPF space and
-there are a few notable companies who are innovating at the intersection of profiling and eBPF. Some examples include:
+there are a few notable companies and open source projects innovating at the intersection of profiling and eBPF. Some examples include:
 
-- Pyroscope
-- Parca
-- Pixie
-- Prodfiler (not open source)
+- [Pyroscope](https://github.com/pyroscope-io/pyroscope)
+- [Pixie](https://github.com/pixie-io/pixie)
+- [Parca](https://github.com/parca-dev/parca)
+- Prodfiler (closed source)
 
-While stars are more of a vanity metric, the collective growth is representative of the rapidly growing interest in this space Pyroscope, Pixie, and Parca all gained a significant amount of stars over the same 6 month period.
+The collective growth is representative of the rapidly growing interest in this space Pyroscope, Pixie, and Parca all gained a significant amount of stars over the same 6 month period.
 ![image](https://user-images.githubusercontent.com/23323466/188765863-264f9ff3-9d26-4019-8cb3-a26f8535cc7b.png)
 
-
-It's also worth noting that all the companies listed above, along with many other open source maintainers, OTel community members, and end-users,
-have officially proposed for OpenTelemetry to support profiling alongside logs, metrics, and traces. For more information on that or to join the
-efforts check out the `#otel-profiling` channel on the CNCF slack!
+It's also worth noting that the growth of profiling is not limited to eBPF, the prevalence of profiling tools has grown
+to the point where it is now possible to find a tool for almost any language or runtime. As a result, profiling
+is more frequently being considered a first-class citizen in observability suites. For example, OpenTelemetry has kicked off
+efforts to [standardize profiling](https://github.com/open-telemetry/oteps/blob/main/text/profiles/0212-profiling-vision.md)
+in order to enable more effective observability. For more information on those efforts check out the `#otel-profiling` channel on the CNCF slack!
 
 ## Current state of eBPF profiling
 
-There's a wide spectrum of "challenges" with eBPF profiling that can drastically change the value you're able to get from eBPF profiling.
+There's a wide spectrum of "challenges" with eBPF profiling that can drastically change the value you're able to receive from utilizing it.
 This is a list roughly sorted from "easier" fairly standard functionality to "harder" more advanced functionality:
 
 - Collecting data with Low-overhead
@@ -53,7 +54,7 @@ This is a list roughly sorted from "easier" fairly standard functionality to "ha
 - Finding efficient ways to do other kinds of profiling such as memory profiling
 - Finding ways to apply tags dynamically and/or arbitrarily
 
-This blog will focus on Pyroscope's unique approach to solving these issues, particularly the more difficult ones.
+This blog will focus on Pyroscope's unique approach to solving these issues.
 
 ## Pros and cons of eBPF profiling vs non-eBPF profiling
 
