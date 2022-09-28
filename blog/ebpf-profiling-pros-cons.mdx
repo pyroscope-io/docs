@@ -74,15 +74,14 @@ This blog will focus on Pyroscope's unique approach to solving these issues.
 
 ## Pros and cons of eBPF profiling vs non-eBPF profiling
 
-When it comes to modern profiling, there are two ways of getting profiling data:
+When it comes to modern continuous profiling, there are two ways of getting profiling data:
 
 - User-space level: Popular profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. operate at this level
-- Kernel-level: eBPF profilers and linux perf are able to get stacktraces for the whole system from the kernel
+- Kernel level: eBPF profilers and linux perf are able to get stacktraces for the whole system from the kernel
 
-Pyroscope is designed to be language agnostic and supports all mentioned profiles above with a specific focus on efficient storage and
-advanced analysis of _all_ profiles.
+Pyroscope is designed to be language agnostic and supports ingesting profiles originating from either _or both_ of these methods.
 
-Each approach comes with its own set of pros and cons:
+However, each approach comes with its own set of pros and cons:
 <div className="blog-pros-cons">
   <div className="row">
     <div className="col col--12">
