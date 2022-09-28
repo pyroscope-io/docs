@@ -1,14 +1,24 @@
 ---
 title: The positives and negatives of profiling with eBPF
+description: Is eBPF profiling for you?
 sidebar_label: Profiling with eBPF
 slug: /positives-negatives-profiling-ebpf
-date: "2022-09-05"
+date: "2022-09-29"
 
 authors:
   - name: Ryan Perry
     url: https://github.com/Rperry2174
     image_url: https://avatars.githubusercontent.com/u/23323466?v=4
 ---
+
+import Lottie from "lottie-react";
+import circularAnimation from "../src/components/Homepage/HeadSection/circularAnimation.json";
+
+<div className="row">
+  <div className="col col--12">
+    <Lottie animationData={circularAnimation} loop={true} />
+  </div>
+</div>
 
 ## What is eBPF?
 
@@ -145,15 +155,6 @@ of the operating system there are positives and negatives of profiling at that p
 
 
 ## Pyroscope's solution: Merge User-space and Kernel profiling
-
-import Lottie from "lottie-react";
-import circularAnimation from "../src/components/Homepage/HeadSection/circularAnimation.json";
-
-<div className="row">
-  <div className="col col--12">
-    <Lottie animationData={circularAnimation} loop={true} />
-  </div>
-</div>
 
 We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
 The negatives of eBPF profiling are the positives of non-eBPF profiling and vice versa. We believe that the best way to get the most value out of profiling
