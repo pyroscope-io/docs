@@ -160,7 +160,7 @@ The negatives of eBPF profiling are the positives of non-eBPF profiling and vice
 itself is to actually combine the two.
 
 
-### Profiling Compiled Languages (Golang, Java, C++, etc.)
+### Profiling compiled languages (Golang, Java, C++, etc.)
 When profiling compiled languages, like Golang, the eBPF profiler is able to get very similar information to the non-eBPF profiler.
 <Tabs
   defaultValue="nativeGolang"
@@ -176,7 +176,7 @@ When profiling compiled languages, like Golang, the eBPF profiler is able to get
   </TabItem>
 </Tabs>
 
-### Profiling non-compiled Languages (Ruby, Python, etc.)
+### Profiling interpreted languages (Ruby, Python, etc.)
 When profiling non-compiled languages like Ruby or Python the eBPF profiler (by default) does not have
 access to the symbols of the application code.
 
@@ -203,27 +203,28 @@ access to the symbols of the application code.
 
 </Tabs>
 
-## How to merge user-space and kernel profiling
-With the help of our community we've charted out several promising paths to improving our integrations by merging the eBPF
-and user-space profiles within the integration.
-One of the most promising approaches is: 
+### eBPF for cluster-level profiling
+For example, using Pyroscope's auto-tagging feature you can get a breakdown of cpu usage by kubernetes metadata. In this case we can see which namespace is consuming the most cpu resources for our [demo instance](https://demo.pyroscope.io/explore?query=rideshare-cluster-ebpf.cpu%7B%7D&groupBy=k8s_pod_namespace&groupByValue=All):
+![image](https://user-images.githubusercontent.com/23323466/192881179-996930b2-5307-4803-ac9b-09e1bf0f97f2.png)
 
-[
-  (example) + diagram showing how it would work to do eBPF profiling + ruby profiling / eBPF profiling + python profiling from the kernel
-]
+and you can also see the flamegraph representing CPU utilization for the entire cluster:
+<img width="1183" alt="image" src="https://user-images.githubusercontent.com/23323466/192880734-ab0a9503-cc7e-4c53-b677-6b2e8d0f690e.png">
 
-Stay tuned for progress on this or better yet let us know if you'd like to help! In the meantime, however, we recommend using:
-- Non-eBPF language-specific integrations for more granular control and analytic capabilities (i.e. dynamic tags and labels)
-- eBPF integration for a comprehensive view of the whole cluster
-
-In fact, this is how we profile our cloud product's code internally:
+This is how we profile our applications internally:
 - eBPF for our kubernetes cluster
 - ruby gem, pip package, go client, and java client _with tags_ for our language microservices and testing suites
 - Lambda extension for our lambda functions
 
-We use eBPF to profile our rideshare example cluster running on kubernetes for our
-Go, Python, Ruby, Java, and Rust examples. Looking at the resulting flamegraph gives a good insight into the
-type of information and specificity you get for the user-space profiling results vs. the eBPF results.
+## The next evolution: merging kernel and user-space profiling
+With the help of our community we've charted out several promising paths to improving our integrations by merging the eBPF
+and user-space profiles within the integration.
+One of the most promising approaches is using:
+- Non-eBPF language-specific integrations for more granular control and analytic capabilities (i.e. dynamic tags and labels)
+- eBPF integration for a comprehensive view of the whole cluster
+
+![Screen Shot 2022-09-27 at 8 49 41 PM](https://user-images.githubusercontent.com/23323466/192882722-1aa34290-d119-4dec-84e7-f8a70feef0b4.png)
+
+Stay tuned for more progress on these efforts -- in the meantime happy profiling!
 
 
 import '@pyroscope/flamegraph/dist/index.css';
