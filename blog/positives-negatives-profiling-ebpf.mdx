@@ -140,7 +140,15 @@ of the operating system there are positives and negatives of profiling at that p
 
 
 ## Pyroscope's solution: Merge User-space and Kernel profiling
-<img width="915" alt="image" src="https://user-images.githubusercontent.com/23323466/188767811-a45c0b2c-ec62-4f5e-8fe1-eae3e347e7e0.png"/>
+
+import Lottie from "lottie-react";
+import circularAnimation from "../src/components/Homepage/HeadSection/circularAnimation.json";
+
+<div className="row">
+  <div className="col col--12">
+    <Lottie animationData={circularAnimation} loop={true} />
+  </div>
+</div>
 
 We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
 The negatives of eBPF profiling are the positives of non-eBPF profiling and vice versa. We believe that the best way to get the most value out of profiling
