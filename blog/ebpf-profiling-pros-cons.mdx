@@ -1,8 +1,8 @@
 ---
-title: The positives and negatives of profiling with eBPF
-description: Is eBPF profiling for you?
+title: The pros and cons of eBPF profiling
+description: When and how to use eBPF profiling to your advantage
 sidebar_label: Profiling with eBPF
-slug: /positives-negatives-profiling-ebpf
+slug: /ebpf-profiling-pros-cons
 date: "2022-09-29"
 
 authors:
@@ -25,7 +25,8 @@ import circularAnimation from "../src/components/Homepage/HeadSection/circularAn
 At its root, eBPF takes advantage of the kernel’s privileged ability to oversee and control the entire system.
 With eBPF you can run sandboxed programs in a privileged context such as the operating system kernel.
 To better understand the implications and learn more check out this [blog post](https://ebpf.io/what-is-ebpf)
-which goes into much more detail.
+which goes into much more detail. For profiling this typically means running a program that pulls stacktraces
+for the whole system at a constant rate (e.g 100Hz).
 
 ![image](https://user-images.githubusercontent.com/23323466/188525916-0e33c64a-9a7a-4fe2-84d6-91111c4d6f39.png)
 
@@ -58,7 +59,7 @@ in order to enable more effective observability. For more information on those e
 
 ## Current state of eBPF profiling
 
-There's a wide spectrum of "challenges" with eBPF profiling that can drastically change the value you're able to receive from utilizing it.
+There's a wide spectrum of challenges with eBPF profiling that can drastically change the value you're able to receive from utilizing it.
 This is a list roughly sorted from "easier" fairly standard functionality to "harder" more advanced functionality:
 
 - Collecting data with low overhead
@@ -75,15 +76,13 @@ This blog will focus on Pyroscope's unique approach to solving these issues.
 
 When it comes to modern profiling, there are two ways of getting profiling data:
 
-- User-space level: Popular non-eBPF profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. operate at this level
-- Kernel-level: eBPF profilers operate at this level (examples?)
+- User-space level: Popular profilers like pprof, async-profiler, rbspy, py-spy, pprof-rs, dotnet-trace, etc. operate at this level
+- Kernel-level: eBPF profilers and linux perf are able to get stacktraces for the whole system from the kernel
 
 Pyroscope is designed to be language agnostic and supports all mentioned profiles above with a specific focus on efficient storage and
 advanced analysis of _all_ profiles.
 
-The reason that there is this chasm between eBPF profilers and non-eBPF profilers is because at each level
-of the operating system there are positives and negatives of profiling at that particular level.
-
+Each approach comes with its own set of pros and cons:
 <div className="blog-pros-cons">
   <div className="row">
     <div className="col col--12">
@@ -91,7 +90,7 @@ of the operating system there are positives and negatives of profiling at that p
         <img src="/img/logos/go_logo_100x100-01.png"/>
         <img src="/img/logos/java_logo_100x100-01.png"/>
         <img src="/img/logos/python_logo_100x100-01.png"/>
-        <span>Positives and negatives of<br/>native-language profiling</span>
+        <span>Pros and Cons of<br/>native-language profiling</span>
         <img src="/img/logos/dotnet_logo_100x100-01.png"/>
         <img src="/img/logos/ruby_logo_100x100-01.png"/>
         <img src="/img/logos/rust_logo_100x100-01.png"/>
@@ -100,7 +99,7 @@ of the operating system there are positives and negatives of profiling at that p
   </div>
   <div className="row">
     <div className="col col--6 pros">
-      <h4>Positives</h4>
+      <h4>Pros</h4>
       <ul>
         <li>Ability tag application code in flexible way (i.e, tagging spans, controllers, functions)</li>
         <li>Ability to profile various specific parts of code (i.e. Lambda functions, Test suites, scripts)</li>
@@ -110,7 +109,7 @@ of the operating system there are positives and negatives of profiling at that p
       </ul>
     </div>
     <div className="col col--6 cons">
-      <h4>Negatives</h4>
+      <h4>Cons</h4>
       <ul>
         <li>Complexity, for large multi-language systems, to get fleet-wide view</li>
         <li>Constraints on ability to auto-tag infrastructure metadata (i.e. kubernetes)</li>
@@ -125,14 +124,14 @@ of the operating system there are positives and negatives of profiling at that p
     <div className="col col--12">
       <h3>
         <img src="/img/logos/ebpf_logo_100x100-01.png"/>
-        <span>Positives and negatives of<br/>eBPF profiling</span>
+        <span>Pros and Cons of<br/>eBPF profiling</span>
         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII"/>
       </h3>
     </div>
   </div>
   <div className="row">
     <div className="col col--6 pros">
-      <h4>Positives</h4>
+      <h4>Pros</h4>
       <ul>
         <li>Ability to get fleet-wide, whole-system metrics easily</li>
         <li>Ability to auto-tag metadata that's available when profiling whole system (i.e. kubernetes pods, namespaces)</li>
@@ -142,7 +141,7 @@ of the operating system there are positives and negatives of profiling at that p
       </ul>
     </div>
     <div className="col col--6 cons">
-      <h4>Negatives</h4>
+      <h4>Cons</h4>
       <ul>
         <li>Requirements call for particular linux kernel versions</li>
         <li>Constraints on being able to tag user-level code</li>
@@ -154,10 +153,10 @@ of the operating system there are positives and negatives of profiling at that p
 </div>
 
 
-## Pyroscope's solution: Merge User-space and Kernel profiling
+## Pyroscope's solution: Merge user-space and kernel profiling
 
 We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
-The negatives of eBPF profiling are the positives of non-eBPF profiling and vice versa. We believe that the best way to get the most value out of profiling
+The cons of eBPF profiling are the pros of non-eBPF profiling and vice versa. We believe that the best way to get the most value out of profiling
 itself is to actually combine the two.
 
 
@@ -178,8 +177,10 @@ When profiling compiled languages, like Golang, the eBPF profiler is able to get
 </Tabs>
 
 ### Profiling interpreted languages (Ruby, Python, etc.)
-When profiling non-compiled languages like Ruby or Python the eBPF profiler (by default) does not have
-access to the symbols of the application code.
+With interpreted languages like Ruby or Python, stacktraces in their runtimes are not easily accessible from the kernel. 
+As a result, the eBPF profiler is not able to parse user-space stack traces for interpreted languages. You can see how
+the kernel interprets stack traces of compiled languages (go) vs how the kernel interprets stack traces from interpreted languages (ruby/python)
+in the examples
 
 <Tabs
   defaultValue="nativePython"
