@@ -146,14 +146,64 @@ We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our f
 The negatives of eBPF profiling are the positives of non-eBPF profiling and vice versa. We believe that the best way to get the most value out of profiling
 itself is to actually combine the two.
 
-Long term, we've charted out several promising paths to continue improving our integrations and bridge the gap between eBPF and user-space profiling.
-One of the most promising approaches is: (example)
 
-However, in the meantime, we recommend using:
+### Profiling Compiled Languages (Golang, Java, C++, etc.)
+When profiling compiled languages, like Golang, the eBPF profiler is able to get very similar information to the non-eBPF profiler.
+<Tabs
+  defaultValue="nativeGolang"
+  values={[
+    {label: 'Native Golang', value: 'nativeGolang'},
+    {label: 'eBPF Golang', value: 'ebpfGolang'},
+  ]}>
+  <TabItem value="nativeGolang">
+    <Flamegraph profileData={GolangNative}></Flamegraph>
+  </TabItem>
+  <TabItem value="ebpfGolang">
+    <Flamegraph profileData={GolangEbpf}></Flamegraph>
+  </TabItem>
+</Tabs>
+
+### Profiling non-compiled Languages (Ruby, Python, etc.)
+When profiling non-compiled languages like Ruby or Python the eBPF profiler (by default) does not have
+access to the symbols of the application code.
+
+<Tabs
+  defaultValue="nativePython"
+  values={[
+    {label: 'Native Python', value: 'nativePython'},
+    {label: 'eBPF Python', value: 'ebpfPython'},
+    {label: 'Native Ruby', value: 'nativeRuby'},
+    {label: 'eBPF Ruby', value: 'ebpfRuby'}
+  ]}>
+  <TabItem value="nativePython">
+    <Flamegraph profileData={PythonNative}></Flamegraph>
+  </TabItem>
+  <TabItem value="ebpfPython">
+    <Flamegraph profileData={PythonEbpf}></Flamegraph>
+  </TabItem>
+  <TabItem value="nativeRuby">
+    <Flamegraph profileData={RubyNative}></Flamegraph>
+  </TabItem>
+  <TabItem value="ebpfRuby">
+    <Flamegraph profileData={RubyEbpf}></Flamegraph>
+  </TabItem>
+
+</Tabs>
+
+## How to merge user-space and kernel profiling
+With the help of our community we've charted out several promising paths to improving our integrations by merging the eBPF
+and user-space profiles within the integration.
+One of the most promising approaches is: 
+
+[
+  (example) + diagram showing how it would work to do eBPF profiling + ruby profiling / eBPF profiling + python profiling from the kernel
+]
+
+Stay tuned for progress on this or better yet let us know if you'd like to help! In the meantime, however, we recommend using:
 - Non-eBPF language-specific integrations for more granular control and analytic capabilities (i.e. dynamic tags and labels)
 - eBPF integration for a comprehensive view of the whole cluster
 
-In fact, this is actually how we profile our cloud product's code internally:
+In fact, this is how we profile our cloud product's code internally:
 - eBPF for our kubernetes cluster
 - ruby gem, pip package, go client, and java client _with tags_ for our language microservices and testing suites
 - Lambda extension for our lambda functions
@@ -162,12 +212,6 @@ We use eBPF to profile our rideshare example cluster running on kubernetes for o
 Go, Python, Ruby, Java, and Rust examples. Looking at the resulting flamegraph gives a good insight into the
 type of information and specificity you get for the user-space profiling results vs. the eBPF results.
 
-## Examples
-### eBPF Java profiling
-### user-space Java profiling (pyroscope-java forked from async-profiler)
-
-### eBPF ruby profiling
-### user-space Ruby profiling (pyroscope ruby gem forked from rbspy)
 
 import '@pyroscope/flamegraph/dist/index.css';
 import {Flamegraph} from '../src/components/Blog/Flamegraph';
@@ -179,35 +223,3 @@ import {PythonEbpf} from '../src/components/Blog/PythonEbpf';
 import {PythonNative} from '../src/components/Blog/PythonNative';
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-console.log('simple tree', GolangEbpf);
-
-<Tabs
-  defaultValue="ebpfGolang"
-  values={[
-    {label: 'eBPF Golang', value: 'ebpfGolang'},
-    {label: 'Native Golang', value: 'nativeGolang'},
-    {label: 'eBPF Ruby', value: 'ebpfRuby'},
-    {label: 'Native Ruby', value: 'nativeRuby'},
-    {label: 'eBPF Python', value: 'ebpfPython'},
-    {label: 'Native Python', value: 'nativePython'},
-  ]}>
-
-  <TabItem value="ebpfGolang">
-    <Flamegraph profileData={GolangEbpf}></Flamegraph>
-  </TabItem>
-  <TabItem value="nativeGolang">
-    <Flamegraph profileData={GolangNative}></Flamegraph>
-  </TabItem>
-  <TabItem value="ebpfRuby">
-    <Flamegraph profileData={RubyEbpf}></Flamegraph>
-  </TabItem>
-  <TabItem value="nativeRuby">
-    <Flamegraph profileData={RubyNative}></Flamegraph>
-  </TabItem>
-    <TabItem value="ebpfPython">
-    <Flamegraph profileData={PythonEbpf}></Flamegraph>
-  </TabItem>
-  <TabItem value="nativePython">
-    <Flamegraph profileData={PythonNative}></Flamegraph>
-  </TabItem>
-</Tabs>
