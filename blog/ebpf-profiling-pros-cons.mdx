@@ -37,7 +37,7 @@ there are a few notable companies and open source projects innovating at the int
 - [Parca](https://github.com/parca-dev/parca)
 - Prodfiler (closed source)
 
-The collective growth is representative of the rapidly growing interest in this space as companies like Pyroscope, Pixie, and Parca all gained a significant amount of traction over this time period.
+The collective growth is representative of the rapidly growing interest in this space as projects like Pyroscope, Pixie, and Parca all gained a significant amount of traction over this time period.
 
 <img width="100%" src="https://user-images.githubusercontent.com/23323466/192879029-f10378ca-1b88-4441-9cf4-ba24b6f62256.png" />
 
@@ -131,10 +131,10 @@ However, each approach comes with its own set of pros and cons:
 </div>
 
 
-## Pyroscope's solution: Merge user-space and kernel profiling
+## Pyroscope's solution: Merge eBPF profiling and native-language profiling
 
-We believe that there's benefits to _both_ eBPF and non-eBPF profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
-The cons of eBPF profiling are the pros of non-eBPF profiling and vice versa. We believe that the best way to get the most value out of profiling
+We believe that there's benefits to _both_ eBPF and native-language profiling and our focus long term is to integrate them together seamlessly in Pyroscope.
+The cons of eBPF profiling are the pros of native-language profiling and vice versa. As a result, the best way to get the most value out of profiling
 itself is to actually combine the two.
 
 
@@ -158,7 +158,7 @@ When profiling compiled languages, like Golang, the eBPF profiler is able to get
 With interpreted languages like Ruby or Python, stacktraces in their runtimes are not easily accessible from the kernel. 
 As a result, the eBPF profiler is not able to parse user-space stack traces for interpreted languages. You can see how
 the kernel interprets stack traces of compiled languages (go) vs how the kernel interprets stack traces from interpreted languages (ruby/python)
-in the examples
+in the examples below.
 
 <Tabs
   defaultValue="nativePython"
@@ -185,7 +185,7 @@ in the examples
 
 ## How to use eBPF for cluster level profiling
 Using Pyroscope's auto-tagging feature in the eBPF integration you can get a breakdown of cpu usage by kubernetes metadata.
-In this case we can see which namespace is consuming the most cpu resources for our [demo instance](https://demo.pyroscope.io/explore?query=rideshare-cluster-ebpf.cpu%7B%7D&groupBy=k8s_pod_namespace&groupByValue=All)
+In this case, we can see which namespace is consuming the most cpu resources for our [demo instance](https://demo.pyroscope.io/explore?query=rideshare-cluster-ebpf.cpu%7B%7D&groupBy=k8s_pod_namespace&groupByValue=All)
 after adding Pyroscope with two lines of code:
 
 ```shell
