@@ -197,7 +197,7 @@ in the examples
 
 </Tabs>
 
-### eBPF for cluster level profiling
+## How to use eBPF for cluster level profiling
 Using Pyroscope's auto-tagging feature in th eBPF integration you can get a breakdown of cpu usage by kubernetes metadata.
 In this case we can see which namespace is consuming the most cpu resources for our [demo instance](https://demo.pyroscope.io/explore?query=rideshare-cluster-ebpf.cpu%7B%7D&groupBy=k8s_pod_namespace&groupByValue=All)
 after adding Pyroscope with two lines of code:
