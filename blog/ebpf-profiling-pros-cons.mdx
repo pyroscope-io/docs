@@ -201,8 +201,9 @@ and you can also see the flamegraph representing CPU utilization for the entire 
 
 Internally, we use a variety of integrations to get both a high level overview of what's going on in our cluster, but also a very detailed view for each runtime that we use:
 - We use our eBPF integration for our kubernetes cluster
-- We use [ruby gem](https://pyroscope.io/docs/ruby/), [pip package](https://pyroscope.io/docs/python/), [go client](https://pyroscope.io/docs/golang/), and [java client](https://pyroscope.io/docs/java/) _with tags_ for our k8s services and github action test suites.
-- We use our [lambda extension](https://pyroscope.io/docs/aws-lambda/) to profile the code inside lambda functions
+- We use [ruby gem](/docs/ruby/), [pip package](/docs/python/), [go client](/docs/golang/), and [java client](/docs/java/) _with tags_ for our k8s services and github action test suites
+- We us our otel-profiling integrations ([go](/docs/golang-tracing/), [java](/docs/java-tracing/)) to get span-specific profiles inside our traces
+- We use our [lambda extension](/docs/aws-lambda/) to profile the code inside lambda functions
 
 ## The next evolution: merging kernel and user-space profiling
 With the help of our community we've charted out several promising paths to improving our integrations by merging the eBPF
