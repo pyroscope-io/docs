@@ -12,14 +12,7 @@ authors:
     image_url: https://avatars.githubusercontent.com/u/23323466?v=4
 ---
 
-import Lottie from "lottie-react";
-import circularAnimation from "../src/components/Homepage/HeadSection/circularAnimation.json";
-
-<div className="row">
-  <div className="col col--12">
-    <Lottie animationData={circularAnimation} loop={true} />
-  </div>
-</div>
+<img width="100%" src="https://user-images.githubusercontent.com/23323466/192919567-161b3f4b-8998-4968-a399-ae9f9ca8d1b5.png" />
 
 ## What is eBPF?
 
@@ -46,9 +39,7 @@ there are a few notable companies and open source projects innovating at the int
 
 The collective growth is representative of the rapidly growing interest in this space as companies like Pyroscope, Pixie, and Parca all gained a significant amount of traction over this time period.
 
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/23323466/192879029-f10378ca-1b88-4441-9cf4-ba24b6f62256.png" />
-</div>
+<img width="100%" src="https://user-images.githubusercontent.com/23323466/192879029-f10378ca-1b88-4441-9cf4-ba24b6f62256.png" />
 
 It's also worth noting that the growth of profiling is not limited to eBPF, the prevalence of profiling tools has grown
 to the point where it is now possible to find a tool for almost any language or runtime. As a result, profiling
@@ -56,7 +47,8 @@ is more frequently being considered a first-class citizen in observability suite
 
 For example, OpenTelemetry has kicked off
 efforts to [standardize profiling](https://github.com/open-telemetry/oteps/blob/main/text/profiles/0212-profiling-vision.md)
-in order to enable more effective observability. For more information on those efforts check out the `#otel-profiling` channel on the CNCF slack!
+in order to enable more effective observability. For more information on those efforts check out
+the [#otel-profiling](https://cloud-native.slack.com/archives/C03J794L0BV) channel on the CNCF slack!
 
 ## Current state of eBPF profiling
 
@@ -206,7 +198,16 @@ in the examples
 </Tabs>
 
 ### eBPF for cluster level profiling
-For example, using Pyroscope's auto-tagging feature you can get a breakdown of cpu usage by kubernetes metadata. In this case we can see which namespace is consuming the most cpu resources for our [demo instance](https://demo.pyroscope.io/explore?query=rideshare-cluster-ebpf.cpu%7B%7D&groupBy=k8s_pod_namespace&groupByValue=All):
+Using Pyroscope's auto-tagging feature in th eBPF integration you can get a breakdown of cpu usage by kubernetes metadata.
+In this case we can see which namespace is consuming the most cpu resources for our [demo instance](https://demo.pyroscope.io/explore?query=rideshare-cluster-ebpf.cpu%7B%7D&groupBy=k8s_pod_namespace&groupByValue=All)
+after adding Pyroscope with two lines of code:
+
+```shell
+# Add Pyroscope eBPF integration to your kubernetes cluster
+helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
+helm install pyroscope-ebpf pyroscope-io/pyroscope-ebpf
+```
+
 ![image](https://user-images.githubusercontent.com/23323466/192881179-996930b2-5307-4803-ac9b-09e1bf0f97f2.png)
 
 and you can also see the flamegraph representing CPU utilization for the entire cluster:
@@ -226,7 +227,8 @@ One of the most promising approaches is using:
 
 ![Screen Shot 2022-09-27 at 8 49 41 PM](https://user-images.githubusercontent.com/23323466/192882722-1aa34290-d119-4dec-84e7-f8a70feef0b4.png)
 
-Stay tuned for more progress on these efforts -- in the meantime happy profiling!
+Stay tuned for more progress on these efforts. In them meantime check out the docs to get started with
+[eBPF](/docs/ebpf/#running-ebpf-profiler-on-kubernetes) or the [other integrations](/docs/agent-overview)!
 
 
 import '@pyroscope/flamegraph/dist/index.css';
