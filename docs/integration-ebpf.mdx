@@ -1,6 +1,6 @@
 ---
 id: integration-ebpf
-title: eBPF
+title: eBPF Profiling
 sidebar_label: eBPF
 slug: /ebpf
 description: Pyroscope eBPF profiling
@@ -48,14 +48,14 @@ For the eBPF integration to work you'll need:
 
 ### Running eBPF profiler on Kubernetes
 
-#### Step 1. Install pyroscope agent
+#### Step 1: Add the helm repo
 
-First, add the helm repo
 ```shell
 helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
 ```
 
-Then install the agent
+#### Step 2: Install pyroscope agent
+
 ```shell
 helm install pyroscope-ebpf pyroscope-io/pyroscope-ebpf
 ```
