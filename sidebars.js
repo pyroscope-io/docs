@@ -57,7 +57,12 @@ module.exports = {
               collapsed: false,
               items: ["integration-java", "integration-java-tracing"],
             },
-            "integration-ruby",
+            {
+              type: "category",
+              label: "Ruby",
+              collapsed: false,
+              items: ["integration-ruby", "integration-ruby-tracing"],
+            },
             "integration-rust",
             "integration-php",
             "integration-dotnet",

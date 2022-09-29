@@ -1,0 +1,88 @@
+---
+id: integration-ruby-tracing
+title: Ruby Tracing Integration
+sidebar_label: Tracing Integration
+slug: /ruby-tracing
+description: Pyroscope Ruby Tracing Integration
+keywords: [ ruby, tracing, opentelemetry, otelpyroscope ]
+---
+
+## OpenTelemetry support
+
+Pyroscope can integrate with distributed tracing systems supporting [**OpenTelemetry**](https://opentelemetry.io/docs/instrumentation/ruby/getting-started/) standard which allows you to
+link traces with the profiling data, and find specific lines of code related to a performance issue.
+
+:::note
+ * Because of how sampling profilers work, spans shorter than the sample interval may not be captured. By default pyroscope CPU profiler probes stack traces 100 times per second, meaning that spans shorter than 10ms may not be captured.
+:::
+
+Ruby code can be easily instrumented with [otel-profiling-ruby package](https://github.com/pyroscope-io/otel-profiling-ruby/) package -
+a `Pyroscope::Otel::SpanProcessor` implementation, that annotates profiling data with span IDs which makes it possible to filter
+out profile of a particular trace span in Pyroscope.
+
+
+## Installation
+
+Add this line to your application's Gemfile:
+
+```ruby
+gem 'pyroscope-otel'
+```
+
+And then execute:
+
+    $ bundle install
+
+Or install it yourself as:
+
+    $ gem install pyroscope-otel
+
+## Usage
+Configure [pyroscope](/docs/ruby) and then configure OpenTelemetry with `Pyroscope::Otel::SpanProcessor`
+```ruby
+Pyroscope.configure do |config|
+  # Configure pyroscope as described https://pyroscope.io/docs/ruby/
+end
+
+OpenTelemetry::SDK.configure do |config|
+  config.add_span_processor Pyroscope::Otel::SpanProcessor.new(
+    "#{app_name}.cpu", # your app name with ".cpu" suffix, for example rideshare-ruby.cpu
+    pyroscope_endpoint # link to your pyroscope server, for example "http://localhost:4040"
+  )
+  # Configure the rest of opentelemetry as described  https://github.com/open-telemetry/opentelemetry-ruby
+end
+```
+
+
+## Configuration options
+
+You can control some processor options with the following flags:
+
+```ruby
+Pyroscope::Otel::SpanProcessor.new("#{app_name}.cpu", pyroscope_endpoint).tap do |proc|
+    # boolean flag option to annotate spans with profile attributes only on root spans.
+    proc.root_span_only = true
+    # boolean flag option to annotate pyroscope profiles with parent name
+    proc.add_span_name = true
+    # boolean flag option to add profiler url to parent attributes
+    proc.add_url = true
+  end
+```
+## Profiles
+
+Collected profiles can be viewed in Pyroscope UI using FlameQL:
+- `simple.ruby.cpu{profile_id="<spanID>"}` - Shows flamegraph for a particular span.
+- `simple.ruby.cpu{span_name="ExampleSpan"}` - Shows aggregated profile for all spans named **ExampleSpan**.
+
+For convenience, the tracer annotates profiled spans with extra attributes:
+- `pyroscope.profile.id` - is set to span ID to indicate that profile was captured for a span.
+- `pyroscope.profile.url` - contains the URL to the flamegraph in Pyroscope UI.
+
+
+## Examples
+
+Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger/ruby/rideshare) directory in our repository to
+find a complete example application that demonstrates tracing integration features (using a custom jaeger ui) and learn more!
+ - [Jaeger](https://github.com/pyroscope-io/pyroscope/tree/main/examples/tracing/jaeger/)
+
+![jaeger example](https://user-images.githubusercontent.com/331773/193030128-988812a4-e792-47f8-8abd-faa211c55266.png)
