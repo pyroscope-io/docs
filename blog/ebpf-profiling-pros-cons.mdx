@@ -1,6 +1,7 @@
 ---
 title: The pros and cons of eBPF profiling
 description: When and how to use eBPF profiling to your advantage
+image: https://user-images.githubusercontent.com/23323466/192919226-7e967686-eb53-42e0-9494-33144bf58f35.png
 sidebar_label: Profiling with eBPF
 slug: /ebpf-profiling-pros-cons
 date: "2022-09-29"
@@ -72,7 +73,7 @@ This is a list roughly sorted from "easier" fairly standard functionality to "ha
 
 This blog will focus on Pyroscope's unique approach to solving these issues.
 
-## Pros and cons of eBPF profiling vs non-eBPF profiling
+## Pros and cons of eBPF and non-eBPF profiling
 
 When it comes to modern continuous profiling, there are two ways of getting profiling data:
 
@@ -204,7 +205,7 @@ in the examples
 
 </Tabs>
 
-### eBPF for cluster-level profiling
+### eBPF for cluster level profiling
 For example, using Pyroscope's auto-tagging feature you can get a breakdown of cpu usage by kubernetes metadata. In this case we can see which namespace is consuming the most cpu resources for our [demo instance](https://demo.pyroscope.io/explore?query=rideshare-cluster-ebpf.cpu%7B%7D&groupBy=k8s_pod_namespace&groupByValue=All):
 ![image](https://user-images.githubusercontent.com/23323466/192881179-996930b2-5307-4803-ac9b-09e1bf0f97f2.png)
 
