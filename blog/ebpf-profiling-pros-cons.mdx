@@ -50,20 +50,6 @@ efforts to [standardize profiling](https://github.com/open-telemetry/oteps/blob/
 in order to enable more effective observability. For more information on those efforts check out
 the [#otel-profiling](https://cloud-native.slack.com/archives/C03J794L0BV) channel on the CNCF slack!
 
-## Current state of eBPF profiling
-
-There's a wide spectrum of challenges with eBPF profiling that can drastically change the value you're able to receive from utilizing it.
-This is a list roughly sorted from "easier" fairly standard functionality to "harder" more advanced functionality:
-
-- Collecting data with low overhead
-- Auto-tagging profiles with available metadata
-- Finding the best _format_ in which to send profiling data
-- Dealing with collecting, storing, and applying symbols
-- Finding ways to deal with _lack_ of symbols
-- Finding efficient ways to do other kinds of profiling such as memory profiling
-- Finding ways to apply tags dynamically and/or arbitrarily
-
-This blog will focus on Pyroscope's unique approach to solving these issues.
 
 ## Pros and cons of eBPF and non-eBPF profiling
 
