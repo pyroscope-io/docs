@@ -211,7 +211,7 @@ class Pricing extends React.Component {
                   </tr>
                   <tr>
                     <td>
-                      <a href="/docs/agent-overview/">
+                      <a href="/docs/golang-tracing/">
                         Tracing Integrations
                       </a>
                       <br/>
