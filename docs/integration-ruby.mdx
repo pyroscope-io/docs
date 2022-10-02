@@ -80,6 +80,15 @@ end
 
 ```
 
-### Examples
+### Ruby profiling examples
 
-Check out this [example ruby project in our repository](https://github.com/pyroscope-io/pyroscope/tree/main/examples/ruby) for examples of how you can use these features.
+Check out the following resources to learn more about Ruby profiling:
+- [Ruby examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/ruby)
+- [Ruby Demo](https://demo.pyroscope.io/?query=rideshare-app-ruby.cpu%7B%7D) showing Ruby example with tags
+- [Ruby blog post](/blog/profiling-with-pyroscopes-ruby-gem)
+
+<Flamegraph profileData={RubyNative}></Flamegraph>
+
+import '@pyroscope/flamegraph/dist/index.css';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {RubyNative} from '../src/components/Blog/RubyNative';

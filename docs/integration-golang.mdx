@@ -149,6 +149,15 @@ runtime.SetBlockProfileRate(rate)
 
 `rate` parameter controls the fraction of goroutine blocking events that are reported in the blocking profile. The profiler aims to sample an average of one blocking event per rate nanoseconds spent blocked.
 
-### Examples
+### Golang profiling examples
 
-Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang-push) directory in our repository to learn more 🔥
+Check out the following resources to learn more about Golang profiling:
+- [Golang examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang-push)
+- [Golang Demo](https://demo.pyroscope.io/?query=rideshare-app-golang.cpu%7B%7D) showing golang example with tags
+- [Golang blog post](/blog/profiling-go-apps-with-pyroscope)
+
+<Flamegraph profileData={GolangNative}></Flamegraph>
+
+import '@pyroscope/flamegraph/dist/index.css';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {GolangNative} from '../src/components/Blog/GolangNative';
