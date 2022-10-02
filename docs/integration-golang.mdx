@@ -151,4 +151,13 @@ runtime.SetBlockProfileRate(rate)
 
 ### Examples
 
-Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang-push) directory in our repository to learn more 🔥
+Check out the following resources to learn more about Golang profiling:
+- [Golang examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang-push)
+- [Golang Demo](https://demo.pyroscope.io/?query=rideshare-cluster-ebpf.cpu%7B%7D) showing golang example with tags
+- [Golang blog post](/blog/profiling-go-apps-with-pyroscope)
+
+<Flamegraph profileData={GolangNative}></Flamegraph>
+
+import '@pyroscope/flamegraph/dist/index.css';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {GolangNative} from '../src/components/Blog/GolangNative';
