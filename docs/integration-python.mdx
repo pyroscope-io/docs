@@ -72,6 +72,15 @@ with pyroscope.tag_wrapper({ "controller": "slow_controller_i_want_to_profile" }
   slow_code()
 ```
 
-### Example
+### Python profiling examples
 
-Check out this [example python project in our repository](https://github.com/pyroscope-io/pyroscope/tree/main/examples/python) for examples of how you can use these features.
+Check out the following resources to learn more about Ruby profiling:
+- [Python examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/python)
+- [Python Demo](https://demo.pyroscope.io/?query=rideshare-app-python.cpu%7B%7D) showing Ruby example with tags
+- [Python blog post](/blog/profiling-with-pyroscopes-pip-package/)
+
+<Flamegraph profileData={PythonNative}></Flamegraph>
+
+import '@pyroscope/flamegraph/dist/index.css';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {PythonNative} from '../src/components/Blog/PythonNative';
