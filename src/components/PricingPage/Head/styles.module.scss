@@ -16,12 +16,12 @@ $sect_padding: 330px;
 
   @media (max-width: 992px) {
     height: auto;
-    padding-bottom: 200px;
+    padding-bottom: 50px;
   }
 
   @media (max-width: 630px) {
     padding: 0 16px;
-    padding-bottom: 130px;
+    padding-bottom: 0;
   }
 }
 
@@ -39,6 +39,14 @@ $sect_padding: 330px;
 
   @media (max-width: 2000px) {
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 11vw), 0% 100%);
+  }
+
+  @media (max-width: 992px) {
+    bottom: calc($sect_padding * 2);
+  }
+
+  @media (max-width: 630px) {
+    bottom: calc($sect_padding * 3);
   }
 }
 
@@ -71,6 +79,24 @@ $sect_padding: 330px;
     background-clip: text;
     text-fill-color: transparent;
   }
+
+  @media (max-width: 860px) {
+    br {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    font-size: 44px;
+    line-height: 48px;
+    margin-top: 30px;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 32px;
+    line-height: 40px;
+    margin-top: 10px;
+  }
 }
 
 .choosePlanCaption {
@@ -80,6 +106,14 @@ $sect_padding: 330px;
   text-align: center;
   color: #ffffff;
   margin-top: 24px;
+
+  br {
+    display: none;
+
+    @media (max-width: 550px) {
+      display: inline;
+    }
+  }
 
   .bold {
     font-weight: bold;
@@ -91,6 +125,14 @@ $sect_padding: 330px;
   flex-direction: row;
   justify-content: center;
   margin-top: 54px;
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+  }
+
+  @media (max-width: 550px) {
+    margin-top: 0;
+  }
 
   .plan {
     width: calc(50% - 12px);
@@ -105,8 +147,26 @@ $sect_padding: 330px;
     padding: 16px;
     position: relative;
 
+    @media (max-width: 860px) {
+      margin: 0 0 0 12px;
+    }
+
+    @media (max-width: 640px) {
+      width: 100%;
+      max-width: none;
+      margin: 0 0 16px 0;
+    }
+
     &.oss {
       background: #ffffff;
+
+      @media (max-width: 860px) {
+        margin: 0 12px 0 0;
+      }
+
+      @media (max-width: 640px) {
+        margin: 0 0 16px 0;
+      }
     }
 
     &.cloud {
@@ -218,6 +278,10 @@ $sect_padding: 330px;
   right: -70px;
   z-index: -1;
   top: -57px;
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 .lightCircle {
@@ -226,6 +290,10 @@ $sect_padding: 330px;
   z-index: 2;
   bottom: calc($sect_padding + 260px);
   opacity: 0.6;
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 .bgEllipse {
@@ -233,6 +301,10 @@ $sect_padding: 330px;
   z-index: 2;
   left: 0;
   top: 60px;
+
+  @media (max-width: 992px) {
+    display: none;
+  }
 }
 
 .leftPath {

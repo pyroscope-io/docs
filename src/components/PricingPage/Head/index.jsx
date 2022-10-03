@@ -72,7 +72,7 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                     <span className={styles.titleGradient}>Simple </span> and <span className={styles.titleGradient}>Predictable Pricing</span> <br />for Business of any Size
                 </h1>
                 <p className={styles.choosePlanCaption}>
-                    Choose between one of two versions: <span className={styles.bold}>Open Source</span> or <span className={styles.bold}>Cloud</span>
+                    Choose between one of two versions:<br /> <span className={styles.bold}>Open Source</span> or <span className={styles.bold}>Cloud</span>
                 </p>
                 <div className={styles.plans}>
                     <div className={clsx([styles.plan, styles.oss])}>
