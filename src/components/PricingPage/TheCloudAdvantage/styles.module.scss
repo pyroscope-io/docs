@@ -4,7 +4,12 @@ $bg_height_tablet: 1900px;
 .sectionWrapper {
   margin-top: -330px;
   padding-bottom: 90px;
-  background-color: white;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
 }
 
 .section {
@@ -35,7 +40,7 @@ $bg_height_tablet: 1900px;
   background: url(/img/homepage/BG-V2.svg);
   background-position: bottom;
   background-size: cover;
-  clip-path: polygon(0 18%, 100% 0%, 100% 89%, 0% 100%);
+  clip-path: polygon(0 11%, 100% 0%, 100% calc(100% - 11vw), 0% 100%);
   z-index: -1;
   height: $bg_height;
 
@@ -62,24 +67,29 @@ $bg_height_tablet: 1900px;
   color: white;
   margin-top: 195px;
 
-  @media (max-width: 992px) {
-    font-size: 40px;
-    margin-top: 140px;
+  @media (max-width: 1500px) {
+    margin-top: 150px;
   }
 
-  @media (max-width: 675px) {
-    font-size: 32px;
+  @media (max-width: 992px) {
     margin-top: 100px;
   }
 
-  @media (max-width: 500px) {
-    font-size: 28px;
-    line-height: 34px;
+  @media (max-width: 437px) {
+    margin-top: 50px;
   }
 
   &.comparePlans {
     margin-top: 158px;
     margin-bottom: 0;
+
+    @media (max-width: 992px) {
+      margin-top: 50px;
+    }
+
+    @media (max-width: 550px) {
+      margin-top: 20px;
+    }
   }
 }
 
@@ -99,6 +109,16 @@ $bg_height_tablet: 1900px;
   justify-content: center;
   margin-top: 40px;
   margin-bottom: 56px;
+
+  @media (max-width: 680px) {
+    margin-top: 0;
+    margin-bottom: 56px;
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+  }
 }
 
 .advantages {
@@ -106,6 +126,10 @@ $bg_height_tablet: 1900px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+  }
 }
 
 .advantage {
@@ -113,6 +137,10 @@ $bg_height_tablet: 1900px;
   padding-left: 72px;
   position: relative;
   margin-bottom: 32px;
+
+  @media (max-width: 850px) {
+    width: 100%;
+  }
 
   .icon {
     position: absolute;
@@ -131,6 +159,11 @@ $bg_height_tablet: 1900px;
     background-clip: text;
     text-fill-color: transparent;
     margin-bottom: 12px;
+
+    @media (max-width: 550px) {
+      font-size: 24px;
+      line-height: 32px;
+    }
   }
 
   .description {
@@ -139,6 +172,10 @@ $bg_height_tablet: 1900px;
     line-height: 24px;
     color: #cecff0;
     opacity: 0.9;
+
+    @media (max-width: 550px) {
+      margin-bottom: 0;
+    }
   }
 }
 
