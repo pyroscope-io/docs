@@ -1753,6 +1753,11 @@
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.20.tgz#111b5db0f501aa89b05076fa31f0ea0e0c292cd3"
   integrity sha512-88p7+M0QGxKpmnkfXjS4V26AnoC/eiqZutE8GLdaI5X12NY75bXSdTY9NkmYb2Xyk1O+MmkuO6Frmsj84V6I8Q==
 
+"@pyroscope/flamegraph@^0.21.4":
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/@pyroscope/flamegraph/-/flamegraph-0.21.4.tgz#4b185854ee50767d5279baa16b58a29f9fcb3de1"
+  integrity sha512-/wkTHhBNapnnuLWQ40PyHa1pz8jVMmiLYO12Ak7qq1JhgVEccE39XrQMTkcFlM4FdpqM4/1w6U7fm4xebUAzZw==
+
 "@sideway/address@^4.1.0":
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/@sideway/address/-/address-4.1.2.tgz#811b84333a335739d3969cfc434736268170cad1"

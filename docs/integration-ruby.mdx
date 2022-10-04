@@ -1,7 +1,7 @@
 ---
 id: integration-ruby
 title: Ruby
-sidebar_label: Ruby
+sidebar_label: Client
 slug: /ruby
 description: Pyroscope Ruby profiling
 keywords: [ pyroscope, rb, rbspy, ruby, rails, profiling ]
@@ -65,6 +65,30 @@ Pyroscope.tag_wrapper({ "controller": "slow_controller_i_want_to_profile" }) do
 end
 ```
 
-### Example
+### Auto-Instrumentation
 
-Check out this [example ruby project in our repository](https://github.com/pyroscope-io/pyroscope/tree/main/examples/ruby) for examples of how you can use these features.
+#### Rails
+
+By default, if you add pyroscope to a rails application it will automatically tag your actions with `action="<controller_name>/<action_name>"` tag.
+
+To disable rails autoinstrumentation, set `autoinstrument_rails` to `false`:
+```ruby
+Pyroscope.configure do |config|
+  config.autoinstrument_rails = false
+  # more configuration
+end
+
+```
+
+### Ruby profiling examples
+
+Check out the following resources to learn more about Ruby profiling:
+- [Ruby examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/ruby)
+- [Ruby Demo](https://demo.pyroscope.io/?query=rideshare-app-ruby.cpu%7B%7D) showing Ruby example with tags
+- [Ruby blog post](/blog/profiling-with-pyroscopes-ruby-gem)
+
+<Flamegraph profileData={RubyNative}></Flamegraph>
+
+import '@pyroscope/flamegraph/dist/index.css';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {RubyNative} from '../src/components/Blog/RubyNative';

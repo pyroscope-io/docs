@@ -1,0 +1,36 @@
+---
+id: flamegraph-com
+title: flamegraph.com
+sidebar_label: flamegraph.com
+slug: /flamegraph-com
+keywords: [ flamegraph, api ]
+---
+
+
+[flamegraph.com](https://flamegraph.com) is an easy way to share profiles and render them as flamegraphs.
+It can be used through the UI or through the API.
+
+The API has two main parts, uploading profiles and rendering them back.
+There are two uploading variants, single profile and diff profile uploading.
+
+### Uploading
+#### Uploading collapsed profile
+```bash
+echo "foo;bar 239" | curl --data-binary @- https://flamegraph.com
+```
+#### Uploading perf profile
+```bash
+sudo perf script report stackcollapse | curl --data-binary @- https://flamegraph.com
+```
+#### Uploading pprof
+```bash
+cat profile.pprof | gzip | curl --data-binary @- https://flamegraph.com
+```
+#### Uploading flamebearer
+```bash
+cat flamebearer.json | curl --data-binary @- https://flamegraph.com
+```
+
+### Full API documentation
+For more examples, diff upload, render api visit [flamegraph.com/openapi](https://flamegraph.com/openapi)
+

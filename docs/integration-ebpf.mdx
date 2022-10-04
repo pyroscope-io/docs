@@ -1,6 +1,6 @@
 ---
 id: integration-ebpf
-title: eBPF
+title: eBPF Profiling
 sidebar_label: eBPF
 slug: /ebpf
 description: Pyroscope eBPF profiling
@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinux } from '@fortawesome/free-brands-svg-icons';
 
 
-eBPF is an emerging Linux kernel technology that allows for user-supplied programs to run inside of the kernel. This enables a bunch of interesting usecases, particularly efficient CPU profiling of the whole Linux system.
+eBPF is an emerging Linux kernel technology that allows for user-supplied programs to run inside of the kernel. This enables a bunch of interesting use cases, particularly efficient CPU profiling of the whole Linux system.
 
 #### Supported platforms
 
@@ -24,20 +24,14 @@ eBPF is an emerging Linux kernel technology that allows for user-supplied progra
 |:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
 | ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
 
-### Benefits of using eBPF for continuous profiling
-The pros of using the eBPF integration are:
-* Easy installation: You can add the agent to your node without making code changes as opposed to adding agent libraries to your code
-* Access to kernel stacktraces: While most agent libraries focus on user-space code performance, eBPF can also give insight into kernel-space code performance
+### Benefits and Tradeoffs of using eBPF for continuous profiling
 
-### Tradeoffs of using eBPF for continuous profiling
-Because eBPF is still a growing technology, there's a few tradeoffs that you have to make in order use eBPF for profiling your applications
-* Doesn't work as well with interpreted languages
-* Requires certain kernel versions
-
-
-
+We added a blog post "[The pros and cons of eBPF profiling](/blog/ebpf-profiling-pros-cons)" which more deeply
+explores this topic and provides some examples of eBPF profiles. If you're interested in some of the more
+granular details you can find them there!
 
 ### Getting Started with eBPF Profiling
+
 For the reasons mentioned above, we recommend an hybrid approach for better results: eBPF to profile the node and specific language instrumentation per application. The following steps will explain how to get started:
 
 #### Prerequisites for profiling with eBPF
@@ -48,14 +42,14 @@ For the eBPF integration to work you'll need:
 
 ### Running eBPF profiler on Kubernetes
 
-#### Step 1. Install pyroscope agent
+#### Step 1: Add the helm repo
 
-First, add the helm repo
 ```shell
 helm repo add pyroscope-io https://pyroscope-io.github.io/helm-chart
 ```
 
-Then install the agent
+#### Step 2: Install pyroscope agent
+
 ```shell
 helm install pyroscope-ebpf pyroscope-io/pyroscope-ebpf
 ```
@@ -112,9 +106,32 @@ All parameters below are also supported as CLI arguments, a full list can be acc
 
 ### Example
 
-https://demo.pyroscope.io/?query=ebpf.cpu%7B%7D
-Check out this [docker-compose example in our repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) for an example of how you can use eBPF integration.
+Check out the following resources to learn more about eBPF profiling:
+- [The pros and cons of eBPF profiling](/blog/ebpf-profiling-pros-cons) blog post (for more context on flamegraphs below)
+- [Demo](https://demo.pyroscope.io/?query=rideshare-cluster-ebpf.cpu%7B%7D) showing breakdown of our examples cluster
+- [docker-compose example](https://github.com/pyroscope-io/pyroscope/blob/main/examples/ebpf) in our repository
+
+<Tabs
+  defaultValue="ebpfGolang"
+  values={[
+    {label: 'eBPF Golang', value: 'ebpfGolang'},
+    {label: 'eBPF Python', value: 'ebpfPython'},
+    {label: 'eBPF Ruby', value: 'ebpfRuby'}
+  ]}>
+  <TabItem value="ebpfGolang">
+    <Flamegraph profileData={GolangEbpf}></Flamegraph>
+  </TabItem>
+  <TabItem value="ebpfPython">
+    <Flamegraph profileData={PythonEbpf}></Flamegraph>
+  </TabItem>
+  <TabItem value="ebpfRuby">
+    <Flamegraph profileData={RubyEbpf}></Flamegraph>
+  </TabItem>
+</Tabs>
 
 
-
-
+import '@pyroscope/flamegraph/dist/index.css';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {GolangEbpf} from '../src/components/Blog/GolangEbpf';
+import {RubyEbpf} from '../src/components/Blog/RubyEbpf';
+import {PythonEbpf} from '../src/components/Blog/PythonEbpf';
