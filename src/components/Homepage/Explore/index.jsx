@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import clsx from 'clsx';
 import CodeExamples from './CodeExamples';
-import SectionWrapper from '../shared/SectionWrapper';
+import SectionWrapper from '../../shared/SectionWrapper';
 import BgRing from '/img/homepage/ring1.svg';
 import BgSphere from '/img/homepage/sphere.svg';
 

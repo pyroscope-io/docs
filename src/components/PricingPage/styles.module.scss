@@ -1,0 +1,40 @@
+@font-face {
+  font-family: "Sen";
+  src: url("/static/fonts/Sen-Regular.woff") format("woff"),
+    url("/static/fonts/Sen-Bold.woff") format("woff");
+  font-display: swap;
+}
+
+.pageLayout {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    357.82deg,
+    #f8fbff 39.32%,
+    rgba(248, 251, 255, 0) 56.2%
+  );
+  overflow: hidden;
+
+  @media (max-width: 992px) {
+    overflow: visible;
+  }
+
+  &.hidden {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  img {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  * {
+    font-family: "Sen", var(--ifm-font-family-base);
+  }
+}
+
+.forceLightTheme {
+  background-color: #f0f0f0;
+  color: #18191a;
+}

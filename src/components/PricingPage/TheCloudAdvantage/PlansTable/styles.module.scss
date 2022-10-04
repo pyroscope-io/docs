@@ -1,0 +1,289 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.plans {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  border-radius: 12px 0px 12px 12px;
+  box-shadow: 0px 18px 24px rgba(60, 78, 124, 0.15);
+  border: 1px solid #d7e2ee;
+  width: 100%;
+  overflow: hidden;
+  align-items: center;
+  border-top: none;
+
+  @media (max-width: 992px) {
+    overflow: visible;
+    border-radius: 0;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: white;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+
+  &:last-child {
+    .cell {
+      border-bottom: none;
+
+      @media (max-width: 992px) {
+        // hide .plan cell on last row on mobile view
+        &.plan {
+          display: none;
+        }
+      }
+
+      @media (max-width: 675px) {
+        padding: 12px 4px;
+      }
+    }
+  }
+
+  @media (max-width: 992px) {
+    flex-wrap: wrap;
+  }
+}
+
+.cell {
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #d2deec;
+  text-align: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 675px) {
+    font-size: 12px;
+    line-height: 15px;
+    padding: 12px;
+
+    svg {
+      transform: scale(0.8);
+    }
+  }
+
+  &.plan {
+    justify-content: flex-start;
+    padding-left: 16px;
+    width: 30%;
+    background-color: white;
+
+    @media (max-width: 992px) {
+      width: 100%;
+    }
+
+    @media (max-width: 675px) {
+      padding-left: 12px;
+    }
+  }
+
+  &.oss {
+    width: 17%;
+    background-color: #e6e8fa;
+
+    @media (max-width: 992px) {
+      width: 25%;
+    }
+
+    .action {
+      background-color: white;
+      color: #3ec1d3;
+      border: 1px solid #d2deec;
+    }
+  }
+
+  &.free {
+    width: 17%;
+    background: #f7f7ff;
+    width: calc(17% - 1px);
+
+    @media (max-width: 992px) {
+      width: 25%;
+    }
+
+    .action {
+      background: linear-gradient(90deg, #0453ca 0%, #3ec1d3 100%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-right: none;
+      border-left: none;
+      color: #ffffff;
+    }
+  }
+
+  &.pro {
+    width: 19%;
+    background-color: #1c214d;
+    color: white;
+    border-bottom: 1px solid #ffffff33 !important;
+
+    @media (max-width: 992px) {
+      width: 25%;
+    }
+
+    svg {
+      margin-right: 5px;
+    }
+
+    .action {
+      background: linear-gradient(68.66deg, #d31b2e 0%, #ffaf0f 100%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-left: none;
+      color: #ffffff;
+    }
+  }
+
+  &.enterprise {
+    width: 17.1%;
+    background-color: #f6f7ff;
+
+    @media (max-width: 992px) {
+      width: 25%;
+    }
+
+    .action {
+      background: linear-gradient(90deg, #0453ca 0%, #3ec1d3 100%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-right: none;
+      border-left: none;
+      color: #ffffff;
+    }
+  }
+}
+
+.highlight {
+  color: #3ec1d3;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.double {
+  text-align: left;
+
+  @media (max-width: 992px) {
+    br {
+      display: none;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  .cell {
+    height: 77px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+
+    &.oss {
+      padding: 16px 0;
+
+      @media (max-width: 675px) {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 992px) {
+      &.plan {
+        display: none;
+      }
+    }
+
+    @media (max-width: 675px) {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+}
+
+.gradient {
+  background: linear-gradient(68.66deg, #ff4493 0%, #ffaf0f 100%), #ff4493;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
+
+.overhead {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  .cloudCaption {
+    height: 93px;
+    background: linear-gradient(68.66deg, #ff4493 0%, #ffaf0f 100%), #151b41;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px 12px 0px 0px;
+    width: 53%;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: #ffffff;
+
+    @media (max-width: 992px) {
+      width: 75%;
+    }
+
+    @media (max-width: 675px) {
+      height: 44px;
+      font-size: 16px;
+      width: 74.9%;
+    }
+  }
+}
+
+.action {
+  width: 100%;
+  height: 43px;
+  outline: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  border-radius: 8px;
+  transform: scale(1);
+  transition: 0.3s transform;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active {
+    transform: scale(0.99);
+    outline: none;
+  }
+
+  @media (max-width: 675px) {
+    font-size: 12px;
+    line-height: 14px;
+  }
+}

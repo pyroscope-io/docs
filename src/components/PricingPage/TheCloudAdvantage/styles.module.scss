@@ -1,0 +1,231 @@
+$bg_height: 2300px;
+$bg_height_tablet: 1900px;
+
+.sectionWrapper {
+  margin-top: -330px;
+  padding-bottom: 90px;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 1) 100%
+  );
+
+  @media (max-width: 992px) {
+    padding-bottom: 50px;
+  }
+}
+
+.section {
+  background-color: transparent;
+  max-width: 1256px;
+  width: 100%;
+  padding: 0 16px;
+  margin-left: 16px;
+  margin-right: 16px;
+  z-index: 1;
+
+  @media (max-width: 992px) {
+    height: auto;
+    padding-bottom:0;
+  }
+
+  @media (max-width: 630px) {
+    padding: 0 16px;
+    padding-bottom: 0px;
+  }
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: url(/img/homepage/BG-V2.svg);
+  background-position: bottom;
+  background-size: cover;
+  clip-path: polygon(0 11%, 100% 0%, 100% calc(100% - 11vw), 0% 100%);
+  z-index: -1;
+  height: $bg_height;
+
+  @media (max-width: 2000px) {
+    clip-path: polygon(0 11vw, 100% 0%, 100% calc(100% - 11vw), 0% 100%);
+  }
+
+  @media (max-width: 992px) {
+    clip-path: polygon(0 9vw, 100% 0%, 100% calc(100% - 9vw), 0% 100%);
+    height: $bg_height_tablet;
+  }
+
+  @media (max-width: 675px) {
+    clip-path: polygon(0 9vw, 100% 0%, 100% calc(100% - 9vw), 0% 100%);
+    height: $bg_height;
+  }
+}
+
+.sectionTitle {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+  text-align: center;
+  color: white;
+  margin-top: 195px;
+
+  @media (max-width: 1500px) {
+    margin-top: 150px;
+  }
+
+  @media (max-width: 992px) {
+    margin-top: 100px;
+  }
+
+  @media (max-width: 437px) {
+    margin-top: 50px;
+  }
+
+  &.comparePlans {
+    margin-top: 158px;
+    margin-bottom: 0;
+
+    @media (max-width: 992px) {
+      margin-top: 50px;
+    }
+
+    @media (max-width: 550px) {
+      margin-top: 20px;
+    }
+  }
+}
+
+.sectionSubtitle {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  margin-top: 16px;
+  color: #ffffff;
+  margin-bottom: 32px;
+}
+
+.sectImageWrapper {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 56px;
+
+  @media (max-width: 680px) {
+    margin-top: 0;
+    margin-bottom: 56px;
+
+    svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.advantages {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  @media (max-width: 850px) {
+    flex-direction: column;
+  }
+}
+
+.advantage {
+  width: calc(50% - 16px);
+  padding-left: 72px;
+  position: relative;
+  margin-bottom: 32px;
+
+  @media (max-width: 850px) {
+    width: 100%;
+  }
+
+  .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    background: linear-gradient(68.66deg, #ff4493 0%, #ffaf0f 100%),
+      linear-gradient(88.66deg, #ff47cc -2.29%, #8f67ff 98.12%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    margin-bottom: 12px;
+
+    @media (max-width: 550px) {
+      font-size: 24px;
+      line-height: 32px;
+    }
+  }
+
+  .description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #cecff0;
+    opacity: 0.9;
+
+    @media (max-width: 550px) {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.stripes {
+  position: absolute;
+  left: -20px;
+  right: -20px;
+  transform: rotate(-2.5deg);
+  top: calc($bg_height - 9%);
+  z-index: -1;
+
+  @media (max-width: 3000px) {
+    top: calc($bg_height - 6%);
+    transform: rotate(-4deg);
+  }
+
+  @media (max-width: 2000px) {
+    transform: rotate(-6deg);
+  }
+
+  @media (max-width: 992px) {
+    display: none;
+  }
+}
+
+.blueStripe {
+  height: 60px;
+  z-index: 4;
+  box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
+  position: relative;
+  background: linear-gradient(
+    to right,
+    #77e5f4 0,
+    #3ec1d3 10%,
+    #0453ca 30%,
+    #0453ca 70%,
+    #3ec1d3 90%,
+    #77e5f4 100%
+  );
+}
+
+.orangeStripe {
+  height: 50px;
+  z-index: 3;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 8px 22px rgba(0, 14, 137, 0.25);
+  position: relative;
+  background: linear-gradient(-65.6deg, #d31b2e 32.62%, #ffaf0f 82.29%);
+}

@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import styles from './styles.module.scss';
-import SectionWrapper from '../shared/SectionWrapper';
+import SectionWrapper from '../../shared/SectionWrapper';
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;

@@ -1,3 +1,15 @@
+.sectionWrapper {
+  padding-top: 100px;
+
+  @media (max-width: 992px) {
+    padding-top: 0;
+  }
+  
+  &.withBanner {
+    padding-top: 0;
+  }
+}
+
 .section {
   background-color: transparent;
   max-width: 1016px;
@@ -41,10 +53,6 @@
       width: 100%;
       padding-bottom: 25px;
     }
-
-    @media (max-width: 590px) {
-      align-items: center;
-    }
   }
 
   .links {
@@ -62,7 +70,7 @@
     }
 
     @media (max-width: 590px) {
-      flex-direction: column;
+      flex-wrap: wrap;
     }
 
     .linksColumn {
@@ -73,6 +81,18 @@
       @media (max-width: 590px) {
         width: 100%;
         margin-bottom: 20px;
+
+        &:nth-child(1) {
+          width: 60%;
+        }
+
+        &:nth-child(2) {
+          width: 40%;
+        }
+
+        &:nth-child(3) {
+          width: 60%;
+        }
       }
     }
   }
@@ -87,11 +107,8 @@
 
   @media (max-width: 590px) {
     height: 40px;
-    align-items: center;
     display: flex;
-    background-color: white;
     margin-bottom: 0;
-    justify-content: center;
   }
 }
 
@@ -102,10 +119,9 @@
   color: #363351;
 
   @media (max-width: 590px) {
-    height: 40px;
+    height: 28px;
     align-items: center;
     display: flex;
-    justify-content: center;
   }
 }
 

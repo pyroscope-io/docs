@@ -1,24 +1,20 @@
 import React, { useState } from 'react';
-import HeadSection from './HeadSection';
-import HappyClients from './HappyClients';
-import Explore from './Explore';
-import Integrations from './Integrations';
-import Security from './Security';
-import WhatTheySay from './WhatTheySay';
+import clsx from 'clsx';
+import Head from './Head';
+import TheCloudAdvantage from './TheCloudAdvantage';
 import Footer from '../shared/Footer';
-// import Footer from './../../theme/Footer';
 import styles from './styles.module.scss';
 import { Helmet } from "react-helmet";
-import clsx from 'clsx';
 
-const HomePage = () => {
+
+const PricingPage = () => {
     const [isOpenMenu, setIsOpen] = useState(false);
 
     return (
         <>
             <Helmet>
-                <title>Open Source Continuous Profiling Platform</title>
-                <meta name="description" content='Pyroscope - Open Source Continuous Profiling' />
+                <title>Pricing Pyroscope | Open Source Continuous Profiling Platform</title>
+                <meta name="description" content='Pricing Pyroscope | Open Source Continuous Profiling Platform' />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <link rel="preload" href="/static/fonts/Sen-Regular.woff" as="font" type="font/woff2" crossorigin></link>
                 <link rel="preload" href="/static/fonts/Sen-Bold.woff" as="font" type="font/woff2" crossorigin></link>
@@ -27,17 +23,12 @@ const HomePage = () => {
                 [styles.pageLayout]: true,
                 [styles.hidden]: isOpenMenu
             })}>
-                <HeadSection isOpenMenu={isOpenMenu} setIsOpen={setIsOpen} />
-                <HappyClients />
-                <Explore />
-                <Integrations />
-                <Security />
-                <WhatTheySay />
-                <Footer withHelpUsBanner />
+                <Head isOpenMenu={isOpenMenu} setIsOpen={setIsOpen} />
+                <TheCloudAdvantage />
+                <Footer />
             </div>
         </>
-
     )
 }
 
-export default HomePage;
+export default PricingPage;

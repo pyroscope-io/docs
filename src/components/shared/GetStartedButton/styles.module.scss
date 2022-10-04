@@ -1,0 +1,30 @@
+.getStartedButton {
+  width: 170px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  user-select: none;
+
+  color: white;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  }
+
+  &:hover {
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  @media (max-width: 992px) {
+    display: none;
+  }
+}

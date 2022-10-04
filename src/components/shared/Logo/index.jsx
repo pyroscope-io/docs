@@ -4,7 +4,7 @@ import LogoIcon from '/img/logo-v3.svg'
 
 const Logo = () => (
     <div className={styles.headerLogoWrapper}>
-        <a href='#'>
+        <a href='/'>
             <LogoIcon />
             <span className={styles.appName}>Pyroscope</span>
         </a>
