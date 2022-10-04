@@ -39,7 +39,6 @@ const TheCloudAdvantage = () => {
                     Start with a hobby project, collaborate with a team, and scale to thousands of applications
                 </p>
                 <PlansTable />
-                {/* <div style={{ width: 300, height: 1500 }}>1231231</div> */}
             </div>
         </SectionWrapper>
     )

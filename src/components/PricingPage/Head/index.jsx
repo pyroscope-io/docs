@@ -83,9 +83,7 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                         <p className={clsx([styles.planDescription, styles.oss])}>
                             Leading continuous profiling database optimized for throughput and minimizing storage costs.
                         </p>
-                        <button className={clsx([styles.chooseButton, styles.oss])}>
-                            Download
-                        </button>
+                        <a href="/downloads/" className={clsx([styles.chooseButton, styles.oss])}>Download</a>
                     </div>
                     <div className={clsx([styles.plan, styles.cloud])}>
                         <BgSphere className={styles.bgSphere} />
@@ -98,9 +96,9 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                             Hosted and fully–managed version of Pyroscope, designed for all your deployment and business needs.
                             Horizontally scalable and with first-class support for high cardinality data.
                         </p>
-                        <button className={clsx([styles.chooseButton, styles.cloud])}>
+                        <a target="_blank" className={clsx([styles.chooseButton, styles.cloud])} href="https://pyroscope.cloud/signup">
                             Sign Up
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
