@@ -32,6 +32,9 @@ The extension is configured via Environment Variables:
 | `PYROSCOPE_AUTH_TOKEN`     | `""`                             | authorization key (token authentication)       |
 | `PYROSCOPE_SELF_PROFILING` | `false`                          | whether to profile the extension itself or not |
 | `PYROSCOPE_LOG_LEVEL`      | `info`                           | `error` or `info` or `debug` or `trace`        |
+| `PYROSCOPE_TIMEOUT`        | `10s`                            | http client timeout ([go duration format](https://pkg.go.dev/time#Duration))      |
+| `PYROSCOPE_NUM_WORKERS`    | `5`                              | num of relay workers, pick based on the number of profile types |
+
 
 
 ### Step 3: Add the pyroscope agent to your code
