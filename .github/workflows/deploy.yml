@@ -12,7 +12,22 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      inputsChecked: ${{ steps.github_token_gate.outputs.inputsChecked }}
+    steps:
+      - uses: svrooij/secret-gate-action@v1
+        id: github_token_gate
+        with:
+          inputsToCheck: 'token'
+        env:
+          token: ${{ secrets.DOCS_PRIVATE_ACCESS_TOKEN }}
+
   deploy:
+    # skip if user has not access to the token
+    if: needs.check.outputs.inputsChecked == 'true'
+    needs: check
     runs-on: ubuntu-latest
     steps:
       # TODO(petethepig): make it run only when tests passed
