@@ -35,6 +35,7 @@ const HappyClients = () => {
                     <img className={clsx(styles.happyClientLogo, styles.happyClientLogoSmaller2)} src='/img/homepage/logos/grab.svg' alt="PingCAP" />
                     <img className={styles.happyClientLogo} src='/img/homepage/logos/polkadot.svg' alt="Polkadot" />
                     <img className={styles.happyClientLogo} src='/img/homepage/logos/snapp.svg' alt="Snapp" />
+                    <img className={styles.happyClientLogo} src='/img/homepage/logos/alpaca.svg' alt="Alpaca" />
                 </div>
             </div>
         </SectionWrapper>
