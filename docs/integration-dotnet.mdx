@@ -161,21 +161,9 @@ services:
       ASPNETCORE_URLS: http://*:5000
     ports:
       - "5000:5000"
-    cap_add:
-      - SYS_PTRACE
 ```
 
 Check out the [examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/dotnet) folder in our repository to learn more 🔥
-
-:::tip **Important!**
-When running `pyroscope exec` inside a Docker container, make sure to add `--cap-add=sys_ptrace` to your `docker run` command. You can read more about this [here](https://jvns.ca/blog/2020/04/29/why-strace-doesnt-work-in-docker/).
-
-In docker-compose you'll need to add the following code:
-```
-cap_add:
-- SYS_PTRACE
-```
-:::
 
   </TabItem>
 
