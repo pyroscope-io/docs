@@ -4,9 +4,8 @@ title: Installing Pyroscope Overview
 sidebar_label: Overview
 slug: /installing-pyroscope-overview
 description: Pyroscope documentation
-keywords: [ pyroscope, docs, documentation]
+keywords: [pyroscope, docs, documentation]
 ---
-
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -16,6 +15,16 @@ import packages from '../packages.manifest.json';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDocker } from '@fortawesome/free-brands-svg-icons';
 
+export const Video = () => (
+  <video
+    src="/videos/demo5.mov"
+    controls
+    style={{
+      width: '100%',
+    }}
+  />
+);
+
 ![deployment diagram](/img/deployment.svg)
 
 ### Step 1: Install Pyroscope Server
@@ -24,23 +33,24 @@ We provide a few different ways for you to install Pyroscope Server on [Linux](s
 
 After you start the server you should be able to open [http://localhost:4040/](http://localhost:4040/) and see that pyroscope server is profiling itself (`pyroscope.server.cpu` application).
 
-<video src="/videos/demo5.mov" width="807" controls />
+<Video />
 
 ### Step 2: Start profiling your application using Pyroscope Agent
 
 Now that you have **Pyroscope Server** running you can start continuously profiling your own applications.
 [**Pyroscope Agent**](agent-overview.mdx) can be run on [Linux](agent-install-linux.mdx), [macOS](agent-install-macos.mdx), [Windows](agent-install-windows.mdx)
 and in <FontAwesomeIcon color="#0db7ed" icon={faDocker}/> Docker, and supports the following integrations:
-* [Go](integration-golang.mdx)
-* [Python](integration-python.mdx)
-* [eBPF](integration-ebpf.mdx)
-* [Java](integration-java.mdx)
-* [Ruby](integration-ruby.mdx)
-* [Rust](integration-rust.mdx)
-* [PHP](integration-php.mdx)
-* [.NET](integration-dotnet.mdx)
-* [NodeJS](integration-nodejs.mdx)
-* [AWS Lambda](aws-lambda.mdx)
+
+- [Go](integration-golang.mdx)
+- [Python](integration-python.mdx)
+- [eBPF](integration-ebpf.mdx)
+- [Java](integration-java.mdx)
+- [Ruby](integration-ruby.mdx)
+- [Rust](integration-rust.mdx)
+- [PHP](integration-php.mdx)
+- [.NET](integration-dotnet.mdx)
+- [NodeJS](integration-nodejs.mdx)
+- [AWS Lambda](aws-lambda.mdx)
 
 We'll be adding more platforms soon, if you want us to prioritize one particular platform, create an issue at
 [Github](https://github.com/pyroscope-io/pyroscope/issues) or reach out to us in our
@@ -49,9 +59,10 @@ We'll be adding more platforms soon, if you want us to prioritize one particular
 ### Next steps
 
 The following topics may be of interest to you:
-  * [Server Authentication](auth-google.mdx)
-  * [Supported Integrations](supported-integrations.mdx)
-  * [Pyroscope Server](server-overview.mdx)
-  * [Pyroscope Agent](agent-overview.mdx)
+
+- [Server Authentication](auth-google.mdx)
+- [Supported Integrations](supported-integrations.mdx)
+- [Pyroscope Server](server-overview.mdx)
+- [Pyroscope Agent](agent-overview.mdx)
 
 For a list of the minimum hardware and software requirements, refer to [Deployment Guide](deployment.mdx).
