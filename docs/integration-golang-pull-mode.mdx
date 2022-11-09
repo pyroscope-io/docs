@@ -119,10 +119,54 @@ runtime.SetBlockProfileRate(rate)
 You can find an example of how Pyroscope scrapes static targets in
 [the pyroscope repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/golang-pull/static).
 
-### Kubernetes pods discovery
+### Kubernetes service discovery
 
 You can see how Pyroscope discovers remote targets in Kubernetes using
 [the example setup](https://github.com/pyroscope-io/pyroscope/tree/main/examples/golang-pull/kubernetes) in the pyroscope repository.
+
+Here is an example of how to configure Pyroscope to scrape targets from Kubernetes pods:
+```yaml
+---
+pyroscopeConfigs:
+  log-level: debug
+  scrape-configs:
+  - job-name: 'kubernetes-pods'
+    enabled-profiles: [ cpu, mem ]
+    kubernetes-sd-configs:
+      - role: pod
+    relabel-configs:
+      - source-labels: [__meta_kubernetes_pod_annotation_pyroscope_io_scrape]
+        action: keep
+        regex: true
+      - source-labels:
+          [__meta_kubernetes_pod_annotation_pyroscope_io_application_name]
+        action: replace
+        target-label: __name__
+      - source-labels: [__meta_kubernetes_pod_annotation_pyroscope_io_scheme]
+        action: replace
+        regex: (https?)
+        target-label: __scheme__
+      - source-labels:
+          [__address__, __meta_kubernetes_pod_annotation_pyroscope_io_port]
+        action: replace
+        regex: ([^:]+)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        target-label: __address__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_label_(.+)
+      - source-labels: [__meta_kubernetes_namespace]
+        action: replace
+        target-label: kubernetes_namespace
+      - source-labels: [__meta_kubernetes_pod_name]
+        action: replace
+        target-label: kubernetes_pod_name
+      - source-labels: [__meta_kubernetes_pod_phase]
+        regex: Pending|Succeeded|Failed|Completed
+        action: drop
+      - action: labelmap
+        regex: __meta_kubernetes_pod_annotation_pyroscope_io_profile_(.+)
+        replacement: __profile_$1
+```
 
 :::note
 Kubernetes Service Discovery requires RBAC set up. Please refer to
