@@ -1,5 +1,6 @@
 {
   "releases": {
+    "v0.34.0": "2022-11-16 03:01:06 UTC",
     "v0.33.0": "2022-10-22 19:10:41 UTC",
     "v0.32.0": "2022-10-17 18:51:26 UTC",
     "v0.31.0": "2022-10-06 17:39:50 UTC",
@@ -28,8 +29,7 @@
     "v0.15.1": "2022-04-19 06:16:28 UTC",
     "v0.15.0": "2022-04-14 06:44:44 UTC",
     "v0.14.0": "2022-04-08 07:56:03 UTC",
-    "v0.13.0": "2022-03-22 07:26:46 UTC",
-    "v0.12.0": "2022-03-10 08:09:10 UTC"
+    "v0.13.0": "2022-03-22 07:26:46 UTC"
   },
   "shaMapping": {
     "pyroscope-0.0.10.catalina.bottle.tar.gz": "906df309b11061cefe8b40a43f2dcadf7047fa1ede2e32ead84761def58785eb",
@@ -163,6 +163,8 @@
     "pyroscope-0.31.0.big_sur.bottle.tar.gz": "b3c0e69dd31363c063a52c29532a4cefb1ddb9bd3f81a5baea3d6771260e8b9e",
     "pyroscope-0.32.0.arm64_big_sur.bottle.tar.gz": "dbeccd2cd027951594017f9b582c65133eb2e5b9c285383838525f6d512af13d",
     "pyroscope-0.32.0.big_sur.bottle.tar.gz": "214ad1822c9043ec2e9392f59ff56ea32565f169fb5eae4f3065cbe84d2df9a9",
+    "pyroscope-0.33.0.arm64_big_sur.bottle.tar.gz": "97a86f8b9754ba1ae2c39435bfa6b0df46c180c550da852d41ed846891a5d18f",
+    "pyroscope-0.33.0.big_sur.bottle.tar.gz": "2b10f160f949587254ab930e9b8e8a773223c2b253340bcf9b994158790f7fbc",
     "pyroscope-0.4.0.arm64_big_sur.bottle.tar.gz": "26d029ab8836977dc3c6c959ed344f3b04480d748714b15422f31ae6d10bcc2a",
     "pyroscope-0.4.0.mojave.bottle.tar.gz": "ac444195b37a51cea95375d6da9ca3bd501e22aa8d82ac66de25e2bad416b10c",
     "pyroscope-0.4.1.arm64_big_sur.bottle.tar.gz": "2118068e1e1292d49292f753df4b7f1728faf1e95e383828da9b6c83b60157e8",
@@ -553,6 +555,11 @@
     "pyroscope-0.33.0-linux-amd64.tar.gz": "c44ada4921b35931c41d67a9bc1519a0ab8ba4047a2bd47055bfd2d8ca1378f0",
     "pyroscope-0.33.0-linux-arm64.tar.gz": "e5ec23c0b29a6305edb4354bf20f4e6a32dc053aa9491b34c842004c0e0ae374",
     "pyroscope-0.33.0-source.tar.gz": "c9648ba8c2b933714bca9348301a52ca31277ce61e071ad822f07f8e38f54ad2",
+    "pyroscope-0.34.0-1-aarch64.rpm": "8f3e7acec12666eb464aa5b2c4a7a1ec3fb980a859b918806f7bcc892dbc9440",
+    "pyroscope-0.34.0-1-x86_64.rpm": "a368d5c26dd02d16e5c2448ab6c7ac41d9da9e0b8b27368b5d88591368258bb4",
+    "pyroscope-0.34.0-linux-amd64.tar.gz": "ad58aade2dd00dd99a50c6af3f1f5468f0509433d4e35fe761c1aa7260a532ff",
+    "pyroscope-0.34.0-linux-arm64.tar.gz": "0414653357ced997df7999589038e926371ab4f28691af09af1fca141e676825",
+    "pyroscope-0.34.0-source.tar.gz": "edab16a06e154b080d5e3ba7f5c0ee8daf39600565e1be931f85061e58af2fda",
     "pyroscope-0.4.0-1-aarch64.rpm": "94144c4045a341de4c0ee68d30ea9af84594c28fc87e50d2521e20396ad8cb9e",
     "pyroscope-0.4.0-1-x86_64.rpm": "d289a23a299d8d8a6cb18fca3fb82b40d58f4f5be0a89aae190b42fd2c8aa7f8",
     "pyroscope-0.4.0-linux-amd64.tar.gz": "cab3de8a8b58316270f0babf87ac80948ff9d003c656f1db6a9db4bca624e339",
@@ -753,6 +760,8 @@
     "pyroscope_0.32.0_arm64.deb": "67dc4fa5a659eb748e39751702a63513ec018309d3f1f824d9a07ed9c7cf0700",
     "pyroscope_0.33.0_amd64.deb": "d2d9ddb1c914e83769ca787d71c6b97c981cb454f39ca036234b2a34f4990a7b",
     "pyroscope_0.33.0_arm64.deb": "986a074916623a820dfb8a66127803cfeea2ee774ae50cde9ad932b8e865780a",
+    "pyroscope_0.34.0_amd64.deb": "091d79c966814e63b05715ef90bfcfcc31b5515460bc51c46a327ac4d36b4c88",
+    "pyroscope_0.34.0_arm64.deb": "a071e26e0042b69f3a6d8f894e2edd610ad65a127b589840a946210f85d887ae",
     "pyroscope_0.4.0_amd64.deb": "9847447e7d596ff1300dca4f56509e4d869df039833d97950a9d535b8ceec3a4",
     "pyroscope_0.4.0_arm64.deb": "2616e048ef274c4c47e4aae84a423cd3b5a3aefd291aa06154e94891742ef27e",
     "pyroscope_0.4.1_amd64.deb": "a8701e80eb0fd6ec240537f12f9e750753e0d3f1598a929452fc320b24845e43",
@@ -823,6 +832,7 @@
     "pyroscope_agent_0.30.0_amd64.msi": "c37003b56fa4f12bff48dacff8a5aa1344ec44043c3b5e381063349fb652aedf",
     "pyroscope_agent_0.31.0_amd64.msi": "5040fcc6d2ea3718034e3b6d3f25c866f2e8ba5b28719926fb55929083a25ec2",
     "pyroscope_agent_0.32.0_amd64.msi": "31312d1689ce8167b098d6d1cd6a4f8c5b722c769f552e7a31d1e50be3a98362",
+    "pyroscope_agent_0.34.0_amd64.msi": "8e096d58a4d3a60d520ab8e5be3d95f661b8d98d8779c4d510884dbd4d5cdb70",
     "pyroscope_agent_0.4.0_amd64.msi": "21e87e4cb1b6c1e6758ae15877b68f8322de4c537751c28b425e0a86bbbb6a93",
     "pyroscope_agent_0.4.1_amd64.msi": "93e1b840fcd2082771cf20e482ef29d20eb5b7dfa1995ebcaa31111c27686752",
     "pyroscope_agent_0.5.0_amd64.msi": "cd4a01afa05589f4d7ce93bab5f100751ee32f3690bcd98c1ab572b725d14420",
