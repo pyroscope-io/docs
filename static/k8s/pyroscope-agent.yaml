@@ -14,7 +14,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: pyroscope-agent
     app.kubernetes.io/name: pyroscope-agent
-    app.kubernetes.io/version: "0.34.0"
+    app.kubernetes.io/version: "0.34.1"
   name: nodes-reader
   namespace: pyroscope
 rules:
@@ -28,7 +28,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: pyroscope-agent
     app.kubernetes.io/name: pyroscope-agent
-    app.kubernetes.io/version: "0.34.0"
+    app.kubernetes.io/version: "0.34.1"
   name: pyroscope-agent
   namespace: pyroscope
 roleRef:
@@ -46,7 +46,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: pyroscope-agent
     app.kubernetes.io/name: pyroscope-agent
-    app.kubernetes.io/version: "0.34.0"
+    app.kubernetes.io/version: "0.34.1"
   name: pyroscope-agent
   namespace: pyroscope
 spec:
@@ -59,7 +59,7 @@ spec:
       labels:
         app.kubernetes.io/instance: pyroscope-agent
         app.kubernetes.io/name: pyroscope-agent
-        app.kubernetes.io/version: "0.34.0"
+        app.kubernetes.io/version: "0.34.1"
     spec:
       containers:
         - name: pyroscope-agent
@@ -78,7 +78,7 @@ spec:
             privileged: true
             runAsGroup: 0
             runAsUser: 0
-          image: "pyroscope/pyroscope:0.34.0"
+          image: "pyroscope/pyroscope:0.34.1"
           resources:
             {}
       hostPID: true
