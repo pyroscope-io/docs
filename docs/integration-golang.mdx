@@ -49,7 +49,10 @@ func main() {
     Logger:          pyroscope.StandardLogger,
 
     // optionally, if authentication is enabled, specify the API key:
-    // AuthToken: os.Getenv("PYROSCOPE_AUTH_TOKEN"),
+    // AuthToken:    os.Getenv("PYROSCOPE_AUTH_TOKEN"),
+    
+    // you can provide static tags via a map:
+		Tags:            map[string]string{"hostname": os.Getenv("HOSTNAME")},
 
     ProfileTypes: []pyroscope.ProfileType{
       // these profile types are enabled by default:
