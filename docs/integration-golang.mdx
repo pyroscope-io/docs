@@ -52,7 +52,7 @@ func main() {
     // AuthToken:    os.Getenv("PYROSCOPE_AUTH_TOKEN"),
     
     // you can provide static tags via a map:
-		Tags:            map[string]string{"hostname": os.Getenv("HOSTNAME")},
+    Tags:            map[string]string{"hostname": os.Getenv("HOSTNAME")},
 
     ProfileTypes: []pyroscope.ProfileType{
       // these profile types are enabled by default:
