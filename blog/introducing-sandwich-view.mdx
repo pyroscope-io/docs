@@ -1,0 +1,43 @@
+---
+title: Introducing sandwich view mode for Flamegraphs
+description: Adding support for speedscope's sandwich view
+sidebar_label: Introducing Sandwich View
+image: https://user-images.githubusercontent.com/23323466/186095507-d8c9cc9a-1d5c-4b0a-b02a-bcbab2693a81.png
+slug: /introducing-sandwich-view
+date: "2022-11-25"
+
+authors:
+  - name: Ryan Perry
+    url: https://github.com/Rperry2174
+    image_url: https://avatars.githubusercontent.com/u/23323466?v=4
+---
+
+# Introducing sandwich view mode for Flamegraphs
+
+## What is sandwich view?
+Sandwich view is a mode of viewing flamegraphs popularized by [Jamie Wong](https://jamie-wong.com/) in the [Speedscope project](https://jamie-wong.com/post/speedscope/#:~:text=MIT%20licensed.-,What%20can%20it%20do%3F,-speedscope%20is%20broken)
+It's function is relatively simple -- the typical flamegraph will break down resource utilization by function,
+but it can be difficult to see how much time is spent in the function itself vs how much time is spent in the functions it calls.
+Sandwich view solves this problem by splitting a flamegraph into two sections: 
+- callers: the functions that called the function in question (it's "parents")
+- callees: the functions that the function in question called (it's "children")
+
+## Finding performance issues with standard Flamegraph mode
+A typical use case for leveraging flamegraphs is to identify opportunities for optimization. With a typical flamegraph the most
+common workflow is to identify a function node which has the largest width and then to look at the functions it calls to see if 
+there are any low hanging fruit for optimization.
+For example, in the flamegraph below, we can see that the `rideshare/car.OrderCar` is the largest function in terms of width and
+thus a good place to start looking for opportunities for optimization.
+
+
+<Flamegraph profileData={GolangNative}></Flamegraph>
+
+import '@pyroscope/flamegraph/dist/index.css';
+import {Flamegraph} from '../src/components/Blog/Flamegraph';
+import {GolangNative} from '../src/components/Blog/GolangNative';
+
+## Finding performance issues with sandwich view Flamegraph mode
+However, you'll also notice that `Time.Since()` shows up frequently towards the end of almost every path. Sandwich view helps you
+focus in on functions like this to analyze your application and determine if it's easier to optimize:
+- `Time.Since()`: a node with a *shorter width* that gets called frequently across many code paths discovered with sandwich view
+- `rideshare/car.OrderCar`: a node with a *longer width*, that gets called infrequently in a single code path discovered with standard flamegraph view
