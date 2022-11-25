@@ -1,10 +1,10 @@
 ---
 title: Introducing sandwich view mode for Flamegraphs
-description: Adding support for speedscope's sandwich view
+description: Adding support for speedscope's sandwich view in Pyroscope
 sidebar_label: Introducing Sandwich View
-image: https://user-images.githubusercontent.com/23323466/186095507-d8c9cc9a-1d5c-4b0a-b02a-bcbab2693a81.png
+image: https://user-images.githubusercontent.com/23323466/203905369-acbdefa8-c93f-4eeb-a742-711ef4a4fa77.png
 slug: /introducing-sandwich-view
-date: "2022-11-25"
+date: "2022-11-28"
 
 authors:
   - name: Ryan Perry
@@ -13,6 +13,10 @@ authors:
 ---
 
 # Introducing sandwich view mode for Flamegraphs
+<ImageSwitcher 
+    lightImageSrc="https://user-images.githubusercontent.com/23323466/203905369-acbdefa8-c93f-4eeb-a742-711ef4a4fa77.png"
+    darkImageSrc="https://user-images.githubusercontent.com/23323466/203905367-14ab7035-5217-414d-9286-30ba8f7a69b3.png" >
+</ImageSwitcher>
 
 ## What is sandwich view?
 Sandwich view is a mode of viewing flamegraphs popularized by [Jamie Wong](https://jamie-wong.com/) in the [Speedscope project](https://jamie-wong.com/post/speedscope/#:~:text=MIT%20licensed.-,What%20can%20it%20do%3F,-speedscope%20is%20broken)
@@ -48,6 +52,8 @@ However, you'll also notice that `Time.Since()` shows up frequently towards the 
 Sandwich view helps you focus in on functions like this to analyze your application and determine if it's easier to optimize:
 - `Time.Since()`: a node with a *shorter width* that gets called frequently across many code paths discovered with sandwich view
 - `rideshare/car.OrderCar`: a node with a *longer width*, that gets called infrequently in a single code path discovered with standard flamegraph view
+
+## How to use sandwich view for your flamegraphs
 
 If you want to try it out simply go to your Pyroscope UI or upload a flamegraph to [flamegraph.com](https://flamegraph.com) and select the "sandwich" view icon in the new Flamegraph toolbar:
 <ImageSwitcher 
