@@ -48,3 +48,11 @@ However, you'll also notice that `Time.Since()` shows up frequently towards the 
 Sandwich view helps you focus in on functions like this to analyze your application and determine if it's easier to optimize:
 - `Time.Since()`: a node with a *shorter width* that gets called frequently across many code paths discovered with sandwich view
 - `rideshare/car.OrderCar`: a node with a *longer width*, that gets called infrequently in a single code path discovered with standard flamegraph view
+
+If you want to try it out simply go to your Pyroscope UI or upload a flamegraph to [flamegraph.com](https://flamegraph.com) and select the "sandwich" view icon in the new Flamegraph toolbar:
+<ImageSwitcher 
+    lightImageSrc="https://user-images.githubusercontent.com/23323466/203905369-acbdefa8-c93f-4eeb-a742-711ef4a4fa77.png"
+    darkImageSrc="https://user-images.githubusercontent.com/23323466/203905367-14ab7035-5217-414d-9286-30ba8f7a69b3.png" >
+</ImageSwitcher>
+
+then select a function to see it's callers and callees. We have many more view modes planned for the future, so stay tuned or let us know what you'd like to see!
