@@ -35,13 +35,16 @@ thus a good place to start looking for opportunities for optimization.
 import '@pyroscope/flamegraph/dist/index.css';
 import {Flamegraph} from '../src/components/Blog/Flamegraph';
 import {GolangNative} from '../src/components/Blog/GolangNative';
+import {ImageSwitcher} from '../src/components/Blog/ImageSwitcher';
 
 ## Finding performance issues with sandwich view Flamegraph mode
 However, you'll also notice that `Time.Since()` shows up frequently towards the end of almost every path. 
-<img width="1395" alt="sandwich view dark mode" src="https://user-images.githubusercontent.com/23323466/203904205-475e46ae-8251-46f1-a983-262ffc0fe057.png">
-<img width="1386" alt="sandwich view light mode" src="https://user-images.githubusercontent.com/23323466/203904247-1a5fbadf-0b25-4804-ac4c-d607d0491be7.png">
 
-Sandwich view helps you
-focus in on functions like this to analyze your application and determine if it's easier to optimize:
+<ImageSwitcher 
+    lightImageSrc="https://user-images.githubusercontent.com/23323466/203904247-1a5fbadf-0b25-4804-ac4c-d607d0491be7.png"
+    darkImageSrc="https://user-images.githubusercontent.com/23323466/203904205-475e46ae-8251-46f1-a983-262ffc0fe057.png" >
+</ImageSwitcher>
+
+Sandwich view helps you focus in on functions like this to analyze your application and determine if it's easier to optimize:
 - `Time.Since()`: a node with a *shorter width* that gets called frequently across many code paths discovered with sandwich view
 - `rideshare/car.OrderCar`: a node with a *longer width*, that gets called infrequently in a single code path discovered with standard flamegraph view
