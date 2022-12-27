@@ -41,6 +41,9 @@ scrape-configs:
   # The job name assigned to scraped profiles by default.
   - job-name: pyroscope
 
+    # How frequently to scrape targets by default.
+    scrape-interval: 10s
+
     # The list of profiles to be scraped from the targets.
     enabled-profiles: [cpu, mem, goroutines, mutex, block]
 
@@ -57,6 +60,77 @@ scrape-configs:
 :::note
  * `application` is the name of the application being profiled. Mandatory field.
  * `targets` lists application instances. It is important to avoid mixing profiles of different applications.
+:::
+
+### Scrape interval
+
+By default, a target is scraped on 10 seconds interval which is specified with `scrape-interval` parameter.
+That is, with the default configuration a 10 seconds profile is collected every 10 seconds. Both interval and duration
+parameters can be modified to allow sampling strategies, where only a subset of targets is being profiled at a given time
+and only a subset of profiling data is being collected.
+
+For example, configuring `scrape-interval` to 60 seconds with the default 10 second profiling duration effectively
+means that only 1/6 of the data is collected, because only 1/6 of the targets is being scraped, which in turn:
+ - Reduces the overall profiling overhead
+ - Decreases resource usage of the Pyroscope server
+
+```yaml
+---
+scrape-configs:
+  - job-name: pyroscope
+    scrape-interval: 60s
+    enabled-profiles: [cpu, mem, goroutines, mutex, block]
+    static-configs:
+      - application: my-application-name
+        spy-name: gospy
+        targets:
+          - hostname:6060
+        labels:
+          env: dev
+```
+
+There are two types of profiles in Go:
+ - Profiles that accumulate samples during a profiling session: `cpu`, `mutex`, and `block`.
+ - Instant profiles that represent the current state: `goroutines` and `mem` – Pyroscope stores the delta of two consecutive "snapshots".
+
+For profiles of the first type, you can override the duration of the profiling session, which allows you to use even more
+flexible scenarios. However, setting the profiling duration shorter than the scrape interval degrades the accuracy of the
+resulting profiles and may significantly complicate their analysis.
+
+For profiles of the second type, profiling duration is always equal to `scrape-interval`.
+
+The example configuration below instructs Pyroscope to collected cpu, block, and mutex profiles for 30 seconds
+every minute, goroutine and memory profiles are collected every minute as well but include all the stack trace samples
+emerged within this time window.
+
+```yaml
+---
+scrape-configs:
+  - job-name: pyroscope
+    scrape-interval: 60s
+    enabled-profiles: [cpu, mem, goroutines, mutex, block]
+    profiles:
+      cpu:
+        params:
+          seconds: [ "30" ]
+      block:
+        params:
+          seconds: [ "30" ]
+      mutex:
+        params:
+          seconds: [ "30" ]
+    static-configs:
+      - application: my-application-name
+        spy-name: gospy
+        targets:
+          - hostname:6060
+        labels:
+          env: dev
+```
+
+:::note
+Because of the storage engine specifics, we advise you to set intervals (both profiling duration and scrape interval)
+to a multiple of 10 seconds. This allows you to reduce the use of resources by the pyroscope server.
 :::
 
 ### Service Discovery
@@ -172,3 +246,8 @@ pyroscopeConfigs:
 Kubernetes Service Discovery requires RBAC set up. Please refer to
 [Pyroscope helm chart](https://github.com/pyroscope-io/helm-chart) for details.
 :::
+
+### File service discovery
+
+You can configure Pyroscope server to scrape targets defined in files.  that can be updated dynamically without
+restarting the server. You can find an example configuration in [the pyroscope repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/golang-pull/file).
