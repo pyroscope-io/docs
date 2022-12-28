@@ -103,11 +103,16 @@ The example configuration below instructs Pyroscope to collected cpu, block, and
 every minute, goroutine and memory profiles are collected every minute as well but include all the stack trace samples
 emerged within this time window.
 
+:::note
+If you change profile duration, you also need to increase `scrape-timeout` accordingly. `scrape-timeout` defaults to 15 seconds.
+:::
+
 ```yaml
 ---
 scrape-configs:
   - job-name: pyroscope
     scrape-interval: 60s
+    scrape-timeout: 60s
     enabled-profiles: [cpu, mem, goroutines, mutex, block]
     profiles:
       cpu:
