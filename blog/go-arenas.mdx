@@ -1,0 +1,152 @@
+---
+title: Using Memory Arenas in Go 1.20
+sidebar_label: Using Memory Arenas in Go 1.20
+slug: /using-memory-arenas-in-go-1-20
+date: "2023-01-24"
+authors:
+  - name: Dmitry Filimonov
+    title: Pyroscope CTO
+    url: https://github.com/Rperry2174
+    image_url: https://avatars.githubusercontent.com/u/662636?v=4
+  - name: ChatGPT
+    title: Editor in Residence
+    url: https://chat.openai.com/
+    image_url: https://chat.openai.com/favicon-32x32.png
+image: https://user-images.githubusercontent.com/662636/214387129-89b621db-fc0f-4cb7-9e66-877a96affc90.png
+---
+
+![arenas drawio](https://user-images.githubusercontent.com/662636/214387284-e43bbd30-85aa-45ed-ba0a-83bd13fe892f.svg)
+
+Go 1.20 introduces the concept of "arenas" for memory management, which can be used to improve the performance of your Go programs. In this blog post, we'll take a look at what arenas are, how they work, and how to use them in your own programs.
+
+### What are memory arenas?
+
+First, let's define what arenas are. An arena is a region of memory that is used to allocate structs of a specific type. When an object is allocated in an arena, it is assigned to a specific "block" within the arena. The block is then used to allocate other structs of the same type. This allows for fast allocation and deallocation of structs, as there is no need to search for free memory or perform memory fragmentation checks.
+
+In Go 1.20, arenas are used to manage memory for certain types of structs, including slices, maps, and channels. These types are typically used in large numbers, and are often created and destroyed in rapid succession. By using arenas to manage their memory, the Go runtime can avoid the overhead of traditional garbage collection.
+
+### How do I use memory arenas?
+
+To use arenas in your own programs, you will need to make sure that your program is compiled with the Go 1.20 runtime. You can check the version of the Go runtime by running the following command:
+
+```shell
+$ go version
+> go version go1.20 linux/amd64
+```
+
+You can download the pre-release version of go 1.20 from [official go website](https://go.dev/dl/#go1.20rc3).
+
+Once you have confirmed that you are running Go 1.20 or later, you can start using arenas in your program. Memory arenas are experimental so you will need to enable them by setting the `GOEXPERIMENT` environment variable to `arenas`:
+
+```shell
+GOEXPERIMENT=arenas go build main.go
+```
+
+#### Working with single structs
+
+Here's a example that demonstrates all of the ways you can use arenas:
+
+```go
+package main
+
+import (
+	"arena"
+	"fmt"
+)
+
+type User struct {
+	loginAttempts int
+}
+
+func main() {
+	a := arena.NewArena()      // create an arena
+	user := arena.New[User](a) // allocate one struct on the arena
+	user.loginAttempts++       // work with a struct as you normally would
+
+	// After you're done working with structs
+	//   on an arena, you can free it
+	a.Free()
+
+	// CAUTION: you should never access structs allocated
+	//   on an arena after it was freed
+	fmt.Printf("this may panic: %d\n", user.loginAttempts)
+}
+```
+
+#### Slices
+
+Allocating single objects is great, but in practice you will most likely be using arenas to allocate slices. Here's an example of how you can use arenas to do that:
+
+```go
+a := arena.NewArena()
+defer a.Free()
+
+user := arena.New[User](a)                  // allocate one struct
+users := arena.MakeSlice[User](a, 100, 100) // allocate a slice
+```
+
+#### Cloning objects back to heap
+
+Sometimes you may want to clone an object back to the heap. This is useful if you want for some objects to outlive a specific arena. Here's a practical example where you have a function that takes a huge blob of data, parses it into a slice of structs, and then returns a single struct from that slice:
+
+```go
+func findUserByID(blob []byte, len int, id string) *User {
+	// set up an arena
+	a := arena.NewArena()
+	defer a.Free()
+
+	users := arena.MakeSlice[User](a, len, len) // allocate a slice
+	json.Unmarshal(blob, users)                 // parse JSON blob
+
+	for _, user := range users {
+		if user.ID == id {
+			// arena.Clone allows you to clone
+			//   an object back to the heap
+			// This way you can reuse it later,
+			//   even after an arena was freed
+			return arena.Clone[*User](&user)
+		}
+	}
+}
+```
+
+### Drawbacks and Tradeoffs
+
+While arenas can provide performance benefits, it's important to consider the trade-offs before using them. The main drawback of using arenas is that when you use arenas you now have to manage memory manually and if you're not careful that may lead to serious problems:
+
+* if you don't free memory correctly you get **memory leaks**
+* if you access objects from an arena that has already been freed it may lead to **panics**
+
+Because of these tradeoffs, we recommend that you always make sure to profile your program to see if it could benefit from arenas, and experiment with using arenas to see if they result in improved performance.
+
+
+### When should you use arenas?
+
+Arenas should be used when you have a large number of structs of the same type that are created and destroyed in rapid succession. Common examples include things like parsing large protobuf or JSON blobs.
+
+In general, it's a good idea to profile your program to see if it's a bottleneck and could benefit from arenas. Once you've identified a bottleneck, you can experiment with using arenas to see if they result in improved performance.
+
+### Our Experience with Arenas
+
+At Pyroscope we've been experimenting with Arenas as soon as they came out in a pre-release version.
+
+A large chunk of work that Pyroscope does is parsing profiles in various formats (`pprof`, `jfr`, etc). This has always been one of the most expensive stages of data processing and we've already implemented a lot of performance optimizations in that area.
+
+Our bottleneck was caused by the dynamic memory allocation and deallocation of many small structs that the profiles consist of. We were creating and destroying structs at a very high rate, and this was causing a lot of overhead in the system.
+
+To solve this problem, [we decided to try using Go arenas](https://github.com/pyroscope-io/pyroscope/pull/1804) to manage the memory for the slices. We made a few changes to the system to use the new make functions that were introduced in Go 1.20 to allocate structs in arenas. This allowed us to eliminate the overhead of traditional garbage collection.
+
+![Screenshot 2023-01-24 at 11 08 05 AM](https://user-images.githubusercontent.com/662636/214385659-bb7f37ac-9d1f-4f27-83ba-2055d92a9884.png)
+
+<center><i>Diff profile from Pyroscope Cloud showing the difference before and after enabling memory arenas. <br/>Notice how garbage collection went from 6.62% to 2.67%, saving 4% in CPU utilization.</i></center>
+
+<br/>
+<br/>
+
+We saw a significant improvement in the performance of the system, with a reduction in latency and an increase in throughput. We were able to handle more profiles in real-time, and the system was more stable overall.
+
+It was a great success for us and we highly recommend using Go arenas for similar use cases.
+
+### Conclusion
+
+In conclusion, Go 1.20 introduces the concept of arenas for memory management, which can be used to improve the performance of your Go programs. Arenas are particularly useful for managing memory for large numbers of similar small structs. By using arenas, the Go runtime can avoid the overhead of traditional garbage collection. We recommend that you profile your applications and try using arenas to optimize it.
