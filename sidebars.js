@@ -65,7 +65,12 @@ module.exports = {
             },
             "integration-rust",
             "integration-php",
-            "integration-dotnet",
+            {
+              type: "category",
+              label: ".NET",
+              collapsed: false,
+              items: ["integration-dotnet", "integration-dotnet-beta"],
+            },
             "integration-nodejs",
             "integration-aws-lambda",
           ],
