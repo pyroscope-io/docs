@@ -114,6 +114,7 @@ scrape-configs:
     scrape-interval: 60s
     scrape-timeout: 60s
     enabled-profiles: [cpu, mem, goroutines, mutex, block]
+    use-delta-profiles: true
     profiles:
       cpu:
         params:
