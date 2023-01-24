@@ -121,7 +121,7 @@ While arenas can provide performance benefits, it's important to consider the tr
 * if you don't free memory correctly you get **memory leaks**
 * if you access objects from an arena that has already been freed it may lead to **panics**
 
-Because of these tradeoffs, we recommend that you always make sure to profile your program to see if it could benefit from arenas, and experiment with using arenas to see if they result in improved performance.
+Because of these drawbacks, we recommend that you always make sure to profile your program to see if it could benefit from arenas, and experiment with using arenas to see if they result in improved performance.
 
 
 ### When should you use arenas?
