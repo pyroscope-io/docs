@@ -124,12 +124,15 @@ Because of these tradeoffs, we recommend that you always make sure to profile yo
 
 Arenas should be used when you have a large number of structs of the same type that are created and destroyed in rapid succession. Common examples include things like parsing large protobuf or JSON blobs.
 
-![Screenshot 2023-01-24 at 12 18 08 PM](https://user-images.githubusercontent.com/662636/214399512-7cd2e98f-6ee3-4d9f-ad73-5969d23ef149.png)
 <center>
+
+![Screenshot 2023-01-24 at 12 18 08 PM](https://user-images.githubusercontent.com/662636/214399512-7cd2e98f-6ee3-4d9f-ad73-5969d23ef149.png)
+
 <i>
 TODO: add description and find a better screenshot
 </i>
 </center>
+<br/>
 
 In general, it's a good idea to profile your program to see if your program suffers from garbage collection overhead and could benefit from arenas. Once you've identified a bottleneck, you can experiment with using arenas to see if they result in improved performance. For example, the screenshot above is a good example of an application that is a good candidate for using arenas because a large chunk of time is spent in garbage collection.
 
