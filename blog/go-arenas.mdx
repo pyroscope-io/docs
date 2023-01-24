@@ -21,9 +21,13 @@ Go 1.20 introduces the concept of "arenas" for memory management, which can be u
 
 ### What are memory arenas?
 
-First, let's define what arenas are. An arena is a region of memory that is used to allocate structs of a specific type. When an object is allocated in an arena, it is assigned to a specific "block" within the arena. The block is then used to allocate other structs of the same type. This allows for fast allocation and deallocation of structs, as there is no need to search for free memory or perform memory fragmentation checks.
+A memory arena is a region of memory that is used for dynamic memory allocation. It is a way to manage memory more efficiently by allocating large blocks of memory at once, rather than allocating and freeing small blocks of memory individually.
 
-In Go 1.20, arenas are used to manage memory for certain types of structs, including slices, maps, and channels. These types are typically used in large numbers, and are often created and destroyed in rapid succession. By using arenas to manage their memory, the Go runtime can avoid the overhead of traditional garbage collection.
+In simple terms, arenas make it so that a garbage collector has to only keep track of one object (arena), instead of many small objects, and that can result in a significant performance improvement. See image above for a visual representation of how arenas work.
+
+Practically, when using arenas, this is done by allocating a large region of memory called an arena at the beginning of a code segment, allocating objects consecutively in the arena, and then freeing all of the allocated objects at once by freeing the arena at the end of the code segment.
+
+This approach is useful for certain programming patterns, such as serving independent requests in a server, and can reduce garbage collection overhead.
 
 ### How do I use memory arenas?
 
