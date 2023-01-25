@@ -126,19 +126,21 @@ Because of these drawbacks, we recommend that you always make sure to profile yo
 
 ### When should you use arenas?
 
-Arenas should be used when you have a large number of structs of the same type that are created and destroyed in rapid succession. Common examples include things like parsing large protobuf or JSON blobs.
+Arenas should be used when you have a large number of structs of the same type that are created and destroyed in rapid succession. Common examples include things like parsing large protobuf or JSON blobs. In extreme cases these types of tasks can make garbage collection the bottleneck of your program. Take a look at this flamegraph for example:
 
 <center>
 
-![Screenshot 2023-01-24 at 12 18 08 PM](https://user-images.githubusercontent.com/662636/214399512-7cd2e98f-6ee3-4d9f-ad73-5969d23ef149.png)
+<iframe frameBorder="0" width="100%" height="500" src="https://flamegraph.com/share/62ac2803-9c46-11ed-9579-4ed84ee521d2/iframe?onlyDisplay=flamegraph"></iframe>
 
 <i>
-TODO: add description and find a better screenshot
+Profile of a program that operates with a large number of small structs. It spends 46.68% of its CPU time in garbage collection.
 </i>
 </center>
 <br/>
 
-In general, it's a good idea to profile your program to see if your program suffers from garbage collection overhead and could benefit from arenas. Once you've identified a bottleneck, you can experiment with using arenas to see if they result in improved performance. For example, the screenshot above is a good example of an application that is a good candidate for using arenas because a large chunk of time is spent in garbage collection.
+This program spends 46.68% of its CPU time doing garbage collection. This is a good example of a codebase that could benefit from using arenas. If you could reduce the number of allocations and deallocations, you could cut the CPU time in half and thus improve latency and cut costs.
+
+In general, it's a good idea to profile your program to see if your program suffers from garbage collection overhead. Once you've identified that it does, you can experiment with using arenas to see if they result in improved performance.
 
 
 ### Our Experience with Arenas
@@ -147,20 +149,16 @@ At Pyroscope we've been experimenting with Arenas as soon as they came out in a 
 
 A large chunk of work that Pyroscope does is parsing profiles in various formats (`pprof`, `jfr`, etc). This has always been one of the most expensive stages of data processing and we've already implemented a lot of performance optimizations in that area.
 
-Our bottleneck was caused by the dynamic memory allocation and deallocation of many small structs that the profiles consist of. We were creating and destroying structs at a very high rate, and this was causing a lot of overhead in the system.
-
-To solve this problem, [we decided to try using Go arenas](https://github.com/pyroscope-io/pyroscope/pull/1804) to manage the memory for the slices. We made a few changes to the system to use the new make functions that were introduced in Go 1.20 to allocate structs in arenas. This allowed us to eliminate the overhead of traditional garbage collection.
+When go arenas feature first came out [we've decided to try using it](https://github.com/pyroscope-io/pyroscope/pull/1804) on our parsers. Now we allocate an arena per incoming profile and that allows us to significantly reduce the number of allocations garbage collector has to keep track of.
 
 ![Screenshot 2023-01-24 at 11 08 05 AM](https://user-images.githubusercontent.com/662636/214385659-bb7f37ac-9d1f-4f27-83ba-2055d92a9884.png)
 
-<center><i>Diff profile from Pyroscope Cloud showing the difference before and after enabling memory arenas. <br/>Notice how garbage collection went from 6.62% to 2.67%, saving 4% in CPU utilization.</i></center>
+<center><i>Diff profile from Pyroscope Cloud showing the difference before and after enabling memory arenas. <br/>Notice how garbage collection went from 6.62% to 2.67%, saving about 4% in CPU utilization.</i></center>
 
 <br/>
 <br/>
 
-We saw a significant improvement in the performance of the system, with a reduction in latency and an increase in throughput. We were able to handle more profiles in real-time, and the system was more stable overall.
-
-It was a great success for us and we highly recommend using Go arenas for similar use cases.
+In our particular case the CPU utilization associated with garbage collection went from 6.62% to 2.67%, saving about 4% in CPU utilization, which, at our scale, is a significant improvement. In addition to that we saw a significant improvement in the performance of the system, our p99 latency went down 30%. We were able to handle more profiles in real-time, and the system became more stable overall. It was a great success for us and we highly recommend using Go arenas for similar use cases.
 
 ### Conclusion
 
