@@ -119,7 +119,7 @@ To start using godeltaprof in pull mode in a Go application, you need to include
 ```bash
 go get github.com/pyroscope-io/godeltaprof@latest
 ```
-Integration is very simillar to `net/http/pprof`, you just import a new package and it will expose new endpoints `/debug/pprof/delta_heap`, `/debug/pprof/delta_block`, `/debug/pprof/delta_mutex`
+Integration is very simillar to `net/http/pprof`, you need to import a new package and it will expose new endpoints `/debug/pprof/delta_heap`, `/debug/pprof/delta_block`, `/debug/pprof/delta_mutex`
 ```go
 _ "github.com/pyroscope-io/godeltaprof/http/pprof"
 ```
