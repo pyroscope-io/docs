@@ -82,8 +82,12 @@ If your the auto detection service doesn't work with your CI system, you can pas
 
 All the data gathered while your tests were running will be merged and grouped by profile type, which is then uploaded.
 
+Alternatively, the `--noUpload` flag can be passed, which creates profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
+These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
+either via the [API](https://flamegraph.com/openapi) or using the [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
+
 ## Visualizing profiles
-The profiles can be visualized in the CI page under Pyroscope Cloud ([`http://pyroscope.cloud/ci`](`http://pyroscope.cloud`)).
+The profiles can be visualized in the CI page under Pyroscope Cloud ([`https://pyroscope.cloud/ci`](`https://pyroscope.cloud/ci`)).
 
 
 <iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/68b22ba6-9d82-11ed-a9bc-e2a53ffd5c62/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
