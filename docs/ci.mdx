@@ -1,0 +1,95 @@
+---
+id: ci
+title: Running Pyroscope in CI
+sidebar_label: Running in CI
+slug: /ci
+keywords: [ ci ]
+---
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+Pyroscope allows profiling tests and uploading to Pyroscope Cloud.
+Its functionality is available via the `pyroscope-ci` binary.
+
+The process consists of 3 steps: Setup, Execution and Upload.
+
+## Installation
+The `pyroscope-ci` binary is available under the [Github Releases page](https://github.com/pyroscope-io/ci/releases).
+A handy install script automates the installation process:
+```bash
+curl https://raw.githubusercontent.com/pyroscope-io/ci/main/install.sh | sh
+```
+(feel free to download and inspect the script's content, and also pin to a fixed commit)
+
+For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release)
+
+## Setup
+Each language/testing framework will have a different setup. Most of them
+can be manually added. For the more complicated cases (such as go), a `install` subcommand is available.
+
+<Tabs
+  defaultValue="go"
+  values={[
+    {label: 'Go', value: 'go'},
+  ]}>
+  <TabItem value="go">
+  Running
+
+  ```bash
+  pyroscope-ci go install --applicationName=myapp pkg
+  ```
+
+  Will recursively under `pkg` find all the packages with tests.
+  Then for each package, a new `pyroscope_test.go` will be created, containing
+  the agent code for that test package to be profiled.
+
+  We recommend running as a ci step, so that you don't have to commit these files,
+  and consequently make your tests slower when running locally.
+  </TabItem>
+</Tabs>
+
+## Execution
+After your tests have been set up, it's time to execute them:
+
+```bash
+pyroscope-ci exec --apiKey="MY_API_KEY" -- go test ./...
+```
+
+Notice that any command can be set (`make test`, `./test.sh` etc).
+
+This command:
+1. It starts an in-memory pyroscope server;
+2. Overwrites the `PYROSCOPE_ADHOC_SERVER_ADDRESS` environment variable, so that the in-memory server ingests the data. 
+(Please check if the agent you are using supports that feature.)
+3. Uploads to `--serverAddress` (defaults to `https://pyroscope.cloud`)
+
+:::note
+Some CI systems will skip certain tests if the files have not been touched.
+If you don't want that behaviour, try to run your tests without cache. For reference, in go you can use `go test . -count=1`
+:::
+
+## Upload
+:::note
+This functionality is only available in [Pyroscope Cloud](https://pyroscope.cloud/ci)
+:::
+
+As previously mentioned, the `exec` command also performs upload, but let's dive into it separately,
+since it's conceptually a different step.
+
+The CI Context (branch, commit) will be inferred from the environment.
+If your the auto detection service doesn't work with your CI system, you can pass each flag manually (`--branch` and `--commitSHA`).
+
+All the data gathered while your tests were running will be merged and grouped by profile type, which is then uploaded.
+
+Alternatively, the `--noUpload` flag can be passed, which creates profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
+These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
+either via the [API](https://flamegraph.com/openapi) or using the [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
+
+## Visualizing profiles
+The profiles can be visualized in the [CI page under Pyroscope Cloud](https://pyroscope.cloud/ci).
+
+
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/68b22ba6-9d82-11ed-a9bc-e2a53ffd5c62/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+
+For illustration, above is the profile for `github.com/pyroscope-io/pyroscope` go tests,
+which shows that the race condition detector (`racecall`) spends a non-negligible amount of time.

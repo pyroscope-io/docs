@@ -152,5 +152,9 @@ module.exports = {
       type: "doc",
       id: "flamegraph-com",
     },
+    {
+      type: "doc",
+      id: "ci",
+    },
   ],
 };
