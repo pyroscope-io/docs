@@ -9,13 +9,18 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 Pyroscope allows profiling tests and uploading to Pyroscope Cloud.
-Its functionality is available via the `pyro-ci` binary.
+Its functionality is available via the `pyroscope-ci` binary.
 
 The process consists of 3 steps: Setup, Execution and Upload.
 
 ## Installation
 <!-- TODO: explain how to download the binary -->
-The `pyro-ci` binary is available under the [Github Releases page](https://github.com/pyroscope-io/ci/releases).
+The `pyroscope-ci` binary is available under the [Github Releases page](https://github.com/pyroscope-io/ci/releases).
+A handy install script automates the installation process:
+```sh
+curl https://raw.githubusercontent.com/pyroscope-io/ci/main/install.sh | sh
+```
+(feel free to download and inspect the script's content, and also pin to a fixed commit)
 
 For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release)
 
@@ -32,7 +37,7 @@ can be manually added. For the more complicated cases (such as go), a `install` 
   Running
 
   ```sh
-  pyro-ci go install --applicationName=myapp pkg
+  pyroscope-ci go install --applicationName=myapp pkg
   ```
 
   Will recursively under `pkg` find all the packages with tests.
@@ -48,7 +53,7 @@ can be manually added. For the more complicated cases (such as go), a `install` 
 After your tests have been set up, it's time to execute them:
 
 ```sh
-pyro-ci exec --apiKey="MY_API_KEY" -- go test ./...
+pyroscope-ci exec --apiKey="MY_API_KEY" -- go test ./...
 ```
 
 Notice that any command can be set (`make test`, `./test.sh` etc).
@@ -81,7 +86,7 @@ All the data gathered while your tests were running will be merged and grouped b
 The profiles can be visualized in the CI page under Pyroscope Cloud ([`http://pyroscope.cloud/ci`](`http://pyroscope.cloud`)).
 
 
-<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/65842a18-9cca-11ed-9b0e-8269072f689e/iframe?onlyDisplay=flamegraph&colorMode=light"></iframe>
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/68b22ba6-9d82-11ed-a9bc-e2a53ffd5c62/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
 
 For illustration, above is the profile for `github.com/pyroscope-io/pyroscope` go tests,
-which shows that the race condition detector spends a non-negligible amount of time.
+which shows that the race condition detector (`racecall`) spends a non-negligible amount of time.
