@@ -17,7 +17,7 @@ The process consists of 3 steps: Setup, Execution and Upload.
 <!-- TODO: explain how to download the binary -->
 The `pyroscope-ci` binary is available under the [Github Releases page](https://github.com/pyroscope-io/ci/releases).
 A handy install script automates the installation process:
-```sh
+```bash
 curl https://raw.githubusercontent.com/pyroscope-io/ci/main/install.sh | sh
 ```
 (feel free to download and inspect the script's content, and also pin to a fixed commit)
@@ -36,7 +36,7 @@ can be manually added. For the more complicated cases (such as go), a `install` 
   <TabItem value="go">
   Running
 
-  ```sh
+  ```bash
   pyroscope-ci go install --applicationName=myapp pkg
   ```
 
@@ -52,7 +52,7 @@ can be manually added. For the more complicated cases (such as go), a `install` 
 ## Execution
 After your tests have been set up, it's time to execute them:
 
-```sh
+```bash
 pyroscope-ci exec --apiKey="MY_API_KEY" -- go test ./...
 ```
 
