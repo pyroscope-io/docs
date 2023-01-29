@@ -9,7 +9,7 @@ authors:
     url: https://github.com/Rperry2174
     image_url: https://avatars.githubusercontent.com/u/662636?v=4
   - name: ChatGPT
-    title: Editor in Residence
+    title: Editor
     url: https://chat.openai.com/
     image_url: https://chat.openai.com/favicon-32x32.png
 image: https://user-images.githubusercontent.com/662636/214387129-89b621db-fc0f-4cb7-9e66-877a96affc90.png
@@ -32,7 +32,7 @@ See [this Github discussion](https://github.com/golang/go/issues/51317#issuecomm
 
 ## Introduction
 
-Go 1.20 introduces the concept of "arenas" for memory management, which can be used to improve the performance of your Go programs. In this blog post, we'll take a look at what arenas are, how they work, and how to use them in your own programs. We'll also talk about our experience working with arenas.
+Go 1.20 introduces the concept of "arenas" for memory management, which can be used to improve the performance of your Go programs. In this blog post, we'll take a look at what arenas are, how they work, how to determine if your programs could benefit from using them, and how to use them in your own programs.
 
 ## What are memory arenas?
 
@@ -42,8 +42,34 @@ In certain scenarios, such as when an HTTP server processes requests with large 
 
 Arenas offer a solution to this problem. To reduce overhead in the example of JSON blobs, a large chunk of memory (an arena) can be allocated before parsing. This reduces the overhead of many small allocations. All parsed objects can then be placed on the arena, and since these objects belong to the arena, they are no longer tracked by the Go runtime, eliminating garbage collection overhead. Once parsing is completed, the entire arena can be freed at once, further reducing the overhead of freeing many small objects.
 
-## How do I use memory arenas?
+## How to identify code that could benefit from arenas
 
+Any code that allocates a lot of small objects could benefit from arenas. But how do you know if your code allocates too many? In our experience, the best way to do that is to profile your program.
+
+Using Pyroscope we were able to get an allocations profile (`alloc_objects`) of one of our [cloud services](https://pyroscope.io/pricing/):
+
+<Flamegraph profileData={HighAlloc}></Flamegraph>
+<br/>
+
+You can see that the majority of allocations (`702.98 M`) come from one area of code — parsing pprof files. This is a good candidate for using arenas. But is it still worthwhile to cut down these allocations? Let's take a look at the CPU profile (`cpu`) of the same service:
+
+<Flamegraph profileData={HighAllocCPU}></Flamegraph>
+<br/>
+
+
+Few things stand out:
+* most of the work this service performs is indeed related to parsing pprof files, so that means we're looking in the right direction.
+* if you search for `runtime.mallocgc` (pink blocks at the leafs) you will see that that function is called a lot in various places and it takes about 16% our total execution time. We can use [use sandwich view](https://user-images.githubusercontent.com/662636/215287900-5ba84463-fd22-4e29-a56e-9e67492d5f88.png) to see exactly which functions call it.
+* we can see that about 6% of the time is spent in `runtime.gcBgMarkWorker` (pink area to the right).
+
+So in theory, if we optimized the allocations in this program, we could cut about 16% + 6% = 22% of CPU time. In practice this would translate in 22% cost savings and latency improvements for all of our customers. Sounds like it might be worth it.
+
+## Optimizations we've made
+
+TODO
+
+
+## How do I use memory arenas?
 
 :::warning
 Go arenas are an experimental feature. The API and implementation is completely unsupported and go team makes no guarantees about compatibility or whether it will even continue to exist in any future release.
@@ -132,7 +158,6 @@ func findUserByID(blob []byte, len int, id string) *User {
 }
 ```
 
-
 ## Tradeoffs and Drawbacks
 
 While arenas can provide performance benefits, it's important to consider the trade-offs before using them. The main drawback of using arenas is that when you use arenas you now have to manage memory manually and if you're not careful that may lead to serious problems:
@@ -146,31 +171,6 @@ Our recommendations are to:
 * always use `arena.Clone` to clone objects back to the heap if you want to use them after an arena was freed
 
 The other major drawback at the moment is that Go arenas are an experimental feature. The API and implementation is completely unsupported and go team makes no guarantees about compatibility or whether it will even continue to exist in any future release. We suggest that you try arenas in your systems and [report findings to the Go team](https://github.com/golang/go/issues/51317).
-
-
-## How to identify code that could benefit from arenas
-
-The short answer is that any code that allocates a lot of small objects could benefit from arenas. But how do you know if your code allocates a lot of small objects? In our experience, the best way to do that is to profile your program.
-
-Using Pyroscope we were able to get an allocations profile (`alloc_objects`) of one of our [cloud services](https://pyroscope.io/pricing/):
-
-<Flamegraph profileData={HighAlloc}></Flamegraph>
-
-<br/>
-
-You can see that the majority of allocations (`702.98 M`) come from one area of code — parsing pprof files. This is a good candidate for using arenas. But is it still worthwhile to cut down these allocations? Let's take a look at the CPU profile (`cpu`) of the same service:
-
-<Flamegraph profileData={HighAllocCPU}></Flamegraph>
-
-Few things stand out:
-* most of the work this service performs is related to parsing pprof files, so that means we're looking in the right direction.
-* if you search for `runtime.mallocgc` you will see that that function is called a lot in various places and it takes about 18% our total execution time. We can use [use sandwich view](https://user-images.githubusercontent.com/662636/215287900-5ba84463-fd22-4e29-a56e-9e67492d5f88.png) to see exactly which functions call it.
-* we can see that about 7% of the time is spent in `runtime.gcBgMarkWorker` (pink area to the right).
-
-So in theory, if we optimized the allocations in this program, we could cut about 18% + 7% = 25% of CPU time. In practice this would translate in 25% cost savings and latency improvements for all of our customers. Sounds like it might be worth it.
-
-## Optimizations we've made
-
 
 
 ## Conclusion
