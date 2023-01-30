@@ -7,6 +7,7 @@ keywords: [ ci ]
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Link from '@docusaurus/Link';
 
 Pyroscope allows profiling tests and uploading to Pyroscope Cloud.
 Its functionality is available via the `pyroscope-ci` binary.
@@ -31,6 +32,7 @@ can be manually added. For the more complicated cases (such as go), a `install` 
   defaultValue="go"
   values={[
     {label: 'Go', value: 'go'},
+    {label: 'Nodejs (jest)', value: 'nodejs-jest'},
   ]}>
   <TabItem value="go">
   Running
@@ -45,6 +47,9 @@ can be manually added. For the more complicated cases (such as go), a `install` 
 
   We recommend running as a ci step, so that you don't have to commit these files,
   and consequently make your tests slower when running locally.
+  </TabItem>
+  <TabItem value="nodejs-jest">
+  See the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
   </TabItem>
 </Tabs>
 
