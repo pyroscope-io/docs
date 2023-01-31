@@ -22,6 +22,10 @@ curl https://raw.githubusercontent.com/pyroscope-io/ci/main/install.sh | sh
 ```
 (feel free to download and inspect the script's content, and also pin to a fixed commit)
 
+It will download the binary locally, which can be assed via `./pyroscope-ci`.
+
+If you want to download a specific version, first download the script and invoke it with `./install.sh $DESIRED_VERSION`
+
 For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release)
 
 ## Setup
@@ -156,3 +160,37 @@ The profiles can be visualized in the [CI page under Pyroscope Cloud](https://py
 
 For illustration, above is the profile for `github.com/pyroscope-io/pyroscope` go tests,
 which shows that the race condition detector (`racecall`) spends a non-negligible amount of time.
+
+## Integrating with Github Actions
+
+The following is a simplified example taken from the [`pyroscope` repository](https://github.com/pyroscope-io/pyroscope/blob/main/.github/workflows/ci-profiling.yaml) using Github Actions:
+
+```yaml
+name: CI Profiling
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  js-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.18'
+      - name: Install pyroscope-ci
+        uses: jaxxstorm/action-install-gh-release@v1.5.0
+        with: # Grab the latest version
+          repo: pyroscope-io/ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Webapp dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run tests and upload
+        run: pyroscope-ci exec --apiKey=${{ secrets.PYROSCOPE_CLOUD_TOKEN }} yarn test --no-cache --max-workers=1
+```
