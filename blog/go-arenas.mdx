@@ -1,6 +1,6 @@
 ---
-title: Experimenting With Memory Areans in Go 1.20
-sidebar_label: Experimenting With Memory Areans in Go 1.20
+title: Experimenting With Memory Arenas in Go 1.20
+sidebar_label: Experimenting With Memory Arenas in Go 1.20
 slug: /using-memory-arenas-in-go-1-20
 date: "2023-01-24"
 authors:
@@ -98,95 +98,6 @@ The other major drawback at the moment is that Go arenas are an experimental fea
 
 We recommend that you extract all arena-related code into a separate package and use build tags to make sure that it's easy to remove it from your codebase if you decide to stop using arenas. [Our code](https://github.com/pyroscope-io/pyroscope/pull/1804/files#diff-70ab4bbe796a97ad1a47d7970504296eff36b5307527ae2806d2b50f94f83a45) can serve as a demonstration of this approach.
 
-
-## How do I use memory arenas?
-
-:::warning
-Go arenas are an experimental feature. The API and implementation is completely unsupported and go team makes no guarantees about compatibility or whether it will even continue to exist in any future release.
-:::
-
-To use arenas in your own programs, you will need to make sure that your program is compiled with the Go 1.20 runtime. You can check the version of the Go runtime by running the following command:
-
-```shell
-$ go version
-> go version go1.20rc3 linux/amd64
-```
-
-You can download the pre-release version of go 1.20 from [official go website](https://go.dev/dl/#go1.20rc3).
-
-Once you have confirmed that you are running Go 1.20 or later, you can start using arenas in your program. Memory arenas are experimental so you will need to enable them by setting the `GOEXPERIMENT` environment variable to `arenas`:
-
-```shell
-GOEXPERIMENT=arenas go build main.go
-```
-
-### Working with single structs
-
-Here's a example where we create an arena, allocate one object on it, then free it:
-
-```go
-package main
-
-import (
-	"arena"
-	"fmt"
-)
-
-type User struct {
-	loginAttempts int
-}
-
-func main() {
-	a := arena.NewArena()      // create an arena
-	user := arena.New[User](a) // allocate one struct on the arena
-	user.loginAttempts++       // work with a struct as you normally would
-
-	// After you're done working with structs
-	//   on an arena, you can free it
-	a.Free()
-
-	// CAUTION: you should never access structs allocated
-	//   on an arena after it was freed
-	fmt.Printf("this may panic: %d\n", user.loginAttempts)
-}
-```
-
-### Slices
-
-Allocating single objects is great, but in practice you will most likely be using arenas to allocate slices. Here's an example of how you can use arenas to do that:
-
-```go
-a := arena.NewArena()
-defer a.Free()
-
-user := arena.New[User](a)                  // allocate one struct
-users := arena.MakeSlice[User](a, 100, 100) // allocate a slice
-```
-
-### Cloning objects back to heap
-
-Sometimes you may want to clone an object back to the heap. This is useful if you want for some objects to outlive a specific arena. Here's a practical example where you have a function that takes a huge blob of data, parses it into a slice of structs, and then returns a single struct from that slice:
-
-```go
-func findUserByID(blob []byte, len int, id string) *User {
-	// set up an arena
-	a := arena.NewArena()
-	defer a.Free()
-
-	users := arena.MakeSlice[User](a, len, len) // allocate a slice
-	json.Unmarshal(blob, users)                 // parse JSON blob
-
-	for _, user := range users {
-		if user.ID == id {
-			// arena.Clone allows you to clone
-			//   an object back to the heap
-			// This way you can reuse it later,
-			//   even after an arena was freed
-			return arena.Clone[*User](&user)
-		}
-	}
-}
-```
 
 ## Conclusion
 
