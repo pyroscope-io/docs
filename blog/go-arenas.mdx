@@ -59,6 +59,7 @@ You can see that the majority of allocations (`533.30 M`) come from one area of 
 
 
 Few things stand out:
+* the programs spends a lot of time in the same `InsertStackA` function, so we're on the right track.
 * if you search for `runtime.mallocgc` (multiple pink nodes at the bottom) you will see that that function is called a lot in various places and it takes about 14% our total execution time.
 * we can also see that about 5% of the time is spent in `runtime.gcBgMarkWorker` (pink nodes located in the right section of the flamegraph).
 
@@ -81,7 +82,7 @@ If you're interested in following along, there's a [public pull request in the P
 <Flamegraph profileData={AfterChange}></Flamegraph>
 <br/>
 
-In our case, we were able to reduce the overhead of `runtime.mallocgc` calls from 14% to 4% and the garbage collection overhead from 5% to 2.5%. Some of `runtime.mallocgc` calls were replaced with arena-specific equivalent (`runtime.(*userArena).alloc`), adding 4.5% back. This equates to about (14% + 5%) - (4% + 2.5% + 4.5%) = **8% of CPU time saved**. We cross-referenced this against CPU utilization charts that we get from kubernetes and saw the same reduction of CPU utilization. This translates directly into 8% cost savings on cloud bills for that particular service, making it a worthwhile improvement.
+The flamegraph above represents a profile after we've implemented the changes. You can see that many of the `runtime.mallocgc` calls are now gone, but are replaced with arena-specific equivalent (`runtime.(*userArena).alloc`), you can also see that garbage collection overhead is cut in half. It is hard to see the exact amount of savings from solely looking at the flamegraphs, but when looking at metrics we get from kubernetes and AWS we saw approximately a 8% reduction in CPU usage. This translates directly into 8% cost savings on cloud bills for that particular service, making it a worthwhile improvement.
 
 This may not seem like a lot, but it's important to note that this is a service that has already been optimized quite a bit. For example, the protobuf parser that we use doesn't allocate any extra memory at all, garbage collection overhead (5%) is also on the lower end of the spectrum for our services. We think that there's a lot more room for improvement in other parts of the codebase and so we're excited to continue our experiments with arenas.
 
