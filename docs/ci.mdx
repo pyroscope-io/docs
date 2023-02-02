@@ -24,9 +24,7 @@ curl https://raw.githubusercontent.com/pyroscope-io/ci/main/install.sh | sh
 
 It will download the binary locally, which can be accessed via `./pyroscope-ci`.
 
-If you want to download a specific version, first download the script and invoke it with `./install.sh $DESIRED_VERSION`
-
-For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release)
+For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release), for a more complete example see the [Integrating with Github Actions section](#integrating-with-github-actions).
 
 ## Setup
 Each language/testing framework will have a different setup. Most of them
@@ -152,15 +150,6 @@ Alternatively, the `--noUpload` flag can be passed, which creates profiles in th
 These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
 via the [UI](https://www.flamegraph.com), the [API](https://flamegraph.com/openapi) or using the [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
 
-## Visualizing profiles
-The profiles can be visualized in the [CI page under Pyroscope Cloud](https://pyroscope.cloud/ci).
-
-
-<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/68b22ba6-9d82-11ed-a9bc-e2a53ffd5c62/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
-
-For illustration, above is the profile for `github.com/pyroscope-io/pyroscope` go tests,
-which shows that the race condition detector (`racecall`) spends a non-negligible amount of time.
-
 ## Integrating with Github Actions
 
 The following is a simplified example taken from the [`pyroscope` repository](https://github.com/pyroscope-io/pyroscope/blob/main/.github/workflows/ci-profiling.yaml) using Github Actions:
@@ -194,3 +183,13 @@ jobs:
       - name: Run tests and upload
         run: pyroscope-ci exec --apiKey=${{ secrets.PYROSCOPE_CLOUD_TOKEN }} yarn test --no-cache --max-workers=1
 ```
+
+## Visualizing profiles
+The profiles can be visualized in the [CI page under Pyroscope Cloud](https://pyroscope.cloud/ci).
+
+
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/68b22ba6-9d82-11ed-a9bc-e2a53ffd5c62/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+
+For illustration, above is the profile for `github.com/pyroscope-io/pyroscope` go tests,
+which shows that the race condition detector (`racecall`) spends a non-negligible amount of time.
+
