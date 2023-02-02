@@ -84,6 +84,8 @@ If you're interested in following along, there's a [public pull request in the P
 
 The flamegraph above represents a profile after we've implemented the changes. You can see that many of the `runtime.mallocgc` calls are now gone, but are replaced with arena-specific equivalent (`runtime.(*userArena).alloc`), you can also see that garbage collection overhead is cut in half. It is hard to see the exact amount of savings from solely looking at the flamegraphs, but when looking at metrics we get from kubernetes and AWS we saw approximately a 8% reduction in CPU usage. This translates directly into 8% cost savings on cloud bills for that particular service, making it a worthwhile improvement.
 
+![grafana-screenshot-3](https://user-images.githubusercontent.com/662636/216225170-8fe9212b-73ab-4245-a9a8-c553ed2d0922.png)
+
 This may not seem like a lot, but it's important to note that this is a service that has already been optimized quite a bit. For example, the protobuf parser that we use doesn't allocate any extra memory at all, garbage collection overhead (5%) is also on the lower end of the spectrum for our services. We think that there's a lot more room for improvement in other parts of the codebase and so we're excited to continue our experiments with arenas.
 
 ## Tradeoffs and Drawbacks
