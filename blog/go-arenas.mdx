@@ -33,15 +33,23 @@ See [this Github discussion](https://github.com/golang/go/issues/51317#issuecomm
 
 ## Introduction
 
-Go 1.20 introduces an experimental concept of "arenas" for memory management, which can be used to improve the performance of your Go programs. In this blog post, we'll take a look at what arenas are, how they work, how to determine if your programs could benefit from using them, and show you an example of how we used them to optimize one of our services.
+Go 1.20 introduces an experimental concept of "arenas" for memory management, which can be used to improve the performance of your Go programs. In this blog post, we'll take a look at:
+- What are arenas
+- How do arenas they work
+- How can you determine if your programs could benefit from using arenas
+- How we used arenas to optimize one of our services
 
 ## What are memory arenas?
 
-Go is a programming language that utilizes garbage collection, meaning that the runtime automatically manages memory allocation and deallocation for the programmer. This eliminates the need for manual memory management, but it comes with a cost. The Go runtime must keep track of every object that is allocated, leading to a performance overhead.
+Go is a programming language that utilizes garbage collection, meaning that the runtime automatically manages memory allocation and deallocation for the programmer.
+This eliminates the need for manual memory management, but it comes with a cost:
 
-In certain scenarios, such as when an HTTP server processes requests with large protobuf blobs, this can result in the Go runtime spending a lot of time on single allocations, tracking them, and then deallocating them. This can cause a significant performance overhead.
+**The Go runtime must keep track of _every_ object that is allocated, leading to increased performance overhead.**
 
-Arenas offer a solution to this problem. To reduce overhead in the example of protobuf blobs, a large chunk of memory (an arena) can be allocated before parsing. This reduces the overhead of many small allocations. All parsed objects can then be placed on the arena, and since these objects belong to the arena, they are no longer tracked by the Go runtime, eliminating garbage collection overhead. Once parsing is completed, the entire arena can be freed at once, further reducing the overhead of freeing many small objects.
+In certain scenarios, such as when an HTTP server processes requests with large protobuf blobs, this can result in the Go runtime spending a significant amount of time tracking each individual allocation, and then deallocating them.
+At a minimum this casues increased performance overhead and often this can be the root cause of [INSERT BAD THINGS THAT HAPPEN WHEN MEMORY ALLOCATIONS GO WRONG].
+
+Arenas offer a solution to these problems. To reduce overhead in the example of protobuf blobs, a large chunk of memory (an arena) can be allocated before parsing. This reduces the overhead of many small allocations. All parsed objects can then be placed on the arena, and since these objects belong to the arena, they are no longer tracked by the Go runtime, eliminating garbage collection overhead. Once parsing is completed, the entire arena can be freed at once, further reducing the overhead of freeing many small objects.
 
 ## How to identify code that could benefit from arenas
 
