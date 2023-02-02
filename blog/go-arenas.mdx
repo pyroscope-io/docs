@@ -53,6 +53,9 @@ Arenas offer a solution to this problem, by reducing the overhead associated wit
 
 Once parsing is completed, the entire arena can be freed at once, further reducing the overhead of freeing many small objects.
 
+![arenas drawio2](https://user-images.githubusercontent.com/662636/216409118-c90f4e59-b8dd-47b7-aa42-c2ba64a1062a.svg)
+
+
 ## Identifying Code That Could Benefit From Arenas
 
 Any code that allocates a lot of small objects could potentially benefit from arenas. But how do you know if your code allocates too many? In our experience, the best way to do that is to profile your program.
