@@ -34,12 +34,12 @@ See [this Github discussion](https://github.com/golang/go/issues/51317#issuecomm
 ## Introduction
 
 Go 1.20 introduces an experimental concept of "arenas" for memory management, which can be used to improve the performance of your Go programs. In this blog post, we'll take a look at:
-- What are arenas
-- How do arenas they work
-- How can you determine if your programs could benefit from using arenas
-- How we used arenas to optimize one of our services
+* What are arenas
+* How do they work
+* How can you determine if your programs could benefit from using arenas
+* How we used arenas to optimize one of our services
 
-## What are memory arenas?
+## What Are Memory Arenas?
 
 Go is a programming language that utilizes garbage collection, meaning that the runtime automatically manages memory allocation and deallocation for the programmer.
 This eliminates the need for manual memory management, but it comes with a cost:
@@ -53,14 +53,14 @@ Arenas offer a solution to this problem, by reducing the overhead associated wit
 
 Once parsing is completed, the entire arena can be freed at once, further reducing the overhead of freeing many small objects.
 
-## How to identify code that could benefit from arenas
+## Identifying Code That Could Benefit From Arenas
 
 Any code that allocates a lot of small objects could potentially benefit from arenas. But how do you know if your code allocates too many? In our experience, the best way to do that is to profile your program.
 
 Using Pyroscope we were able to get an allocations profile (`alloc_objects`) of one of our [cloud services](https://pyroscope.io/pricing/):
 
 <Flamegraph profileData={HighAlloc}></Flamegraph>
-<center style={{margin:"10px 20px 20px"}}><i>The largest nodes in this allocated objects flamegraph represent where arenas may be most effective</i></center>
+<center style={{margin:"10px 20px 20px"}}><i>The purple nodes in this allocated objects flamegraph represent where arenas may be most effective</i></center>
 
 <br/>
 
@@ -69,13 +69,13 @@ Given that it represents 65% of allocations this is a good candidate for using a
 But is there enough of a performance benefit to be gained by cutting down these allocations? Let's take a look at the CPU profile (`cpu`) of the same service:
 
 <Flamegraph profileData={HighAllocCPU}></Flamegraph>
-<center style={{margin:"10px 20px 20px"}}><i>The largest nodes in this CPU flamegraph represent potential for performance improvements</i></center>
+<center style={{margin:"10px 20px 20px"}}><i>The purple nodes in this CPU flamegraph represent potential for performance improvements</i></center>
 
 <br/>
 
 
 A few things stand out:
-* The programs spends a lot of CPU time in the same `InsertStackA` function, so there definitely is potential for meaningful performance gains
+* The program spends a lot of CPU time in the same `InsertStackA` function, so there definitely is potential for meaningful performance gains
 * If you search for `runtime.mallocgc` (multiple pink nodes at the bottom) you will see that that function is called frequently in various different places and it takes about 14% our total execution time
 * About 5% of the CPU time is spent in `runtime.gcBgMarkWorker` (pink nodes located in the right section of the flamegraph)
 
@@ -93,13 +93,13 @@ If you're interested in following along, there's a [public pull request in the P
 
 * Finally, we built pyroscope with arenas enabled and gradually deployed it to our production environment of [Pyroscope Cloud](https://pyroscope.io/pricing).
 
-## Results of our arenas experimentation
+## Results of Our Arenas Experimentation
 
 <Flamegraph profileData={AfterChange}></Flamegraph>
 <br/>
 
 The flamegraph above represents a profile after we've implemented the changes. You can see that many of the `runtime.mallocgc` calls are now gone, but are replaced with arena-specific equivalent (`runtime.(*userArena).alloc`), you can also see that garbage collection overhead is cut in half.
-It is hard to see the exact amount of savings from solely looking at the flamegraphs, but when looking at our Grafana dashboard which combines our flamegraph with AWS metrics we get from kubernetes we saw approximately a 8% reduction in CPU usage.
+It is hard to see the exact amount of savings from solely looking at the flamegraphs, but when looking at our Grafana dashboard which combines our flamegraph with CPU utilization from AWS metrics we saw approximately a 8% reduction in CPU usage.
 This translates directly into 8% cost savings on cloud bills for that particular service, making it a worthwhile improvement.
 
 ![grafana-screenshot-3](https://user-images.githubusercontent.com/662636/216225170-8fe9212b-73ab-4245-a9a8-c553ed2d0922.png)
@@ -108,7 +108,7 @@ This may not seem like a lot, but it's important to note that this is a service 
 
 ## Tradeoffs and Drawbacks
 
-While arenas can provide performance benefits, it's important to consider the trade-offs before using them. The main drawback of using arenas is that when you use arenas you now have to manage memory manually and if you're not careful that may lead to serious problems:
+While arenas can provide performance benefits, it's important to consider the tradeoffs before using them. The main drawback of using arenas is that when you use arenas you now have to manage memory manually and if you're not careful that may lead to serious problems:
 
 * Failing to properly free memory can lead to **memory leaks**
 * Attempting to access objects from a previously freed arena may cause **program crashes**
