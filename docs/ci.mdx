@@ -49,6 +49,12 @@ can be manually added. For the more complicated cases (such as go), a `install` 
 
   We recommend running as a ci step, so that you don't have to commit these files,
   and consequently make your tests slower when running locally.
+
+  Also you may need to pull the `pyroscope` dependency, if you are not using it yet.
+  ```bash
+  go mod tidy
+  ```
+
   </TabItem>
   <TabItem value="nodejs-jest">
 
