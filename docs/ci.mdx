@@ -22,7 +22,9 @@ curl https://raw.githubusercontent.com/pyroscope-io/ci/main/install.sh | sh
 ```
 (feel free to download and inspect the script's content, and also pin to a fixed commit)
 
-For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release)
+It will download the binary locally, which can be accessed via `./pyroscope-ci`.
+
+For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release), for a more complete example see the [Integrating with Github Actions section](#integrating-with-github-actions).
 
 ## Setup
 Each language/testing framework will have a different setup. Most of them
@@ -47,9 +49,73 @@ can be manually added. For the more complicated cases (such as go), a `install` 
 
   We recommend running as a ci step, so that you don't have to commit these files,
   and consequently make your tests slower when running locally.
+
+  Also you may need to pull the `pyroscope` dependency, if you are not using it yet.
+  ```bash
+  go mod tidy
+  ```
+
   </TabItem>
   <TabItem value="nodejs-jest">
-  See the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
+
+  First, install the `@pyroscope/nodejs` agent. Via npm:
+
+  ```bash
+  npm install --save-dev @pyroscope/nodejs
+  ```
+
+  Or yarn:
+  ```bash
+  yarn add --save-dev @pyroscope/nodejs
+  ```
+
+  Then instantiate pyroscope in a  `globalSetup.js` file:
+  ```js
+  const Pyroscope = require('@pyroscope/nodejs');
+
+  module.exports = (config) => {
+    Pyroscope.init({ serverAddress: '_', appName: myapp.frontend' });
+    if (process.env.CI) {
+      Pyroscope.start();
+    }
+  };
+  ```
+  Notice how we conditionally start Pyroscope when the `CI` environment variable is turned on.
+  This is so that it doesn't affect when running locally.
+
+  Also, it's possible to replace `.start()` for `.startCpuProfiling()` if you don't
+  care about heap profiling, since it may be costly.
+
+  Then let's add a `globalTeardown.js` file:
+
+  ```js
+  const Pyroscope = require('@pyroscope/nodejs');
+
+  module.exports = (config) => {
+    if (process.env.CI) {
+      Pyroscope.stopCpuProfiling();
+      Pyroscope.stopHeapProfiling();
+    }
+  };
+  ```
+
+  Now let's tell jest about these new files. In `jest.config.js` add
+
+  ```js
+  module.exports = {
+    (...)
+    globalSetup: '<rootDir>/globalSetup.js',
+    globalTeardown: '<rootDir>/globalTeardown.js',
+  }
+  ```
+
+  Lastly, `jest` needs to run with the `--runInBand` flag.
+  This is so that the profiling session started in `globalSetup.js` is available to all tests.
+  Otherwise `jest` [spawns different workers without the ability to perform individual setup/teardown](https://github.com/facebook/jest/issues/8708).
+
+  Also you may want to run with the `--no-cache` flag turned on. Otherwise each execution may yield completely different results, depending on what test is being run.
+
+  For more info, see the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
   </TabItem>
 </Tabs>
 
@@ -88,7 +154,41 @@ All the data gathered while your tests were running will be merged and grouped b
 
 Alternatively, the `--noUpload` flag can be passed, which creates profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
 These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
-either via the [API](https://flamegraph.com/openapi) or using the [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
+via the [UI](https://www.flamegraph.com), the [API](https://flamegraph.com/openapi) or using the [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
+
+## Integrating with Github Actions
+
+The following is a simplified example taken from the [`pyroscope` repository](https://github.com/pyroscope-io/pyroscope/blob/main/.github/workflows/ci-profiling.yaml) using Github Actions:
+
+```yaml
+name: CI Profiling
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  js-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.18'
+      - name: Install pyroscope-ci
+        uses: jaxxstorm/action-install-gh-release@v1.5.0
+        with: # Grab the latest version
+          repo: pyroscope-io/ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Webapp dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run tests and upload
+        run: pyroscope-ci exec --apiKey=${{ secrets.PYROSCOPE_CLOUD_TOKEN }} yarn test --no-cache --max-workers=1
+```
 
 ## Visualizing profiles
 The profiles can be visualized in the [CI page under Pyroscope Cloud](https://pyroscope.cloud/ci).
@@ -98,3 +198,4 @@ The profiles can be visualized in the [CI page under Pyroscope Cloud](https://py
 
 For illustration, above is the profile for `github.com/pyroscope-io/pyroscope` go tests,
 which shows that the race condition detector (`racecall`) spends a non-negligible amount of time.
+
