@@ -39,7 +39,7 @@ To use Pyroscope in your CI/CD pipeline, you'll need to perform three steps: set
 
 1. **Setup:** In this step, you'll initialize Pyroscope and start profiling. This is typically done in a setup script that runs before your tests.
 2. **Execution:** In this step, you'll run your tests while Pyroscope is profiling them. Pyroscope will record performance data for each test.
-3. **Upload:** In this step, you'll upload or export the profiling data. This allows you to view the data and analyze the performance of your code.
+3. **Upload/export:** In this step, you'll upload or export the profiling data. This allows you to view the data and analyze the performance of your code.
 
 The following sections provide language/testing framework specific instructions for each of these steps:
 
@@ -153,7 +153,10 @@ After your tests have been set up, it's time to execute them:
   CI=true ./pyroscope-ci exec --noUpload --export -- go test ./...
   # 
   ```
-  Exported JSON files to `pyroscope-ci-output`, which can be uploaded to [Flamegraph.com](https://flamegraph.com).
+  This will create profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
+  These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
+  via the [UI](https://www.flamegraph.com), the [API](https://flamegraph.com/openapi) or using the
+  [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
 
   ### Upload test results to Pyroscope cloud
   ```bash
@@ -179,7 +182,10 @@ After your tests have been set up, it's time to execute them:
   # or yarn
   CI=true ./pyroscope-ci exec --noUpload --export -- yarn run test --runInBand
   ```
-  Exported JSON files to `pyroscope-ci-output`, which can be uploaded to [Flamegraph.com](https://flamegraph.com).
+  This will create profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
+  These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
+  via the [UI](https://www.flamegraph.com), the [API](https://flamegraph.com/openapi) or using the
+  [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
 
   ### Upload test results to Pyroscope cloud
   ```bash
@@ -206,17 +212,13 @@ Notice that any command can be set (`make test`, `./test.sh` etc).
 
 ## Uploading test profiles to Pyroscope Cloud
 
-As previously mentioned, the `exec` command also performs upload, but let's dive into it separately,
-since it's conceptually a different step.
+While testing you may try exporting profiling locally, but in practice we've built tooling around profiles for your test suites that makes
+optimizing and improving test suites convenient. 
 
-The CI Context (branch, commit) will be inferred from the environment.
-If your the auto detection service doesn't work with your CI system, you can pass each flag manually (`--branch` and `--commitSHA`).
+The CI Context (branch, commit) are all inferred from the environment.
+If your auto detection service doesn't work with your CI system, you can pass each flag manually (`--branch` and `--commitSHA`).
 
-All the data gathered while your tests were running will be merged and grouped by profile type, which is then uploaded.
-
-Alternatively, the `--noUpload` flag can be passed, which creates profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
-These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
-via the [UI](https://www.flamegraph.com), the [API](https://flamegraph.com/openapi) or using the [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
+All the data gathered while your tests were running will be merged and grouped by profile type, which is then uploaded to Pyroscope Cloud. 
 
 ## Integrating with Github Actions
 
