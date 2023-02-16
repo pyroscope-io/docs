@@ -144,37 +144,42 @@ After your tests have been set up, it's time to execute them:
   ]}>
   <TabItem value="go">
 
+  ## Executing test profiling with `Go` 
+
+  In Go, you can use the following command to run tests with Pyroscope:
+
   ```bash
   pyroscope-ci exec --apiKey="MY_API_KEY" -- go test ./...
   ```
 
-:::note
-Some CI systems will skip certain tests if the files have not been touched.
-If you don't want that behaviour, try to run your tests without cache. In go you can use `go test . -count=1`
-:::
+  :::note
+  Some CI systems will skip certain tests if the files have not been touched.
+  To avoid this, you can run your tests without cache using the `-count=1` flag.
+  :::
 
   </TabItem>
   <TabItem value="nodejs-jest">
 
-  `jest` needs to run with the `--runInBand` flag.
-  This is so that the profiling session started in `globalSetup.js` is available to all tests.
-  Otherwise `jest` [spawns different workers without the ability to perform individual setup/teardown](https://github.com/facebook/jest/issues/8708).
-
-:::note
-Some CI systems will skip certain tests if the files have not been touched.
-If you don't want that behaviour, try to run your tests without cache, using `--no-cache` flag
-:::
+  ## Executing test profiling with `jest` 
+  After your tests have been set up, it's time to execute them. Here's how to run your tests with `jest`:
 
   ```bash
+  # npm
   pyroscope-ci exec --apiKey="MY_API_KEY" -- npm run test --runInBand
-  ```
-  Or if using `yarn` (or `pnpm`)
 
-  ```bash
+  # or yarn
   pyroscope-ci exec --apiKey="MY_API_KEY" -- yarn run test --runInBand
   ```
 
-  For more info, see the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
+  Make sure to include the --runInBand flag so that the profiling session started in globalSetup.js is available to all tests.
+  Otherwise, jest will spawn different workers without the ability to perform individual setup/teardown.
+
+  :::note
+  Some CI systems will skip certain tests if the files have not been touched.
+  To avoid this behavior, you can try running your tests without cache using the --no-cache flag.
+  :::
+
+  For more eamples, see the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
   </TabItem>
 </Tabs>
 
