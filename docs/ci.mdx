@@ -185,13 +185,6 @@ After your tests have been set up, it's time to execute them:
 
 Notice that any command can be set (`make test`, `./test.sh` etc).
 
-### How it works
-This command:
-1. It starts an in-memory pyroscope server;
-2. Overwrites the `PYROSCOPE_ADHOC_SERVER_ADDRESS` environment variable, so that the in-memory server ingests the data. 
-(Please check if the agent you are using supports that feature.)
-3. Uploads to `--serverAddress` (defaults to `https://pyroscope.cloud`)
-
 ### Running locally
 
 When first setting up the integration, you may want to run locally first to validate it's working properly.
@@ -261,4 +254,13 @@ The profiles can be visualized in the [CI page under Pyroscope Cloud](https://py
 
 For illustration, above is the profile for `github.com/pyroscope-io/pyroscope` go tests,
 which shows that the race condition detector (`racecall`) spends a non-negligible amount of time.
+
+
+# TEMPORARILY MOVING HERE DON'T FORGET
+### How it works
+This command:
+1. It starts an in-memory pyroscope server;
+2. Overwrites the `PYROSCOPE_ADHOC_SERVER_ADDRESS` environment variable, so that the in-memory server ingests the data. 
+(Please check if the agent you are using supports that feature.)
+3. Uploads to `--serverAddress` (defaults to `https://pyroscope.cloud`)
 
