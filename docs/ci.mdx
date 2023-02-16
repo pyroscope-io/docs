@@ -9,26 +9,39 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Link from '@docusaurus/Link';
 
-Pyroscope allows profiling tests and uploading to Pyroscope Cloud.
-Its functionality is available via the `pyroscope-ci` binary.
+# Running Pyroscope in a CI/CD pipeline
 
-The process consists of 3 steps: Setup, Execution and Upload.
+If you're running tests in a CI/CD pipeline, you can use Pyroscope to profile your tests and upload the results to Pyroscope Cloud.
+This allows you to identify performance bottlenecks and optimize your code.
+
+To use Pyroscope in a CI/CD pipeline, you'll need to install the pyroscope-ci binary. This binary provides the functionality for
+profiling tests and uploading the results.
+
 
 ## Installation
-The `pyroscope-ci` binary is available under the [Github Releases page](https://github.com/pyroscope-io/ci/releases).
-A handy install script automates the installation process:
+The `pyroscope-ci` binary can be downloaded from the [Github Releases page](https://github.com/pyroscope-io/ci/releases).
+A convenient installation script is available to automate this process:
 ```bash
 curl https://raw.githubusercontent.com/pyroscope-io/ci/main/install.sh | sh
 ```
-(feel free to download and inspect the script's content, and also pin to a fixed commit)
+You can also download the script and inspect its contents before running it. We recommend pinning the installation to a fixed commit.
 
-It will download the binary locally, which can be accessed via `./pyroscope-ci`.
+After running the installation script, you'll have access to the pyroscope-ci binary in your project. You can run it using:
+```
+./pyroscope-ci [COMMAND]
+```
 
-For Github Actions we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release), for a more complete example see the [Integrating with Github Actions section](#integrating-with-github-actions).
+If you're using Github Actions, we recommend using [`jaxxstorm/action-install-gh-release`](https://github.com/jaxxstorm/action-install-gh-release) action to install the `pyroscope-ci` binary.
+For a more complete example see the [Integrating with Github Actions](#integrating-with-github-actions) section below.
 
-## Setup
-Each language/testing framework will have a different setup. Most of them
-can be manually added. For the more complicated cases (such as go), a `install` subcommand is available.
+## CI profiling steps
+To use Pyroscope in your CI/CD pipeline, you'll need to perform three steps: setup, execution, and upload.
+
+1. **Setup:** In this step, you'll initialize Pyroscope and start profiling. This is typically done in a setup script that runs before your tests.
+2. **Execution:** In this step, you'll run your tests while Pyroscope is profiling them. Pyroscope will record performance data for each test.
+3. **Upload:** In this step, you'll upload or export the profiling data. This allows you to view the data and analyze the performance of your code.
+
+The following sections provide language/testing framework specific instructions for each of these steps:
 
 <Tabs
   defaultValue="go"
@@ -58,57 +71,63 @@ can be manually added. For the more complicated cases (such as go), a `install` 
   </TabItem>
   <TabItem value="nodejs-jest">
 
-  First, install the `@pyroscope/nodejs` agent. Via npm:
+  ## Node.js
+  To use Pyroscope with Node.js, you'll need to install the @pyroscope/nodejs agent. You can do this via npm or yarn:
 
   ```bash
   npm install --save-dev @pyroscope/nodejs
+  # or
+  yarn add --dev @pyroscope/nodejs
   ```
 
-  Or yarn:
-  ```bash
-  yarn add --save-dev @pyroscope/nodejs
-  ```
+  ### Setting up Pyroscope in node
+  To set up Pyroscope, you'll need to create two new files in your project (or edit them if they already exist):
 
-  Then instantiate pyroscope in a  `globalSetup.js` file (create it if doesn't exist):
+  1. `globalSetup.js`: This file initializes Pyroscope and starts profiling. 
+  Pyroscope will only profile your code when the CI environment variable is turned on. Here's an example:
   ```js
   const Pyroscope = require('@pyroscope/nodejs');
 
-  module.exports = (config) => {
-    Pyroscope.init({ serverAddress: '_', appName: 'myapp.frontend' });
+  module.exports = () => {
+    Pyroscope.init({
+      serverAddress: '_',
+      appName: 'myapp.frontend',
+    });
     if (process.env.CI) {
       Pyroscope.start();
+      // Pyroscope.startCpuProfiling(); // Use this for better performance if heap profiling isn't needed
     }
   };
   ```
-  Notice how we conditionally start Pyroscope when the `CI` environment variable is turned on.
-  This is so that it doesn't affect when running locally.
+  If you don't care about heap profiling, you can replace .start() with .startCpuProfiling() to reduce the performance overhead.
 
-  Also, it's possible to replace `.start()` for `.startCpuProfiling()` if you don't
-  care about heap profiling, since it may be costly.
-
-  Then let's add a `globalTeardown.js` file:
-
+  2. `globalTeardown.js`: This file stops profiling and exports the profiling data. Here's an example:
   ```js
-  const Pyroscope = require('@pyroscope/nodejs');
-
-  module.exports = (config) => {
-    if (process.env.CI) {
-      Pyroscope.stopCpuProfiling();
-      Pyroscope.stopHeapProfiling();
-    }
-  };
+    const Pyroscope = require('@pyroscope/nodejs');
+    module.exports = (config) => {
+      if (process.env.CI) { // Note: be sure to set this ENV variable
+        Pyroscope.stopCpuProfiling();
+        Pyroscope.stopHeapProfiling();
+      }
+    };
   ```
+  Notice how we conditionally start Pyroscope when the `CI` environment variable is set to `true` so that by default we
+  don't profile tests when running locally.
 
-  Now let's tell jest about these new files. In `jest.config.js` add
+
+  ### Configuring Jest
+  To tell Jest to use these files for configuration, add the following to your `jest.config.js` file:
 
   ```js
   module.exports = {
-    (...)
+    // ...
     globalSetup: '<rootDir>/globalSetup.js',
     globalTeardown: '<rootDir>/globalTeardown.js',
+    // ...
   }
   ```
-
+  That's it! Pyroscope will now profile your tests in your CI/CD pipeline.
+  
   </TabItem>
 </Tabs>
 
