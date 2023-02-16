@@ -50,28 +50,29 @@ The following sections provide language/testing framework specific instructions 
     {label: 'Nodejs (jest)', value: 'nodejs-jest'},
   ]}>
   <TabItem value="go">
-  Running
+  ## Profiling Go tests
 
+  To profile your Go tests with Pyroscope, you can use the `./pyroscope-ci go` command.
+  This command will recursively search for all Go test packages under the `pkg` directory, generate a `pyroscope_test.go` file for each package,
+  and instrument the test functions with the Pyroscope agent.
+
+  Here's an example of how to use pyroscope-ci go to profile your tests:
   ```bash
-  pyroscope-ci go install --applicationName=myapp pkg
+  # Note you may need to pull the `pyroscope` dependency, if you are not using it yet.
+  # go mod tidy
+  ./pyroscope-ci go install --applicationName=myapp pkg
   ```
 
-  Will recursively under `pkg` find all the packages with tests.
-  Then for each package, a new `pyroscope_test.go` will be created, containing
-  the agent code for that test package to be profiled.
+  Note that the --applicationName flag specifies the name of the application being profiled.
 
-  We recommend running as a ci step, so that you don't have to commit these files,
-  and consequently make your tests slower when running locally.
+  We recommend running as a ci step, so that you don't have to commit these lines and profile tests when running locally.
 
-  Also you may need to pull the `pyroscope` dependency, if you are not using it yet.
-  ```bash
-  go mod tidy
-  ```
+  That's it! Pyroscope will now profile your tests in your CI/CD pipeline.
 
   </TabItem>
   <TabItem value="nodejs-jest">
 
-  ## Node.js
+  ## Profiling Node.js tests
   To use Pyroscope with Node.js, you'll need to install the @pyroscope/nodejs agent. You can do this via npm or yarn:
 
   ```bash
