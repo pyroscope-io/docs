@@ -69,12 +69,12 @@ can be manually added. For the more complicated cases (such as go), a `install` 
   yarn add --save-dev @pyroscope/nodejs
   ```
 
-  Then instantiate pyroscope in a  `globalSetup.js` file:
+  Then instantiate pyroscope in a  `globalSetup.js` file (create it if doesn't exist):
   ```js
   const Pyroscope = require('@pyroscope/nodejs');
 
   module.exports = (config) => {
-    Pyroscope.init({ serverAddress: '_', appName: myapp.frontend' });
+    Pyroscope.init({ serverAddress: '_', appName: 'myapp.frontend' });
     if (process.env.CI) {
       Pyroscope.start();
     }
@@ -109,35 +109,73 @@ can be manually added. For the more complicated cases (such as go), a `install` 
   }
   ```
 
-  Lastly, `jest` needs to run with the `--runInBand` flag.
-  This is so that the profiling session started in `globalSetup.js` is available to all tests.
-  Otherwise `jest` [spawns different workers without the ability to perform individual setup/teardown](https://github.com/facebook/jest/issues/8708).
-
-  Also you may want to run with the `--no-cache` flag turned on. Otherwise each execution may yield completely different results, depending on what test is being run.
-
-  For more info, see the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
   </TabItem>
 </Tabs>
 
 ## Execution
 After your tests have been set up, it's time to execute them:
 
-```bash
-pyroscope-ci exec --apiKey="MY_API_KEY" -- go test ./...
-```
+
+<Tabs
+  defaultValue="go"
+  values={[
+    {label: 'Go', value: 'go'},
+    {label: 'Nodejs (jest)', value: 'nodejs-jest'},
+  ]}>
+  <TabItem value="go">
+
+  ```bash
+  pyroscope-ci exec --apiKey="MY_API_KEY" -- go test ./...
+  ```
+
+:::note
+Some CI systems will skip certain tests if the files have not been touched.
+If you don't want that behaviour, try to run your tests without cache. In go you can use `go test . -count=1`
+:::
+
+  </TabItem>
+  <TabItem value="nodejs-jest">
+
+  `jest` needs to run with the `--runInBand` flag.
+  This is so that the profiling session started in `globalSetup.js` is available to all tests.
+  Otherwise `jest` [spawns different workers without the ability to perform individual setup/teardown](https://github.com/facebook/jest/issues/8708).
+
+:::note
+Some CI systems will skip certain tests if the files have not been touched.
+If you don't want that behaviour, try to run your tests without cache, using `--no-cache` flag
+:::
+
+  ```bash
+  pyroscope-ci exec --apiKey="MY_API_KEY" -- npm run test --runInBand
+  ```
+  Or if using `yarn` (or `pnpm`)
+
+  ```bash
+  pyroscope-ci exec --apiKey="MY_API_KEY" -- yarn run test --runInBand
+  ```
+
+  For more info, see the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
+  </TabItem>
+</Tabs>
 
 Notice that any command can be set (`make test`, `./test.sh` etc).
 
+### How it works
 This command:
 1. It starts an in-memory pyroscope server;
 2. Overwrites the `PYROSCOPE_ADHOC_SERVER_ADDRESS` environment variable, so that the in-memory server ingests the data. 
 (Please check if the agent you are using supports that feature.)
 3. Uploads to `--serverAddress` (defaults to `https://pyroscope.cloud`)
 
-:::note
-Some CI systems will skip certain tests if the files have not been touched.
-If you don't want that behaviour, try to run your tests without cache. For reference, in go you can use `go test . -count=1`
-:::
+### Running locally
+
+When first setting up the integration, you may want to run locally first to validate it's working properly.
+
+```bash
+CI=true pyroscope-ci exec --noUpload --export -- $MY_TEST_COMMAND
+```
+
+This command will export JSON files to `pyroscope-ci-output`, which can be uploaded to [Flamegraph.com](https://flamegraph.com).
 
 ## Upload
 :::note
