@@ -37,9 +37,9 @@ For a more complete example see the [Integrating with Github Actions](#integrati
 ## CI profiling steps
 To use Pyroscope in your CI/CD pipeline, you'll need to perform three steps: setup, execution, and upload.
 
-1. **Setup:** In this step, you'll initialize Pyroscope and start profiling. This is typically done in a setup script that runs before your tests.
-2. **Execution:** In this step, you'll run your tests while Pyroscope is profiling them. Pyroscope will record performance data for each test.
-3. **Upload/export:** In this step, you'll upload or export the profiling data. This allows you to view the data and analyze the performance of your code.
+1. **Set up tests with Pyroscope:** In this step, you'll initialize Pyroscope and start profiling. This is typically done in a setup script that runs before your tests.
+2. **Run test suite:** In this step, you'll run your tests while Pyroscope is profiling them. Pyroscope will record performance data for each test.
+3. **Upload/export results:** In this step, you'll upload or export the profiling data. This allows you to view the data and analyze the performance of your code.
 
 The following sections provide language/testing framework specific instructions for each of these steps:
 
@@ -51,7 +51,7 @@ The following sections provide language/testing framework specific instructions 
   ]}>
   <TabItem value="go">
 
-  ## Profiling Go tests
+  ## Set up Profiling for Go tests
 
   To profile your Go tests with Pyroscope, you can use the `./pyroscope-ci go` command.
   This command will recursively search for all Go test packages under the `pkg` directory, generate a `pyroscope_test.go` file for each package,
@@ -73,7 +73,7 @@ The following sections provide language/testing framework specific instructions 
   </TabItem>
   <TabItem value="nodejs-jest">
 
-  ## Profiling Node.js tests
+  ## Set up profiling for Node.js tests
   To use Pyroscope with Node.js, you'll need to install the `@pyroscope/nodejs` agent. You can do this via npm or yarn:
 
   ```bash
@@ -133,7 +133,7 @@ The following sections provide language/testing framework specific instructions 
   </TabItem>
 </Tabs>
 
-## Execution
+## Running test suite with Pyroscope
 After your tests have been set up, it's time to execute them:
 
 
@@ -145,37 +145,49 @@ After your tests have been set up, it's time to execute them:
   ]}>
   <TabItem value="go">
 
-  ## Executing test profiling with Go
+  ## Profiling Go test suite
 
-  In Go, you can use the following command to run tests with Pyroscope:
+  For CI profiling we offer two methods for viewing results after running the test suite:
+  1. **(Option 1) Export test results locally**: Use this option for local debugging / development to see a quick result
+  2. **(Option 2) Upload test results to Pyroscope cloud**: Use this option for production test suite to track changes over time
 
-  ### Export test results locally
-  ```
+
+  In Go, you can use the following commands to run tests with Pyroscope:
+
+  ### Option 1: Export test results locally
+  ```bash
   CI=true ./pyroscope-ci exec --noUpload --export -- go test ./...
-  # 
   ```
   This will create profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
   These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
   via the [UI](https://www.flamegraph.com), the [API](https://flamegraph.com/openapi) or using the
   [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
 
-  ### Upload test results to Pyroscope cloud
+  ### Option 2: Upload test results to Pyroscope cloud
   ```bash
+  # Note: Make sure to set environment variable CI=true in your test runner
   ./pyroscope-ci exec --apiKey="MY_API_KEY" -- go test ./...
   ```
 
-  :::note
-  Some CI systems will skip certain tests if the files have not been touched.
-  To avoid this, you can run your tests without cache using the `-count=1` flag.
-  :::
+
+:::note
+Some CI systems will skip certain tests if the files have not been touched.
+To avoid this, you can run your tests without cache using the `-count=1` flag.
+:::
 
   </TabItem>
   <TabItem value="nodejs-jest">
 
-  ## Executing test profiling with jest
-  After your tests have been set up, it's time to execute them. Here's how to run your tests with `jest`:
+  ## Profiling jest test suite
 
-  ### Export test results locally
+  For CI profiling we offer two methods for viewing results after running the test suite:
+  1. **(Option 1) Export test results locally**: Use this option for local debugging / development to see a quick result
+  2. **(Option 2) Upload test results to Pyroscope cloud**: Use this option for production test suite to track changes over time
+
+
+  After your tests have been set up, it's time to execute them. Here's how to run your tests with jest:
+
+  ### Option 1: Export test results locally
   ```bash
   # npm
   CI=true ./pyroscope-ci exec --noUpload --export -- npm run test --runInBand
@@ -188,8 +200,9 @@ After your tests have been set up, it's time to execute them:
   via the [UI](https://www.flamegraph.com), the [API](https://flamegraph.com/openapi) or using the
   [flamegraph.com Github Action](https://github.com/pyroscope-io/flamegraph.com-github-action).
 
-  ### Upload test results to Pyroscope cloud
+  ### Option 2: Upload test results to Pyroscope cloud
   ```bash
+  # Note: Make sure to set environment variable CI=true in your test runner
   # npm
   pyroscope-ci exec --apiKey="MY_API_KEY" -- npm run test --runInBand
 
@@ -197,21 +210,19 @@ After your tests have been set up, it's time to execute them:
   pyroscope-ci exec --apiKey="MY_API_KEY" -- yarn run test --runInBand
   ```
 
-  Make sure to include the --runInBand flag so that the profiling session started in globalSetup.js is available to all tests.
+  Make sure to include the `--runInBand` flag so that the profiling session started in globalSetup.js is available to all tests.
   Otherwise, jest will spawn different workers without the ability to perform individual setup/teardown.
 
-  :::note
-  Some CI systems will skip certain tests if the files have not been touched.
-  To avoid this behavior, you can try running your tests without cache using the --no-cache flag.
-  :::
+:::note
+Some CI systems will skip certain tests if the files have not been touched.
+To avoid this behavior, you can try running your tests without cache using the `--no-cache` flag.
+:::
 
   For more eamples, see the <Link to="https://github.com/pyroscope-io/ci/tree/main/examples/nodejs/jest">example</Link>.
   </TabItem>
 </Tabs>
 
-Notice that any command can be set (`make test`, `./test.sh` etc).
-
-## Uploading test profiles to Pyroscope Cloud
+## Viewing test suite profiles in Pyroscope Cloud
 
 While testing you may try exporting profiling locally, but in practice we've built tooling around profiles for your test suites that makes
 optimizing and improving test suites convenient. 
