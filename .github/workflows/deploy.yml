@@ -29,6 +29,8 @@ jobs:
     if: needs.check.outputs.inputsChecked == 'true'
     needs: check
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--openssl-legacy-provider"
     steps:
       # TODO(petethepig): make it run only when tests passed
       - uses: actions/checkout@v2

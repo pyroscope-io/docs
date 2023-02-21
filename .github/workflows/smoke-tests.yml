@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: "--openssl-legacy-provider"
     steps:
       - uses: actions/checkout@v2
       - name: install dependencies
