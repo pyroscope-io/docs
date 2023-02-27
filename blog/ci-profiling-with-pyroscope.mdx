@@ -1,0 +1,79 @@
+---
+title: CI Profiling with Pyroscope
+description: Use Pyroscope to profile and optimize CI/CD pipelines
+sidebar_label: CI Profiling with Pyroscope
+image: https://user-images.githubusercontent.com/23323466/190079299-ba1f488c-4dd9-49f9-bf03-880236aae1b4.png
+slug: /ci-profiling-with-pyroscope
+date: "2023-02-28"
+
+authors:
+  - name: Ryan Perry
+    url: https://github.com/Rperry2174
+    image_url: https://avatars.githubusercontent.com/u/23323466?v=4
+---
+
+# CI Profiling with Pyroscope
+
+[ thumbnail ]
+
+Profiling today looks _very_ different than it did just a few years ago. As people move to more cloud-native workloads 
+continuous profiling has evolved into a key piece of many companies' observability suites. At Pyroscope, we've been a huge
+part of this evolution thanks to an ever-expanding community who has provided great insight into the use cases where profiling
+is most valuable and how we can continue to improve that experience. 
+
+As a result, over the past few years we've released several products to help developers improve their applications' performance. 
+1. Continuous profiling: Our most popular a tool for continuously profiling your applications accross your entire system and then
+storing and querying that data efficiently
+
+2. Adhoc Profiling: In cases where you may not need to _constantly_ profile or perhaps you'd like to save a snapchat of a profile
+our adhoc tool allows you to both capture and save specific profiles to later refer to or use for your convenience
+
+3. Profiling Exemplars: Profiles linked to particular meaningful units such as http requests or trace spans
+
+## Introducing CI Profiling:
+Now, we're excited to announce the latest addition to the Pyroscope family - CI profiling. Continuous integration and delivery (CI/CD) pipelines are critical for modern software development, but they can also be a 
+source of frustration and inefficiency. Waiting for long test runs, dealing with frequent failures and timeouts, and wasted 
+resources are all common problems associated with CI/CD pipelines. These issues can be compounded when multiple developers 
+are working on the same codebase or when teams are working across multiple repositories. That's why we've developed this new feature that can help: Continuous Profiling with Pyroscope in your CI/CD
+pipelines.
+
+[ image ]
+
+## How CI Profiling with Pyroscope Solves Common CI/CD Pipeline Problems
+
+[Meme of person waiting for CI]
+
+### Improved Performance with CI Profiling
+
+That's why we built CI profiling with Pyroscope. By profiling your code as part of your CI/CD pipeline, you can quickly 
+identify performance bottlenecks and optimize your code for improved performance. This can lead to faster builds, faster 
+deployments, and more efficient use of resources.
+
+### Faster Test Execution
+
+With CI profiling, you can identify slow tests and optimize them for faster execution. This can help reduce the amount of 
+time spent waiting for tests to complete and increase the speed at which you can iterate on your code.
+
+### Less Test Failures and Timeouts
+
+By identifying performance bottlenecks in your code, you can also reduce the number of test failures and timeouts that occur 
+as part of your CI/CD pipeline. This can help ensure that your pipeline is reliable and consistent, allowing you to focus on 
+delivering high-quality code.
+
+### Better Resource Utilization
+
+CI profiling can also help optimize resource usage and reduce waste. By identifying code that is using too much CPU or memory, 
+you can make targeted optimizations to improve the overall efficiency of your code.
+
+### Early Issue Detection
+
+Profiling your code as part of your CI/CD pipeline can also help with early issue detection. Newly slow test suite runs likely
+mean newly introduced code regressions or performance issues. Catching these issues early can help you identify and fix problems 
+before they impact your users.
+
+### Improved Collaboration
+
+Finally, CI profiling can also improve collaboration among developers and teams. Sharing profiling results can lead to better
+understanding of the codebase and how it can be optimized for improved performance. This can lead to better collaboration and
+more efficient use of resources across your organization.
+
