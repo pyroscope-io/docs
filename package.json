@@ -1,5 +1,5 @@
 {
-  "name": "pyroscope",
+  "name": "docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -44,8 +44,11 @@
     "react-twitter-embed": "^4.0.4",
     "sass": "^1.42.0",
     "scripts-plugin": "file:plugins/scripts-plugin",
-    "webpack-manifest-plugin": "^3.0.0",
+    "webpack-manifest-plugin": "^5.0.0",
     "webpack-plugin": "file:plugins/webpack-plugin"
+  },
+  "resolutions": {
+    "webpack": "5.60.0"
   },
   "browserslist": {
     "production": [

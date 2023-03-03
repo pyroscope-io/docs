@@ -32,6 +32,9 @@ jobs:
     steps:
       # TODO(petethepig): make it run only when tests passed
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - uses: actions/checkout@v3
         with:
           repository: 'pyroscope-io/docs-private'
