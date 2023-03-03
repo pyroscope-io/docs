@@ -156,7 +156,7 @@ After your tests have been set up, it's time to execute them:
 
   ### Option 1: Export test results locally
   ```bash
-  CI=true ./pyroscope-ci exec --noUpload --export -- go test ./...
+  CI=true ./pyroscope-ci exec --uploadToCloud=false --exportLocally -- go test ./...
   ```
   This will create profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
   These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
@@ -190,10 +190,10 @@ To avoid this, you can run your tests without cache using the `-count=1` flag.
   ### Option 1: Export test results locally
   ```bash
   # npm
-  CI=true ./pyroscope-ci exec --noUpload --export -- npm run test --runInBand
+  CI=true ./pyroscope-ci exec --uploadToCloud=false --exportLocally -- npm run test --runInBand
 
   # or yarn
-  CI=true ./pyroscope-ci exec --noUpload --export -- yarn run test --runInBand
+  CI=true ./pyroscope-ci exec --uploadToCloud=false --exportLocally -- yarn run test --runInBand
   ```
   This will create profiles in the `--outputDir` (defaults to `./pyroscope-ci`).
   These profiles can be uploaded to [www.flamegraph.com](https://www.flamegraph.com),
