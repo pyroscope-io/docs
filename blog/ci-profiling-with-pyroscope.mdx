@@ -116,7 +116,8 @@ transformations via ts-jest (and consequently TypeScript). This high cost is due
 during test runs. While this feature can help catch potential errors early in the development process, it can also significantly
 slow down the test execution time, leading to longer build times and potentially wasting resources.
 
-[ embedded Flamegraph showing this issue ] -- add caption to photo with link to flamegraph.com 
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/3f5468c3-a882-11ed-8584-8eeab0f9bc97/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+<a href="https://flamegraph.com/share/3f5468c3-a882-11ed-8584-8eeab0f9bc97">See in Flamegraph.com</a>
 
 #### Cutting test run length in half with `tsc --no-emit` and `isolatedModules`
 To address this issue, we decided to move type checking to its own separate step using `tsc --no-emit`. This allowed us to catch
@@ -127,15 +128,16 @@ can be found in the [official documentation](https://kulshekhar.github.io/ts-jes
 
 **This resulted in us cutting the test run from ~66 seconds to ~34 seconds!**
 
-[ embedded Flamegraph showing faster version ] -- add caption to photo with link to flamegraph.com 
-
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/57826b7a-a88b-11ed-a226-52d5adf2b04f/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+<a href="https://flamegraph.com/share/57826b7a-a88b-11ed-a226-52d5adf2b04f">See in Flamegraph.com</a>
 
 #### Cutting test run length in half, again, with `swc`
 
 By switching to swc and making use of its parallelization and other optimization techniques, we were able to further cut down the test run
 time *from around 34 seconds to approximately 19 seconds*, achieving massive gains compared to our original test suite run time.
 
-[ embedded Flamegraph showing even faster version ] -- add caption to photo with link to flamegraph.com 
+<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/18b145d1-a895-11ed-97a4-2ee1108df414/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+<a href="https://flamegraph.com/share/18b145d1-a895-11ed-97a4-2ee1108df414">See in Flamegraph.com</a>
 
 #### The proof is in the PR
 
@@ -143,7 +145,7 @@ One of the best features, of the new Pyroscope CI/CD profiling feature is the ab
 In this case, you can see from this [PR here](https://github.com/pyroscope-io/pyroscope/pull/1847) not only how the changes mentioned in this blog
 post were implemented, but also how convenient it is to automatically get flamegraphs in your PR comments:
 
-[ photo of flamegraph in PR comment ]
+[![Screenshot of a Flamegraph being posted as a PR comment via the Flamegraph.com Github Action](./ci-profiling-with-pyroscope/pr-comment.png)](https://github.com/pyroscope-io/pyroscope/pull/1847#issuecomment-1424338623)
 
 ## How to add Pyroscope CI profiling to your test suite
 
