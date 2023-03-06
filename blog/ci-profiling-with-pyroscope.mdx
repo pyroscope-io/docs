@@ -22,17 +22,17 @@ part of this evolution thanks to an ever-expanding community who has provided gr
 is most valuable and how we can continue to improve that experience. 
 
 As a result, over the past few years we've released several products to help developers improve their applications' performance. 
-1. Continuous profiling: Our most popular a tool for continuously profiling your applications accross your entire system and then
+1. **Continuous Profiling**: Our most popular a tool for continuously profiling your applications accross your entire system and then
 storing and querying that data efficiently
 
-2. Adhoc Profiling: In cases where you may not need to _constantly_ profile or perhaps you'd like to save a snapchat of a profile
+2. **Adhoc Profiling**: In cases where you may not need to _constantly_ profile or perhaps you'd like to save a snapshot of a profile,
 our adhoc tool allows you to both capture and save specific profiles to later refer to or use for your convenience
 
-3. Profiling Exemplars: Profiles linked to particular meaningful units such as http requests or trace spans
+3. **Profiling Exemplars**: Profiles linked to particular meaningful units such as HTTP requests or trace spans
 
-## Introducing CI Profiling:
-Now, we're excited to announce the latest addition to the Pyroscope family - CI profiling. Continuous integration and delivery (CI/CD) pipelines are critical for modern software development, but they can also be a 
-source of frustration and inefficiency. Waiting for long test runs, dealing with frequent failures and timeouts, and wasted 
+## Introducing CI Profiling
+Now, we're excited to announce the latest addition to the Pyroscope family - CI Profiling. Continuous Integration and Delivery (CI/CD) pipelines are critical for modern software development, but they can also be a 
+source of frustration and inefficiency. Waiting for long test runs, dealing with frequent failures and timeouts, and wasting 
 resources are all common problems associated with CI/CD pipelines. These issues can be compounded when multiple developers 
 are working on the same codebase or when teams are working across multiple repositories. That's why we've developed this new feature that can help: Continuous Profiling with Pyroscope in your CI/CD
 pipelines.
@@ -45,13 +45,13 @@ pipelines.
 
 ### Improved Performance with CI Profiling
 
-That's why we built CI profiling with Pyroscope. By profiling your code as part of your CI/CD pipeline, you can quickly 
+That's why we built CI Profiling with Pyroscope. By profiling your code as part of your CI/CD pipeline, you can quickly 
 identify performance bottlenecks and optimize your code for improved performance. This can lead to faster builds, faster 
 deployments, and more efficient use of resources.
 
 ### Faster Test Execution
 
-With CI profiling, you can identify slow tests and optimize them for faster execution. This can help reduce the amount of 
+With CI Profiling, you can identify slow tests and optimize them for faster execution. This can help reduce the amount of 
 time spent waiting for tests to complete and increase the speed at which you can iterate on your code.
 
 ### Less Test Failures and Timeouts
@@ -62,18 +62,18 @@ delivering high-quality code.
 
 ### Better Resource Utilization
 
-CI profiling can also help optimize resource usage and reduce waste. By identifying code that is using too much CPU or memory, 
+CI Profiling can also help optimize resource usage and reduce waste. By identifying code that is using too much CPU or memory, 
 you can make targeted optimizations to improve the overall efficiency of your code.
 
 ### Early Issue Detection
 
-Profiling your code as part of your CI/CD pipeline can also help with early issue detection. Newly slow test suite runs likely
-mean newly introduced code regressions or performance issues. Catching these issues early can help you identify and fix problems 
+Profiling your code as part of your CI/CD pipeline can also help with early issue detection. When test suites start running more slowly, it likely
+means there are newly introduced code regressions or performance issues. Catching these issues early can help you identify and fix problems 
 before they impact your users.
 
 ### Improved Collaboration
 
-Finally, CI profiling can also improve collaboration among developers and teams. Sharing profiling results can lead to better
+Finally, CI Profiling can also improve collaboration among developers and teams. Sharing profiling results can lead to better
 understanding of the codebase and how it can be optimized for improved performance. This can lead to better collaboration and
 more efficient use of resources across your organization.
 
@@ -81,11 +81,11 @@ more efficient use of resources across your organization.
 ## CI/CD Profiling in Action
 
 In this section, we'll explore how we were able to significantly improve the performance of our test suite by leveraging
-Pyroscope's CI/CD profiling feature. By profiling our code as part of our CI/CD pipeline, we identified an unknown inefficiency
+Pyroscope's CI/CD Profiling feature. By profiling our code as part of our CI/CD pipeline, we identified an unknown inefficiency
 in our Jest test suite that was slowing down our builds. Specifically, we discovered that a significant amount of time was being
-spent on code transformation via ts-jest.
+spent on code transformation via `ts-jest`.
 
-To address this issue, we decided to migrate from ts-jest to swc, a modern JavaScript/TypeScript compiler written in Rust that is
+To address this issue, we decided to migrate from `ts-jest` to `swc`, a modern JavaScript/TypeScript compiler written in Rust that is
 known for its fast performance. By doing so, we were able to significantly reduce the amount of time spent on code transformation
 during our test runs, leading to faster build times and more efficient use of resources. In this section, we'll dive into the details
 of how we made this optimization and the results we achieved.
@@ -94,17 +94,17 @@ of how we made this optimization and the results we achieved.
 Before we delve into the specifics of our optimization efforts, let's first provide some background on two libraries `ts-jest` and `swc`.
 
 #### The problem with `ts-jest`
-In our efforts to optimize the performance of our test suite, we decided to explore alternatives to ts-jest, the popular tool used for
-testing TypeScript code with Jest. While ts-jest allows developers to run their tests with type checking enabled, it can also lead to
+In our efforts to optimize the performance of our test suite, we decided to explore alternatives to `ts-jest`, the popular tool used for
+testing TypeScript code with Jest. While `ts-jest` allows developers to run their tests with type checking enabled, it can also lead to
 significant performance overhead. Specifically, this overhead comes from the fact that running type checking during test runs can slow
 down the test execution time, leading to longer build times and potentially wasting resources. 
 
 Through our profiling efforts with Pyroscope, we were able to identify this performance bottleneck and look for ways to address it.
 
 #### Rust-based `swc` as a solution
-As an alternative, we turned to swc, a modern JavaScript/TypeScript compiler written in Rust that is known for its fast performance.
-Compared to other compilers, including TypeScript's own compiler, swc leverages parallelization and other optimization techniques to achieve
-faster performance. By migrating from ts-jest to swc, we were able to significantly reduce the amount of time spent on code transformation
+As an alternative, we turned to `swc`, a modern JavaScript/TypeScript compiler written in Rust that is known for its fast performance.
+Compared to other compilers, including TypeScript's own compiler, `swc` leverages parallelization and other optimization techniques to achieve
+faster performance. By migrating from `ts-jest` to `swc`, we were able to significantly reduce the amount of time spent on code transformation
 during our test runs, leading to faster build times and more efficient use of resources.
 
 In the following sections, we'll dive into the details of how we made this optimization and the results we achieved.
@@ -112,7 +112,7 @@ In the following sections, we'll dive into the details of how we made this optim
 
 #### The cost of Typescript transformations
 Our initial profiling efforts with Pyroscope revealed that most of the time spent in our test suite was on TypeScript
-transformations via ts-jest (and consequently TypeScript). This high cost is due to ts-jest allowing for typechecking
+transformations via `ts-jest` (and consequently TypeScript). This high cost is due to `ts-jest` allowing for typechecking
 during test runs. While this feature can help catch potential errors early in the development process, it can also significantly
 slow down the test execution time, leading to longer build times and potentially wasting resources.
 
@@ -122,7 +122,7 @@ slow down the test execution time, leading to longer build times and potentially
 #### Cutting test run length in half with `tsc --no-emit` and `isolatedModules`
 To address this issue, we decided to move type checking to its own separate step using `tsc --no-emit`. This allowed us to catch
 potential errors during development, as our IDE already alerted us to these issues, and reduced the amount of time spent on type
-checking during test runs. Additionally, we discovered that ts-jest 27.1 has an isolatedModules option that compiles each file individually,
+checking during test runs. Additionally, we discovered that `ts-jest` 27.1 has an `isolatedModules` option that compiles each file individually,
 effectively not doing type checking, further reducing the overhead of TypeScript transformations during test runs. More details on this option
 can be found in the [official documentation](https://kulshekhar.github.io/ts-jest/docs/27.1/getting-started/options/isolatedModules/).
 
@@ -133,7 +133,7 @@ can be found in the [official documentation](https://kulshekhar.github.io/ts-jes
 
 #### Cutting test run length in half, again, with `swc`
 
-By switching to swc and making use of its parallelization and other optimization techniques, we were able to further cut down the test run
+By switching to `swc` and making use of its parallelization and other optimization techniques, we were able to further cut down the test run
 time *from around 34 seconds to approximately 19 seconds*, achieving massive gains compared to our original test suite run time.
 
 <iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/18b145d1-a895-11ed-97a4-2ee1108df414/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
@@ -141,12 +141,12 @@ time *from around 34 seconds to approximately 19 seconds*, achieving massive gai
 
 #### The proof is in the PR
 
-One of the best features, of the new Pyroscope CI/CD profiling feature is the ability to get profile reports in your PR with our Github action.
+One of the best features of the new Pyroscope CI/CD Profiling feature is the ability to get profile reports in your PR with our Github Actions.
 In this case, you can see from this [PR here](https://github.com/pyroscope-io/pyroscope/pull/1847) not only how the changes mentioned in this blog
 post were implemented, but also how convenient it is to automatically get flamegraphs in your PR comments:
 
 [![Screenshot of a Flamegraph being posted as a PR comment via the Flamegraph.com Github Action](./ci-profiling-with-pyroscope/pr-comment.png)](https://github.com/pyroscope-io/pyroscope/pull/1847#issuecomment-1424338623)
 
-## How to add Pyroscope CI profiling to your test suite
+## How to add Pyroscope CI Profiling to your test suite
 
-To learn more about how you can add profiling to your CI/CD suite visit our [docs](/docs/ci). 
+To learn more about how you can add profiling to your CI/CD suite, visit our [docs](/docs/ci). 
