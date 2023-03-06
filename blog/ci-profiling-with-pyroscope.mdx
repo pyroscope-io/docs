@@ -77,3 +77,74 @@ Finally, CI profiling can also improve collaboration among developers and teams.
 understanding of the codebase and how it can be optimized for improved performance. This can lead to better collaboration and
 more efficient use of resources across your organization.
 
+
+## CI/CD Profiling in Action
+
+In this section, we'll explore how we were able to significantly improve the performance of our test suite by leveraging
+Pyroscope's CI/CD profiling feature. By profiling our code as part of our CI/CD pipeline, we identified an unknown inefficiency
+in our Jest test suite that was slowing down our builds. Specifically, we discovered that a significant amount of time was being
+spent on code transformation via ts-jest.
+
+To address this issue, we decided to migrate from ts-jest to swc, a modern JavaScript/TypeScript compiler written in Rust that is
+known for its fast performance. By doing so, we were able to significantly reduce the amount of time spent on code transformation
+during our test runs, leading to faster build times and more efficient use of resources. In this section, we'll dive into the details
+of how we made this optimization and the results we achieved.
+
+### Improving CPU Performance: Replacing `ts-jest` with `swc`
+Before we delve into the specifics of our optimization efforts, let's first provide some background on two libraries `ts-jest` and `swc`.
+
+#### The problem with `ts-jest`
+In our efforts to optimize the performance of our test suite, we decided to explore alternatives to ts-jest, the popular tool used for
+testing TypeScript code with Jest. While ts-jest allows developers to run their tests with type checking enabled, it can also lead to
+significant performance overhead. Specifically, this overhead comes from the fact that running type checking during test runs can slow
+down the test execution time, leading to longer build times and potentially wasting resources. 
+
+Through our profiling efforts with Pyroscope, we were able to identify this performance bottleneck and look for ways to address it.
+
+#### Rust-based `swc` as a solution
+As an alternative, we turned to swc, a modern JavaScript/TypeScript compiler written in Rust that is known for its fast performance.
+Compared to other compilers, including TypeScript's own compiler, swc leverages parallelization and other optimization techniques to achieve
+faster performance. By migrating from ts-jest to swc, we were able to significantly reduce the amount of time spent on code transformation
+during our test runs, leading to faster build times and more efficient use of resources.
+
+In the following sections, we'll dive into the details of how we made this optimization and the results we achieved.
+
+
+#### The cost of Typescript transformations
+Our initial profiling efforts with Pyroscope revealed that most of the time spent in our test suite was on TypeScript
+transformations via ts-jest (and consequently TypeScript). This high cost is due to ts-jest allowing for typechecking
+during test runs. While this feature can help catch potential errors early in the development process, it can also significantly
+slow down the test execution time, leading to longer build times and potentially wasting resources.
+
+[ embedded Flamegraph showing this issue ] -- add caption to photo with link to flamegraph.com 
+
+#### Cutting test run length in half with `tsc --no-emit` and `isolatedModules`
+To address this issue, we decided to move type checking to its own separate step using `tsc --no-emit`. This allowed us to catch
+potential errors during development, as our IDE already alerted us to these issues, and reduced the amount of time spent on type
+checking during test runs. Additionally, we discovered that ts-jest 27.1 has an isolatedModules option that compiles each file individually,
+effectively not doing type checking, further reducing the overhead of TypeScript transformations during test runs. More details on this option
+can be found in the [official documentation](https://kulshekhar.github.io/ts-jest/docs/27.1/getting-started/options/isolatedModules/).
+
+**This resulted in us cutting the test run from ~66 seconds to ~34 seconds!**
+
+[ embedded Flamegraph showing faster version ] -- add caption to photo with link to flamegraph.com 
+
+
+#### Cutting test run length in half, again, with `swc`
+
+By switching to swc and making use of its parallelization and other optimization techniques, we were able to further cut down the test run
+time *from around 34 seconds to approximately 19 seconds*, achieving massive gains compared to our original test suite run time.
+
+[ embedded Flamegraph showing even faster version ] -- add caption to photo with link to flamegraph.com 
+
+#### The proof is in the PR
+
+One of the best features, of the new Pyroscope CI/CD profiling feature is the ability to get profile reports in your PR with our Github action.
+In this case, you can see from this [PR here](https://github.com/pyroscope-io/pyroscope/pull/1847) not only how the changes mentioned in this blog
+post were implemented, but also how convenient it is to automatically get flamegraphs in your PR comments:
+
+[ photo of flamegraph in PR comment ]
+
+## How to add Pyroscope CI profiling to your test suite
+
+To learn more about how you can add profiling to your CI/CD suite visit our [docs](/docs/ci). 
