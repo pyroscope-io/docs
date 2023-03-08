@@ -36,46 +36,61 @@ resources are all common problems associated with CI/CD pipelines. These issues 
 are working on the same codebase or when teams are working across multiple repositories. That's why we've developed this new feature that can help: Continuous Profiling with Pyroscope in your CI/CD
 pipelines.
 
-[ image ]
 
 ## How CI Profiling with Pyroscope Solves Common CI/CD Pipeline Problems
 
-[Meme of person waiting for CI]
+<center>
+<img width="60%" max-width="800px" alt="image" src="https://user-images.githubusercontent.com/23323466/223587880-c1b5b379-3d4e-40ec-a09e-fe676603502f.gif"></img>
+</center>
 
-### Improved Performance with CI Profiling
+- **Improved Performance:** Profiling your code as part of your CI/CD pipeline can help you identify performance bottlenecks and optimize your code for improved performance, leading to faster builds, faster deployments, and more efficient use of resources.
+- **Faster Test Execution:** With CI Profiling, you can identify slow tests and optimize them for faster execution, reducing the amount of time spent waiting for tests to complete and increasing the speed at which you can iterate on your code.
+- **Less Test Failures and Timeouts:** By identifying performance bottlenecks in your code, you can reduce the number of test failures and timeouts that occur as part of your CI/CD pipeline, making your pipeline more reliable and consistent.
+- **Better Resource Utilization:** Profiling your code can help optimize resource usage and reduce waste by identifying code that is using too much CPU or memory, allowing you to make targeted optimizations to improve the overall efficiency of your code.
+- **Early Issue Detection:** Profiling your code as part of your CI/CD pipeline can help with early issue detection, allowing you to catch newly introduced code regressions or performance issues before they impact your users.
+- **Improved Collaboration:** Sharing profiling results can lead to better understanding of the codebase and how it can be optimized for improved performance, leading to better collaboration and more efficient use of resources across your organization.
 
-That's why we built CI Profiling with Pyroscope. By profiling your code as part of your CI/CD pipeline, you can quickly 
-identify performance bottlenecks and optimize your code for improved performance. This can lead to faster builds, faster 
-deployments, and more efficient use of resources.
 
-### Faster Test Execution
+## How to Add Profiling to your CI/CD Pipeline
 
-With CI Profiling, you can identify slow tests and optimize them for faster execution. This can help reduce the amount of 
-time spent waiting for tests to complete and increase the speed at which you can iterate on your code.
+### Add Profiling via Test Config
 
-### Less Test Failures and Timeouts
+To add profiling to your CI/CD pipeline, you'll need to configure your test suite to include the Pyroscope profiler.
+Here's an example of how to do this in [insert your programming language or test framework]:
 
-By identifying performance bottlenecks in your code, you can also reduce the number of test failures and timeouts that occur 
-as part of your CI/CD pipeline. This can help ensure that your pipeline is reliable and consistent, allowing you to focus on 
-delivering high-quality code.
+```js
 
-### Better Resource Utilization
+[placeholder for code block]
 
-CI Profiling can also help optimize resource usage and reduce waste. By identifying code that is using too much CPU or memory, 
-you can make targeted optimizations to improve the overall efficiency of your code.
+```
+### Add a Global "Setup" / "Teardown" Step
+Once you've added profiling to your test configuration, you'll need to add a global "setup" or "teardown" step to
+initialize and then remove the profiler. Here's an example of how to do this in [insert your programming language or test framework]:
 
-### Early Issue Detection
+```js
 
-Profiling your code as part of your CI/CD pipeline can also help with early issue detection. When test suites start running more slowly, it likely
-means there are newly introduced code regressions or performance issues. Catching these issues early can help you identify and fix problems 
-before they impact your users.
+[placeholder for code block]
 
-### Improved Collaboration
+```
 
-Finally, CI Profiling can also improve collaboration among developers and teams. Sharing profiling results can lead to better
-understanding of the codebase and how it can be optimized for improved performance. This can lead to better collaboration and
-more efficient use of resources across your organization.
+### Add a GitHub Workflow
 
+Finally, you'll need to add a GitHub workflow to run your tests with profiling as part of your CI/CD pipeline.
+Here's an example of how to do this in a GitHub workflow file:
+
+```js
+
+[placeholder for code block]
+
+```
+
+### View results in PR body
+
+[![Screenshot of a Flamegraph being posted as a PR comment via the Flamegraph.com Github Action](./ci-profiling-with-pyroscope/pr-comment.png)](https://github.com/pyroscope-io/pyroscope/pull/1847#issuecomment-1424338623)
+
+### View results in Pyroscope UI
+
+![image](https://user-images.githubusercontent.com/23323466/223591332-e62ec6f7-d6d9-440f-90ed-ac4698dcc30e.png)
 
 ## CI/CD Profiling in Action
 
@@ -143,8 +158,6 @@ time *from around 34 seconds to approximately 19 seconds*, achieving massive gai
 One of the best features of the new Pyroscope CI/CD Profiling feature is the ability to get profile reports in your PR with our Github Actions.
 In this case, you can see from this [PR here](https://github.com/pyroscope-io/pyroscope/pull/1847) not only how the changes mentioned in this blog
 post were implemented, but also how convenient it is to automatically get flamegraphs in your PR comments:
-
-[![Screenshot of a Flamegraph being posted as a PR comment via the Flamegraph.com Github Action](./ci-profiling-with-pyroscope/pr-comment.png)](https://github.com/pyroscope-io/pyroscope/pull/1847#issuecomment-1424338623)
 
 ## How to add Pyroscope CI Profiling to your test suite
 
