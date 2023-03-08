@@ -56,21 +56,45 @@ pipelines.
 ### Add Profiling via Test Config
 
 To add profiling to your CI/CD pipeline, you'll need to configure your test suite to include the Pyroscope profiler.
-Here's an example of how to do this in [insert your programming language or test framework]:
+Here's an example of how to do this with jest in Node:
 
 ```js
-
-[placeholder for code block]
-
+// jest.config.js
+module.exports = {
+  // ...
+  globalSetup: '<rootDir>/globalSetup.js',
+  globalTeardown: '<rootDir>/globalTeardown.js',
+  // ...
+}
 ```
 ### Add a Global "Setup" / "Teardown" Step
 Once you've added profiling to your test configuration, you'll need to add a global "setup" or "teardown" step to
 initialize and then remove the profiler. Here's an example of how to do this in [insert your programming language or test framework]:
 
 ```js
+// Setup in globalSetup.js
+const Pyroscope = require('@pyroscope/nodejs');
 
-[placeholder for code block]
+module.exports = () => {
+  Pyroscope.init({
+    serverAddress: '_',
+    appName: 'myapp.frontend',
+  });
+  if (process.env.CI) {
+    Pyroscope.startCpuProfiling();
+  }
+};
 
+
+// Teardown in globalTeardown.js
+const Pyroscope = require('@pyroscope/nodejs');
+
+module.exports = (config) => {
+  if (process.env.CI) {
+    Pyroscope.stopCpuProfiling();
+    Pyroscope.stopHeapProfiling();
+  }
+};
 ```
 
 ### Add a GitHub Workflow
@@ -78,10 +102,34 @@ initialize and then remove the profiler. Here's an example of how to do this in 
 Finally, you'll need to add a GitHub workflow to run your tests with profiling as part of your CI/CD pipeline.
 Here's an example of how to do this in a GitHub workflow file:
 
-```js
+```yaml
+name: CI Profiling
 
-[placeholder for code block]
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 
+jobs:
+  js-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.18'
+      - name: Install pyroscope-ci
+        uses: jaxxstorm/action-install-gh-release@v1.5.0
+        with: # Grab the latest version
+          repo: pyroscope-io/ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install Webapp dependencies
+        run: yarn install --frozen-lockfile
+      - name: Run tests and upload
+        run: pyroscope-ci exec --apiKey=${{ secrets.PYROSCOPE_CLOUD_TOKEN }} yarn test --no-cache --max-workers=1
 ```
 
 ### View results in PR body
