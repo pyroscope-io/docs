@@ -36,8 +36,9 @@ our adhoc tool allows you to both capture and save specific profiles to later re
 Now, we're excited to announce the latest addition to the Pyroscope family - CI Profiling. Continuous Integration and Delivery (CI/CD) pipelines are critical for modern software development, but they can also be a 
 source of frustration and inefficiency. Waiting for long test runs, dealing with frequent failures and timeouts, and wasting 
 resources are all common problems associated with CI/CD pipelines. These issues can be compounded when multiple developers 
-are working on the same codebase or when teams are working across multiple repositories. That's why we've developed this new feature that can help: Continuous Profiling with Pyroscope in your CI/CD
-pipelines.
+are working on the same codebase or when teams are working across multiple repositories. That's why we've developed this new feature that can help: 
+
+**Continuous Profiling with Pyroscope in your CI/CD pipelines.**
 
 <!--truncate-->
 
@@ -56,6 +57,9 @@ pipelines.
 
 
 ## How to Add Profiling to your CI/CD Pipeline
+
+While we currently support profiling test suites in Node, Go, and Ruby is coming soon (see [docs](/docs/ci)) for this blog post we will just describe from a high level the steps for profiling
+a test suite in any language, but using Node as an example. Over time we plan to add support for other langauges / frameworks as well. 
 
 ### Add Profiling via Test Config
 
@@ -138,15 +142,20 @@ jobs:
 
 ### View results in PR body
 
+Being able to view flamegraphs for test results in the PR body enables quick identification of performance bottlenecks, improves collaboration, helps catch issues early, and leads to a better understanding of the codebase.
+
 [![Screenshot of a Flamegraph being posted as a PR comment via the Flamegraph.com Github Action](./ci-profiling-with-pyroscope/pr-comment.png)](https://github.com/pyroscope-io/pyroscope/pull/1847#issuecomment-1424338623)
 
 ### View results in Pyroscope UI
 
+Viewing results in the Pyroscope UI allows for you to see how your test suit has performed over time and understand where regressions where introduced (or improvements were made). 
+The Pyroscope UI also makes it easy to view the flamegraph diff between branches, prs, commits or any individual test runs. 
+
 ![image](https://user-images.githubusercontent.com/23323466/223591332-e62ec6f7-d6d9-440f-90ed-ac4698dcc30e.png)
 
-## CI/CD Profiling in Action
+## CI/CD Profiling in Action: Saving 70% on test run time
 
-In this section, we'll explore how we were able to significantly improve the performance of our test suite by leveraging
+In this section, we'll explore how we were able to significantly improve the performance of our test suite by ~70% leveraging
 Pyroscope's CI/CD Profiling feature. By profiling our code as part of our CI/CD pipeline, we identified an unknown inefficiency
 in our Jest test suite that was slowing down our builds. Specifically, we discovered that a significant amount of time was being
 spent on code transformation via `ts-jest`.
