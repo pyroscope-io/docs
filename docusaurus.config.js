@@ -1,169 +1,169 @@
 var extraPlugins;
 
 try {
-  extraPlugins = require("./extra-plugins.js");
+  extraPlugins = require('./extra-plugins.js');
 } catch (e) {
   extraPlugins = [];
-  console.log("no extra plugins");
+  console.log('no extra plugins');
 }
 
 module.exports = {
-  title: "Open Source Continuous Profiling Platform",
-  tagline: "Debug performance issues down to a single line of code",
-  url: "https://pyroscope.io",
-  baseUrl: "/",
-  onBrokenLinks: "throw", // Talk to Dmitry (@petethepig) if you ever want to change this setting
-  favicon: "img/favicon.ico",
-  organizationName: "pyroscope-io", // Usually your GitHub org/user name.
-  projectName: "pyroscope", // Usually your repo name.
+  title: 'Open Source Continuous Profiling Platform',
+  tagline: 'Debug performance issues down to a single line of code',
+  url: 'https://pyroscope.io',
+  baseUrl: '/',
+  onBrokenLinks: 'throw', // Talk to Dmitry (@petethepig) if you ever want to change this setting
+  favicon: 'img/favicon.ico',
+  organizationName: 'pyroscope-io', // Usually your GitHub org/user name.
+  projectName: 'pyroscope', // Usually your repo name.
   trailingSlash: true, // Talk to Dmitry (@petethepig) if you ever want to change this setting
   customFields: {
-    apiAddress: process.env.API_ADDRESS || "https://pyroscope.io", // Usually your repo name.
+    apiAddress: process.env.API_ADDRESS || 'https://pyroscope.io', // Usually your repo name.
   },
   themeConfig: {
-    image: "/img/demo-thumbnail.png",
+    image: '/img/demo-thumbnail.png',
     metadata: [
       {
-        name: "og:image",
-        content: "/img/demo-thumbnail.png",
+        name: 'og:image',
+        content: '/img/demo-thumbnail.png',
       },
     ],
     prism: {
-      additionalLanguages: ["ruby", "rust", "java"],
+      additionalLanguages: ['ruby', 'rust', 'java'],
     },
     posthog: {
-      apiKey: "phc_MwF5liyV3wxYN2keLgioVUu4FMiMze7Iu3rh6denuDb",
-      appUrl: "https://app.posthog.com", // optional
+      apiKey: 'phc_MwF5liyV3wxYN2keLgioVUu4FMiMze7Iu3rh6denuDb',
+      appUrl: 'https://app.posthog.com', // optional
       enableInDevelopment: false, // optional
     },
     algolia: {
-      apiKey: "36ebff722c41a8fb7d1b11b4abcc980c",
-      indexName: "pyroscope",
+      apiKey: '36ebff722c41a8fb7d1b11b4abcc980c',
+      indexName: 'pyroscope',
       contextualSearch: false,
       searchParameters: {},
     },
     colorMode: {
-      defaultMode: "light",
+      defaultMode: 'light',
       disableSwitch: false,
     },
     navbar: {
-      title: "Pyroscope",
+      title: 'Pyroscope',
       logo: {
-        alt: "Pyroscope Logo",
-        src: "img/logo-v3-small.png",
+        alt: 'Pyroscope Logo',
+        src: 'img/logo-v3-small.png',
       },
       items: [
         {
-          to: "docs/",
-          activeBasePath: "docs",
-          label: "Docs",
-          position: "left",
+          to: 'docs/',
+          activeBasePath: 'docs',
+          label: 'Docs',
+          position: 'left',
         },
-        { to: "blog", label: "Blog", position: "left" },
+        { to: 'blog', label: 'Blog', position: 'left' },
         {
-          href: "https://pyroscope.io/slack",
-          icon: "/img/navbar/slack.svg",
-          label: "Slack",
-          position: "right",
-        },
-        {
-          href: "https://github.com/pyroscope-io/pyroscope",
-          icon: "/img/navbar/github.svg",
-          label: "GitHub",
-          position: "right",
+          href: 'https://pyroscope.io/slack',
+          icon: '/img/navbar/slack.svg',
+          label: 'Slack',
+          position: 'right',
         },
         {
-          href: "https://twitter.com/PyroscopeIO",
-          icon: "/img/navbar/twitter.svg",
-          label: "Twitter",
-          position: "right",
+          href: 'https://github.com/pyroscope-io/pyroscope',
+          icon: '/img/navbar/github.svg',
+          label: 'GitHub',
+          position: 'right',
+        },
+        {
+          href: 'https://twitter.com/PyroscopeIO',
+          icon: '/img/navbar/twitter.svg',
+          label: 'Twitter',
+          position: 'right',
         },
       ],
     },
     footer: {
-      style: "dark",
+      style: 'dark',
       links: [
         {
-          title: "Docs",
+          title: 'Docs',
           items: [
             {
-              label: "Getting Started",
-              to: "docs/",
+              label: 'Getting Started',
+              to: 'docs/',
             },
             {
-              label: "Downloads",
-              to: "downloads",
+              label: 'Downloads',
+              to: 'downloads',
             },
             {
-              label: "Deployment Guide",
-              to: "docs/deployment",
+              label: 'Deployment Guide',
+              to: 'docs/deployment',
             },
             {
-              label: "Schedule a demo call",
-              icon: "/img/navbar/setup-call.svg",
-              to: "setup-call",
+              label: 'Schedule a demo call',
+              icon: '/img/navbar/setup-call.svg',
+              to: 'setup-call',
             },
           ],
         },
         {
-          title: "Community",
+          title: 'Community',
           items: [
             // {
             //   label: 'Stack Overflow',
             //   href: 'https://stackoverflow.com/questions/tagged/pyroscope',
             // },
             {
-              label: "Slack",
-              icon: "/img/navbar/slack.svg",
-              href: "https://pyroscope.io/slack",
+              label: 'Slack',
+              icon: '/img/navbar/slack.svg',
+              href: 'https://pyroscope.io/slack',
             },
             {
-              label: "Twitter",
-              icon: "/img/navbar/twitter.svg",
-              href: "https://twitter.com/PyroscopeIO",
+              label: 'Twitter',
+              icon: '/img/navbar/twitter.svg',
+              href: 'https://twitter.com/PyroscopeIO',
             },
             {
-              label: "GitHub",
-              icon: "/img/navbar/github.svg",
-              href: "https://github.com/pyroscope-io/pyroscope",
+              label: 'GitHub',
+              icon: '/img/navbar/github.svg',
+              href: 'https://github.com/pyroscope-io/pyroscope',
             },
             {
-              label: "Contribute",
-              to: "https://github.com/pyroscope-io/pyroscope/blob/main/CONTRIBUTING.md",
+              label: 'Contribute',
+              to: 'https://github.com/pyroscope-io/pyroscope/blob/main/CONTRIBUTING.md',
             },
             {
-              label: "Roadmap",
-              to: "https://github.com/pyroscope-io/pyroscope/projects/1",
+              label: 'Roadmap',
+              to: 'https://github.com/pyroscope-io/pyroscope/projects/1',
             },
             {
-              label: "Merch",
-              icon: "/img/navbar/tshirt.svg",
-              to: "https://merch.pyroscope.io/",
+              label: 'Merch',
+              icon: '/img/navbar/tshirt.svg',
+              to: 'https://merch.pyroscope.io/',
             },
           ],
         },
         {
-          title: "More",
+          title: 'More',
           items: [
             {
-              label: "Blog",
-              to: "/blog",
+              label: 'Blog',
+              to: '/blog',
             },
             {
-              label: "Careers",
-              href: "https://apply.workable.com/pyroscope/",
+              label: 'Careers',
+              href: 'https://apply.workable.com/pyroscope/',
             },
             {
-              label: "Privacy Policy",
-              href: "/privacy",
+              label: 'Privacy Policy',
+              href: '/privacy',
             },
             {
-              label: "Contact Us",
-              href: "mailto:contact@pyroscope.io",
+              label: 'Contact Us',
+              href: 'mailto:contact@pyroscope.io',
             },
             {
-              label: "Status Page",
-              href: "https://pyroscope.statuspage.io/",
+              label: 'Status Page',
+              href: 'https://pyroscope.statuspage.io/',
             },
           ],
         },
@@ -173,31 +173,31 @@ module.exports = {
   },
   presets: [
     [
-      "@docusaurus/preset-classic",
+      '@docusaurus/preset-classic',
       {
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
-          editUrl: "https://github.com/pyroscope-io/docs/edit/main/",
+          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: 'https://github.com/pyroscope-io/docs/edit/main/',
         },
         blog: {
           showReadingTime: true,
-          editUrl: "https://github.com/pyroscope-io/docs/edit/main/",
-          blogSidebarTitle: "All posts",
-          blogSidebarCount: "ALL",
+          editUrl: 'https://github.com/pyroscope-io/docs/edit/main/',
+          blogSidebarTitle: 'All posts',
+          blogSidebarCount: 'ALL',
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.scss"),
+          customCss: require.resolve('./src/css/custom.scss'),
         },
         googleAnalytics: {
-          trackingID: "UA-185672451-1",
+          trackingID: 'UA-185672451-1',
         },
         sitemap: {},
       },
     ],
   ],
   plugins: [
-    "docusaurus-plugin-sass",
-    "webpack-plugin",
-    "posthog-docusaurus",
+    'docusaurus-plugin-sass',
+    'webpack-plugin',
+    'posthog-docusaurus',
   ].concat(extraPlugins),
 };
