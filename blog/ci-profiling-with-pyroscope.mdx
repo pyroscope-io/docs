@@ -15,6 +15,8 @@ authors:
     image_url: https://avatars.githubusercontent.com/u/6951209?v=4
 ---
 
+import {FlamegraphDotComIframe} from '../src/components/Blog/FlamegraphDotComIframe';
+
 # CI Profiling with Pyroscope
 ![thumbnail_image](https://user-images.githubusercontent.com/23323466/223543631-c7df802a-17f0-4f96-8709-f6cae7933149.png)
 
@@ -191,7 +193,7 @@ transformations via `ts-jest` (and consequently TypeScript). This high cost is d
 during test runs. While this feature can help catch potential errors early in the development process, it can also significantly
 slow down the test execution time, leading to longer build times and potentially wasting resources.
 
-<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/3f5468c3-a882-11ed-8584-8eeab0f9bc97/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+<FlamegraphDotComIframe src="https://flamegraph.com/share/3f5468c3-a882-11ed-8584-8eeab0f9bc97/iframe?colorMode=light&onlyDisplay=flamegraph&showToolbar=true" />
 <a href="https://flamegraph.com/share/3f5468c3-a882-11ed-8584-8eeab0f9bc97">See in Flamegraph.com</a>
 
 #### Cutting test run length in half with `tsc --no-emit` and `isolatedModules`
@@ -203,7 +205,7 @@ can be found in the [official documentation](https://kulshekhar.github.io/ts-jes
 
 **This resulted in us cutting the test run from ~66 seconds to ~34 seconds!**
 
-<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/57826b7a-a88b-11ed-a226-52d5adf2b04f/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+<FlamegraphDotComIframe src="https://flamegraph.com/share/57826b7a-a88b-11ed-a226-52d5adf2b04f/iframe?colorMode=light&showToolbar=true" />
 <a href="https://flamegraph.com/share/57826b7a-a88b-11ed-a226-52d5adf2b04f">See in Flamegraph.com</a>
 
 #### Cutting test run length in half, again, with `swc`
@@ -211,7 +213,7 @@ can be found in the [official documentation](https://kulshekhar.github.io/ts-jes
 By switching to `swc` and making use of its parallelization and other optimization techniques, we were able to further cut down the test run
 time *from around 34 seconds to approximately 19 seconds*, achieving massive gains compared to our original test suite run time.
 
-<iframe frameBorder="0" width="100%" height="400" src="https://flamegraph.com/share/18b145d1-a895-11ed-97a4-2ee1108df414/iframe?colorMode=light&onlyDisplay=flamegraph"></iframe>
+<FlamegraphDotComIframe src="https://flamegraph.com/share/18b145d1-a895-11ed-97a4-2ee1108df414/iframe?colorMode=light&onlyDisplay=flamegraph&showToolbar=true" />
 <a href="https://flamegraph.com/share/18b145d1-a895-11ed-97a4-2ee1108df414">See in Flamegraph.com</a>
 
 #### The proof is in the PR
