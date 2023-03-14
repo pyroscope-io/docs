@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useAllDocsData} from '@theme/hooks/useDocs';
+import { useAllDocsData } from '@docusaurus/plugin-content-docs/client';
 
 // TODO not ideal, see also "useDocs"
 export const isDocsPluginEnabled: boolean = !!useAllDocsData;

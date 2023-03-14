@@ -6,7 +6,10 @@
  */
 import React from 'react';
 import DefaultNavbarItem from './DefaultNavbarItem';
-import {useLatestVersion, useActiveDocContext} from '@theme/hooks/useDocs';
+import {
+  useLatestVersion,
+  useActiveDocContext,
+} from '@docusaurus/plugin-content-docs/client';
 import clsx from 'clsx';
 import useDocsPreferredVersion from '../../utils/docsPreferredVersion/useDocsPreferredVersion';
 export default function DocNavbarItem({
@@ -16,8 +19,8 @@ export default function DocNavbarItem({
   docsPluginId,
   ...props
 }) {
-  const {activeVersion, activeDoc} = useActiveDocContext(docsPluginId);
-  const {preferredVersion} = useDocsPreferredVersion(docsPluginId);
+  const { activeVersion, activeDoc } = useActiveDocContext(docsPluginId);
+  const { preferredVersion } = useDocsPreferredVersion(docsPluginId);
   const latestVersion = useLatestVersion(docsPluginId);
   const version = activeVersion ?? preferredVersion ?? latestVersion;
   const doc = version.docs.find((versionDoc) => versionDoc.id === docId);

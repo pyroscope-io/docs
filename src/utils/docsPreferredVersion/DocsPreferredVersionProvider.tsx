@@ -12,10 +12,10 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import useThemeConfig, {DocsVersionPersistence} from '../useThemeConfig';
-import {isDocsPluginEnabled} from '../docsUtils';
+import useThemeConfig, { DocsVersionPersistence } from '../useThemeConfig';
+import { isDocsPluginEnabled } from '../docsUtils';
 
-import {useAllDocsData} from '@theme/hooks/useDocs';
+import { useAllDocsData } from '@docusaurus/plugin-content-docs/client';
 
 import DocsPreferredVersionStorage from './DocsPreferredVersionStorage';
 
@@ -60,21 +60,21 @@ function readStorageState({
   // and belong to a version that does not exist in the site anymore
   // In such case, we remove the storage value to avoid downstream errors
   function restorePluginState(
-    pluginId: string,
+    pluginId: string
   ): DocsPreferredVersionPluginState {
     const preferredVersionNameUnsafe = DocsPreferredVersionStorage.read(
       pluginId,
-      versionPersistence,
+      versionPersistence
     );
     const pluginData = allDocsData[pluginId];
     const versionExists = pluginData.versions.some(
-      (version) => version.name === preferredVersionNameUnsafe,
+      (version) => version.name === preferredVersionNameUnsafe
     );
     if (versionExists) {
-      return {preferredVersionName: preferredVersionNameUnsafe};
+      return { preferredVersionName: preferredVersionNameUnsafe };
     } else {
       DocsPreferredVersionStorage.clear(pluginId, versionPersistence);
-      return {preferredVersionName: null};
+      return { preferredVersionName: null };
     }
   }
 
@@ -100,7 +100,7 @@ function useContextValue() {
 
   // On mount, we set the state read from browser storage
   useEffect(() => {
-    setState(readStorageState({allDocsData, versionPersistence, pluginIds}));
+    setState(readStorageState({ allDocsData, versionPersistence, pluginIds }));
   }, [allDocsData, versionPersistence, pluginIds]);
 
   // The API that we expose to consumer hooks (memo for constant object)
@@ -109,11 +109,11 @@ function useContextValue() {
       DocsPreferredVersionStorage.save(
         pluginId,
         versionPersistence,
-        versionName,
+        versionName
       );
       setState((s) => ({
         ...s,
-        [pluginId]: {preferredVersionName: versionName},
+        [pluginId]: { preferredVersionName: versionName },
       }));
     }
 
@@ -158,7 +158,7 @@ export function useDocsPreferredVersionContext(): DocsPreferredVersionContextVal
   const value = useContext(Context);
   if (!value) {
     throw new Error(
-      "Can't find docs preferred context, maybe you forgot to use the DocsPreferredVersionContextProvider ?",
+      "Can't find docs preferred context, maybe you forgot to use the DocsPreferredVersionContextProvider ?"
     );
   }
   return value;

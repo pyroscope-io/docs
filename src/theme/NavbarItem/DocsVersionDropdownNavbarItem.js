@@ -10,7 +10,7 @@ import {
   useVersions,
   useLatestVersion,
   useActiveDocContext,
-} from '@theme/hooks/useDocs';
+} from '@docusaurus/plugin-content-docs/client';
 import useDocsPreferredVersion from '../../utils/docsPreferredVersion/useDocsPreferredVersion';
 
 const getVersionMainDoc = (version) =>
@@ -27,9 +27,8 @@ export default function DocsVersionDropdownNavbarItem({
   const activeDocContext = useActiveDocContext(docsPluginId);
   const versions = useVersions(docsPluginId);
   const latestVersion = useLatestVersion(docsPluginId);
-  const {preferredVersion, savePreferredVersionName} = useDocsPreferredVersion(
-    docsPluginId,
-  );
+  const { preferredVersion, savePreferredVersionName } =
+    useDocsPreferredVersion(docsPluginId);
 
   function getItems() {
     const versionLinks = versions.map((version) => {

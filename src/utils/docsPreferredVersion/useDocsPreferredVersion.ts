@@ -4,20 +4,23 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import {useCallback} from 'react';
-import {useDocsPreferredVersionContext} from './DocsPreferredVersionProvider';
-import {useAllDocsData, useDocsData} from '@theme/hooks/useDocs';
+import { useCallback } from 'react';
+import { useDocsPreferredVersionContext } from './DocsPreferredVersionProvider';
+import {
+  useAllDocsData,
+  useDocsData,
+} from '@docusaurus/plugin-content-docs/client';
 
-import {DEFAULT_PLUGIN_ID} from '@docusaurus/constants';
+import { DEFAULT_PLUGIN_ID } from '@docusaurus/constants';
 
 // Note, the preferredVersion attribute will always be null before mount
 export default function useDocsPreferredVersion(
-  pluginId: string | undefined = DEFAULT_PLUGIN_ID,
+  pluginId: string | undefined = DEFAULT_PLUGIN_ID
 ) {
   const docsData = useDocsData(pluginId);
   const [state, api] = useDocsPreferredVersionContext();
 
-  const {preferredVersionName} = state[pluginId];
+  const { preferredVersionName } = state[pluginId];
 
   const preferredVersion = preferredVersionName
     ? docsData.versions.find((version) => version.name === preferredVersionName)
@@ -27,10 +30,10 @@ export default function useDocsPreferredVersion(
     (versionName: string) => {
       api.savePreferredVersion(pluginId, versionName);
     },
-    [api],
+    [api]
   );
 
-  return {preferredVersion, savePreferredVersionName} as const;
+  return { preferredVersion, savePreferredVersionName } as const;
 }
 
 export function useDocsPreferredVersionByPluginId() {
@@ -39,11 +42,11 @@ export function useDocsPreferredVersionByPluginId() {
 
   function getPluginIdPreferredVersion(pluginId: string) {
     const docsData = allDocsData[pluginId];
-    const {preferredVersionName} = state[pluginId];
+    const { preferredVersionName } = state[pluginId];
 
     return preferredVersionName
       ? docsData.versions.find(
-          (version) => version.name === preferredVersionName,
+          (version) => version.name === preferredVersionName
         )
       : null;
   }
