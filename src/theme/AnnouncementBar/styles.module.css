@@ -13,9 +13,9 @@
   display: flex;
   align-items: center;
   height: var(--docusaurus-announcement-bar-height);
+  min-height: 54px;
   background-color: var(--ifm-color-white);
   color: var(--ifm-color-black);
-  border-bottom: 1px solid var(--ifm-color-emphasis-100);
 }
 
 html[data-announcement-bar-initially-dismissed='true'] .announcementBar {
@@ -31,13 +31,15 @@ html[data-announcement-bar-initially-dismissed='true'] .announcementBar {
   align-self: stretch;
   padding: 0;
   line-height: 0;
+  color: white;
 }
 
 .announcementBarContent {
   flex: 1 1 auto;
-  font-size: 85%;
+  /* font-size: 85%; */
   text-align: center;
-  padding: 5px 0;
+  padding: 15px 0;
+  line-height: 1.5;
 }
 
 @media print {
@@ -53,7 +55,7 @@ html[data-announcement-bar-initially-dismissed='true'] .announcementBar {
 
 @media screen and (min-width: 1024px) {
   :root {
-    --docusaurus-announcement-bar-height: 30px;
+    /* --docusaurus-announcement-bar-height: 30px; */
   }
 
   .announcementBarPlaceholder,
