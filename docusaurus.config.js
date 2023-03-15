@@ -82,6 +82,12 @@ module.exports = {
         },
       ],
     },
+    announcementBar: {
+      id: 'news',
+      content: '<strong>NEWS:</strong> Pyroscope is now part of Grafana Labs. The Pyroscope and Grafana Phlare OSS projects are merging&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="button" style="text-decoration: none;" target="_blank" href="https://grafana.com/blog/2023/03/15/pyroscope-grafana-phlare-join-for-oss-continuous-profiling">Learn more</a>',
+      backgroundColor: '#D14600', // Defaults to `#fff`
+      textColor: 'white', // Defaults to `#000`
+    },
     footer: {
       style: 'dark',
       links: [
