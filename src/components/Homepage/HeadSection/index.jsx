@@ -13,11 +13,11 @@ import { ToggleMenuButton, MobileMenu } from '../../shared/HeaderMenuMobile'
 const headerMenuItems = [
     {
         label: 'Docs',
-        url: '/docs'
+        url: '/docs/'
     },
     {
         label: 'Pricing',
-        url: '/pricing'
+        url: '/pricing/'
     },
     {
         label: 'Demo',
@@ -38,7 +38,7 @@ const headerMenuItems = [
     },
     {
         label: 'Blog',
-        url: '/blog'
+        url: '/blog/'
     },
 ]
 
