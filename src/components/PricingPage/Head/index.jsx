@@ -17,11 +17,11 @@ import RightPath from '/img/pricing/path85.svg';
 const headerMenuItems = [
     {
         label: 'Docs',
-        url: '/docs'
+        url: '/docs/'
     },
     {
         label: 'Pricing',
-        url: '/pricing'
+        url: '/pricing/'
     },
     {
         label: 'Demo',
@@ -31,7 +31,7 @@ const headerMenuItems = [
         label: 'Community',
         items: [{
             label: 'Slack',
-            url: '/slack'
+            url: '/slack/'
         }, {
             label: 'GitHub',
             url: 'https://github.com/pyroscope-io/pyroscope'
@@ -42,7 +42,7 @@ const headerMenuItems = [
     },
     {
         label: 'Blog',
-        url: '/blog'
+        url: '/blog/'
     },
 ]
 

@@ -10,8 +10,8 @@ authors:
   - name: Uchechukwu obasi
     url: https://github.com/thisisobate
     image_url: https://avatars.githubusercontent.com/u/29557702?v=4
-  
-  - name: Ekaterina Patrice 
+
+  - name: Ekaterina Patrice
     url: https://github.com/ekpatrice
     image_url: https://avatars.githubusercontent.com/u/77462462?v=4
 
@@ -24,11 +24,11 @@ Coming from a background working as a frontend developer at Grafana I'm no stran
 ![chrome browser profiler](https://user-images.githubusercontent.com/29557702/165289655-58cd9a0b-8848-4e03-b7e5-afdf822cf577.png)
 
 ### What is continuous profiling
-“Profiling” is a dynamic method of analyzing the complexity of a program, such as CPU utilization or the frequency and duration of function calls. With profiling, you can locate exactly which parts of your application are consuming the most resources. “Continuous profiling” is a more powerful version of profiling that adds the dimension of time. By understanding your system's resources over time, you can then locate, debug, and fix issues related to performance. 
+“Profiling” is a dynamic method of analyzing the complexity of a program, such as CPU utilization or the frequency and duration of function calls. With profiling, you can locate exactly which parts of your application are consuming the most resources. “Continuous profiling” is a more powerful version of profiling that adds the dimension of time. By understanding your system's resources over time, you can then locate, debug, and fix issues related to performance.
 
-As a frontend developer, my experience with profiling was limited to the browser. However, in the course of my study, I discovered a new pattern of profiling that seems exciting– continuous profiling. Similar to how you use the profiler in the dev console to understand frontend performance issues, continuous profiling allows you to profile servers from various languages 24/7 and be able to understand resource usage at any particular time. 
+As a frontend developer, my experience with profiling was limited to the browser. However, in the course of my study, I discovered a new pattern of profiling that seems exciting– continuous profiling. Similar to how you use the profiler in the dev console to understand frontend performance issues, continuous profiling allows you to profile servers from various languages 24/7 and be able to understand resource usage at any particular time.
 
-While continuous profiling is new to many, the concept is actually relatively old. In 2010, Google released a paper titled [“Google Wide profiling: A continuous profiling infrastructure for data centers”](https://research.google/pubs/pub36575/) where they make the case for the value of adding continuous profiling to your applications. 
+While continuous profiling is new to many, the concept is actually relatively old. In 2010, Google released a paper titled [“Google Wide profiling: A continuous profiling infrastructure for data centers”](https://research.google/pubs/pub36575/) where they make the case for the value of adding continuous profiling to your applications.
 
 ### Industry traction for continuous profiling
 Since then, many major performance monitoring solutions have joined them in releasing continuous profiling products. As time has gone on, the continuous profiling space has been getting increasingly popular as various companies/VCs are more frequently making major investments in Continuous Profiling to keep up with demand for this type of monitoring.
@@ -36,7 +36,7 @@ Since then, many major performance monitoring solutions have joined them in rele
 ![continuous profiling trends](https://user-images.githubusercontent.com/29557702/165291672-88805173-4bf4-4029-9b6c-3b31951733bd.png)
 <!--truncate-->
 
-It’s not just major cloud providers and venture capitalists who are excited about continuous profiling, our industry leaders are super pumped about continuous profiling too! 
+It’s not just major cloud providers and venture capitalists who are excited about continuous profiling, our industry leaders are super pumped about continuous profiling too!
 
 <Tweet tweetLink="cra/status/1474083458943266817" />
 
@@ -58,10 +58,10 @@ And like Liz Fong-Jones, Principal developer advocate at Honeycomb, many in the 
 
 ### Continuous profiling using Pyroscope
 
-At Pyroscope, we actually [profile our own servers using Pyroscope](/blog/profile-continuous-profiler) and have found many cases where profiling has saved us a lot of time and money by identifying performance issues. 
-That being said, _at any organization_, understanding resource utilization and adjusting to allocate it efficiently can be the difference between a healthy company with happy end-users (and employees) or a chaotic one where everyone is running around putting out fires and end-users are suffering.  
+At Pyroscope, we actually [profile our own servers using Pyroscope](/blog/profile-continuous-profiler) and have found many cases where profiling has saved us a lot of time and money by identifying performance issues.
+That being said, _at any organization_, understanding resource utilization and adjusting to allocate it efficiently can be the difference between a healthy company with happy end-users (and employees) or a chaotic one where everyone is running around putting out fires and end-users are suffering.
 
-There is no better tool than continuous profiling to help be the difference-maker in these situations. No matter what your job function is in your organization there are still very valuable benefits of having continuous profiling as part of your observability stack. 
+There is no better tool than continuous profiling to help be the difference-maker in these situations. No matter what your job function is in your organization there are still very valuable benefits of having continuous profiling as part of your observability stack.
 
 ![user_personas_04-01](https://user-images.githubusercontent.com/23323466/165409784-fa52812e-2b5e-4fb1-a5e2-5e9e5534fc7b.jpg)
 
@@ -71,13 +71,13 @@ Pyroscope also provides you with multi-language support, ad-hoc profiling, profi
 ![Pyroscope GIF Demo](https://user-images.githubusercontent.com/23323466/143324845-16ff72df-231e-412d-bd0a-38ef2e09cba8.gif)
 
 ### What makes Pyroscope unique?
-Pyroscope is open-source which means that it’s easier to get started and try out than cloud providers profilers. Pyroscope’s [custom storage engine](https://pyroscope.io/docs/storage-design/) is language-agnostic so _any profiling data_ ranging from [rbspy](https://rbspy.github.io/) to [eBPF](https://ebpf.io/) to even new profilers such as Bloomberg's [Memray](https://bloomberg.github.io/memray/) can easily send data to Pyroscope and have it compressed, stored and queried efficiently. 
-	
+Pyroscope is open-source which means that it’s easier to get started and try out than cloud providers profilers. Pyroscope’s [custom storage engine](https://pyroscope.io/docs/storage-design/) is language-agnostic so _any profiling data_ ranging from [rbspy](https://rbspy.github.io/) to [eBPF](https://ebpf.io/) to even new profilers such as Bloomberg's [Memray](https://bloomberg.github.io/memray/) can easily send data to Pyroscope and have it compressed, stored and queried efficiently.
+
 ![agent_server_diagram_for_blog_post_1-01](https://user-images.githubusercontent.com/23323466/165416600-7d852049-52ed-4551-86ce-f8eaab49e219.png)
 
 Pyroscope is also built to be easy to use by everyone. The pyroscope UI in particular was designed to be super intuitive for anyone to play around, analyze, and understand profiles.
 
-Whether you are operating at a small scale or enterprise level, the power of continuous profiling can quickly and easily reduce infrastructure costs and improve scalability.  With Pyroscope, you can build high-performance applications that increase customer satisfaction and put value back into your business. 
+Whether you are operating at a small scale or enterprise level, the power of continuous profiling can quickly and easily reduce infrastructure costs and improve scalability.  With Pyroscope, you can build high-performance applications that increase customer satisfaction and put value back into your business.
 
 ### How to get started with Pyroscope
 
@@ -85,4 +85,4 @@ Coming in as being relatively new to profiling myself, the easiest way for me to
 
 Pyroscope has offered me useful features that make profiling fun and exciting. With Pyroscope, I’ve been able to understand how my application, server, and code are running. The best part is that I can use Pyroscope without paying any money; it’s completely free!
 
-If you need any help getting started, join the [community slack](https://pyroscope.io/slack) or follow Pyroscope on [Github](https://github.com/pyroscope-io/pyroscope) and [Twitter](https://twitter.com/PyroscopeIO)!
+If you need any help getting started, join the [community slack](https://pyroscope.io/slack/) or follow Pyroscope on [Github](https://github.com/pyroscope-io/pyroscope) and [Twitter](https://twitter.com/PyroscopeIO)!

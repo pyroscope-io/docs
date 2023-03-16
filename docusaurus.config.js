@@ -63,7 +63,7 @@ module.exports = {
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://pyroscope.io/slack',
+          href: 'https://pyroscope.io/slack/',
           icon: "/img/navbar/slack.svg",
           label: 'Slack',
           position: 'right',
@@ -96,7 +96,7 @@ module.exports = {
           items: [
             {
               label: 'Getting Started',
-              to: 'docs/',
+              to: 'docs',
             },
             {
               label: 'Downloads',
@@ -123,7 +123,7 @@ module.exports = {
             {
               label: 'Slack',
               icon: "/img/navbar/slack.svg",
-              href: "https://pyroscope.io/slack",
+              href: "https://pyroscope.io/slack/",
             },
             {
               label: 'Twitter',
