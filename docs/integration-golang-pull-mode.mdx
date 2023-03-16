@@ -275,5 +275,10 @@ Kubernetes Service Discovery requires RBAC set up. Please refer to
 
 ### File service discovery
 
-You can configure Pyroscope server to scrape targets defined in files.  that can be updated dynamically without
+You can configure Pyroscope server to scrape targets defined in files that can be updated dynamically without
 restarting the server. You can find an example configuration in [the pyroscope repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/golang-pull/file).
+
+### Consul service discovery
+
+Consul service discovery allow retrieving scrape targets from Consul's Catalog API.
+You can find an example configuration in [the pyroscope repository](https://github.com/pyroscope-io/pyroscope/blob/main/examples/golang-pull/consul).

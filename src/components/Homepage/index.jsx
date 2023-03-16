@@ -6,7 +6,8 @@ import Integrations from './Integrations';
 import Security from './Security';
 import WhatTheySay from './WhatTheySay';
 import Footer from '../shared/Footer';
-// import Footer from './../../theme/Footer';
+import AnnouncementBar from './../../theme/AnnouncementBar';
+import {AnnouncementBarProvider} from '@docusaurus/theme-common';
 import styles from './styles.module.scss';
 import { Helmet } from "react-helmet";
 import clsx from 'clsx';
@@ -16,6 +17,9 @@ const HomePage = () => {
 
     return (
         <>
+        <AnnouncementBarProvider>
+            <AnnouncementBar/>
+        </AnnouncementBarProvider>
             <Helmet>
                 <title>Open Source Continuous Profiling Platform</title>
                 <meta name="description" content='Pyroscope - Open Source Continuous Profiling' />
