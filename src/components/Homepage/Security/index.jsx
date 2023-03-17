@@ -38,7 +38,7 @@ const SecuritySection = () => {
                             the security and scalability needs of your organization.
                             {/* Check out our blog post to learn<br /> which option is best for you! */}
                         </p>
-                        <a href="/pricing" className={styles.learnMore}>Learn more<FontAwesomeIcon size='lg' icon={faLongArrowAltRight} /></a>
+                        <a href="/pricing/" className={styles.learnMore}>Learn more<FontAwesomeIcon size='lg' icon={faLongArrowAltRight} /></a>
                     </div>
                     <div className={styles.right}>
                         <div className={styles.features}>
