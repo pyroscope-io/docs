@@ -106,11 +106,6 @@ module.exports = {
               label: 'Deployment Guide',
               to: 'docs/deployment',
             },
-            {
-              label: 'Schedule a demo call',
-              icon: "/img/navbar/setup-call.svg",
-              to: 'setup-call',
-            },
           ],
         },
         {
