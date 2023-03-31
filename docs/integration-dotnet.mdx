@@ -111,3 +111,10 @@ Pyroscope.LabelsWrapper.Do(labels, () =>
 | PYROSCOPE_PROFILING_EXCEPTION_ENABLED  | Boolean      | If set to true, enables the Exceptions profiling. Defaults to false. |
 | PYROSCOPE_PROFILING_ALLOCATION_ENABLED | Boolean      | If set to true, enables the Allocations profiling. Defaults to false. |
 | PYROSCOPE_PROFILING_LOCK_ENABLED       | Boolean      | If set to true, enables the Lock Contention profiling. Defaults to false. |
+
+### Sending data into Pyroscope Cloud
+
+1. Go to [Pyroscope Cloud API Keys page](https://pyroscope.cloud/settings/api-keys)
+2. Copy one of the keys
+3. Add it to your .NET profiler configuration: `PYROSCOPE_AUTH_TOKEN="psx-..."`
+
