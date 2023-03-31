@@ -115,7 +115,8 @@ Pyroscope.LabelsWrapper.Do(labels, () =>
 
 ### Sending data into Pyroscope Cloud
 
-1. Go to [Pyroscope Cloud API Keys page](https://pyroscope.cloud/settings/api-keys)
-2. Copy one of the keys
-3. Add it to your .NET profiler configuration: `PYROSCOPE_AUTH_TOKEN="psx-..."`
+1. Set `PYROSCOPE_SERVER_ADDRESS` to `PYROSCOPE_SERVER_ADDRESS=https://ingest.pyroscope.cloud`
+2. Go to [Pyroscope Cloud API Keys page](https://pyroscope.cloud/settings/api-keys)
+3. Copy one of the keys
+4. Add it to your .NET profiler configuration: `PYROSCOPE_AUTH_TOKEN="psx-..."`
 
