@@ -105,6 +105,7 @@ Pyroscope.LabelsWrapper.Do(labels, () =>
 |---------------------------------|------------|-----------|
 | PYROSCOPE_PROFILING_LOG_DIR            | String       | Sets the directory for .NET Profiler logs. Defaults to /var/log/pyroscope/ . |
 | PYROSCOPE_LABELS                       | String       | Static labels to apply to an uploaded profile. Must be a list of key:value separated by commas such as: layer:api,team:intake. |
+| PYROSCOPE_AUTH_TOKEN                       | String       | Optional Authentication Token. Typically used when you send data into [Pyroscope Cloud](https://pyroscope.io/pricing) |
 | PYROSCOPE_PROFILING_ENABLED            | Boolean      | If set to true, enables the .NET Profiler. Defaults to false. |
 | PYROSCOPE_PROFILING_WALLTIME_ENABLED   | Boolean      | If set to false, disables the Wall time profiling. Defaults to true. |
 | PYROSCOPE_PROFILING_CPU_ENABLED        | Boolean      | If set to false, disables the CPU profiling. Defaults to true. |
