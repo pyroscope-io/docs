@@ -86,7 +86,6 @@ const Footer = ({ withHelpUsBanner }) => {
               <a className={styles.pageLink} href='#'>Github</a>
               <a className={styles.pageLink} href='#'>Contribute</a>
               <a className={styles.pageLink} href='#'>Roadmap</a>
-              <a className={styles.pageLink} href='#'>Merch</a>
             </div>
             <div className={styles.linksColumn}>
               <div className={styles.columnTitle}>More</div>
