@@ -137,12 +137,7 @@ module.exports = {
             {
               label: 'Roadmap',
               to: 'https://github.com/pyroscope-io/pyroscope/projects/1',
-            },
-            {
-              label: 'Merch',
-              icon: "/img/navbar/tshirt.svg",
-              to: 'https://merch.pyroscope.io/',
-            },
+            }
           ],
         },
         {
