@@ -39,6 +39,8 @@ remote-write:
       auth-token: MY_AUTH_TOKEN
       tags:
         foo: baz
+      headers:
+        X-Extra-Header: "Value"
 ```
 
 For every ingested profile, it will also write to 2 pyroscope instances: `http://bar:4040` and `http://baz:4040`.
@@ -115,6 +117,30 @@ remote-write:
 | `queue-size`       | Maximum amount of items that can be stored in the queue at a time. | `100` |
 | `queue-workers`       | How many queue workers are running. | `max(numCPU * 4, 64)` |
 
+
+## Phlare
+
+With the latest phlare version you can ingest pyroscope profiles directly to phlare.
+You can do remote write from pyroscope to phlare as well. 
+
+For phlare target address should end with `/pyroscope`.
+
+You can add basic auth to remote write requests with either `user:pass@` in the target address url or with an extra `Authorization` header.
+
+Multi-tenancy is also supported with a `X-Scope-OrgID` header.
+
+
+```yaml
+remote-write:
+  enabled: true
+  targets:
+    phlare:
+      address: http://user:pass@phlare:4100/pyroscope
+      headers:
+        X-Scope-OrgID: "..."
+```
+
+      
 
 ### Metrics
 Prometheus metrics are also exposed:
