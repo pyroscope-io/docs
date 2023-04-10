@@ -1,4 +1,3 @@
-
 ---
 id: integration-java
 title: Java
@@ -11,6 +10,8 @@ keywords: [ pyroscope, java, javaspy, profiling, async-profiler ]
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import {exampleMaven, exampleGradle, examplePlainJava, exampleSpringFramework} from '../src/javaCodeBlocks';
+import CodeBlock from '@theme/CodeBlock';
 
 
 Pyroscope uses [async-profiler](https://github.com/jvm-profiling-tools/async-profiler) to collect profiling data from Java applications.
@@ -41,44 +42,36 @@ You can start pyroscope either from your apps's java code or attach it as javaag
 #### Start pyroscope from app's java code
 
 Add pyroscope dependency:
-```kotlin
-implementation("io.pyroscope:agent:${pyroscope_version}")
-```
-As .xml:
-```kotlin
-		<dependency>
-			<groupId>io.pyroscope</groupId>
-			<artifactId>agent</artifactId>
-			<version>pyroscope_version</version>
-		</dependency>
-```
+
+<Tabs
+  defaultValue="maven"
+  values={[
+    {label: 'Maven', value: 'maven'},
+    {label: 'Gradle', value: 'gradle'},
+  ]}>
+    <TabItem value="maven">
+      <CodeBlock className="language-xml">{exampleMaven}</CodeBlock>
+    </TabItem>
+    <TabItem value="gradle">
+      <CodeBlock className="language-java">{exampleGradle}</CodeBlock>
+    </TabItem>
+</Tabs>
 
 Then add the following code to your application:
-```java
 
-import io.pyroscope.javaagent.PyroscopeAgent;
-import io.pyroscope.javaagent.config.Config;
-import io.pyroscope.javaagent.EventType;
-import io.pyroscope.http.Format;
-
-
-
-    @PostConstruct
-    public void init() {
-
-PyroscopeAgent.start(
-  new Config.Builder()
-    .setApplicationName("ride-sharing-app-java")
-    .setProfilingEvent(EventType.ITIMER)
-    .setFormat(Format.JFR)
-    .setProfilingAlloc("0") // sets allocation threshold to register events, in bytes. '0' registers all events
-    .setServerAddress("http://pyroscope-server:4040")
-    // Optionally, if authentication is enabled, specify the API key.
-    // .setAuthToken(System.getenv("PYROSCOPE_AUTH_TOKEN"))
-    .build()
-);
-    }
-```
+<Tabs
+  defaultValue="plain-java"
+  values={[
+    {label: 'Java', value: 'plain-java'},
+    {label: 'Spring Framework', value: 'spring'},
+  ]}>
+    <TabItem value="plain-java">
+      <CodeBlock className="language-java">{examplePlainJava}</CodeBlock>
+    </TabItem>
+    <TabItem value="spring">
+      <CodeBlock className="language-java">{exampleSpringFramework}</CodeBlock>
+    </TabItem>
+</Tabs>
 
 You can also optionally replace some pyroscope components 
 
