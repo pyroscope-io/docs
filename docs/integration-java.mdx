@@ -1,3 +1,4 @@
+
 ---
 id: integration-java
 title: Java
@@ -43,18 +44,40 @@ Add pyroscope dependency:
 ```kotlin
 implementation("io.pyroscope:agent:${pyroscope_version}")
 ```
+As .xml:
+```kotlin
+		<dependency>
+			<groupId>io.pyroscope</groupId>
+			<artifactId>agent</artifactId>
+			<version>pyroscope_version</version>
+		</dependency>
+```
+
 Then add the following code to your application:
 ```java
+
+import io.pyroscope.javaagent.PyroscopeAgent;
+import io.pyroscope.javaagent.config.Config;
+import io.pyroscope.javaagent.EventType;
+import io.pyroscope.http.Format;
+
+
+
+    @PostConstruct
+    public void init() {
+
 PyroscopeAgent.start(
   new Config.Builder()
     .setApplicationName("ride-sharing-app-java")
     .setProfilingEvent(EventType.ITIMER)
     .setFormat(Format.JFR)
+    .setProfilingAlloc("0") // sets allocation threshold to register events, in bytes. '0' registers all events
     .setServerAddress("http://pyroscope-server:4040")
     // Optionally, if authentication is enabled, specify the API key.
     // .setAuthToken(System.getenv("PYROSCOPE_AUTH_TOKEN"))
     .build()
 );
+    }
 ```
 
 You can also optionally replace some pyroscope components 
