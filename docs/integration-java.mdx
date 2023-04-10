@@ -1,4 +1,3 @@
-
 ---
 id: integration-java
 title: Java
@@ -71,7 +70,7 @@ PyroscopeAgent.start(
     .setApplicationName("ride-sharing-app-java")
     .setProfilingEvent(EventType.ITIMER)
     .setFormat(Format.JFR)
-    .setProfilingAlloc("0") // sets allocation threshold to register events, in bytes. '0' registers all events
+    .setProfilingAlloc("100K") // sets allocation threshold to register events, in bytes. '0' registers all events
     .setServerAddress("http://pyroscope-server:4040")
     // Optionally, if authentication is enabled, specify the API key.
     // .setAuthToken(System.getenv("PYROSCOPE_AUTH_TOKEN"))
