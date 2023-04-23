@@ -38,3 +38,28 @@ public void init() {
         .build()
     );
 }`
+
+export const examplePhlareJavaCode = `PyroscopeAgent.start(
+  new Config.Builder()
+    .setApplicationName("phlare.java.app")
+    .setFormat(Format.JFR)
+    .setServerAddress("<URL>")
+    // Optional HTTP Basic authentication
+    .setBasicAuthUser("<User>")
+    .setBasicAuthPassword("<Password>")
+    // Optional Phlare tenant ID
+    .setScopeOrgID("<TenantID>")
+    .build()
+);
+`
+
+export const examplePhlareJavaagent = `export PYROSCOPE_APPLICATION_NAME=phlare.java.app
+export PYROSCOPE_FORMAT=JFR
+export PYROSCOPE_SERVER_ADDRESS=<URL>
+# Optional HTTP Basic authentication
+export PYROSCOPE_BASIC_AUTH_USER=<User>
+export PYROSCOPE_BASIC_AUTH_PASSWORD=<Password>
+# Optional Phlare tenant ID
+export PYROSCOPE_SCOPE_ORGID=<TenantID>
+java -javaagent:pyroscope.jar -jar app.jar
+`

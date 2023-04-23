@@ -123,8 +123,6 @@ remote-write:
 Starting with [weekly-f8](https://hub.docker.com/r/grafana/phlare/tags) you can ingest pyroscope profiles directly to phlare.
 You can do remote write from pyroscope to phlare as well. 
 
-For phlare target address should end with `/pyroscope`.
-
 You can add basic auth to remote write requests with either `user:pass@` in the target address url or with an extra `Authorization` header.
 
 Multi-tenancy is also supported with a `X-Scope-OrgID` header.
@@ -135,7 +133,7 @@ remote-write:
   enabled: true
   targets:
     phlare:
-      address: http://user:pass@phlare:4100/pyroscope
+      address: http://user:pass@phlare:4100/
       headers:
         X-Scope-OrgID: "..."
 ```
