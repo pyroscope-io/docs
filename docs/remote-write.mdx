@@ -123,20 +123,22 @@ remote-write:
 Starting with [weekly-f8](https://hub.docker.com/r/grafana/phlare/tags) you can ingest pyroscope profiles directly to phlare.
 You can do remote write from pyroscope to phlare as well. 
 
-You can add basic auth to remote write requests with either `user:pass@` in the target address url or with an extra `Authorization` header.
-
-Multi-tenancy is also supported with a `X-Scope-OrgID` header.
-
-
 ```yaml
 remote-write:
   enabled: true
   targets:
     phlare:
-      address: http://user:pass@phlare:4100/
-      headers:
-        X-Scope-OrgID: "..."
+      address: "<URL>"
+      basic-auth-user: "<User>"
+      basic-auth-password: "<Password>"
+      scope-org-id: "<TenantID>"
 ```
+
+To configure .NET integration to send data to Phlare, replace the `<URL>` placeholder with the appropriate server URL. This could be the grafana.com Phlare URL or your own custom Phlare server URL.
+
+If you need to send data to grafana.com, you'll have to configure HTTP Basic authentication. Replace `<User>` with your grafana.com stack user and `<Password>` with your grafana.com API key.
+
+If your Phlare server has multi-tenancy enabled, you'll need to configure a tenant ID. Replace `<TenantID>` with your Phlare tenant ID.
 
       
 
