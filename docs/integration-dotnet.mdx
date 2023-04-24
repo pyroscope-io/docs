@@ -133,6 +133,15 @@ Pyroscope.Profiler.Instance.SetContentionTrackingEnabled(enabled);
 Pyroscope.Profiler.Instance.SetExceptionTrackingEnabled(enabled);
 ```
 
+It is possible to dynamically change auth tokens.
+
+```java
+// Set Authorization Bearer token. Clear any previously set Authorization tokens.
+Pyroscope.Profiler.Instance.SetAuthToken(token);
+// Set Authorization Basic username and password. Clear any previously set Authorization tokens.
+Pyroscope.Profiler.Instance.SetBasicAuth(basicAuthUser, BasicAuthPassword);
+```
+
 Here is a simple [example](https://github.com/grafana/pyroscope/blob/main/examples/dotnet/rideshare/example/Program.cs) exposing this APIs as an http endpoint.
 
 ### Configuration
