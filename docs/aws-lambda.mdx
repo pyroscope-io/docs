@@ -26,14 +26,17 @@ Next, set up a remote address via environment variables where the extension will
 
 The extension is configured via Environment Variables:
 
-| env var                    | default                          | description                                    |
-| -------------------------- | -------------------------------- | ---------------------------------------------- |
-| `PYROSCOPE_REMOTE_ADDRESS` | `https://ingest.pyroscope.cloud` | the pyroscope instance data will be relayed to |
-| `PYROSCOPE_AUTH_TOKEN`     | `""`                             | authorization key (token authentication)       |
-| `PYROSCOPE_SELF_PROFILING` | `false`                          | whether to profile the extension itself or not |
-| `PYROSCOPE_LOG_LEVEL`      | `info`                           | `error` or `info` or `debug` or `trace`        |
-| `PYROSCOPE_TIMEOUT`        | `10s`                            | http client timeout ([go duration format](https://pkg.go.dev/time#Duration))      |
-| `PYROSCOPE_NUM_WORKERS`    | `5`                              | num of relay workers, pick based on the number of profile types |
+| env var                         | default                          | description                                    |
+| ------------------------------- | -------------------------------- | ---------------------------------------------- |
+| `PYROSCOPE_REMOTE_ADDRESS`      | `https://ingest.pyroscope.cloud` | the pyroscope instance data will be relayed to |
+| `PYROSCOPE_AUTH_TOKEN`          | `""`                             | authorization key (token authentication)       |
+| `PYROSCOPE_SELF_PROFILING`      | `false`                          | whether to profile the extension itself or not |
+| `PYROSCOPE_LOG_LEVEL`           | `info`                           | `error` or `info` or `debug` or `trace`        |
+| `PYROSCOPE_TIMEOUT`             | `10s`                            | http client timeout ([go duration format](https://pkg.go.dev/time#Duration))      |
+| `PYROSCOPE_NUM_WORKERS`         | `5`                              | num of relay workers, pick based on the number of profile types |
+| `PYROSCOPE_SCOPE_ORGID`         | `""`                             | phlare tenant ID, passed as X-Scope-OrgID http header                                      |
+| `PYROSCOPE_BASIC_AUTH_USER`     | `""`                             | HTTP Basic authentication user |
+| `PYROSCOPE_BASIC_AUTH_PASSWORD` | `""`                             | HTTP Basic authentication password |
 
 
 
@@ -58,4 +61,21 @@ func main() {
 ## What are the use cases?
 Once you've completed the above steps, you'll be able to use the Pyroscope UI to analyze data surrounding your lambda function and make optimizations accordingly.
 To learn more about the use case for the extension, check out the [Pyroscope AWS Lambda Extension blogpost](/blog/profile-aws-lambda-functions).
+
+## Sending data to Phlare with Pyroscope AWS Lambda Extension
+
+Starting with [weekly-f8](https://hub.docker.com/r/grafana/phlare/tags) you can ingest pyroscope profiles directly to phlare.
+
+```bash
+PYROSCOPE_REMOTE_ADDRESS="<URL>"
+PYROSCOPE_BASIC_AUTH_USER="<User>"
+PYROSCOPE_BASIC_AUTH_PASSWORD="<Password>"
+PYROSCOPE_SCOPE_ORGID="<TenantID>"
+```
+
+To configure AWS Lambda Extension to send data to Phlare, replace the `<URL>` placeholder with the appropriate server URL. This could be the grafana.com Phlare URL or your own custom Phlare server URL.
+
+If you need to send data to grafana.com, you'll have to configure HTTP Basic authentication. Replace `<User>` with your grafana.com stack user and `<Password>` with your grafana.com API key.
+
+If your Phlare server has multi-tenancy enabled, you'll need to configure a tenant ID. Replace `<TenantID>` with your Phlare tenant ID.
 
