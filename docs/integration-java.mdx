@@ -10,7 +10,7 @@ keywords: [ pyroscope, java, javaspy, profiling, async-profiler ]
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
-import {exampleMaven, exampleGradle, examplePlainJava, exampleSpringFramework} from '../src/javaCodeBlocks';
+import {exampleMaven, exampleGradle, examplePlainJava, exampleSpringFramework, examplePhlareJavaCode, examplePhlareJavaagent} from '../src/javaCodeBlocks';
 import CodeBlock from '@theme/CodeBlock';
 
 
@@ -121,11 +121,15 @@ Java integration supports JFR format to be able to support multiple events (JFR 
 * `PYROSCOPE_PROFILER_EVENT` sets the profiler event. With JFR format enabled, this event refers to one of the possible CPU profiling events: `itimer`, `cpu`, `wall`. The default is `itimer`.
 * `PYROSCOPE_PROFILER_ALLOC` sets the allocation threshold to register the events, in bytes (equivalent to `--alloc=` in `async-profiler`). The default value is "" - empty string, which means that allocation profiling is disabled. Setting it to `0` will register all the events.
 * `PYROSCOPE_PROFILER_LOCK` sets the lock threshold to register the events, in nanoseconds (equivalent to `--lock=` in `async-profiler`). The default value is "" - empty string, which means that lock profiling is disabled. Setting it to `0` will register all the events.
-* `PYROSCOPE_CONFIGURATION_FILE` sets an additional properties configuration file. The default value is `pyroscope.properties`.
-* `PYROSCOPE_LABELS` sets static labels in the form of comma separated `key=value` pairs. The default value is `""` - enpty string, no labels.
 
 There are some extra configuration options:
 
+* `PYROSCOPE_CONFIGURATION_FILE` sets an additional properties configuration file. The default value is `pyroscope.properties`.
+* `PYROSCOPE_BASIC_AUTH_USER` HTTP Basic authentication username. The default value is `""` - empty string, no authentication.
+* `PYROSCOPE_BASIC_AUTH_PASSWORD` HTTP Basic authentication password. The default value is `""` - empty string, no authentication.
+* `PYROSCOPE_SCOPE_ORGID` phlare tenant ID, passed as X-Scope-OrgID http header. The default value is `""` - empty string, no tenant ID.
+* `PYROSCOPE_HTTP_HEADERS` extra http headers in json format, for example: `{"X-Header": "Value"}`. The default value is `{}` - no extra headers.
+* `PYROSCOPE_LABELS` sets static labels in the form of comma separated `key=value` pairs. The default value is `""` - empty string, no labels.
 * `PYROSCOPE_LOG_LEVEL` determines the level of verbosity for Pyroscope's logger. Available options include `debug`, `info`, `warn`, and `error`. The default value is set to `info`.
 * `PYROSCOPE_PUSH_QUEUE_CAPACITY` specifies the size of the ingestion queue that temporarily stores profiling data in memory during network outages. It is recommended to keep this queue size reasonably small, and the default value is set to 8.
 * `PYROSCOPE_INGEST_MAX_TRIES` sets the maximum number of times to retry an ingestion API call in the event of failure. A value of -1 indicates that the retries will continue indefinitely. The default value is set to 8.
@@ -156,6 +160,30 @@ PyroscopeAgent.start(new Config.Builder()
     .build()
 );
 ```
+## Sending data to Phlare with Pyroscope java integration
+
+Starting with [weekly-f8](https://hub.docker.com/r/grafana/phlare/tags) you can ingest pyroscope profiles directly to phlare.
+
+<Tabs
+  defaultValue="code"
+  values={[
+    {label: 'From code', value: 'code'},
+    {label: 'As javaagent', value: 'javaagent'},
+  ]}>
+    <TabItem value="code">
+      <CodeBlock className="language-java">{examplePhlareJavaCode}</CodeBlock>
+    </TabItem>
+    <TabItem value="javaagent">
+      <CodeBlock className="language-bash">{examplePhlareJavaagent}</CodeBlock>
+    </TabItem>
+</Tabs>
+
+To configure java integration to send data to Phlare, replace the `<URL>` placeholder with the appropriate server URL. This could be the grafana.com Phlare URL or your own custom Phlare server URL.
+
+If you need to send data to grafana.com, you'll have to configure HTTP Basic authentication. Replace `<User>` with your grafana.com stack user and `<Password>` with your grafana.com API key.
+
+If your Phlare server has multi-tenancy enabled, you'll need to configure a tenant ID. Replace `<TenantID>` with your Phlare tenant ID.
+
 
 ### Java profiling examples
 
