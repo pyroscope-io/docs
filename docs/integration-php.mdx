@@ -85,7 +85,7 @@ services:
       - "server"
   app:
     image: "my-app:latest"
-    env:
+    environment:
       PYROSCOPE_SERVER_ADDRESS: http://pyroscope-server:4040
       PYROSCOPE_APPLICATION_NAME: my.php.app
     cap_add:
