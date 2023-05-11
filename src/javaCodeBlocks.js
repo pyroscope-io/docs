@@ -48,7 +48,7 @@ export const examplePhlareJavaCode = `PyroscopeAgent.start(
     .setBasicAuthUser("<User>")
     .setBasicAuthPassword("<Password>")
     // Optional Phlare tenant ID
-    .setScopeOrgID("<TenantID>")
+    .setTenantID("<TenantID>")
     .build()
 );
 `
@@ -60,6 +60,6 @@ export PYROSCOPE_SERVER_ADDRESS=<URL>
 export PYROSCOPE_BASIC_AUTH_USER=<User>
 export PYROSCOPE_BASIC_AUTH_PASSWORD=<Password>
 # Optional Phlare tenant ID
-export PYROSCOPE_SCOPE_ORGID=<TenantID>
+export PYROSCOPE_TENANT_ID=<TenantID>
 java -javaagent:pyroscope.jar -jar app.jar
 `
