@@ -34,7 +34,7 @@ The extension is configured via Environment Variables:
 | `PYROSCOPE_LOG_LEVEL`           | `info`                           | `error` or `info` or `debug` or `trace`        |
 | `PYROSCOPE_TIMEOUT`             | `10s`                            | http client timeout ([go duration format](https://pkg.go.dev/time#Duration))      |
 | `PYROSCOPE_NUM_WORKERS`         | `5`                              | num of relay workers, pick based on the number of profile types |
-| `PYROSCOPE_SCOPE_ORGID`         | `""`                             | phlare tenant ID, passed as X-Scope-OrgID http header                                      |
+| `PYROSCOPE_TENANT_ID`           | `""`                             | phlare tenant ID, passed as X-Scope-OrgID http header                                      |
 | `PYROSCOPE_BASIC_AUTH_USER`     | `""`                             | HTTP Basic authentication user |
 | `PYROSCOPE_BASIC_AUTH_PASSWORD` | `""`                             | HTTP Basic authentication password |
 
