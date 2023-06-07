@@ -59,7 +59,7 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                         <div className={styles.githubButtonWrapper}>
                             <GitHubButton href="https://github.com/pyroscope-io/pyroscope" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star pyroscope-io/pyroscope on GitHub">Star</GitHubButton>
                         </div>
-                        <GetStartedButton />
+                        <GetStartedButton href="https://grafana.com/auth/sign-up/create-user?src=pyroscope&cnt=hp" />
                     </div>
                     <ToggleMenuButton onClick={() => setIsOpen((prevState) => !prevState)} />
                 </div>
@@ -68,7 +68,7 @@ const HeadSection = ({ isOpenMenu, setIsOpen }) => {
                         <h1 className={styles.appTitle}>Open Source <br />Continuous <br />Profiling</h1>
                         <div className={styles.appSubtitle}>Find and debug your most painful performance issues across code,<br /> infrastructure and CI/CD pipelines</div>
                         <div className={styles.plans}>
-                            <Plan className={styles.preferred} title='Pyroscope Cloud' subTitle='Try it for free' url='https://pyroscope.cloud/signup' />
+                            <Plan className={styles.preferred} title='Pyroscope Cloud NOW on Grafana Cloud' subTitle='Try it for free' url='https://grafana.com/auth/sign-up/create-user?src=pyroscope&cnt=hp' />
                             <Plan title='Pyroscope OSS' subTitle='Use it for free' url='https://github.com/pyroscope-io/pyroscope' />
                         </div>
                     </div>

@@ -1,5 +1,5 @@
-$bg_height: 2300px;
-$bg_height_tablet: 1900px;
+$bg_height: 2300px - 950px;
+$bg_height_tablet: 1900px - 700px;
 
 .sectionWrapper {
   margin-top: -330px;
@@ -34,6 +34,14 @@ $bg_height_tablet: 1900px;
     padding: 0 16px;
     padding-bottom: 0px;
   }
+
+  @media (max-width: 992px) {
+    height: $bg_height;
+  }
+
+  @media (max-width: 675px) {
+    height: $bg_height;
+  }
 }
 
 .background {
@@ -54,7 +62,7 @@ $bg_height_tablet: 1900px;
 
   @media (max-width: 992px) {
     clip-path: polygon(0 9vw, 100% 0%, 100% calc(100% - 9vw), 0% 100%);
-    height: $bg_height_tablet;
+    height: $bg_height;
   }
 
   @media (max-width: 675px) {
@@ -192,8 +200,8 @@ $bg_height_tablet: 1900px;
   z-index: -1;
 
   @media (max-width: 3000px) {
-    top: calc($bg_height - 6%);
-    transform: rotate(-4deg);
+    top: calc($bg_height - 12%);
+    transform: rotate(-6deg);
   }
 
   @media (max-width: 2000px) {

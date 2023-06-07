@@ -64,7 +64,7 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                     <Logo />
                     <HeaderMenu menuItems={headerMenuItems} />
                     <div className={styles.rightSideButtons}>
-                        <GetStartedButton />
+                        <GetStartedButton href="https://grafana.com/auth/sign-up/create-user?src=pyroscope&cnt=pricing" />
                     </div>
                     <ToggleMenuButton onClick={() => setIsOpen((prevState) => !prevState)} />
                 </div>
@@ -93,10 +93,9 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                             Cloud
                         </h3>
                         <p className={clsx([styles.planDescription, styles.cloud])}>
-                            Hosted and fully–managed version of Pyroscope, designed for all your deployment and business needs.
-                            Horizontally scalable and with first-class support for high cardinality data.
+                            Hosted and fully–managed version of Pyroscope, is now available on Grafrana Cloud as Cloud Profiles. Horizontally scalable and with first-class support for high cardinality data
                         </p>
-                        <a target="_blank" className={clsx([styles.chooseButton, styles.cloud])} href="https://pyroscope.cloud/signup">
+                        <a target="_blank" className={clsx([styles.chooseButton, styles.cloud])} href="https://grafana.com/auth/sign-up/create-user?src=pyroscope&cnt=pricing">
                             Sign Up
                         </a>
                     </div>

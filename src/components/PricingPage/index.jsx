@@ -5,6 +5,8 @@ import TheCloudAdvantage from './TheCloudAdvantage';
 import Footer from '../shared/Footer';
 import styles from './styles.module.scss';
 import { Helmet } from "react-helmet";
+import AnnouncementBar from './../../theme/AnnouncementBar';
+import {AnnouncementBarProvider} from '@docusaurus/theme-common';
 
 
 const PricingPage = () => {
@@ -12,6 +14,9 @@ const PricingPage = () => {
 
     return (
         <>
+            <AnnouncementBarProvider>
+                <AnnouncementBar/>
+            </AnnouncementBarProvider>
             <Helmet>
                 <title>Pricing Pyroscope | Open Source Continuous Profiling Platform</title>
                 <meta name="description" content='Pricing Pyroscope | Open Source Continuous Profiling Platform' />
