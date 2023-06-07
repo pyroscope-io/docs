@@ -1,9 +1,9 @@
 import React from 'react';
 import styles from './styles.module.scss';
 
-const GetStartedButton = () => (
+const GetStartedButton = ({ href }) => (
     <a
-        href="https://pyroscope.cloud/signup"
+        href={href}
         target="_blank"
         className={styles.getStartedButton}
     >

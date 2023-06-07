@@ -28,17 +28,17 @@ const TheCloudAdvantage = () => {
                     <Advantage title="Grows with you" description="Write millions of profiles per second. Store hundreds of billions of individual profiles." icon={GrowsIcon} />
                     <Advantage title="Enterprise-ready" description="AWS PrivateLink, SOC2 compliance." icon={EnterpriseIcon} />
                 </div>
-                <h2 className={clsx([styles.sectionTitle, styles.comparePlans])}>
-                    Compare Plans
-                </h2>
                 <div className={styles.stripes}>
                     <div className={styles.blueStripe} />
                     <div className={styles.orangeStripe} />
                 </div>
+                {/* <h2 className={clsx([styles.sectionTitle, styles.comparePlans])}>
+                    Compare Plans
+                </h2>
                 <p className={styles.sectionSubtitle}>
                     Start with a hobby project, collaborate with a team, and scale to thousands of applications
-                </p>
-                <PlansTable />
+                </p> */}
+                {/* <PlansTable /> */}
             </div>
         </SectionWrapper>
     )
