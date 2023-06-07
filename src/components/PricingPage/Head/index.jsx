@@ -93,7 +93,7 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                             Cloud
                         </h3>
                         <p className={clsx([styles.planDescription, styles.cloud])}>
-                            Hosted and fully–managed version of Pyroscope, is now available on Grafrana Cloud as Cloud Profiles. Horizontally scalable and with first-class support for high cardinality data
+                            Hosted and fully–managed version of Pyroscope, is now available on Grafana Cloud as Grafana Cloud Profiles. Horizontally scalable and with first-class support for high cardinality data
                         </p>
                         <a target="_blank" className={clsx([styles.chooseButton, styles.cloud])} href="https://grafana.com/auth/sign-up/create-user?src=pyroscope&cnt=pricing">
                             Sign Up
