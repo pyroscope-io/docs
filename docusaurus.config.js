@@ -84,7 +84,7 @@ module.exports = {
     },
     announcementBar: {
       id: 'news',
-      content: '<strong>NEWS:</strong> Pyroscope Cloud is NOW Grafana Cloud Profiles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="button" style="text-decoration: none;" target="_blank" href="https://grafana.com/blog/2023/06/07/continuous-profiling-now-in-public-preview-in-grafana-cloud">Read more</a>',
+      content: '<strong>NEWS:</strong> Pyroscope Cloud is NOW Grafana Cloud Profiles &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="button" style="text-decoration: none;" target="_blank" href="https://grafana.com/blog/2023/08/09/grafana-cloud-profiles-for-continuous-profiling/">Read more</a>',
       backgroundColor: '#D14600', // Defaults to `#fff`
       textColor: 'white', // Defaults to `#000`
     },
