@@ -20,6 +20,10 @@ build: install build-info
 generate-pdfs: invalidate-cache
 	ruby generate-pdfs.rb
 
+.PHONY: create-redirects
+create-redirects:
+	ruby create-redirects.rb
+
 .PHONY: slack-url
 slack-url:
 	aws s3api put-object --bucket pyroscope.io --key slack/index.html --body static/slack/index.html --website-redirect-location ${SLACK_INVITE_URL}
@@ -42,9 +46,6 @@ invalidate-cache:
 deploy:
 	$(MAKE) build
 	$(MAKE) upload
+	$(MAKE) create-redirects
 	$(MAKE) slack-url
-	$(MAKE) invalidate-cache
-
-	$(MAKE) generate-pdfs
-	$(MAKE) upload
 	$(MAKE) invalidate-cache
