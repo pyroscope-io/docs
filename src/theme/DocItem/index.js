@@ -85,7 +85,7 @@ export default function DocItem(props) {
   In September 2023, <code>Grafana Pyroscope v1.0.0</code> was released.
 </p>
   <p>
-    We're keeping old documentation for the time being, but we recommend that you switch to the new <a href="https://grafana.com/docs/pyroscope/latest/">Grafana Pyroscope Docs</a> for most up-to-date documentation.
+  This documentation covers Pyroscope versions preceding <code>v1.0.0</code>. We're keeping it for the time being, but we recommend that you upgrade to <a href="https://grafana.com/docs/pyroscope/next/upgrade-guide/">Grafana Pyroscope v1.0.0 or higher</a> and switch to the new <a href="https://grafana.com/docs/pyroscope/latest/">Grafana Pyroscope Docs</a> for most up-to-date documentation.
 </p>
 </div></div>
                 {/*
