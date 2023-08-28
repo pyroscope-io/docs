@@ -35,11 +35,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      # For PRs we just build
-      # for merges we deploy
-      - name: build
-        if: ${{ github.event_name == 'pull_request' }}
-        run: make build
       - name: deploy
         if: ${{ github.event_name != 'pull_request' }}
         run: make deploy
