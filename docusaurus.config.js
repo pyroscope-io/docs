@@ -35,12 +35,12 @@ module.exports = {
       appUrl: "https://app.posthog.com",  // optional
       enableInDevelopment: false,  // optional
     },
-    algolia: {
-      apiKey: '36ebff722c41a8fb7d1b11b4abcc980c',
-      indexName: 'pyroscope',
-      contextualSearch: false,
-      searchParameters: {},
-    },
+    // algolia: {
+    //   apiKey: '36ebff722c41a8fb7d1b11b4abcc980c',
+    //   indexName: 'pyroscope',
+    //   contextualSearch: false,
+    //   searchParameters: {},
+    // },
     googleAnalytics: {
       trackingID: 'UA-185672451-1'
     },
