@@ -56,14 +56,14 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
+          href: "https://grafana.com/docs/pyroscope/latest/",
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://pyroscope.io/slack/',
+          href: 'https://slack.grafana.com/',
           icon: "/img/navbar/slack.svg",
           label: 'Slack',
           position: 'right',
