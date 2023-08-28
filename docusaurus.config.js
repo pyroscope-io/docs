@@ -57,7 +57,6 @@ module.exports = {
       items: [
         {
           href: "https://grafana.com/docs/pyroscope/latest/",
-          activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',
         },
@@ -96,15 +95,15 @@ module.exports = {
           items: [
             {
               label: 'Getting Started',
-              to: 'docs',
+              href: "https://grafana.com/docs/pyroscope/latest/",
             },
             {
               label: 'Downloads',
-              to: 'downloads',
+              href: 'https://github.com/grafana/pyroscope/releases',
             },
             {
               label: 'Deployment Guide',
-              to: 'docs/deployment',
+              href: 'https://grafana.com/docs/pyroscope/next/deploy-kubernetes/',
             },
           ],
         },
