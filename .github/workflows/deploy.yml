@@ -35,23 +35,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - uses: actions/checkout@v3
-        with:
-          repository: 'pyroscope-io/docs-private'
-          ref: 'master'
-          path: 'docs-private'
-          token: ${{ secrets.DOCS_PRIVATE_ACCESS_TOKEN }}
-      - name: copy Makefile
-        run: mv docs-private/Makefile Makefile
-      - name: copy generate-pdfs.rb
-        run: mv docs-private/generate-pdfs.rb generate-pdfs.rb
-      - name: copy extra-plugins.js
-        run: mv docs-private/extra-plugins.js extra-plugins.js
-      # For PRs we just build
-      # for merges we deploy
-      - name: build
-        if: ${{ github.event_name == 'pull_request' }}
-        run: make build
       - name: deploy
         if: ${{ github.event_name != 'pull_request' }}
         run: make deploy

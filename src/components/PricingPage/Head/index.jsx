@@ -17,7 +17,7 @@ import RightPath from '/img/pricing/path85.svg';
 const headerMenuItems = [
     {
         label: 'Docs',
-        url: '/docs/'
+        url: 'https://grafana.com/docs/pyroscope/latest/'
     },
     {
         label: 'Pricing',
@@ -31,7 +31,7 @@ const headerMenuItems = [
         label: 'Community',
         items: [{
             label: 'Slack',
-            url: '/slack/'
+            url: 'https://slack.grafana.com/'
         }, {
             label: 'GitHub',
             url: 'https://github.com/pyroscope-io/pyroscope'
@@ -83,7 +83,7 @@ const Head = ({ isOpenMenu, setIsOpen }) => {
                         <p className={clsx([styles.planDescription, styles.oss])}>
                             Leading continuous profiling database optimized for throughput and minimizing storage costs.
                         </p>
-                        <a href="/downloads/" className={clsx([styles.chooseButton, styles.oss])}>Download</a>
+                        <a href="https://github.com/grafana/pyroscope/releases" className={clsx([styles.chooseButton, styles.oss])}>Download</a>
                     </div>
                     <div className={clsx([styles.plan, styles.cloud])}>
                         <BgSphere className={styles.bgSphere} />

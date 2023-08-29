@@ -35,12 +35,12 @@ module.exports = {
       appUrl: "https://app.posthog.com",  // optional
       enableInDevelopment: false,  // optional
     },
-    algolia: {
-      apiKey: '36ebff722c41a8fb7d1b11b4abcc980c',
-      indexName: 'pyroscope',
-      contextualSearch: false,
-      searchParameters: {},
-    },
+    // algolia: {
+    //   apiKey: '36ebff722c41a8fb7d1b11b4abcc980c',
+    //   indexName: 'pyroscope',
+    //   contextualSearch: false,
+    //   searchParameters: {},
+    // },
     googleAnalytics: {
       trackingID: 'UA-185672451-1'
     },
@@ -56,14 +56,13 @@ module.exports = {
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
+          href: "https://grafana.com/docs/pyroscope/latest/",
           label: 'Docs',
           position: 'left',
         },
         {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://pyroscope.io/slack/',
+          href: 'https://slack.grafana.com/',
           icon: "/img/navbar/slack.svg",
           label: 'Slack',
           position: 'right',
@@ -96,15 +95,15 @@ module.exports = {
           items: [
             {
               label: 'Getting Started',
-              to: 'docs',
+              href: "https://grafana.com/docs/pyroscope/latest/",
             },
             {
               label: 'Downloads',
-              to: 'downloads',
+              href: 'https://github.com/grafana/pyroscope/releases',
             },
             {
               label: 'Deployment Guide',
-              to: 'docs/deployment',
+              href: 'https://grafana.com/docs/pyroscope/next/deploy-kubernetes/',
             },
           ],
         },
