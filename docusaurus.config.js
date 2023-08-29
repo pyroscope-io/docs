@@ -103,7 +103,7 @@ module.exports = {
             },
             {
               label: 'Deployment Guide',
-              href: 'https://grafana.com/docs/pyroscope/next/deploy-kubernetes/',
+              href: 'https://grafana.com/docs/pyroscope/latest/deploy-kubernetes/',
             },
           ],
         },

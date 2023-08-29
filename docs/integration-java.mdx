@@ -73,14 +73,14 @@ Then add the following code to your application:
     </TabItem>
 </Tabs>
 
-You can also optionally replace some pyroscope components 
+You can also optionally replace some pyroscope components
 
 ```java
 PyroscopeAgent.start(
   new PyroscopeAgent.Options.Builder(config)
     .setExporter(snapshot -> {
       // Your custom export/upload logic may go here
-      // It is invoked every 10 seconds by default with snapshot of 
+      // It is invoked every 10 seconds by default with snapshot of
       // profiling data
     })
     .setLogger((l, msg, args) -> {
@@ -111,7 +111,7 @@ java -javaagent:pyroscope.jar -jar app.jar
 
 ### Configuration
 
-When you start pyroscope as javaagent or obtain configuration by `Config.build()` pyroscope searches 
+When you start pyroscope as javaagent or obtain configuration by `Config.build()` pyroscope searches
 for configuration in multiple sources: system properties, environment variables, pyroscope.properties file. Properties keys has same name as environment variables, but lowercased and replaced `_` with `.`, so `PYROSCOPE_FORMAT` becomes `pyroscope.format`
 
 
@@ -188,9 +188,9 @@ If your Phlare server has multi-tenancy enabled, you'll need to configure a tena
 ### Java profiling examples
 
 Check out the following resources to learn more about Java profiling:
-- [Java examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/java-jfr/rideshare)
+- [Java examples](https://github.com/pyroscope-io/pyroscope/tree/main/examples/java/rideshare)
 - [Java Demo](https://demo.pyroscope.io/?query=rideshare-app-java.itimer%7B%7D) showing Java example with tags
-- [Java blog post](https://github.com/pyroscope-io/pyroscope/tree/main/examples/java-jfr/rideshare#readme)
+- [Java blog post](https://github.com/pyroscope-io/pyroscope/tree/main/examples/java/rideshare#readme)
 
 <Flamegraph profileData={JavaNative}></Flamegraph>
 
