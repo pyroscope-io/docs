@@ -31,7 +31,7 @@ There are 2 options: increase the disk and free some data.
 
 #### Free some data
 :::warning
-We don't guarantee pyroscope will be able to deal with this correctly. Only use this as a last resort. Preferrably do a backup first. 
+We don't guarantee pyroscope will be able to deal with this correctly. Only use this as a last resort. Preferrably do a backup first.
 :::
 
 It depends on where you are running, for kubernetes you can overwrite the Deployment's [`args` to run a dummy command](https://github.com/pyroscope-io/helm-chart/blob/bfe876922f6970dc8ccf38c558957de76ce746eb/chart/pyroscope/templates/deployment.yaml#L32-L35) (like `sleep infinity`).
