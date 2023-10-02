@@ -6,13 +6,13 @@ JSON.parse(File.read("redirects.json")).each_pair do |from, to|
   # normalize it first
   from = from.sub(/^\//, "").sub(/\/$/, "")
   # add slash unless this is root
-  from = "#{from}/" unless from == ""
+  key = [from, "index.html"].reject { |x| x == "" }.join("/")
 
   puts "Redirect 301 #{from} #{to}"
   system(
     "aws", "s3api", "put-object",
     "--bucket", "pyroscope.io",
-    "--key", "#{from}index.html",
+    "--key", key,
     "--body", "static/slack/index.html",
     "--website-redirect-location", to)
 end
