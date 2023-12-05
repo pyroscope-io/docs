@@ -126,7 +126,7 @@ With just a few lines of code we can adjust these prompts (or allow users to adj
 
 ## Your Turn: Experience the AI Revolution!
 
-It's worth noting that, the flamegraph used for this post is a current representation of our distributor. As you can see, our distributors have bottlnecks in two notorious tasks that most companies are likely not doing perfectly either: [regular expressions](https://github.com/grafana/pyroscope/blob/0cf0bcaf4febe9c611ef3bf7782492735b1ae9ed/pkg/pprof/pprof.go#L1122-L1132) which is technically the bottlneck, but compression is also acceptable (fixes comoing soon!). 
+It's worth noting that, the flamegraph used for this post is a current representation of our distributor. As you can see, our distributors have bottlnecks in two notorious tasks that most companies are likely not doing perfectly either: [regular expressions](https://github.com/grafana/pyroscope/blob/0cf0bcaf4febe9c611ef3bf7782492735b1ae9ed/pkg/pprof/pprof.go#L1122-L1132) which is technically the bottlneck, but [compression/parsing](https://github.com/grafana/pyroscope/blob/731f434bfa33b626437195ee564f0f87b19e1e84/pkg/distributor/distributor.go#L245-L347) is also an acceptable answer for bottlneck (fixes comoing soon!). 
 
 However, while AI was successful in analyzing _this particular_ flamegraph, there are probably 51,331,542 more cases where AI fails (or succeeds) spectacularly and **we'd love for you to find and share real examples with us!**
 
