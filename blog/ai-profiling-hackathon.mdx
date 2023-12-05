@@ -48,7 +48,7 @@ Before diving into AI’s capabilities, let's set a baseline. Here’s a flamegr
 
 <Flamegraph profileData={DistributorCpu}></Flamegraph>
 
-This is where many face challenges, particularly beginners. But understanding these flamegraphs is key to simplifying them.
+This is where many face challenges, particularly beginners. But understanding these flamegraphs is key to simplifying the code that powers them.
 
 ## AI’s Flamegraph Interpretation: An Eye-Opening Comparison
 
@@ -126,14 +126,17 @@ With just a few lines of code we can adjust these prompts (or allow users to adj
 
 ## Your Turn: Experience the AI Revolution!
 
-It's worth noting that, the flamegraph used for this post is a current representation of our distributor. As you can see, our distributors are struggling with two notorious tasks that most companies are likely not doing perfectly either: compression and regular expressions (fixes comoing soon!). 
+It's worth noting that, the flamegraph used for this post is a current representation of our distributor. As you can see, our distributors have bottlnecks in two notorious tasks that most companies are likely not doing perfectly either: [regular expressions](https://github.com/grafana/pyroscope/blob/0cf0bcaf4febe9c611ef3bf7782492735b1ae9ed/pkg/pprof/pprof.go#L1122-L1132) which is technically the bottlneck, but compression is also acceptable (fixes comoing soon!). 
 
 However, while AI was successful in analyzing _this particular_ flamegraph, there are probably 51,331,542 more cases where AI fails (or succeeds) spectacularly and **we'd love for you to find and share real examples with us!**
 
 ### How to use our AI-powered flamegraph interpreter on your own flamegraphs
 
 To try it on your own profiles/flamegraphs you have three options:
-1. **Upload to Flamegraph.com:** Upload file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) (we will be adding support for multiple profiles soon) and click the "ai explainer" button
+1. **Upload to Flamegraph.com:** Upload `pprof` file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) (we will be adding support for multiple profiles soon) and click the "ai explainer" button. You can get a pprof file from _any_ language if you're using Pyroscope's export button
+
+![image](https://github.com/grafana/pyroscope/assets/23323466/500b94d8-e003-4fe5-89ef-d17530e2fe8b)
+
 2. **Upload to Grafana Cloud:** Send profiling data to [Grafana Cloud Profiles](https://grafana.com/auth/sign-up/create-user?pg=pyroscope-ai-blog) and look at the Cloud profiles app (you can sign up for a free account) and click the "ai explainer" button
 3. **Wait a bit:** Wait until we release an open source version of this tool (pending positive feedback from the community)
 
