@@ -23,7 +23,7 @@ const MDXRenderer = ({ mdxContent }) => {
 
 const Container = ({ children }) => {
   return <div style={{
-    background: '#ffba00A5',
+    background: '#8025ff',
     borderRadius: '0.5rem',
     padding: '1rem',
   }}>{children}</div>;
@@ -62,6 +62,9 @@ export const OpenAI = ({response}) => {
     { !explain && <Link disabled={explain} className="button button--warning" style={{
       width: '100%',
       marginBottom: '1rem',
+      background: '#8025ff',
+      borderColor: '#8025ff',
+      color: '#fff',
     }}
     onClick={() => setExplain(true)}
     >Explain this FlameGraph</Link>}
