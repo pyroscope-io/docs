@@ -21,7 +21,7 @@ import {OpenAI} from '../src/components/Blog/OpenAI';
 import {DistributorCpu} from '../src/components/Blog/DistributorCpu';
 import {Flamegraph} from '../src/components/Blog/Flamegraph';
 
-import {Response1} from '../src/components/Blog/OpenAI';
+import {Response1, BaseResponse, BeginnerResponse, PoemResponse, CustomerSuccessResponse, SpanishResponse, ITDepartmentHumorResponse, HackerNewsThreadResponse, MichaelScottExplainsResponse} from '../src/components/Blog/OpenAI';
 
 # AI-Powered Flamegraph Interpreter: Our Grafana Hackathon Project
 
@@ -57,9 +57,9 @@ In reality, these flamegraphs are not always easy for people to interpret. They 
 
 Now for the fun part: let's see how our AI interprets this same flamegraph. We use a prompt that is roughly equivalent to the questions above.
 
-Just click the button below to see the AI's interpretation of the flamegraph below.
+### Click the button to see the AI's interpretation of the flamegraph below
 
-<OpenAI response={Response1}/>
+<OpenAI response={BaseResponse}/>
 <Flamegraph profileData={DistributorCpu}></Flamegraph>
 
 It was given a similar prompt to the questions above:
@@ -73,8 +73,6 @@ interpret this flamegraph for me and answer the following three questions:
 ```
 
 How does its analysis stack up against yours? Statistically it probably did either better or worse than you (obviously)...
-
-
 
 ## Bots vs. Brains: Who Scores Higher on Flamegraph Interpretation?
 
@@ -117,17 +115,34 @@ While we still have the rest of the week to tweak our project for the Hackathon,
 
 It only takes using a flamegraph successfully once to really move from the `beginner` to `advanced` category. The thing is, from a product standpoint our biggest challenge has been building a user-experience that can span from `beginner` to `expert` and still be useful for both.
 
-However, with just a little bit of prompt engineering we can use AI to bridge this gap and provide a more tailored experience for each user. Beginners will easily jump from `beginner` to `advanced` and `advanced` users will quickly move into `expert` territory after learning from the AI over the course of a few flamegraphs. Even `expert` users can benefit from the AI by using it as a "sanity check" to make sure they didn't miss anything.
+However, with just a little bit of prompt engineering we can use AI to bridge this gap and provide and **endless array of tailored experiences for each user**. 
+
+### Explain the flamegraph to a beginner with no flamegraph knowledge...
+<OpenAI response={BeginnerResponse}/>
+
+### Explain the flamegraph in the form of a HN thread...
+<OpenAI response={HackerNewsThreadResponse}/>
+
+### Explain the flamegraph in the form of IT department humor...
+<OpenAI response={ITDepartmentHumorResponse}/>
+
+### Explain the flamegraph in the form of a poem...
+<OpenAI response={PoemResponse}/>
+
+### Explain the flamegraph in the form of a Michael Scott quote...
+<OpenAI response={MichaelScottExplainsResponse}/>
+
+While most of these are clearly just for fun, in reality we can adjust these prompts (or allow users to adjust them) to guide everyone from `beginner` to `expert` through the same flamegraph analysis and provide a tailored experience for each user (it even translates to other languages!). 
 
 ## Try It Out on your own flamegraphs (any language) and Share Your Feedback!
 
-It's worth noting that, the flamegraph used for this post is real. It represents our distributors, which as you can see are struggling with two notorious tasks that most companies are likely not doing perfectly either: 
+It's worth noting that, the flamegraph used for this post is a current representation of our distributor. As you can see are struggling with two notorious tasks that most companies are likely not doing perfectly either: 
 - compression
 - regular expressions
 
-However, while AI was successful in analyzing this flamegraph, there are probably 51,331,542 cases where AI fails spectacularly and **we want you to find and share everyone one of them**. 
+Even many companies who have adopted continuous profiling still struggle with taking the time to uncover insights like these, but with AI we can releive some of this burden.
 
-This is how far we got with just 2 days of work, if you still believe the flamegraphs explanations are not valuable it's possible that with a few more weeks of dedicated effort we could drastically improve the insights -- we jut need to know what you want to see!
+However, while AI was successful in analyzing _this particular_ flamegraph, there are probably 51,331,542 more cases where AI fails spectacularly and **we'd love for you to find and share them with us!**
 
 To try it on your own profiles/flamegraphs you have two options:
 1. Upload file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) (we will be adding support for multiple profiles soon) and click the "ai explainer" button
