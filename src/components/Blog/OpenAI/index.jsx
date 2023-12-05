@@ -15,10 +15,23 @@ export const Response1 = `Alright, let's go through this profiling data and see 
 
 // import {evaluate} from '@mdx-js/mdx'
 
-import {marked} from 'marked';
+import { marked } from 'marked';
+
+// Custom renderer
+const renderer = new marked.Renderer();
+
+// Override code block function
+renderer.code = (code, infostring, escaped) => {
+  const inlineStyle = 'style="color: #fff;"'; // Replace #yourColorCode with your color
+  return `<pre ${inlineStyle}><code>${escaped ? code : escape(code, true)}</code></pre>`;
+};
+
+marked.setOptions({ renderer });
+
+// marked.use({ renderer });
 
 const MDXRenderer = ({ mdxContent }) => {
-    return <div className="chat-bubble" dangerouslySetInnerHTML={{ __html: marked.parse(mdxContent) }} >{}</div>;
+  return <div className="chat-bubble" dangerouslySetInnerHTML={{ __html: marked.parse(mdxContent, { renderer: renderer }) }} />;
 };
 
 const Container = ({ children }) => {
@@ -26,6 +39,7 @@ const Container = ({ children }) => {
     background: '#8025ff',
     borderRadius: '0.5rem',
     padding: '1rem',
+    color: '#fff',
   }}>{children}</div>;
 }
 const TypingDelay = ({ text }) => {

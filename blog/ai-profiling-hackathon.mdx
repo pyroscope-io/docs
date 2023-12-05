@@ -1,5 +1,5 @@
 ---
-title: "AI-Powered Flamegraph Interpreter – Our Grafana Hackathon Breakthrough"
+title: "AI-Powered Flamegraph Interpreter – Our Grafana Hackathon Project"
 description: "Explore how our AI-powered tool is revolutionizing flamegraph interpretation"
 sidebar_label: "AI-Powered Flamegraph Interpreter"
 # image: [Placeholder for relevant image URL]
@@ -23,29 +23,29 @@ import {Flamegraph} from '../src/components/Blog/Flamegraph';
 
 import {Response1} from '../src/components/Blog/OpenAI';
 
-# AI-Powered Flamegraph Interpreter – Our Grafana Hackathon Breakthrough
+# AI-Powered Flamegraph Interpreter: Our Grafana Hackathon Project
 
-If you're of the opinion that AI isn't going to solve all the world's problems, you're probably right. And if you think it could, well, you might be onto something too. I'm not here to spark a debate on AI's omnipotence or lack thereof. Instead, let me walk you through an interesting experiment we tried during the Grafana Hackathon with our project, Pyroscope.
+If you're of the opinion that AI isn't going to solve all the world's problems, you're probably right. And if you think it could, well, you might be onto something too. I'm not here to spark a debate on when AI will take over the world...Instead, let me walk you through an interesting experiment we tried during the Grafana Hackathon with our project, Pyroscope.
 
-Here at Pyroscope, we've gotten many requests, both from our team and our users, to sprinkle some AI magic into our flamegraph analysis. It got us thinking: what if AI could actually make a positive impact on UX for continuous profiling?
+Here at Pyroscope, we've gotten many requests to sprinkle some AI magic into our flamegraphs, both from our team and our users. **AI is really bad a at a lot of things**, but one thing it does excel at, arguably better than humans is language-based tasks. 
 
-So when Hackathon week came around, we decided to put our skepticism aside and see exactly how AI stacks up against humans in a notoriously tricky task: flamegraph analysis.
+Interpreting and communicating the contents of a flamegraph in plain english (or other language) seemed like a perfect opportunity to explore if AI could actually make a positive impact on UX for continuous profiling.
 
-Ultimately our goal this week is to answer the question:
+So, when Hackathon week came around, we decided to put our skepticism aside and see exactly how AI stacks up against humans in this notoriously tricky task: flamegraph analysis.
 
-**Can AI positively improve the user experience analyzing and interpretating flamegraphs?**
+Ultimately our goal this week is to answer the question: **Can AI positively improve the user experience analyzing and interpretating flamegraphs?**
 
 We did this by giving humans and AI the same flamegraph and asking them to interpret it. We then compared the results and analyzed the differences.
 
 ## How well can _you_ interpret this flamegraph?
 
-If you'd like to play along, take a look at the flamegraph below and see if you can answer the following questions or if you're just here to enjoy the show skip ahead to the next section.
+If you'd like to play along, take a look at the flamegraph below and see if you can answer the following questions (or if you're just here to enjoy the show skip ahead to the next section).
 
-This general progression of questions is a standard (theoretically) simple workflow of interpreting flamegraphs in continuous profilng tools:
+These are the three key questions in the (theoretically) simple workflow of interpreting flamegraphs in continuous profilng tools:
 
-- **Performance Bottleneck**: Determine what's slowing things down?
-- **Root Cause**: Figure out why is this happening?
-- **Recommended Fix**: Identify how can you can resolve it?
+1. **Performance Bottleneck**: What's slowing things down?
+2. **Root Cause**: Why is this happening?
+3. **Recommended Fix**: How can you can fix it?
 
 <Flamegraph profileData={DistributorCpu}></Flamegraph>
 
@@ -55,6 +55,12 @@ In reality, these flamegraphs are not always easy for people to interpret. They 
 
 Now for the fun part: let's see how our AI interprets this same flamegraph. We use a prompt that is roughly equivalent to the questions above.
 
+Just click the button below to see the AI's interpretation of the flamegraph below.
+
+<OpenAI response={Response1}/>
+<Flamegraph profileData={DistributorCpu}></Flamegraph>
+
+It was given a similar prompt to the questions above:
 ```txt
 interpret this flamegraph for me and answer the following three questions:
 - **Performance Bottleneck**: What's slowing things down?
@@ -63,11 +69,6 @@ interpret this flamegraph for me and answer the following three questions:
 
 [ ... specially compressed flamegraph data ]
 ```
-
-Just click the button below to see the AI's interpretation of the flamegraph below.
-
-<OpenAI response={Response1}/>
-<Flamegraph profileData={DistributorCpu}></Flamegraph>
 
 How does its analysis stack up against yours? Statistically it probably did either better or worse than you (obviously)...
 
@@ -116,7 +117,7 @@ It only takes using a flamegraph successfully once to really move from the `begi
 
 However, with just a little bit of prompt engineering we can use AI to bridge this gap and provide a more tailored experience for each user. Beginners will easily jump from `beginner` to `advanced` and `advanced` users will quickly move into `expert` territory after learning from the AI over the course of a few flamegraphs. Even `expert` users can benefit from the AI by using it as a "sanity check" to make sure they didn't miss anything.
 
-## Try It Out on your own flamgegraphs and Share Your Feedback!
+## Try It Out on your own flamegraphs (any language) and Share Your Feedback!
 
 It's worth noting that, the flamegraph used for this post is real. It represents our distributors, which as you can see are struggling with two notorious tasks that most companies are likely not doing perfectly either: 
 - compression
