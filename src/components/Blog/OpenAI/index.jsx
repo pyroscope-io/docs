@@ -40,20 +40,20 @@ Keep in mind that these recommendations should be tailored to your specific appl
 
 export const BeginnerResponse = `Let's understand the profiling data with an analogy of a busy kitchen in a restaurant:
 
-// Performance Bottleneck
+# Performance Bottleneck
 1. **Performance Bottleneck**: Imagine your program is like a kitchen. The part called \`net/http.HandlerFunc.ServeHTTP\` is like a chef handling too many orders - this is where your program is dealing with requests from the internet. Then there's another chef, \`regexp.(*Regexp).backtrack\`, who is very slow because he's meticulously decorating each dish, representing the detailed text processing in your program.
 
-// Root Cause
+# Root Cause
 2. **Root Cause**: The issue with \`net/http.HandlerFunc.ServeHTTP\` (our busy chef) could be because it's trying to do too much, similar to a kitchen overwhelmed with orders. The \`regexp.(*Regexp).backtrack\` chef is slow due to using time-consuming methods for detailed tasks, akin to using a tiny paintbrush for each detail on a dish.
 
-// Recommended Fix
+# Recommended Fix
 3. **Recommended Fix**: To assist the busy chef (\`net/http.HandlerFunc.ServeHTTP\`), you might need to simplify the menu (streamline how web requests are handled) or add more chefs to the kitchen (scale up your program). For the meticulous chef (\`regexp.(*Regexp).backtrack\`), look for simpler ways to decorate dishes (simplify text processing) or prepare some decorations beforehand (implement caching).
 
 This approach aims to make the busy parts of your program (the chefs) work more efficiently by simplifying tasks or distributing the workload better.`;
 
 export const PoemResponse = `Let's dive into profiling data, but with a twist, in a restaurant's kitchen we can't resist:
 
-// Performance Bottleneck
+# Performance Bottleneck
 1. **Performance Bottleneck**: 
    "In our program's bustling kitchen scene,
    \`net/http.HandlerFunc.ServeHTTP\`, the chef, reigns supreme.
@@ -62,7 +62,7 @@ export const PoemResponse = `Let's dive into profiling data, but with a twist, i
    In adorning each dish with slow, meticulous care,
    Representing text processing done with flair.
 
-// Root Cause
+# Root Cause
 2. **Root Cause**: 
    "Our busy chef, \`ServeHTTP\`, swamped with too much to fry,
    Akin to a kitchen where dishes pile high.
@@ -71,7 +71,7 @@ export const PoemResponse = `Let's dive into profiling data, but with a twist, i
    His method, so time-consuming, like art with a tiny brush,
    Slowing down the courses, creating a hush.
 
-// Recommended Fix
+# Recommended Fix
 3. **Recommended Fix**: 
    "To aid our swamped chef, \`ServeHTTP\` in his bustling nook,
    Perhaps it's time to simplify the cookbook.
@@ -164,6 +164,43 @@ export const MichaelScottExplainsResponse = `Here's how Michael Scott from "The 
    - "So, here’s what we’re gonna do – we’re gonna give Dwight, the \`ServeHTTP\` guy, some help. Maybe get Jim or Pam to handle some calls. For Kevin, let's simplify his math – maybe use a calculator, or better yet, get Oscar to double-check his work. We'll streamline their tasks like I streamlined my World’s Best Boss mug collection – efficiency is key!"
 
 Remember, a happy office is a productive office, and a happy program... well, it doesn't crash that often!"`;
+
+
+export const HackerNewsThreadResponse = `A humorous Hacker News thread breakdown on the flamegraph analysis:
+
+# AgileAvocado
+"Just saw the flamegraph. \`net/http.HandlerFunc.ServeHTTP\` is like a memory hog at a buffet. It's eating up all our resources!"
+
+# RegexRanger42 (replying to AgileAvocado)
+"Totally! And don't get me started on \`regexp.(*Regexp).backtrack\`. It's slower than my grandpa's dial-up internet."
+
+# DockerDude
+"Why does every web app act like spawning a new container will solve all their problems? Looking at you, \`ServeHTTP\`."
+
+# CloudyCoder (replying to DockerDude)
+"Haha, exactly! It's like they think the cloud is some infinite resource. Newsflash: It's not!"
+
+# MiddlewareMike
+"Anyone else think \`net/http.HandlerFunc.ServeHTTP\` is just stuck in middleware hell? Simplify, people!"
+
+# GoGuru99 (replying to MiddlewareMike)
+"Amen to that. It's like they're trying to solve a jigsaw puzzle with a hammer. Refactoring is the key, not more servers."
+
+# RegexRebel
+"Debugging \`regexp.(*Regexp).backtrack\` is my new hobby. It's like a mystery wrapped in an enigma, encoded in regex."
+
+# ByteWrangler (replying to RegexRebel)
+"It's all fun and games until you have to untangle a regex Gordian knot. I've got the scars to prove it."
+
+# CacheConqueror
+"Here's a wild idea: refactor \`ServeHTTP\` and optimize those regex patterns. Maybe, just maybe, use some caching?"
+
+# ServerlessSamurai (replying to CacheConqueror)
+"Caching: the cause of, and solution to, all life's performance issues. But really, sometimes going old school works best."
+
+// Thread Summary
+"Today's HN highlights: \`net/http.HandlerFunc.ServeHTTP\` needs a diet, \`regexp.(*Regexp).backtrack\` needs to speed date, and caching remains the panacea. Tomorrow's forecast: Debating if serverless is just a fancy word for 'someone else's computer.'"
+`;
 
 
 
