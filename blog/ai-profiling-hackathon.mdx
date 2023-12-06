@@ -28,17 +28,17 @@ import {Response1, BaseResponse, BeginnerResponse, PoemResponse, CustomerSuccess
 
 If you're of the opinion that AI isn't going to solve all the world's problems, you're probably right. And if you think it could, well, you might be onto something too.
 
-In the world of software engineering, particularly observability, where complexity often outpaces comprehension, **AI isn't just a fancy tool; it's becoming an inevitable necessity**. 
+In the world of software engineering, particularly observability, where complexity often outpaces comprehension, **AI isn't just a fancy tool; it's becoming an inevitable necessity**.
 
 During the Grafana Hackathon, the Pyroscope team embraced this reality. We tackled a genuine challenge head-on with AI: making flamegraph analysis intuitive, even for those new to profiling.
 
-We've seen that AI excels at tasks like language interpretation. So, why not leverage it to demystify flamegraphs? This led us to our Hackathon mission: 
+We've seen that AI excels at tasks like language interpretation. So, why not leverage it to demystify flamegraphs? This led us to our Hackathon mission:
 
 **Demonstrate how AI can transform the user experience in analyzing and interpreting flamegraphs.**
 
 We did this by giving humans and AI the same flamegraph and asking them to interpret it as shown below. We then compared the results and analyzed the differences.
 
-![ai-flamegraph-in-action](https://github.com/pyroscope-io/docs/assets/23323466/0f3a6cc6-dac2-40cd-b28e-fe9f7050cb93)
+<video id="vid" style={{width: "100%"}} autoPlay loop muted playsinline src="https://s3.amazonaws.com/pyroscope.io/videos/ai5.mp4"/>
 
 ## A Direct Challenge: How Well Can You Interpret This Flamegraph?
 
@@ -86,7 +86,7 @@ We didn't stop at theoreticals. We put AI to a real-world test, sending the same
 ![image](https://github.com/grafana/pyroscope/assets/23323466/bacff852-16da-4ef4-9d03-6900196ec595)
 
 - Flamegraph Experts: **Score: 83% passed**. They demonstrated high accuracy and detailed understanding, quickly pinpointing issues and interpreting them correctly
-  
+
 - Flamegraph Advanced: **Score: 70% passed**. Their responses varied, some were spot on while others often didn't dig far enough into the flamegraph to identify the root cause
 
 - Non-Technical Professionals: **Score: 23% passed**. This group most frequently took thie `idk` option on especially the root cause and recommended fix question -- some very entertaining guesses though!
@@ -99,11 +99,11 @@ We will definitely be exploring this further via more formal testing and would l
 
 ## AI in Pyroscope: A clear win for UX
 
-While we still have the rest of the week to tweak our project for the Hackathon, what we've learned so far is that **AI's strength lies not just in analysis but more importantly in "filling the gaps" by augmenting and enhancing user experience** no matter what level you're at. 
+While we still have the rest of the week to tweak our project for the Hackathon, what we've learned so far is that **AI's strength lies not just in analysis but more importantly in "filling the gaps" by augmenting and enhancing user experience** no matter what level you're at.
 
 It only takes using a flamegraph successfully once to really move from the `beginner` to `advanced` category. The thing is, from a product standpoint our biggest challenge has been building a user-experience that can span from `beginner` to `expert` and still be useful for both.
 
-However, with just a little bit of prompt engineering we can use AI to bridge this gap and provide and **endless array of tailored experiences for each user**. 
+However, with just a little bit of prompt engineering we can use AI to bridge this gap and provide and **endless array of tailored experiences for each user**.
 
 ## AI Tailored Responses for Diverse User Needs
 
@@ -122,20 +122,20 @@ However, with just a little bit of prompt engineering we can use AI to bridge th
 ### Explain the flamegraph in the form of a Michael Scott quote...
 <OpenAI response={MichaelScottExplainsResponse}/>
 
-Whether you're a beginner, an expert, or just someone bored at work trying to find an entertaining way to do an otherwise boring task -- all it takes is a little prompt engineering to tune the experience to your liking. 
+Whether you're a beginner, an expert, or just someone bored at work trying to find an entertaining way to do an otherwise boring task -- all it takes is a little prompt engineering to tune the experience to your liking.
 
-With just a few lines of code we can adjust these prompts (or allow users to adjust them) to guide everyone from `beginner` to `expert`. 
+With just a few lines of code we can adjust these prompts (or allow users to adjust them) to guide everyone from `beginner` to `expert`.
 
 ## Your Turn: Test AIs analysis of _your_ code!
 
-It's worth noting that, the flamegraph used for this post is a current representation of our distributor. As you can see, our distributors have bottlnecks in two notorious tasks that most companies are likely not doing perfectly either: [regular expressions](https://github.com/grafana/pyroscope/blob/0cf0bcaf4febe9c611ef3bf7782492735b1ae9ed/pkg/pprof/pprof.go#L1122-L1132) which is technically the bottlneck, but [compression/parsing](https://github.com/grafana/pyroscope/blob/731f434bfa33b626437195ee564f0f87b19e1e84/pkg/distributor/distributor.go#L245-L347) is also an acceptable answer for bottlneck (fixes comoing soon!). 
+It's worth noting that, the flamegraph used for this post is a current representation of our distributor. As you can see, our distributors have bottlnecks in two notorious tasks that most companies are likely not doing perfectly either: [regular expressions](https://github.com/grafana/pyroscope/blob/0cf0bcaf4febe9c611ef3bf7782492735b1ae9ed/pkg/pprof/pprof.go#L1122-L1132) which is technically the bottlneck, but [compression/parsing](https://github.com/grafana/pyroscope/blob/731f434bfa33b626437195ee564f0f87b19e1e84/pkg/distributor/distributor.go#L245-L347) is also an acceptable answer for bottlneck (fixes comoing soon!).
 
 However, while AI was successful in analyzing _this particular_ flamegraph, there are probably 51,331,542 more cases where AI fails (or succeeds) spectacularly and **we'd love for you to find and share real examples with us!**
 
 ### How to use our AI-powered flamegraph interpreter on your own flamegraphs
 #### Option 1: Upload pprof to Flamegraph.com
 Upload `pprof` file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) and click the "ai explainer" button.
-You can get a pprof file from most easily from Go runtime, but Pyroscope exports pprof from _all_ languages via the export button. 
+You can get a pprof file from most easily from Go runtime, but Pyroscope exports pprof from _all_ languages via the export button.
 
 **Note: You do have to export `pprof` format specifically and upload to [flamegraph.com](http://flamegraph.com) separately; exporting directly to flamegraph.com via the `flamegraph.com` button will not (yet) work**
 
