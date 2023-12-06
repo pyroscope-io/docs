@@ -54,7 +54,7 @@ This approach aims to make the busy parts of your program (the chefs) work more 
 export const PoemResponse = `Let's dive into profiling data, but with a twist, in a restaurant's kitchen we can't resist:
 
 # Performance Bottleneck
-1. **Performance Bottleneck**: 
+1. **Performance Bottleneck**:
    "In our program's bustling kitchen scene,
    \`net/http.HandlerFunc.ServeHTTP\`, the chef, reigns supreme.
    Handling too many web orders, his task,
@@ -63,7 +63,7 @@ export const PoemResponse = `Let's dive into profiling data, but with a twist, i
    Representing text processing done with flair.
 
 # Root Cause
-2. **Root Cause**: 
+2. **Root Cause**:
    "Our busy chef, \`ServeHTTP\`, swamped with too much to fry,
    Akin to a kitchen where dishes pile high.
    And then there's \`backtrack\`, so detailed and precise,
@@ -72,7 +72,7 @@ export const PoemResponse = `Let's dive into profiling data, but with a twist, i
    Slowing down the courses, creating a hush.
 
 # Recommended Fix
-3. **Recommended Fix**: 
+3. **Recommended Fix**:
    "To aid our swamped chef, \`ServeHTTP\` in his bustling nook,
    Perhaps it's time to simplify the cookbook.
    Or maybe add more chefs to share the load,
@@ -92,24 +92,24 @@ export const CustomerSuccessResponse = `Here's a breakdown for understanding and
 
 // For the Customer Success Professional
 
-1. **Performance Bottleneck**: 
+1. **Performance Bottleneck**:
    - The flamegraph indicates major slowdowns in areas where the app handles web requests (\`net/http.HandlerFunc.ServeHTTP\`) and processes complex text patterns (\`regexp.(*Regexp).backtrack\`). This is akin to traffic jams in specific operations of the app.
 
-2. **Root Cause**: 
+2. **Root Cause**:
    - These bottlenecks arise from the app taking excessive time for responding to web requests and processing certain text patterns, possibly due to the current handling methods or the inherent complexity of these tasks.
 
-3. **Recommended Fix**: 
+3. **Recommended Fix**:
    - The technical team will aim to optimize how the app manages web requests and simplify the text pattern processing. This is like clearing the traffic jams or finding faster routes for these operations.
 
 // For Communicating with the Customer
 
-1. **Performance Bottleneck**: 
+1. **Performance Bottleneck**:
    - "We have identified key areas in our app that are due for improvements, particularly in how it responds to user actions and manages certain data processing tasks."
 
-2. **Root Cause**: 
+2. **Root Cause**:
    - "Our analysis shows that these issues stem from the complex ways our app processes user requests and certain types of data, leading to less than optimal efficiency."
 
-3. **Recommended Fix**: 
+3. **Recommended Fix**:
    - "Our technical team is now working on enhancing these aspects. By streamlining user request handling and optimizing data processing, we expect to deliver a smoother and quicker experience in our app. We are committed to making these improvements swiftly and efficiently."
 `;
 
@@ -133,17 +133,17 @@ Ten en cuenta que estas recomendaciones deben adaptarse al contexto específico 
 export const ITDepartmentHumorResponse = `Welcome to the IT department's take on the flamegraph - where our humor is as dry as our keyboards are crumb-filled!
 
 # Performance Bottleneck
-1. **Performance Bottleneck**: 
+1. **Performance Bottleneck**:
    - "Hey, did you see the flamegraph? \`net/http.HandlerFunc.ServeHTTP\` is hogging the CPU like Bob hogged the donuts at the last meeting."
    - "And check out \`regexp.(*Regexp).backtrack\`. That function is moving slower than Frank on a Monday morning before his coffee."
 
 # Root Cause
-2. **Root Cause**: 
+2. **Root Cause**:
    - "Looks like \`net/http.HandlerFunc.ServeHTTP\` is trying to multitask more than Sarah when she's on her dual monitors. No wonder it's a bottleneck!"
    - "And our friend \`regexp.(*Regexp).backtrack\`? It's micromanaging bits and bytes like Dave does with his fantasy football team."
 
 # Recommended Fix
-3. **Recommended Fix**: 
+3. **Recommended Fix**:
    - "For \`ServeHTTP\`, let's simplify things. It's time to delegate, like when we convinced management to outsource the coffee runs."
    - "As for \`backtrack\`, let's speed it up by cutting down on the complexity - kind of like how we ‘simplified’ the weekly status reports that nobody read."
 
@@ -152,15 +152,15 @@ Remember, folks, in IT, the only thing we fear more than a network outage is run
 export const MichaelScottExplainsResponse = `Here's how Michael Scott from "The Office" would break down the flamegraph:
 
 # Performance Bottleneck
-1. **Performance Bottleneck**: 
+1. **Performance Bottleneck**:
    - "Alright everybody, listen up! So, this graph thingy shows us where our computer program is basically goofing off. Think of \`net/http.HandlerFunc.ServeHTTP\` as Dwight – he's trying to do a million things at once, like answering phones and running the branch, all by himself. And then there’s \`regexp.(*Regexp).backtrack\`, which is like Kevin doing math – slow and full of errors. It's funny but not very efficient."
 
 # Root Cause
-2. **Root Cause**: 
+2. **Root Cause**:
    - "Here’s the scoop – Dwight, I mean \`ServeHTTP\`, is overwhelmed because he's like the office superhero but without the cape. And Kevin, our \`backtrack\`, he's just... well, Kevin. He loves his chili more than he loves numbers. So, when you put too much on their plates, things get clogged up, like the office printer on a Monday morning."
 
 # Recommended Fix
-3. **Recommended Fix**: 
+3. **Recommended Fix**:
    - "So, here’s what we’re gonna do – we’re gonna give Dwight, the \`ServeHTTP\` guy, some help. Maybe get Jim or Pam to handle some calls. For Kevin, let's simplify his math – maybe use a calculator, or better yet, get Oscar to double-check his work. We'll streamline their tasks like I streamlined my World’s Best Boss mug collection – efficiency is key!"
 
 Remember, a happy office is a productive office, and a happy program... well, it doesn't crash that often!"`;
@@ -245,13 +245,12 @@ const TypingDelay = ({ text }) => {
   return <MDXRenderer mdxContent={displayedText} />
 };
 import Link from '@docusaurus/Link';
-export const OpenAI = ({response}) => {
+export const OpenAI = ({response, pulsating=false}) => {
   let [explain, setExplain] = useState(false);
-  console.log(setExplain)
   return <div style={{
     marginTop: '2rem',
   }}>
-    { !explain && <Link disabled={explain} className="button button--warning" style={{
+    { !explain && <Link disabled={explain} className={`button button--warning ${pulsating ? 'pulsating' : ''}`} style={{
       width: '100%',
       marginBottom: '1rem',
     }}
