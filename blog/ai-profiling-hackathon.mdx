@@ -133,19 +133,21 @@ It's worth noting that, the flamegraph used for this post is a current represent
 However, while AI was successful in analyzing _this particular_ flamegraph, there are probably 51,331,542 more cases where AI fails (or succeeds) spectacularly and **we'd love for you to find and share real examples with us!**
 
 ### How to use our AI-powered flamegraph interpreter on your own flamegraphs
-#### Upload pprof to Flamegraph.com
-Upload `pprof` file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) and click the "ai explainer" button. You can get a pprof file from most easily from Go runtime, but Pyroscope exports pprof from _all_ languages via the export button
+#### Option 1: Upload pprof to Flamegraph.com
+Upload `pprof` file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) and click the "ai explainer" button.
+You can get a pprof file from most easily from Go runtime, but Pyroscope exports pprof from _all_ languages via the export button. 
+
+**Note: You do have to export `pprof` format specifically and upload to [flamegraph.com](http://flamegraph.com) separately; exporting directly to flamegraph.com via the `flamegraph.com` button will not (yet) work**
 
 ![image](https://github.com/grafana/pyroscope/assets/23323466/500b94d8-e003-4fe5-89ef-d17530e2fe8b)
 
-#### View flamegraph in Grafana Cloud:
+#### Option 2: View flamegraph in Grafana Cloud:
 Send profiling data to [Grafana Cloud Profiles](https://grafana.com/auth/sign-up/create-user?pg=pyroscope-ai-blog) and look at the Cloud profiles app (you can sign up for a free account) and click the "ai explainer" button
 
 ![image](https://github.com/pyroscope-io/docs/assets/23323466/01a7a7b1-296b-4841-ae95-1a6bf0e777b1)
 
-#### Wait a bit...
+#### Option 3: Wait a bit...
 Wait until we release an open source version of this tool (pending positive feedback from the community)
-
 
 ## All feedback / ideas welcome!
 
