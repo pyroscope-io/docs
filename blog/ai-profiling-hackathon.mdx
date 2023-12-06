@@ -36,7 +36,9 @@ We've seen that AI excels at tasks like language interpretation. So, why not lev
 
 **Demonstrate how AI can transform the user experience in analyzing and interpreting flamegraphs.**
 
-We did this by giving humans and AI the same flamegraph and asking them to interpret it. We then compared the results and analyzed the differences.
+We did this by giving humans and AI the same flamegraph and asking them to interpret it as shown below. We then compared the results and analyzed the differences.
+
+![ai-flamegraph-in-action](https://github.com/pyroscope-io/docs/assets/23323466/0f3a6cc6-dac2-40cd-b28e-fe9f7050cb93)
 
 ## A Direct Challenge: How Well Can You Interpret This Flamegraph?
 
@@ -131,14 +133,18 @@ It's worth noting that, the flamegraph used for this post is a current represent
 However, while AI was successful in analyzing _this particular_ flamegraph, there are probably 51,331,542 more cases where AI fails (or succeeds) spectacularly and **we'd love for you to find and share real examples with us!**
 
 ### How to use our AI-powered flamegraph interpreter on your own flamegraphs
-
-To try it on your own profiles/flamegraphs you have three options:
-1. **Upload to Flamegraph.com:** Upload `pprof` file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) (we will be adding support for multiple profiles soon) and click the "ai explainer" button. You can get a pprof file from _any_ language if you're using Pyroscope's export button
+#### Upload pprof to Flamegraph.com
+Upload `pprof` file containing _one_ flamegraph to [flamegraph.com](http://flamegraph.com) and click the "ai explainer" button. You can get a pprof file from most easily from Go runtime, but Pyroscope exports pprof from _all_ languages via the export button
 
 ![image](https://github.com/grafana/pyroscope/assets/23323466/500b94d8-e003-4fe5-89ef-d17530e2fe8b)
 
-2. **Upload to Grafana Cloud:** Send profiling data to [Grafana Cloud Profiles](https://grafana.com/auth/sign-up/create-user?pg=pyroscope-ai-blog) and look at the Cloud profiles app (you can sign up for a free account) and click the "ai explainer" button
-3. **Wait a bit:** Wait until we release an open source version of this tool (pending positive feedback from the community)
+#### View flamegraph in Grafana Cloud:
+Send profiling data to [Grafana Cloud Profiles](https://grafana.com/auth/sign-up/create-user?pg=pyroscope-ai-blog) and look at the Cloud profiles app (you can sign up for a free account) and click the "ai explainer" button
+
+![image](https://github.com/pyroscope-io/docs/assets/23323466/01a7a7b1-296b-4841-ae95-1a6bf0e777b1)
+
+#### Wait a bit...
+Wait until we release an open source version of this tool (pending positive feedback from the community)
 
 Let us know the good, bad and ugly of your experience with AI-powered flamegraph analysis:
 - **On Twitter**: [@PyroscopeIO](https://twitter.com/PyroscopeIO) and let the world know how you're using AI in flamegraph analysis. [Placeholder for Twitter Handle]
