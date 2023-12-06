@@ -324,3 +324,23 @@ table tr:nth-child(2n) {
 .blog-pros-cons .cons h4 {
   background-image: linear-gradient(to left, #BB7CF3, #FF65AF)
 }
+
+
+.pulsating {
+  animation: pulsate 2s infinite;
+}
+
+@keyframes pulsate {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    // opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

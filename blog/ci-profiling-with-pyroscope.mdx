@@ -18,12 +18,12 @@ authors:
 # CI Profiling with Pyroscope
 ![thumbnail_image](https://user-images.githubusercontent.com/23323466/223543631-c7df802a-17f0-4f96-8709-f6cae7933149.png)
 
-Profiling today looks _very_ different than it did just a few years ago. As people move to more cloud-native workloads 
+Profiling today looks _very_ different than it did just a few years ago. As people move to more cloud-native workloads
 continuous profiling has evolved into a key piece of many companies' observability suites. At Pyroscope, we've been a huge
 part of this evolution thanks to an ever-expanding community who has provided great insight into the use cases where profiling
-is most valuable and how we can continue to improve that experience. 
+is most valuable and how we can continue to improve that experience.
 
-As a result, over the past few years we've released several products to help developers improve their applications' performance. 
+As a result, over the past few years we've released several products to help developers improve their applications' performance.
 1. **Continuous Profiling**: Our most popular a tool for continuously profiling your applications accross your entire system and then
 storing and querying that data efficiently
 
@@ -33,10 +33,10 @@ our adhoc tool allows you to both capture and save specific profiles to later re
 3. **Profiling Exemplars**: Profiles linked to particular meaningful units such as HTTP requests or trace spans
 
 ## Introducing CI Profiling
-Now, we're excited to announce the latest addition to the Pyroscope family - CI Profiling. Continuous Integration and Delivery (CI/CD) pipelines are critical for modern software development, but they can also be a 
-source of frustration and inefficiency. Waiting for long test runs, dealing with frequent failures and timeouts, and wasting 
-resources are all common problems associated with CI/CD pipelines. These issues can be compounded when multiple developers 
-are working on the same codebase or when teams are working across multiple repositories. That's why we've developed this new feature that can help: 
+Now, we're excited to announce the latest addition to the Pyroscope family - CI Profiling. Continuous Integration and Delivery (CI/CD) pipelines are critical for modern software development, but they can also be a
+source of frustration and inefficiency. Waiting for long test runs, dealing with frequent failures and timeouts, and wasting
+resources are all common problems associated with CI/CD pipelines. These issues can be compounded when multiple developers
+are working on the same codebase or when teams are working across multiple repositories. That's why we've developed this new feature that can help:
 
 **Continuous Profiling with Pyroscope in your CI/CD pipelines.**
 
@@ -59,7 +59,7 @@ are working on the same codebase or when teams are working across multiple repos
 ## How to Add Profiling to your CI/CD Pipeline
 
 While we currently support profiling test suites in Node, Go, and Ruby is coming soon (see [docs](/docs/ci)) for this blog post we will just describe from a high level the steps for profiling
-a test suite in any language, but using Node as an example. Over time we plan to add support for other langauges / frameworks as well. 
+a test suite in any language, but using Node as an example. Over time we plan to add support for other langauges / frameworks as well.
 
 ### Add Profiling via Test Config
 
@@ -127,7 +127,7 @@ jobs:
         uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '16.18'
+          node-version: '18.12'
       - name: Install pyroscope-ci
         uses: jaxxstorm/action-install-gh-release@v1.5.0
         with: # Grab the latest version
@@ -148,8 +148,8 @@ Being able to view flamegraphs for test results in the PR body enables quick ide
 
 ### View results in Pyroscope UI
 
-Viewing results in the Pyroscope UI allows for you to see how your test suit has performed over time and understand where regressions where introduced (or improvements were made). 
-The Pyroscope UI also makes it easy to view the flamegraph diff between branches, prs, commits or any individual test runs. 
+Viewing results in the Pyroscope UI allows for you to see how your test suit has performed over time and understand where regressions where introduced (or improvements were made).
+The Pyroscope UI also makes it easy to view the flamegraph diff between branches, prs, commits or any individual test runs.
 
 ![image](https://user-images.githubusercontent.com/23323466/223591332-e62ec6f7-d6d9-440f-90ed-ac4698dcc30e.png)
 
@@ -172,7 +172,7 @@ Before we delve into the specifics of our optimization efforts, let's first prov
 In our efforts to optimize the performance of our test suite, we decided to explore alternatives to `ts-jest`, the popular tool used for
 testing TypeScript code with Jest. While `ts-jest` allows developers to run their tests with type checking enabled, it can also lead to
 significant performance overhead. Specifically, this overhead comes from the fact that running type checking during test runs can slow
-down the test execution time, leading to longer build times and potentially wasting resources. 
+down the test execution time, leading to longer build times and potentially wasting resources.
 
 Through our profiling efforts with Pyroscope, we were able to identify this performance bottleneck and look for ways to address it.
 
@@ -223,6 +223,6 @@ post were implemented, but also how convenient it is to automatically get flameg
 ## How to add Pyroscope CI Profiling to your test suite
 
 By using Pyroscope's CI Profiling, teams can collaborate better and optimize their resources across your ci/cd pipeline.
-As displayed in this post, there's likely _some_ if not many low-hanging-fruit optimizations to make by simply addding Pyroscope's CI Profiling tool to your test suite. 
+As displayed in this post, there's likely _some_ if not many low-hanging-fruit optimizations to make by simply addding Pyroscope's CI Profiling tool to your test suite.
 
 To learn more about how you can add profiling to your CI/CD suite, visit our [docs](/docs/ci). As always us know what you think!
