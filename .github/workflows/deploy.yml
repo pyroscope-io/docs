@@ -38,3 +38,5 @@ jobs:
       - name: deploy
         if: ${{ github.event_name != 'pull_request' }}
         run: make deploy
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider

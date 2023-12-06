@@ -16,9 +16,13 @@ jobs:
           node-version: '18.12'
       - name: install dependencies
         run: yarn install
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: ensure docusaurus can build
         run: yarn build
+        env:
+          NODE_OPTIONS: --openssl-legacy-provider
 
       - name: install gems
         run: sudo gem install http colorize
