@@ -24,12 +24,6 @@ eBPF is an emerging Linux kernel technology that allows for user-supplied progra
 |:------------:|:------------:|:-----:|:-----:|:-------:|:------:|
 | ebpfspy      | `embedded`   |   ✅  |       |         |   ✅   |
 
-### Benefits and Tradeoffs of using eBPF for continuous profiling
-
-We added a blog post "[The pros and cons of eBPF profiling](/blog/ebpf-profiling-pros-cons)" which more deeply
-explores this topic and provides some examples of eBPF profiles. If you're interested in some of the more
-granular details you can find them there!
-
 ### Getting Started with eBPF Profiling
 
 For the reasons mentioned above, we recommend an hybrid approach for better results: eBPF to profile the node and specific language instrumentation per application. The following steps will explain how to get started:
@@ -101,7 +95,7 @@ All parameters below are also supported as CLI arguments, a full list can be acc
 | env var                    | default                          | description                                    |
 | -------------------------- | -------------------------------- | ---------------------------------------------- |
 | `PYROSCOPE_KUBERNETES_NODE` | `""` | Used by service discovery. It's automatically set in the Helm Chart. |
-| `PYROSCOPE_ONLY_SERVICES`     | `false`                             | Ignore processes unknown to service discovery. In a Kubernetes cluster it ignores processes like `containerd, runc, kubelet` etc | 
+| `PYROSCOPE_ONLY_SERVICES`     | `false`                             | Ignore processes unknown to service discovery. In a Kubernetes cluster it ignores processes like `containerd, runc, kubelet` etc |
 | `PYROSCOPE_SYMBOL_CACHE_SIZE` | `256`                          | Max size of symbols cache (1 entry per process). Change this value if you’re experiencing memory pressure or have many individual services. |
 
 ### Sending data to Phlare with Pyroscope eBPF integration
